@@ -1,7 +1,7 @@
 // src/App.jsx
 
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
@@ -15,9 +15,23 @@ import DoctorPersonalDetails from "./pages/DoctorPersonalDetails.jsx";
 import DoctorQualifications from "./pages/DoctorQualifications.jsx";
 import DoctorRegistration from "./pages/DoctorRegistration.jsx";
 import DoctorIdentity from "./pages/DoctorIdentity.jsx";
-import DoctorFaceVerification from "./pages/DoctorFaceVerification.jsx"; // 👈 NEW
-import DoctorDashboard from "./pages/DoctorDashboard.jsx";
+import DoctorFaceVerification from "./pages/DoctorFaceVerification.jsx";
 import DoctorVerificationSubmitted from "./pages/DoctorVerificationSubmitted.jsx";
+import DashboardLayout from "./pages/DashboardLayout.jsx";
+import {
+  DashboardOnboarding,
+  DashboardProfile,
+  DashboardAvailability,
+  DashboardAppointments,
+  DashboardFollowUps,
+  DashboardPatients,
+  DashboardNotes,
+  DashboardPrescriptions,
+  DashboardFinancial,
+  DashboardLeads,
+  DashboardChat,
+  DashboardNotifications,
+} from "./pages/dashboard/DashboardSections.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -146,14 +160,30 @@ export default function App() {
           {/* Marketing pages */}
           <Route path="/" element={<Home onJoinClick={handleHomeJoinClick} />} />
           <Route path="/benefits" element={<Benefits />} />
+
+          {/* Dashboard with nested routes */}
           <Route
             path="/dashboard"
             element={
               <ProtectedRoute onRequireAuth={() => setIsLoginOpen(true)}>
-                <DoctorDashboard token={authToken} user={authUser} />
+                <DashboardLayout token={authToken} user={authUser} />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<Navigate to="/dashboard/onboarding" replace />} />
+            <Route path="onboarding" element={<DashboardOnboarding />} />
+            <Route path="profile" element={<DashboardProfile />} />
+            <Route path="availability" element={<DashboardAvailability />} />
+            <Route path="appointments" element={<DashboardAppointments />} />
+            <Route path="follow-ups" element={<DashboardFollowUps />} />
+            <Route path="patients" element={<DashboardPatients />} />
+            <Route path="notes" element={<DashboardNotes />} />
+            <Route path="prescriptions" element={<DashboardPrescriptions />} />
+            <Route path="financial" element={<DashboardFinancial />} />
+            <Route path="leads" element={<DashboardLeads />} />
+            <Route path="chat" element={<DashboardChat />} />
+            <Route path="notifications" element={<DashboardNotifications />} />
+          </Route>
 
           {/* Registration + KYC flow */}
           <Route path="/register" element={<DoctorPersonalDetails />} />

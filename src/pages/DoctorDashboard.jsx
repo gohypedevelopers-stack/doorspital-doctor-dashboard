@@ -48,20 +48,20 @@ const Sidebar = ({ activeSection, setActiveSection, userName }) => {
   return (
     <aside className="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-slate-200 bg-slate-50 px-4 py-6">
       <div className="rounded-3xl border border-slate-200 bg-white px-5 py-5 shadow-sm">
-       <div
-  class="inline-flex items-center rounded-full 
+        <div
+          class="inline-flex items-center rounded-full 
   bg-gradient-to-r from-blue-600 to-emerald-500 
   px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-white
   shadow-[0_0_12px_rgba(37,99,235,1),0_0_20px_rgba(16,185,129,1)]
   animate-pulse
   ">
-  Doorspital
-</div>
+          Doorspital
+        </div>
 
 
-          <p className="mt-2 text-lg text-slate-500">
-            {greeting}, <span className="font-semibold text-slate-900">{userName ?? "Doctor"}</span>
-          </p>
+        <p className="mt-2 text-lg text-slate-500">
+          {greeting}, <span className="font-semibold text-slate-900">{userName ?? "Doctor"}</span>
+        </p>
       </div>
       <div className="w-full border-t border-transparent bg-gradient-to-r from-emerald-200 via-emerald-300 to-emerald-400 py-0.5"></div>
       <nav className="flex-1 space-y-3 overflow-y-auto px-1 pt-3">
@@ -196,21 +196,39 @@ const buildOnboardingSteps = (overview = {}) =>
   );
 
 const buildAppointments = (items = []) =>
-  normalizeList(items).map((appt) => ({
-    patient: pickValue(appt, ["patientName", "patient", "name"], "Patient"),
-    mode: pickValue(appt, ["mode", "type"], "Video"),
-    time: formatTime(appt.startTime ?? appt.time ?? appt.slot),
-    status: pickValue(appt, ["status", "state"], "Pending"),
-    notes: pickValue(appt, ["reason", "notes"], ""),
-  }));
+  normalizeList(items).map((appt) => {
+    // Patient can be a string (name), an object with userName, or nested in patient.user
+    const patientObj = appt.patient;
+    let patientName = "Patient";
+
+    if (typeof patientObj === 'string') {
+      patientName = patientObj;
+    } else if (patientObj) {
+      patientName = patientObj.userName || patientObj.name || patientObj.fullName ||
+        patientObj.email || "Patient";
+    }
+
+    return {
+      patient: patientName,
+      mode: pickValue(appt, ["mode", "type"], "Video"),
+      time: formatTime(appt.startTime ?? appt.time ?? appt.slot),
+      status: pickValue(appt, ["status", "state"], "Pending"),
+      notes: pickValue(appt, ["reason", "notes"], ""),
+    };
+  });
 
 const buildPatients = (items = []) =>
-  normalizeList(items).map((patient) => ({
-    name: patient.name ?? patient.fullName ?? "Patient",
-    lastVisit: patient.lastVisit ?? patient.recentVisit ?? "—",
-    consent: patient.consent ?? patient.hasConsent ?? false,
-    prescriptions: patient.prescriptions ?? patient.prescriptionCount ?? 0,
-  }));
+  normalizeList(items).map((patient) => {
+    // Patient data might be in patient.user object
+    const patientUser = patient.user || patient;
+
+    return {
+      name: patientUser.name || patientUser.fullName || patientUser.userName || "Patient",
+      lastVisit: patient.lastVisit || patient.recentVisit || patient.updatedAt || "—",
+      consent: patient.consent || patient.hasConsent || false,
+      prescriptions: patient.prescriptions || patient.prescriptionCount || 0,
+    };
+  });
 
 const buildNotifications = (items = []) =>
   normalizeList(items).map((notification) => ({
@@ -238,12 +256,26 @@ export default function DoctorDashboard({ token, user }) {
   const [error, setError] = useState("");
 
   const resolvedDoctorId = useMemo(() => {
+    // Try to get doctor ID from profile first
     const fromProfile = pickValue(profile, ["doctorId", "_id", "id"]);
     if (fromProfile) return fromProfile;
+
+    // Try from overview.doctor object
     const overviewDoctor = overview?.doctor ?? {};
     const fromOverviewDoctor = pickValue(overviewDoctor, ["_id", "id"]);
-    return fromOverviewDoctor || pickValue(overview, ["doctorId"]);
-  }, [overview, profile]);
+    if (fromOverviewDoctor) return fromOverviewDoctor;
+
+    // Try from overview directly
+    const fromOverview = pickValue(overview, ["doctorId", "_id"]);
+    if (fromOverview) return fromOverview;
+
+    // Try from user object (if user is a doctor)
+    if (user?.role === 'doctor') {
+      return user?._id || user?.id;
+    }
+
+    return null;
+  }, [overview, profile, user]);
 
   useEffect(() => {
     if (!token) {
@@ -266,14 +298,17 @@ export default function DoctorDashboard({ token, user }) {
             apiRequest("/api/profile/me", { token }),
           ]);
         if (cancelled) return;
-        setOverview(overviewResp);
-        setAppointments(normalizeList(appointmentsResp));
-        setPatients(normalizeList(patientsResp));
-        setNotifications(normalizeList(notificationsResp));
-        setProfile(profileResp);
+
+        // Extract data from responses - backend wraps data in 'data' property
+        setOverview(overviewResp?.data || overviewResp);
+        setAppointments(normalizeList(appointmentsResp?.data || appointmentsResp));
+        setPatients(normalizeList(patientsResp?.data || patientsResp));
+        setNotifications(normalizeList(notificationsResp?.data || notificationsResp));
+        setProfile(profileResp?.data || profileResp);
       } catch (fetchError) {
         if (!cancelled) {
-          setError(fetchError.message);
+          console.error("Dashboard load error:", fetchError);
+          setError(fetchError.message || "Failed to load dashboard data");
         }
       } finally {
         if (!cancelled) {
@@ -302,13 +337,16 @@ export default function DoctorDashboard({ token, user }) {
 
     const loadAvailability = async () => {
       try {
-        const data = await apiRequest(
+        const response = await apiRequest(
           `/api/doctors/${resolvedDoctorId}/availability/schedule?start=${encodeURIComponent(
             start
           )}&days=7&tz=${encodeURIComponent(timezone)}`,
           { token }
         );
         if (cancelled) return;
+
+        // Extract data from response
+        const data = response?.data || response;
         const schedule = extractArrayFromPayload(data, [
           "schedule",
           "availability",
@@ -319,7 +357,8 @@ export default function DoctorDashboard({ token, user }) {
         setAvailabilitySchedule(schedule);
       } catch (err) {
         if (!cancelled) {
-          setAvailabilityError(err.message);
+          console.error("Availability load error:", err);
+          setAvailabilityError(err.message || "Failed to load availability");
         }
       }
     };
@@ -343,12 +382,15 @@ export default function DoctorDashboard({ token, user }) {
 
     const loadVerification = async () => {
       try {
-        const data = await apiRequest(`/api/doctors/verification/${resolvedDoctorId}`, { token });
+        const response = await apiRequest(`/api/doctors/verification/${resolvedDoctorId}`, { token });
         if (cancelled) return;
-        setVerificationStatus(data);
+
+        // Extract data from response
+        setVerificationStatus(response?.data || response);
       } catch (err) {
         if (!cancelled) {
-          setVerificationError(err.message);
+          console.error("Verification load error:", err);
+          setVerificationError(err.message || "Failed to load verification status");
         }
       }
     };
@@ -365,12 +407,16 @@ export default function DoctorDashboard({ token, user }) {
 
     const loadProducts = async () => {
       try {
-        const data = await apiRequest("/api/pharmacy/products?limit=6");
+        const response = await apiRequest("/api/pharmacy/products?limit=6");
         if (cancelled) return;
+
+        // Extract data from response
+        const data = response?.data || response;
         setPharmacyProducts(normalizeList(data));
       } catch (err) {
         if (!cancelled) {
-          setPharmacyProductError(err.message);
+          console.error("Products load error:", err);
+          setPharmacyProductError(err.message || "Failed to load products");
         }
       }
     };
@@ -393,12 +439,16 @@ export default function DoctorDashboard({ token, user }) {
 
     const loadOrders = async () => {
       try {
-        const data = await apiRequest("/api/pharmacy/orders/me?limit=5", { token });
+        const response = await apiRequest("/api/pharmacy/orders/me?limit=5", { token });
         if (cancelled) return;
+
+        // Extract data from response
+        const data = response?.data || response;
         setPharmacyOrders(normalizeList(data));
       } catch (err) {
         if (!cancelled) {
-          setPharmacyOrdersError(err.message);
+          console.error("Orders load error:", err);
+          setPharmacyOrdersError(err.message || "Failed to load orders");
         }
       }
     };
@@ -472,13 +522,19 @@ export default function DoctorDashboard({ token, user }) {
   const pharmacyProductCatalog = useMemo(() => pharmacyProducts, [pharmacyProducts]);
 
   const profileSummary = useMemo(
-    () => ({
-      name: pickValue(profile, ["name", "fullName", "userName"], "Doctor"),
-      specialty: pickValue(profile, ["specialty", "specialization"], "General"),
-      experience: pickValue(profile, ["experienceYears", "experience"], "-"),
-      languages: profile?.languages ?? [],
-    }),
-    [profile]
+    () => {
+      // Profile can contain doctor data or be nested
+      const profileData = profile?.doctor || profile;
+
+      return {
+        name: pickValue(profileData, ["name", "fullName", "userName"],
+          pickValue(user, ["userName", "email"], "Doctor")),
+        specialty: pickValue(profileData, ["specialty", "specialization", "medicalSpecialization"], "General"),
+        experience: pickValue(profileData, ["experienceYears", "experience", "yearsOfExperience"], "-"),
+        languages: profileData?.languages || [],
+      };
+    },
+    [profile, user]
   );
 
   const welcomeName = useMemo(
@@ -624,9 +680,8 @@ export default function DoctorDashboard({ token, user }) {
                   return (
                     <div
                       key={day.label}
-                      className={`flex flex-col rounded-[5px] border px-4 py-3 ${
-                        highlightOff ? "border-rose-100 bg-rose-50" : "border-slate-100 bg-slate-50"
-                      }`}
+                      className={`flex flex-col rounded-[5px] border px-4 py-3 ${highlightOff ? "border-rose-100 bg-rose-50" : "border-slate-100 bg-slate-50"
+                        }`}
                     >
                       <div className="flex items-center justify-between">
                         <p className="text-sm font-semibold text-slate-900">{day.label}</p>
@@ -731,9 +786,8 @@ export default function DoctorDashboard({ token, user }) {
                         <p className="text-xs text-slate-500">Last visit: {patient.lastVisit}</p>
                       </div>
                       <span
-                        className={`rounded-[5px] px-3 py-1 text-xs font-semibold ${
-                          patient.consent ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-600"
-                        }`}
+                        className={`rounded-[5px] px-3 py-1 text-xs font-semibold ${patient.consent ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-600"
+                          }`}
                       >
                         {patient.consent ? "Consent" : "No consent"}
                       </span>
