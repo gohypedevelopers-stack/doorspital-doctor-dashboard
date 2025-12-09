@@ -85,6 +85,7 @@ export default function DashboardLayout({ token, user }) {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [verificationPending, setVerificationPending] = useState(false);
     const location = useLocation();
 
     const refreshDashboard = async () => {
@@ -95,10 +96,11 @@ export default function DashboardLayout({ token, user }) {
 
         setLoading(true);
         setError("");
+        setVerificationPending(false);
 
         try {
             const [overviewResp, profileResp] = await Promise.all([
-                apiRequest("/api/doctors/dashboard/overview", { token }),
+                apiRequest("/api/doctors/dashboard/overview", { token, suppressErrorLog: true }),
                 apiRequest("/api/profile/me", { token }),
             ]);
 
@@ -106,7 +108,19 @@ export default function DashboardLayout({ token, user }) {
             setProfile(profileResp?.data || profileResp);
         } catch (fetchError) {
             console.error("Dashboard load error:", fetchError);
-            setError(fetchError.message || "Failed to load dashboard data");
+            // Check if this is the verification pending error
+            if (fetchError.message && fetchError.message.toLowerCase().includes("verification is not approved")) {
+                setVerificationPending(true);
+                // Still try to get profile for name display
+                try {
+                    const profileResp = await apiRequest("/api/profile/me", { token });
+                    setProfile(profileResp?.data || profileResp);
+                } catch (e) {
+                    // Ignore profile fetch error
+                }
+            } else {
+                setError(fetchError.message || "Failed to load dashboard data");
+            }
         } finally {
             setLoading(false);
         }
@@ -127,16 +141,70 @@ export default function DashboardLayout({ token, user }) {
         return <Navigate to="/dashboard/onboarding" replace />;
     }
 
+    // Verification Pending UI Component
+    const VerificationPendingCard = () => (
+        <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="max-w-2xl mx-auto"
+        >
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div className="bg-gradient-to-r from-blue-600 to-emerald-500 px-6 py-4">
+                    <div className="flex items-center gap-3">
+                        <span className="text-3xl">⏳</span>
+                        <h2 className="text-xl font-bold text-white">Verification In Progress</h2>
+                    </div>
+                </div>
+                <div className="px-6 py-8 text-center space-y-4">
+                    <div className="w-24 h-24 mx-auto bg-blue-50 rounded-full flex items-center justify-center border border-blue-100">
+                        <span className="text-5xl">📋</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-slate-800">
+                        Please Wait While We Verify Your Details
+                    </h3>
+                    <p className="text-slate-600 max-w-md mx-auto">
+                        Our admin team is reviewing your submitted documents and credentials. 
+                        This process typically takes up to <strong className="text-blue-600">48 hours</strong>.
+                    </p>
+                    <div className="bg-slate-50 rounded-xl border border-slate-200 px-6 py-4 mt-6">
+                        <div className="flex items-center justify-center gap-3 text-blue-600">
+                            <div className="animate-pulse flex gap-1">
+                                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                            </div>
+                            <span className="font-medium">Verification under review</span>
+                        </div>
+                    </div>
+                    <p className="text-sm text-slate-500 mt-4">
+                        You will receive an email notification once your verification is complete.
+                        If you have any questions, please contact our support team.
+                    </p>
+                </div>
+            </div>
+        </motion.div>
+    );
+
     return (
         <div className="flex min-h-screen bg-slate-50">
             <Sidebar userName={welcomeName} />
             <main className="flex-1 px-4 pb-16 pt-6 md:px-6 lg:px-10">
                 {loading && (
                     <div className="rounded-[5px] border border-blue-100 bg-white/90 px-6 py-4 shadow-sm text-sm text-slate-600">
-                        {error ? <span className="text-rose-500">{error}</span> : "Loading dashboard..."}
+                        Loading dashboard...
                     </div>
                 )}
-                <Outlet context={{ token, user, overview, profile, loading, error, refreshDashboard }} />
+                {!loading && error && (
+                    <div className="rounded-[5px] border border-rose-100 bg-rose-50 px-6 py-4 shadow-sm text-sm text-rose-600">
+                        {error}
+                    </div>
+                )}
+                {!loading && verificationPending ? (
+                    <VerificationPendingCard />
+                ) : (
+                    <Outlet context={{ token, user, overview, profile, loading, error, verificationPending, refreshDashboard }} />
+                )}
             </main>
         </div>
     );
