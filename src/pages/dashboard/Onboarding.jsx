@@ -1,6 +1,6 @@
 // src/pages/dashboard/Onboarding.jsx
 import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { apiRequest } from "../../lib/api.js";
 
@@ -67,10 +67,12 @@ const DocumentItem = ({ label, file, status }) => {
 
 export default function Onboarding() {
     const { token, overview } = useOutletContext();
+    const navigate = useNavigate();
     const [verification, setVerification] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [doctorId, setDoctorId] = useState(null);
+    const [shouldRedirect, setShouldRedirect] = useState(false);
 
     useEffect(() => {
         if (overview) {
@@ -82,10 +84,43 @@ export default function Onboarding() {
     }, [overview]);
 
     useEffect(() => {
-        // API call removed as requested. Always show empty state.
-        setVerification(null);
-        setLoading(false);
-    }, []);
+        if (!token || !doctorId) return;
+
+        const fetchVerification = async () => {
+            try {
+                setLoading(true);
+                const response = await apiRequest(`/api/doctors/verification/${doctorId}`, {
+                    token,
+                    suppressErrorLog: true
+                });
+                // Check if data is null or empty (new backend returns 200 with data: null)
+                if (response?.data === null || !response?.data) {
+                    setShouldRedirect(true);
+                } else {
+                    setVerification(response?.data || response);
+                }
+            } catch (err) {
+                // 404 means no verification - redirect to register
+                if (err.message && (err.message.includes("404") || err.message.toLowerCase().includes("not found"))) {
+                    setShouldRedirect(true);
+                } else {
+                    console.error("Verification load error:", err);
+                    setError(err.message || "Failed to load verification details");
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchVerification();
+    }, [token, doctorId]);
+
+    // Redirect to register if no verification found
+    useEffect(() => {
+        if (shouldRedirect && !loading) {
+            navigate('/register');
+        }
+    }, [shouldRedirect, loading, navigate]);
 
     if (loading) {
         return (
@@ -105,10 +140,13 @@ export default function Onboarding() {
     }
 
     if (!verification) {
+        // This will briefly show while redirecting
         return (
-            <div className="p-8 text-center bg-slate-50 rounded-xl border border-slate-200 border-dashed">
-                <p className="text-slate-500">No verification record found.</p>
-                <p className="text-sm text-slate-400 mt-2">Please complete your profile setup.</p>
+            <div className="flex items-center justify-center h-96">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <p className="text-slate-500">Redirecting to registration...</p>
+                </div>
             </div>
         );
     }
