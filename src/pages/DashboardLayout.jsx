@@ -22,6 +22,7 @@ const sidebarSections = [
     // { id: "prescriptions", path: "/dashboard/prescriptions", label: "Prescription Writing" }, // Moved to Patient CRM
     // { id: "financial", path: "/dashboard/financial", label: "Financial Tools" },
     // { id: "leads", path: "/dashboard/leads", label: "Leads & Referrals" },
+    { id: "services", path: "/dashboard/services", label: "My Services" },
     { id: "chat", path: "/dashboard/chat", label: "Chat & Video" },
     { id: "notifications", path: "/dashboard/notifications", label: "Notifications" },
 ];
@@ -86,42 +87,33 @@ export default function DashboardLayout({ token, user }) {
     const [error, setError] = useState("");
     const location = useLocation();
 
-    useEffect(() => {
+    const refreshDashboard = async () => {
         if (!token) {
             setLoading(false);
             return;
         }
 
-        let cancelled = false;
         setLoading(true);
         setError("");
 
-        const load = async () => {
-            try {
-                const [overviewResp, profileResp] = await Promise.all([
-                    apiRequest("/api/doctors/dashboard/overview", { token }),
-                    apiRequest("/api/profile/me", { token }),
-                ]);
-                if (cancelled) return;
+        try {
+            const [overviewResp, profileResp] = await Promise.all([
+                apiRequest("/api/doctors/dashboard/overview", { token }),
+                apiRequest("/api/profile/me", { token }),
+            ]);
 
-                setOverview(overviewResp?.data || overviewResp);
-                setProfile(profileResp?.data || profileResp);
-            } catch (fetchError) {
-                if (!cancelled) {
-                    console.error("Dashboard load error:", fetchError);
-                    setError(fetchError.message || "Failed to load dashboard data");
-                }
-            } finally {
-                if (!cancelled) {
-                    setLoading(false);
-                }
-            }
-        };
+            setOverview(overviewResp?.data || overviewResp);
+            setProfile(profileResp?.data || profileResp);
+        } catch (fetchError) {
+            console.error("Dashboard load error:", fetchError);
+            setError(fetchError.message || "Failed to load dashboard data");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        load();
-        return () => {
-            cancelled = true;
-        };
+    useEffect(() => {
+        refreshDashboard();
     }, [token]);
 
     const profileData = profile?.doctor || profile;
@@ -144,7 +136,7 @@ export default function DashboardLayout({ token, user }) {
                         {error ? <span className="text-rose-500">{error}</span> : "Loading dashboard..."}
                     </div>
                 )}
-                <Outlet context={{ token, user, overview, profile, loading, error }} />
+                <Outlet context={{ token, user, overview, profile, loading, error, refreshDashboard }} />
             </main>
         </div>
     );

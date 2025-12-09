@@ -58,9 +58,181 @@ const SectionHeader = ({ kicker, title, subtitle }) => (
 // Dashboard Section Components
 export const DashboardOnboarding = Onboarding;
 
+export function DashboardServices() {
+    const { profile, user, token, refreshDashboard } = useOutletContext();
+    const [services, setServices] = useState([]);
+    const [newService, setNewService] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const PREDEFINED_SERVICES = [
+        "Home Doctor",
+        "Yoga Trainer",
+        "Elderly Care",
+        "Physiotherapy",
+        "Blood Test",
+        "Nursing & Caring",
+        "Post-Operative Care",
+        "Vaccination",
+        "Wound Dressing",
+        "Medical Attendant"
+    ];
+
+    useEffect(() => {
+        const currentServices = profile?.doctor?.services || profile?.services || user?.services || [];
+        setServices(currentServices);
+    }, [profile, user]);
+
+    const handleAddService = async (serviceToAdd) => {
+        // Support both event (form submit) and direct string input
+        if (typeof serviceToAdd === 'object' && serviceToAdd.preventDefault) {
+            serviceToAdd.preventDefault();
+            serviceToAdd = newService;
+        }
+
+        if (!serviceToAdd || !serviceToAdd.trim()) return;
+        const trimmed = serviceToAdd.trim();
+
+        if (services.includes(trimmed)) {
+            // If already exists, do nothing (or could toggle remove)
+            return;
+        }
+
+        const updatedServices = [...services, trimmed];
+        await updateServices(updatedServices);
+        setNewService("");
+    };
+
+    const handleRemoveService = async (serviceToRemove) => {
+        // if (!confirm(`Are you sure you want to remove "${serviceToRemove}" from your services?`)) return; // Optional confirmation
+        const updatedServices = services.filter(s => s !== serviceToRemove);
+        await updateServices(updatedServices);
+    };
+
+    const toggleService = (service) => {
+        if (services.includes(service)) {
+            handleRemoveService(service);
+        } else {
+            handleAddService(service);
+        }
+    };
+
+    const updateServices = async (updatedServices) => {
+        setLoading(true);
+        try {
+            await apiRequest("/api/doctors/services", {
+                token,
+                method: "PUT",
+                body: { services: updatedServices }
+            });
+            await refreshDashboard();
+        } catch (err) {
+            console.error("Update services error:", err);
+            alert(err.message || "Failed to update services");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <motion.section
+            className="space-y-6"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+        >
+            <SectionHeader
+                kicker="My Services"
+                title="Service Management"
+                subtitle="Manage the services you offer to patients"
+            />
+
+            <div className="grid gap-6 md:grid-cols-2">
+                {/* Popular Services Section */}
+                <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+                    <h4 className="mb-4 text-sm font-semibold text-slate-900">Popular Services</h4>
+                    <p className="mb-4 text-xs text-slate-500">Tap to add or remove services from your profile.</p>
+                    <div className="flex flex-wrap gap-2">
+                        {PREDEFINED_SERVICES.map((service) => {
+                            const isSelected = services.includes(service);
+                            return (
+                                <button
+                                    key={service}
+                                    onClick={() => toggleService(service)}
+                                    disabled={loading}
+                                    className={`rounded-full px-3 py-1.5 text-xs font-medium transition-all border ${isSelected
+                                        ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                                        : "bg-white text-slate-600 border-slate-200 hover:border-blue-300 hover:text-blue-600"
+                                        }`}
+                                >
+                                    {isSelected ? "✓ " : "+ "}{service}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* Custom Service Input & Active List */}
+                <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+                    <h4 className="mb-4 text-sm font-semibold text-slate-900">Custom & Active Services</h4>
+
+                    <form onSubmit={handleAddService} className="flex gap-2 mb-6">
+                        <input
+                            type="text"
+                            value={newService}
+                            onChange={(e) => setNewService(e.target.value)}
+                            placeholder="Add generic service..."
+                            className="flex-1 rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                        />
+                        <button
+                            type="submit"
+                            disabled={loading || !newService.trim()}
+                            className="rounded-[5px] bg-slate-800 px-4 py-2 text-xs font-bold uppercase text-white hover:bg-slate-700 disabled:opacity-50"
+                        >
+                            Add
+                        </button>
+                    </form>
+
+                    <div className="space-y-3">
+                        {services.length > 0 ? (
+                            <div className="flex flex-wrap gap-2">
+                                {services.map((service) => (
+                                    <span
+                                        key={service}
+                                        className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 border border-slate-200"
+                                    >
+                                        {service}
+                                        <button
+                                            onClick={() => handleRemoveService(service)}
+                                            className="ml-1 h-4 w-4 rounded-full text-slate-400 hover:bg-rose-100 hover:text-rose-600 flex items-center justify-center transition-colors"
+                                            title="Remove service"
+                                        >
+                                            <span className="sr-only">Remove</span>
+                                            ×
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex flex-col items-center justify-center py-6 text-center border-2 border-dashed border-slate-100 rounded-[5px]">
+                                <span className="text-2xl mb-2">📋</span>
+                                <p className="text-sm text-slate-500">No services selected.</p>
+                                <p className="text-xs text-slate-400">Select from popular options or add your own.</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </motion.section>
+    );
+}
+
 export function DashboardProfile() {
-    const { profile, user } = useOutletContext();
+    const { profile, user, token, refreshDashboard } = useOutletContext();
     const profileData = profile?.doctor || profile || {};
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [saving, setSaving] = useState(false);
+    const [editForm, setEditForm] = useState({});
 
     // Helper to safely get values
     const getVal = (keys, fallback = "—") => pickValue(profileData, keys) || pickValue(user, keys) || fallback;
@@ -74,7 +246,8 @@ export function DashboardProfile() {
         // Professional
         specialty: getVal(["specialty", "specialization", "medicalSpecialization"], "General Practice"),
         experience: getVal(["experienceYears", "experience", "yearsOfExperience"]),
-        qualifications: getVal(["qualifications", "education", "degree"]),
+        qualifications: getVal(["qualification", "qualifications", "education", "degree"]), // Added 'qualification' based on user request
+        consultationFee: getVal(["consultationFee", "fee"]),
         languages: profileData.languages?.join(", ") || "English",
         about: getVal(["about", "bio", "description"], "No bio available."),
 
@@ -85,6 +258,33 @@ export function DashboardProfile() {
         status: getVal(["status", "verificationStatus"], "Active"),
     }), [profileData, user]);
 
+    const handleEdit = () => {
+        setEditForm({
+            about: details.about !== "No bio available." ? details.about : "",
+            qualification: details.qualifications !== "—" ? details.qualifications : "",
+            experienceYears: details.experience !== "—" ? details.experience : "",
+            consultationFee: details.consultationFee !== "—" ? details.consultationFee : "",
+        });
+        setIsEditing(true);
+    };
+
+    const handleSave = async () => {
+        setSaving(true);
+        try {
+            await apiRequest("/api/doctors/profile", {
+                token,
+                method: "PUT",
+                body: editForm,
+            });
+            await refreshDashboard();
+            setIsEditing(false);
+        } catch (err) {
+            alert(err.message || "Failed to update profile");
+        } finally {
+            setSaving(false);
+        }
+    };
+
     return (
         <motion.section
             className="space-y-6"
@@ -92,11 +292,21 @@ export function DashboardProfile() {
             initial="hidden"
             whileInView="visible"
         >
-            <SectionHeader
-                kicker="Doctor Profile"
-                title="Professional Identity"
-                subtitle="Manage your public profile and account details"
-            />
+            <div className="flex flex-wrap items-center justify-between gap-3">
+                <SectionHeader
+                    kicker="Doctor Profile"
+                    title="Professional Identity"
+                    subtitle="Manage your public profile and account details"
+                />
+                {!isEditing && (
+                    <button
+                        onClick={handleEdit}
+                        className="rounded-[5px] border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100 transition"
+                    >
+                        Edit Profile
+                    </button>
+                )}
+            </div>
 
             {/* Main Profile Card */}
             <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
@@ -144,27 +354,95 @@ export function DashboardProfile() {
             <div className="grid gap-6 md:grid-cols-2">
                 <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
                     <h4 className="mb-4 text-base font-semibold text-slate-900">Professional Details</h4>
-                    <dl className="space-y-4 text-sm">
-                        <div className="grid grid-cols-3 gap-4">
-                            <dt className="font-medium text-slate-500">Experience</dt>
-                            <dd className="col-span-2 text-slate-900">{details.experience} Years</dd>
+
+                    {isEditing ? (
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-medium text-slate-700 mb-1">Qualification</label>
+                                <input
+                                    type="text"
+                                    value={editForm.qualification}
+                                    onChange={(e) => setEditForm({ ...editForm, qualification: e.target.value })}
+                                    className="w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                                    placeholder="e.g. MBBS, MD"
+                                />
+                            </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-medium text-slate-700 mb-1">Experience (Years)</label>
+                                    <input
+                                        type="number"
+                                        value={editForm.experienceYears}
+                                        onChange={(e) => setEditForm({ ...editForm, experienceYears: e.target.value })}
+                                        className="w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-medium text-slate-700 mb-1">Fee (₹)</label>
+                                    <input
+                                        type="number"
+                                        value={editForm.consultationFee}
+                                        onChange={(e) => setEditForm({ ...editForm, consultationFee: e.target.value })}
+                                        className="w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className="grid grid-cols-3 gap-4">
-                            <dt className="font-medium text-slate-500">Qualifications</dt>
-                            <dd className="col-span-2 text-slate-900">{details.qualifications}</dd>
-                        </div>
-                        <div className="grid grid-cols-3 gap-4">
-                            <dt className="font-medium text-slate-500">Languages</dt>
-                            <dd className="col-span-2 text-slate-900">{details.languages}</dd>
-                        </div>
-                    </dl>
+                    ) : (
+                        <dl className="space-y-4 text-sm">
+                            <div className="grid grid-cols-3 gap-4">
+                                <dt className="font-medium text-slate-500">Experience</dt>
+                                <dd className="col-span-2 text-slate-900">{details.experience} Years</dd>
+                            </div>
+                            <div className="grid grid-cols-3 gap-4">
+                                <dt className="font-medium text-slate-500">Qualifications</dt>
+                                <dd className="col-span-2 text-slate-900">{details.qualifications}</dd>
+                            </div>
+                            <div className="grid grid-cols-3 gap-4">
+                                <dt className="font-medium text-slate-500">Fee</dt>
+                                <dd className="col-span-2 text-slate-900">₹{details.consultationFee}</dd>
+                            </div>
+                            <div className="grid grid-cols-3 gap-4">
+                                <dt className="font-medium text-slate-500">Languages</dt>
+                                <dd className="col-span-2 text-slate-900">{details.languages}</dd>
+                            </div>
+                        </dl>
+                    )}
                 </div>
 
-                <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm flex flex-col">
                     <h4 className="mb-4 text-base font-semibold text-slate-900">About</h4>
-                    <p className="text-sm leading-relaxed text-slate-600">
-                        {details.about}
-                    </p>
+                    {isEditing ? (
+                        <div className="flex-1 flex flex-col">
+                            <textarea
+                                value={editForm.about}
+                                onChange={(e) => setEditForm({ ...editForm, about: e.target.value })}
+                                className="flex-1 w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none resize-none"
+                                placeholder="Write a brief bio about yourself..."
+                                rows={4}
+                            />
+                            <div className="mt-4 flex justify-end gap-3">
+                                <button
+                                    onClick={() => setIsEditing(false)}
+                                    className="rounded-[5px] border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                                    disabled={saving}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    onClick={handleSave}
+                                    className="rounded-[5px] bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
+                                    disabled={saving}
+                                >
+                                    {saving ? "Saving..." : "Save Changes"}
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <p className="text-sm leading-relaxed text-slate-600">
+                            {details.about}
+                        </p>
+                    )}
                 </div>
             </div>
         </motion.section>

@@ -21,6 +21,7 @@ import DashboardLayout from "./pages/DashboardLayout.jsx";
 import {
   DashboardOnboarding,
   DashboardProfile,
+  DashboardServices,
   DashboardAvailability,
   DashboardAppointments,
   DashboardFollowUps,
@@ -173,6 +174,7 @@ export default function App() {
             <Route index element={<Navigate to="/dashboard/onboarding" replace />} />
             <Route path="onboarding" element={<DashboardOnboarding />} />
             <Route path="profile" element={<DashboardProfile />} />
+            <Route path="services" element={<DashboardServices />} />
             <Route path="availability" element={<DashboardAvailability />} />
             <Route path="appointments" element={<DashboardAppointments />} />
             <Route path="follow-ups" element={<DashboardFollowUps />} />
