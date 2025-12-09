@@ -252,6 +252,82 @@ export default function DoctorPersonalDetails() {
   const authToken =
     typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
+  // Pre-fill form with existing user/doctor data
+  useEffect(() => {
+    if (!authToken) return;
+
+    const fetchExistingData = async () => {
+      try {
+        // Fetch user profile
+        const profileResp = await apiRequest("/api/profile/me", { token: authToken });
+        const profile = profileResp?.data || profileResp;
+
+        if (profile) {
+          setForm((prev) => ({
+            ...prev,
+            fullName: prev.fullName || profile.userName || "",
+            email: prev.email || profile.email || "",
+            phoneNumber: prev.phoneNumber || profile.phoneNumber || "",
+          }));
+        }
+
+        // Try to get doctor ID and doctor data
+        const doctorIdResp = await apiRequest("/api/doctors/my-doctor-id", {
+          token: authToken,
+          suppressErrorLog: true
+        });
+        const detectedDoctorId = doctorIdResp?.data?.doctorId || doctorIdResp?.doctorId;
+
+        if (detectedDoctorId) {
+          setDoctorIdInput(detectedDoctorId);
+          setDoctorId(detectedDoctorId);
+
+          // Fetch doctor profile for specialization, city, experience
+          const doctorResp = await apiRequest(`/api/doctor/${detectedDoctorId}`, {
+            token: authToken,
+            suppressErrorLog: true
+          });
+          const doctor = doctorResp?.data || doctorResp;
+
+          if (doctor) {
+            // Pre-fill specialization
+            if (doctor.specialization && !selectedSpecialization) {
+              const specInList = SPECIALIZATIONS.includes(doctor.specialization);
+              if (specInList) {
+                setSelectedSpecialization(doctor.specialization);
+                setSpecializationQuery(doctor.specialization);
+              } else {
+                setSelectedSpecialization("Other");
+                setOtherSpecialization(doctor.specialization);
+                setSpecializationQuery("");
+              }
+            }
+
+            // Pre-fill city/state
+            if (doctor.city && !selectedCityName && !otherCityName) {
+              setCityQuery(doctor.city);
+              setSelectedCityName(doctor.city);
+              // Note: We don't have state from doctor model, user will need to select
+            }
+
+            // Pre-fill experience
+            if (doctor.experienceYears && !form.yearsOfExperience) {
+              setForm((prev) => ({
+                ...prev,
+                yearsOfExperience: String(doctor.experienceYears),
+              }));
+            }
+          }
+        }
+      } catch (err) {
+        // Silently fail - pre-population is optional
+        console.log("Pre-fill data fetch:", err.message);
+      }
+    };
+
+    fetchExistingData();
+  }, [authToken]);
+
   const handleDoctorLookup = async () => {
     if (!authToken) {
       setDoctorIdStatus("Login first to auto-detect your doctor ID.");
@@ -641,24 +717,24 @@ export default function DoctorPersonalDetails() {
                       className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
                       required
                     />
-                   {stateFocused && stateSuggestions.length > 0 && (
-  <div className="absolute bottom-[110%] left-0 z-10 w-full rounded-md border border-slate-200 bg-white shadow-sm">
-    {stateSuggestions.map((name) => (
-      <button
-        key={name}
-        type="button"
-        className="block w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100"
-        onMouseDown={(e) => e.preventDefault()}
-        onClick={() => {
-          handleSelectState(name);
-          setStateFocused(false);
-        }}
-      >
-        {name}
-      </button>
-    ))}
-  </div>
-)}
+                    {stateFocused && stateSuggestions.length > 0 && (
+                      <div className="absolute bottom-[110%] left-0 z-10 w-full rounded-md border border-slate-200 bg-white shadow-sm">
+                        {stateSuggestions.map((name) => (
+                          <button
+                            key={name}
+                            type="button"
+                            className="block w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => {
+                              handleSelectState(name);
+                              setStateFocused(false);
+                            }}
+                          >
+                            {name}
+                          </button>
+                        ))}
+                      </div>
+                    )}
 
                   </div>
                   {isOtherState && (
@@ -701,27 +777,27 @@ export default function DoctorPersonalDetails() {
                         className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2 disabled:bg-slate-100"
                         required
                       />
-                     {cityFocused &&
-  selectedStateName &&
-  citySuggestions.length > 0 && (
-    <div className="absolute bottom-[110%] left-0 z-10 w-full rounded-md border border-slate-200 bg-white shadow-sm">
-      {citySuggestions.map((city) => (
-        <button
-          key={city.name}
-          type="button"
-          className="block w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100"
-          onMouseDown={(e) => e.preventDefault()}
-          onClick={() => {
-            setSelectedCityName(city.name);
-            setCityQuery(city.name);
-            setCityFocused(false);
-          }}
-        >
-          {city.name}
-        </button>
-      ))}
-    </div>
-  )}
+                      {cityFocused &&
+                        selectedStateName &&
+                        citySuggestions.length > 0 && (
+                          <div className="absolute bottom-[110%] left-0 z-10 w-full rounded-md border border-slate-200 bg-white shadow-sm">
+                            {citySuggestions.map((city) => (
+                              <button
+                                key={city.name}
+                                type="button"
+                                className="block w-full px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-100"
+                                onMouseDown={(e) => e.preventDefault()}
+                                onClick={() => {
+                                  setSelectedCityName(city.name);
+                                  setCityQuery(city.name);
+                                  setCityFocused(false);
+                                }}
+                              >
+                                {city.name}
+                              </button>
+                            ))}
+                          </div>
+                        )}
 
                     </div>
                   ) : (
@@ -747,8 +823,8 @@ export default function DoctorPersonalDetails() {
                   <span className="text-lg leading-none">↗</span>
                 </button>
               </div>
-              </form>
-            </div>
+            </form>
+          </div>
         </div>
       </main>
     </div>
