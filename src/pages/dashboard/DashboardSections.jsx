@@ -63,6 +63,7 @@ export function DashboardServices() {
     const [services, setServices] = useState([]);
     const [newService, setNewService] = useState("");
     const [loading, setLoading] = useState(false);
+    const [successMsg, setSuccessMsg] = useState("");
 
     const PREDEFINED_SERVICES = [
         "Home Doctor",
@@ -82,7 +83,15 @@ export function DashboardServices() {
         setServices(currentServices);
     }, [profile, user]);
 
-    const handleAddService = async (serviceToAdd) => {
+    // Clear success message after 3 seconds
+    useEffect(() => {
+        if (successMsg) {
+            const timer = setTimeout(() => setSuccessMsg(""), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [successMsg]);
+
+    const handleAddService = (serviceToAdd) => {
         // Support both event (form submit) and direct string input
         if (typeof serviceToAdd === 'object' && serviceToAdd.preventDefault) {
             serviceToAdd.preventDefault();
@@ -93,19 +102,15 @@ export function DashboardServices() {
         const trimmed = serviceToAdd.trim();
 
         if (services.includes(trimmed)) {
-            // If already exists, do nothing (or could toggle remove)
             return;
         }
 
-        const updatedServices = [...services, trimmed];
-        await updateServices(updatedServices);
+        setServices([...services, trimmed]);
         setNewService("");
     };
 
-    const handleRemoveService = async (serviceToRemove) => {
-        // if (!confirm(`Are you sure you want to remove "${serviceToRemove}" from your services?`)) return; // Optional confirmation
-        const updatedServices = services.filter(s => s !== serviceToRemove);
-        await updateServices(updatedServices);
+    const handleRemoveService = (serviceToRemove) => {
+        setServices(services.filter(s => s !== serviceToRemove));
     };
 
     const toggleService = (service) => {
@@ -116,15 +121,16 @@ export function DashboardServices() {
         }
     };
 
-    const updateServices = async (updatedServices) => {
+    const handleSave = async () => {
         setLoading(true);
         try {
             await apiRequest("/api/doctors/services", {
                 token,
                 method: "PUT",
-                body: { services: updatedServices }
+                body: { services }
             });
             await refreshDashboard();
+            setSuccessMsg("Services updated successfully!");
         } catch (err) {
             console.error("Update services error:", err);
             alert(err.message || "Failed to update services");
@@ -158,7 +164,6 @@ export function DashboardServices() {
                                 <button
                                     key={service}
                                     onClick={() => toggleService(service)}
-                                    disabled={loading}
                                     className={`rounded-full px-3 py-1.5 text-xs font-medium transition-all border ${isSelected
                                         ? "bg-blue-600 text-white border-blue-600 shadow-sm"
                                         : "bg-white text-slate-600 border-slate-200 hover:border-blue-300 hover:text-blue-600"
@@ -185,7 +190,7 @@ export function DashboardServices() {
                         />
                         <button
                             type="submit"
-                            disabled={loading || !newService.trim()}
+                            disabled={!newService.trim()}
                             className="rounded-[5px] bg-slate-800 px-4 py-2 text-xs font-bold uppercase text-white hover:bg-slate-700 disabled:opacity-50"
                         >
                             Add
@@ -221,6 +226,22 @@ export function DashboardServices() {
                         )}
                     </div>
                 </div>
+            </div>
+
+            {/* Save Button Area */}
+            <div className="flex items-center justify-end gap-4 border-t border-slate-100 pt-6">
+                {successMsg && (
+                    <span className="text-sm font-medium text-emerald-600 animate-pulse">
+                        {successMsg}
+                    </span>
+                )}
+                <button
+                    onClick={handleSave}
+                    disabled={loading}
+                    className="rounded-[5px] bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                    {loading ? "Saving Changes..." : "Save Changes"}
+                </button>
             </div>
         </motion.section>
     );
