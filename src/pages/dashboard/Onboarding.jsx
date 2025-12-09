@@ -82,23 +82,10 @@ export default function Onboarding() {
     }, [overview]);
 
     useEffect(() => {
-        if (!token || !doctorId) return;
-
-        const fetchVerification = async () => {
-            try {
-                setLoading(true);
-                const response = await apiRequest(`/api/doctors/verification/${doctorId}`, { token });
-                setVerification(response?.data || response);
-            } catch (err) {
-                console.error("Verification load error:", err);
-                setError(err.message || "Failed to load verification details");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchVerification();
-    }, [token, doctorId]);
+        // API call removed as requested. Always show empty state.
+        setVerification(null);
+        setLoading(false);
+    }, []);
 
     if (loading) {
         return (

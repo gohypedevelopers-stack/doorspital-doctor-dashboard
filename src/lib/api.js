@@ -20,7 +20,7 @@ const parseResponse = async (response) => {
   }
 };
 
-export async function apiRequest(path, { method = "GET", body, token, isForm } = {}) {
+export async function apiRequest(path, { method = "GET", body, token, isForm, suppressErrorLog = false } = {}) {
   const url = `${BASE_URL}${path}`;
   console.log(`API Request: ${method} ${url}`, body); // Log request details
 
@@ -35,7 +35,9 @@ export async function apiRequest(path, { method = "GET", body, token, isForm } =
 
   if (!response.ok) {
     const message = parsed?.message ?? parsed?.error ?? response.statusText;
-    console.error("API Error:", message); // Log API error
+    if (!suppressErrorLog) {
+      console.error("API Error:", message); // Log API error
+    }
     throw new Error(typeof message === "string" ? message : "Something went wrong");
   }
   return parsed;
