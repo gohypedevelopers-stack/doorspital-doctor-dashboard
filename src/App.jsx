@@ -85,8 +85,8 @@ export default function App() {
 
   const handleSignupSuccess = (email) => {
     setIsSignupOpen(false);
-    setOtpEmail(email);
-    setIsOtpOpen(true);
+    // OTP verification removed - go directly to login
+    setIsLoginOpen(true);
   };
 
   const handleLogout = () => {

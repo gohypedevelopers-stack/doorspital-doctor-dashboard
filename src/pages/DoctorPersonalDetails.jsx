@@ -458,9 +458,21 @@ export default function DoctorPersonalDetails() {
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">
-            <button className="hover:text-slate-900">Dashboard</button>
+            <button
+              onClick={() => navigate("/dashboard")}
+              className="hover:text-slate-900"
+            >
+              Dashboard
+            </button>
             <button className="hover:text-slate-900">Help</button>
-            <button className="text-rose-600 hover:text-rose-700">
+            <button
+              onClick={() => {
+                localStorage.removeItem("authToken");
+                localStorage.removeItem("authUser");
+                navigate("/");
+              }}
+              className="text-rose-600 hover:text-rose-700"
+            >
               Logout
             </button>
           </nav>
