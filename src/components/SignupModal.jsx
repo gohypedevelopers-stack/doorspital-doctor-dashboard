@@ -117,8 +117,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
     state: "",
     city: "",
   });
-  const [otp, setOtp] = useState("");
-  const [step, setStep] = useState("signup"); // 'signup' | 'otp'
+  // OTP step removed - direct signup without verification
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -164,77 +163,55 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
     event.preventDefault();
     setError("");
 
-    if (step === "signup") {
-      if (form.password !== form.confirmPassword) {
-        setError("Passwords do not match.");
-        return;
-      }
-      setIsSubmitting(true);
-      console.log("Submitting signup form:", form); // Log form data
-      try {
-        const response = await apiRequest("/api/doctors/sign-up", {
-          method: "POST",
-          body: {
-            name: form.name,
-            phoneNumber: form.phoneNumber,
-            email: form.email,
-            password: form.password,
-            specialization:
-              form.specialization === "Other" ? form.otherSpecialization : form.specialization,
-            experienceYears: form.experienceYears,
-            consultationFee: form.consultationFee,
-            timeZone: form.timezone,
-            state: form.state,
-            city: form.city,
-          },
-        });
-        console.log("Signup response:", response); // Log success response
-        setStep("otp");
-      } catch (err) {
-        console.error("Signup error:", err); // Log error
-        setError(err.message);
-      } finally {
-        setIsSubmitting(false);
-      }
-    } else if (step === "otp") {
-      setIsSubmitting(true);
-      console.log("Verifying OTP for:", form.email, "OTP:", otp); // Log OTP attempt
-      try {
-        const response = await apiRequest("/api/doctors/verify-signup", {
-          method: "POST",
-          body: {
-            email: form.email,
-            otp,
-          },
-        });
-        console.log("OTP verification response:", response); // Log success response
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+    setIsSubmitting(true);
+    console.log("Submitting signup form:", form); // Log form data
+    try {
+      const response = await apiRequest("/api/doctors/sign-up", {
+        method: "POST",
+        body: {
+          name: form.name,
+          phoneNumber: form.phoneNumber,
+          email: form.email,
+          password: form.password,
+          specialization:
+            form.specialization === "Other" ? form.otherSpecialization : form.specialization,
+          experienceYears: form.experienceYears,
+          consultationFee: form.consultationFee,
+          timeZone: form.timezone,
+          state: form.state,
+          city: form.city,
+        },
+      });
+      console.log("Signup response:", response); // Log success response
 
-        const submittedEmail = form.email;
-        // Reset form
-        setForm({
-          name: "",
-          phoneNumber: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          specialization: "",
-          otherSpecialization: "",
-          experienceYears: "",
-          consultationFee: "",
-          timezone: "Asia/Kolkata",
-          state: "",
-          city: "",
-        });
-        setOtp("");
-        setStep("signup");
+      const submittedEmail = form.email;
+      // Reset form
+      setForm({
+        name: "",
+        phoneNumber: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        specialization: "",
+        otherSpecialization: "",
+        experienceYears: "",
+        consultationFee: "",
+        timezone: "Asia/Kolkata",
+        state: "",
+        city: "",
+      });
 
-        onSuccess?.(submittedEmail);
-      } catch (err) {
-        console.error("OTP verification error:", err); // Log error
-        setError(err.message);
-      } finally {
-        setIsSubmitting(false);
-      }
+      // Directly trigger success - no OTP required
+      onSuccess?.(submittedEmail);
+    } catch (err) {
+      console.error("Signup error:", err); // Log error
+      setError(err.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -250,7 +227,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
         <div className="flex h-full flex-col overflow-hidden rounded-[22px] bg-white/95 p-5 shadow-lg shadow-blue-900/10 ring-1 ring-slate-200/70">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-900">
-              {step === "otp" ? "Verify Email" : "Sign up"}
+              Sign up
             </h2>
             <button
               type="button"
@@ -265,24 +242,9 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
             <form className="space-y-4" onSubmit={handleSubmit}>
               {/* Duplicate fields removed from here */}
 
-              {step === "otp" && (
-                <div className="space-y-1">
-                  <label className="block text-xs font-medium text-slate-700">
-                    Enter OTP sent to {form.email}
-                  </label>
-                  <input
-                    type="text"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    required
-                    maxLength={6}
-                    placeholder="123456"
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-center text-lg tracking-widest text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              )}
+              {/* OTP verification removed - direct signup */}
 
-              {step === "signup" && (
+              {(
                 <>
                   <div className="space-y-1">
                     <label className="block text-xs font-medium text-slate-700">Name</label>
@@ -523,11 +485,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                 disabled={isSubmitting}
                 className="w-full rounded-full bg-gradient-to-r from-blue-600 to-emerald-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-slate-500/30 transition hover:from-blue-700 hover:to-emerald-600 disabled:from-blue-300 disabled:to-slate-400 disabled:text-slate-500 disabled:cursor-not-allowed"
               >
-                {isSubmitting
-                  ? "Processing..."
-                  : step === "otp"
-                    ? "Verify & Create Account"
-                    : "Next"}
+                {isSubmitting ? "Creating Account..." : "Create Account"}
               </button>
             </form>
           </div>
