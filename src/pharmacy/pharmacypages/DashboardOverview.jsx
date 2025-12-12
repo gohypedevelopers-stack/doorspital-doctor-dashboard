@@ -553,7 +553,7 @@ function DashboardOverview() {
                           </td>
                           <td className="px-6 py-3 text-right">
                             <Link
-                              to={`/orders/${order.id}`}
+                              to={`/pharmacy/orders/${order.id}`}
                               state={{
                                 orderId: order.id,
                                 patientName: order.patientName,

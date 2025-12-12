@@ -183,7 +183,7 @@ function NewPrescriptionOrders() {
                 <div className="w-full lg:max-w-md">
                   <div className="flex items-center gap-3 rounded-2xl bg-[#f7fafc] px-5 py-4 shadow-[0_8px_25px_rgba(15,23,42,0.03)]">
                     <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white shadow-sm">
-                      <span className="text-slate-400 text-lg">??</span>
+                      <span className="text-slate-400 text-lg">🔍 </span>
                     </div>
                     <input
                       type="text"

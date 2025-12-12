@@ -8,6 +8,7 @@ import Footer from "./components/Footer.jsx";
 import LoginModal from "./components/LoginModal.jsx";
 import SignupModal from "./components/SignupModal.jsx";
 import OTPModal from "./components/OTPModal.jsx";
+import AuthChoiceModal from "./components/AuthChoiceModal.jsx";
 
 // Pharmacy modals
 import PharmacyLoginModal from "./pharmacypage/PharmacyLoginModal.jsx";
@@ -56,6 +57,7 @@ export default function App() {
   const isRegisterFlow = location.pathname.startsWith("/register");
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isAuthChoiceOpen, setIsAuthChoiceOpen] = useState(false);
   const [authToken, setAuthToken] = useState(() => localStorage.getItem("authToken"));
   const [authUser, setAuthUser] = useState(() => {
     try {
@@ -153,7 +155,7 @@ export default function App() {
     if (authToken) {
       navigate("/dashboard");
     } else {
-      setIsLoginOpen(true);
+      setIsAuthChoiceOpen(true);
     }
   };
 
@@ -186,7 +188,7 @@ export default function App() {
       {!isRegisterFlow && (
         <>
           <Navbar
-            onLoginClick={() => setIsLoginOpen(true)}
+            onLoginClick={() => setIsAuthChoiceOpen(true)}
             isAuthenticated={Boolean(authUser)}
             onLogout={handleLogout}
             onSignupClick={() => setIsSignupOpen(true)}
@@ -214,6 +216,19 @@ export default function App() {
             onVerified={() => {
               setIsOtpOpen(false);
               setIsLoginOpen(true);
+            }}
+          />
+
+          <AuthChoiceModal
+            isOpen={isAuthChoiceOpen}
+            onClose={() => setIsAuthChoiceOpen(false)}
+            onDoctorSelect={() => {
+              setIsAuthChoiceOpen(false);
+              setIsLoginOpen(true);
+            }}
+            onPharmacySelect={() => {
+              setIsAuthChoiceOpen(false);
+              setIsPharmacyLoginOpen(true);
             }}
           />
 
