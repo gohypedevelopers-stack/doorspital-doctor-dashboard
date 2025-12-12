@@ -9,6 +9,10 @@ import LoginModal from "./components/LoginModal.jsx";
 import SignupModal from "./components/SignupModal.jsx";
 import OTPModal from "./components/OTPModal.jsx";
 
+// Pharmacy modals
+import PharmacyLoginModal from "./pharmacypage/PharmacyLoginModal.jsx";
+import PharmacySignupModal from "./pharmacypage/PharmacySignupModal.jsx";
+
 import Home from "./pages/Home.jsx";
 import Benefits from "./pages/Benefits.jsx";
 import DoctorPersonalDetails from "./pages/DoctorPersonalDetails.jsx";
@@ -34,6 +38,18 @@ import {
   DashboardNotifications,
 } from "./pages/dashboard/DashboardSections.jsx";
 
+// Pharmacy pages
+import DashboardOverview from "./pharmacy/pharmacypages/DashboardOverview.jsx";
+import InventoryList from "./pharmacy/pharmacypages/InventoryList.jsx";
+import NewPrescriptionOrders from "./pharmacy/pharmacypages/NewPrescriptionOrders.jsx";
+import OrderDetails from "./pharmacy/pharmacypages/OrderDetails.jsx";
+import EarningsOverview from "./pharmacy/pharmacypages/EarningsOverview.jsx";
+import SettingsPage from "./pharmacy/pharmacypages/SettingsPage.jsx";
+import AddNewMedicine from "./pharmacy/pharmacypages/AddNewMedicine.jsx";
+import EditMedicine from "./pharmacy/pharmacypages/EditMedicine.jsx";
+import StoreProfile from "./pharmacy/pharmacypages/StoreProfile.jsx";
+import Support from "./pharmacy/pharmacypages/Support.jsx";
+
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,6 +65,20 @@ export default function App() {
       return null;
     }
   });
+
+  // Pharmacy session state
+  const [pharmacySession, setPharmacySession] = useState(() => {
+    try {
+      const stored = localStorage.getItem("pharmacySession");
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  // Pharmacy auth UI state
+  const [isPharmacyLoginOpen, setIsPharmacyLoginOpen] = useState(false);
+  const [isPharmacySignupOpen, setIsPharmacySignupOpen] = useState(false);
 
   useEffect(() => {
     if (!authToken && location.pathname.startsWith("/dashboard")) {
@@ -72,6 +102,14 @@ export default function App() {
     }
   }, [authUser]);
 
+  useEffect(() => {
+    if (pharmacySession) {
+      localStorage.setItem("pharmacySession", JSON.stringify(pharmacySession));
+    } else {
+      localStorage.removeItem("pharmacySession");
+    }
+  }, [pharmacySession]);
+
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isOtpOpen, setIsOtpOpen] = useState(false);
   const [otpEmail, setOtpEmail] = useState("");
@@ -81,6 +119,21 @@ export default function App() {
     setAuthToken(token || null);
     setIsLoginOpen(false);
     navigate("/dashboard");
+  };
+
+  // Pharmacy login success handler
+  const handlePharmacyLoginSuccess = (session) => {
+    setPharmacySession(session ?? null);
+    setIsPharmacyLoginOpen(false);
+    if (session?.token) {
+      navigate("/pharmacy");
+    }
+  };
+
+  // Pharmacy logout handler
+  const handlePharmacyLogout = () => {
+    setPharmacySession(null);
+    navigate("/");
   };
 
   const handleSignupSuccess = (email) => {
@@ -95,12 +148,18 @@ export default function App() {
     navigate("/");
   };
 
-  const handleHomeJoinClick = () => {
+  // Doctor CTA handler
+  const handleDoctorJoinClick = () => {
     if (authToken) {
       navigate("/dashboard");
     } else {
       setIsLoginOpen(true);
     }
+  };
+
+  // Pharmacy CTA handler
+  const handlePharmacyJoinClick = () => {
+    setIsPharmacyLoginOpen(true);
   };
 
   const ProtectedRoute = ({ children, onRequireAuth }) => {
@@ -131,7 +190,11 @@ export default function App() {
             isAuthenticated={Boolean(authUser)}
             onLogout={handleLogout}
             onSignupClick={() => setIsSignupOpen(true)}
+            pharmacySession={pharmacySession}
+            onPharmacyLogout={handlePharmacyLogout}
           />
+
+          {/* Doctor auth modals */}
           <LoginModal
             isOpen={isLoginOpen}
             onClose={() => setIsLoginOpen(false)}
@@ -153,13 +216,48 @@ export default function App() {
               setIsLoginOpen(true);
             }}
           />
+
+          {/* Pharmacy auth modals */}
+          <PharmacyLoginModal
+            isOpen={isPharmacyLoginOpen}
+            onClose={() => setIsPharmacyLoginOpen(false)}
+            onSuccess={handlePharmacyLoginSuccess}
+            onSwitchToSignup={() => {
+              setIsPharmacyLoginOpen(false);
+              setIsPharmacySignupOpen(true);
+            }}
+            onForgotPassword={() => {
+              navigate("/pharmacy/settings");
+            }}
+          />
+
+          <PharmacySignupModal
+            isOpen={isPharmacySignupOpen}
+            onClose={() => setIsPharmacySignupOpen(false)}
+            onSuccess={(email) => {
+              setIsPharmacySignupOpen(false);
+              setIsPharmacyLoginOpen(true);
+            }}
+            onSwitchToLogin={() => {
+              setIsPharmacySignupOpen(false);
+              setIsPharmacyLoginOpen(true);
+            }}
+          />
         </>
       )}
 
       <main className="flex-1">
         <Routes>
           {/* Marketing pages */}
-          <Route path="/" element={<Home onJoinClick={handleHomeJoinClick} />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                onDoctorJoinClick={handleDoctorJoinClick}
+                onPharmacyJoinClick={handlePharmacyJoinClick}
+              />
+            }
+          />
           <Route path="/benefits" element={<Benefits />} />
 
           {/* Dashboard with nested routes */}
@@ -206,6 +304,18 @@ export default function App() {
             path="/register/verification-submitted"
             element={<DoctorVerificationSubmitted />}
           />
+
+          {/* Pharmacy routes */}
+          <Route path="/pharmacy" element={<DashboardOverview />} />
+          <Route path="/pharmacy/inventory" element={<InventoryList />} />
+          <Route path="/pharmacy/orders" element={<NewPrescriptionOrders />} />
+          <Route path="/pharmacy/orders/:orderId" element={<OrderDetails />} />
+          <Route path="/pharmacy/add-medicine" element={<AddNewMedicine />} />
+          <Route path="/pharmacy/edit-medicine/:id" element={<EditMedicine />} />
+          <Route path="/pharmacy/settings" element={<SettingsPage />} />
+          <Route path="/pharmacy/earnings" element={<EarningsOverview />} />
+          <Route path="/pharmacy/store-profile" element={<StoreProfile />} />
+          <Route path="/pharmacy/support" element={<Support />} />
         </Routes>
       </main>
 

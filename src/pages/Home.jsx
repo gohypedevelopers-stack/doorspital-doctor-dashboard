@@ -47,8 +47,9 @@ const heroTextItem = {
   },
 };
 
-export default function Home({ onJoinClick }) {
-  const triggerJoin = onJoinClick ?? (() => {});
+export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
+  const handleDoctorJoin = onDoctorJoinClick ?? (() => { });
+  const handlePharmacyJoin = onPharmacyJoinClick ?? (() => { });
   return (
     <div className="bg-white">
       {/* ========== HERO: About Doorspital Partner Network ========== */}
@@ -84,14 +85,14 @@ export default function Home({ onJoinClick }) {
           >
             <button
               type="button"
-              onClick={triggerJoin}
+              onClick={handleDoctorJoin}
               className="rounded-full bg-blue-700 px-7 py-3 text-base font-semibold text-white shadow hover:bg-blue-800"
             >
               Join as Doctor
             </button>
             <button
               type="button"
-              onClick={triggerJoin}
+              onClick={handlePharmacyJoin}
               className="rounded-full border-2 border-emerald-500 px-7 py-3 text-base font-semibold text-emerald-600 hover:bg-emerald-50"
             >
               Join as Medical Shop
@@ -114,61 +115,61 @@ export default function Home({ onJoinClick }) {
       </motion.section>
 
       {/* ========== WHAT IS DOORSPITAL PARTNER PLATFORM ========== */}
-<motion.section
-  className="w-full py-16"
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.25 }}
-  variants={fadeUp}
-  transition={{ duration: 0.7 }}
->
-  <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-    {/* LEFT: image slides in from LEFT → RIGHT */}
-    <motion.div
-      className="flex justify-center lg:justify-start"
-      initial={{ opacity: 0, x: -60 }}              // start left
-      whileInView={{ opacity: 1, x: 0 }}            // move to center
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
-    >
-      <img
-        src={diagramImg}
-        alt="Healthcare workflow diagram"
-        className="w-full max-w-[620px] rounded-[32px] shadow-lg"
-      />
-    </motion.div>
+      <motion.section
+        className="w-full py-16"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
+        variants={fadeUp}
+        transition={{ duration: 0.7 }}
+      >
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          {/* LEFT: image slides in from LEFT → RIGHT */}
+          <motion.div
+            className="flex justify-center lg:justify-start"
+            initial={{ opacity: 0, x: -60 }}              // start left
+            whileInView={{ opacity: 1, x: 0 }}            // move to center
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <img
+              src={diagramImg}
+              alt="Healthcare workflow diagram"
+              className="w-full max-w-[620px] rounded-[32px] shadow-lg"
+            />
+          </motion.div>
 
-    {/* RIGHT: title + text + button slide in from RIGHT → LEFT */}
-    <motion.div
-      className="space-y-4"
-      initial={{ opacity: 0, x: 60 }}               // start right
-      whileInView={{ opacity: 1, x: 0 }}            // move to center
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-    >
-      <h2 className="poppins-bold text-4xl leading-[44px] text-slate-900">
-        What is Doorspital
-        <br />
-        Partner Platform?
-      </h2>
-      <p className="text-lg leading-[30px] text-slate-600">
-        Our platform is a dedicated ecosystem designed to bridge the gap
-        between healthcare professionals and pharmacies. We empower
-        doctors to manage patient prescriptions digitally and connect them
-        with a network of trusted medical shops, ensuring patients get
-        timely and efficient access to their medications.
-      </p>
-      <button className="mt-6 inline-flex rounded-full bg-blue-700 px-7 py-3 text-base font-semibold text-white shadow hover:bg-blue-800">
-        Know More
-      </button>
-    </motion.div>
-  </div>
-</motion.section>
+          {/* RIGHT: title + text + button slide in from RIGHT → LEFT */}
+          <motion.div
+            className="space-y-4"
+            initial={{ opacity: 0, x: 60 }}               // start right
+            whileInView={{ opacity: 1, x: 0 }}            // move to center
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+          >
+            <h2 className="poppins-bold text-4xl leading-[44px] text-slate-900">
+              What is Doorspital
+              <br />
+              Partner Platform?
+            </h2>
+            <p className="text-lg leading-[30px] text-slate-600">
+              Our platform is a dedicated ecosystem designed to bridge the gap
+              between healthcare professionals and pharmacies. We empower
+              doctors to manage patient prescriptions digitally and connect them
+              with a network of trusted medical shops, ensuring patients get
+              timely and efficient access to their medications.
+            </p>
+            <button className="mt-6 inline-flex rounded-full bg-blue-700 px-7 py-3 text-base font-semibold text-white shadow hover:bg-blue-800">
+              Know More
+            </button>
+          </motion.div>
+        </div>
+      </motion.section>
 
 
-      
 
-      
+
+
 
       {/* ========== HOW TO CONNECT WITH DOORSPITAL ========== */}
       <section className="w-full bg-white pt-16 pb-20 flex flex-col items-center">
@@ -223,7 +224,7 @@ export default function Home({ onJoinClick }) {
           ))}
         </div>
       </section>
-      
+
 
       {/* ========== APP PROMO ========== */}
       <motion.section
@@ -260,21 +261,21 @@ export default function Home({ onJoinClick }) {
             </div>
           </motion.div>
 
-         <motion.div
-  className="flex justify-center lg:justify-end"
-  initial={{ opacity: 0, y: 60 }}          // start lower (bottom)
-  whileInView={{ opacity: 1, y: 0 }}       // move up to normal position
-  viewport={{ once: true, amount: 0.3 }}
-  transition={{ duration: 0.7, ease: "easeOut" }}
->
-  <div className="rounded-[28px] bg-[#f3e6dc] p-6 shadow-lg">
-    <img
-      src={homePhone}
-      alt="Doorspital app on phone"
-      className="max-h-[360px] object-contain"
-    />
-  </div>
-</motion.div>
+          <motion.div
+            className="flex justify-center lg:justify-end"
+            initial={{ opacity: 0, y: 60 }}          // start lower (bottom)
+            whileInView={{ opacity: 1, y: 0 }}       // move up to normal position
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <div className="rounded-[28px] bg-[#f3e6dc] p-6 shadow-lg">
+              <img
+                src={homePhone}
+                alt="Doorspital app on phone"
+                className="max-h-[360px] object-contain"
+              />
+            </div>
+          </motion.div>
 
         </div>
       </motion.section>
@@ -354,14 +355,14 @@ export default function Home({ onJoinClick }) {
           <div className="mt-6 flex justify-center gap-4">
             <button
               type="button"
-              onClick={triggerJoin}
+              onClick={handleDoctorJoin}
               className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-blue-700"
             >
               Register as Doctor
             </button>
             <button
               type="button"
-              onClick={triggerJoin}
+              onClick={handlePharmacyJoin}
               className="rounded-full border border-white px-5 py-2 text-sm font-semibold text-white"
             >
               Register as Medical Shop
