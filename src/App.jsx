@@ -50,6 +50,7 @@ import AddNewMedicine from "./pharmacy/pharmacypages/AddNewMedicine.jsx";
 import EditMedicine from "./pharmacy/pharmacypages/EditMedicine.jsx";
 import StoreProfile from "./pharmacy/pharmacypages/StoreProfile.jsx";
 import Support from "./pharmacy/pharmacypages/Support.jsx";
+import InvoicePage from "./pharmacy/pharmacypages/InvoicePage.jsx";
 
 export default function App() {
   const location = useLocation();
@@ -325,6 +326,7 @@ export default function App() {
           <Route path="/pharmacy/inventory" element={<InventoryList />} />
           <Route path="/pharmacy/orders" element={<NewPrescriptionOrders />} />
           <Route path="/pharmacy/orders/:orderId" element={<OrderDetails />} />
+          <Route path="/pharmacy/orders/:orderId/invoice" element={<InvoicePage />} />
           <Route path="/pharmacy/add-medicine" element={<AddNewMedicine />} />
           <Route path="/pharmacy/edit-medicine/:id" element={<EditMedicine />} />
           <Route path="/pharmacy/settings" element={<SettingsPage />} />

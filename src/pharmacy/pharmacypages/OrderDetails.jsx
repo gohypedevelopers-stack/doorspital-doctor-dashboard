@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar.jsx";
 import bellicon from "../assets/bellicon.png";
 import { apiRequest } from "../../lib/api.js";
@@ -18,6 +18,27 @@ const currencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
 });
+
+const formatDateString = (value) => {
+  if (!value) return "-";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "-";
+  return date.toLocaleDateString("en-IN", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
+};
+
+const formatTimeString = (value) => {
+  if (!value) return "-";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "-";
+  return date.toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
 export default function OrderDetails() {
   const { orderId } = useParams();
@@ -107,7 +128,7 @@ export default function OrderDetails() {
                 onClick={() => navigate("/pharmacy/orders")}
                 className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
               >
-                Back to orders
+                <h1>Back to orders</h1>
               </button>
             </div>
           </div>
@@ -115,6 +136,37 @@ export default function OrderDetails() {
       </div>
     );
   }
+
+  const orderTimestamp = order.createdAt ?? order.orderDate;
+  const orderDateLabel = formatDateString(orderTimestamp);
+  const orderTimeLabel = formatTimeString(orderTimestamp);
+  const customerName =
+    order.shippingAddress?.fullName ??
+    order.user?.userName ??
+    order.customerName ??
+    "Customer";
+  const customerPhone =
+    order.shippingAddress?.phone ??
+    order.user?.phone ??
+    order.customerPhone ??
+    "Not provided";
+  const customerEmail =
+    order.user?.email ??
+    order.shippingAddress?.email ??
+    "No email provided";
+  const customerId =
+    order.user?._id ??
+    order.user?.id ??
+    order.user?.userId ??
+    order.customerId ??
+    order.user?.customerId;
+  const orderNotes =
+    order.customerNote ??
+    order.notes ??
+    order.specialInstructions ??
+    "No additional notes provided.";
+  const paymentMethodLabel = order.paymentMethod?.toUpperCase() ?? "COD";
+  const totalAmount = order.total ?? getSubtotal();
 
   return (
     <div className="min-h-screen bg-[#f6fafb] text-slate-900">
@@ -125,7 +177,13 @@ export default function OrderDetails() {
             <h1 className="text-[18px] font-semibold text-slate-900">
               Order #{orderId}
             </h1>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <Link
+                to={`/pharmacy/orders/${orderId}/invoice`}
+                className="rounded-2xl border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-emerald-600 transition hover:border-emerald-400 hover:bg-emerald-50"
+              >
+                Invoice
+              </Link>
               <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
                 <img src={bellicon} alt="Notifications" />
               </button>
@@ -139,44 +197,130 @@ export default function OrderDetails() {
               </div>
             )}
 
-            <div className="rounded-xl bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100 space-y-5">
-              <div className="flex flex-wrap items-center gap-4">
-                <div className="text-sm text-slate-500">
-                  Customer: <span className="font-semibold text-slate-900">{order.shippingAddress?.fullName ?? order.user?.userName}</span>
+            <div className="rounded-xl bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100 space-y-6">
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="text-[13px] text-slate-500">Customer</p>
+                  <p className="text-base font-semibold text-slate-900">{customerName}</p>
+                  <p className="text-xs text-slate-400">
+                    Order ref: {order.prescriptionId ?? order.orderId ?? order._id ?? orderId}
+                  </p>
                 </div>
-                <div className="text-sm text-slate-500">Status:</div>
-                <select
-                  value={order.status || "pending"}
-                  onChange={handleStatusChange}
-                  disabled={statusUpdating}
-                  className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-900"
-                >
-                  {statusOptions.map((status) => (
-                    <option key={status.id} value={status.id}>
-                      {status.label}
-                    </option>
-                  ))}
-                </select>
-                <span className="text-xs text-slate-500">
-                  {statusUpdating ? "Updating..." : "Drag to change status"}
-                </span>
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="text-sm text-slate-500">Status:</div>
+                  <select
+                    value={order.status || "pending"}
+                    onChange={handleStatusChange}
+                    disabled={statusUpdating}
+                    className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-900"
+                  >
+                    {statusOptions.map((status) => (
+                      <option key={status.id} value={status.id}>
+                        {status.label}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="text-xs text-slate-500">
+                    {statusUpdating ? "Updating..." : "Drag to change status"}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-6 text-xs uppercase tracking-wide text-slate-400">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 lowercase font-semibold">{orderDateLabel}</span>
+                  <span className="text-slate-400">Date</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 lowercase font-semibold">{orderTimeLabel}</span>
+                  <span className="text-slate-400">Time</span>
+                </div>
+              </div>
+              <div className="grid gap-5 md:grid-cols-3">
+                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    Order log
+                  </p>
+                  <div className="mt-4 space-y-2 text-sm">
+                    <div className="flex items-center justify-between text-slate-600">
+                      <span>Date</span>
+                      <span className="font-semibold text-slate-900">{orderDateLabel}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600">
+                      <span>Time</span>
+                      <span className="font-semibold text-slate-900">{orderTimeLabel}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-slate-600">
+                      <span className="text-[11px] uppercase tracking-wide text-slate-500">Order ID</span>
+                      <span className="font-semibold text-slate-900 text-right">
+                        {order.prescriptionId ?? order.orderId ?? order._id ?? orderId}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-slate-100 bg-white p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    Customer info
+                  </p>
+                  <div className="mt-3 space-y-2 text-sm">
+                    <p className="text-slate-900 font-semibold">{customerName}</p>
+                    <p className="text-[11px] uppercase tracking-wide text-slate-400">Phone</p>
+                    <p className="text-sm font-semibold text-slate-900">{customerPhone}</p>
+                    <p className="text-[11px] uppercase tracking-wide text-slate-400">Email</p>
+                    <p className="text-sm text-slate-700">{customerEmail}</p>
+                    {customerId && (
+                      <>
+                        <p className="text-[11px] uppercase tracking-wide text-slate-400">
+                          Customer ID
+                        </p>
+                        <p className="text-sm text-slate-700">{customerId}</p>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-slate-100 bg-white p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    Payment
+                  </p>
+                  <div className="mt-3 space-y-2 text-sm">
+                    <p className="font-semibold text-slate-900">{paymentMethodLabel}</p>
+                    <p className="text-slate-600">
+                      Payment Status: {order.paymentStatus ?? "Pending"}
+                    </p>
+                    <p className="text-slate-600">
+                      Subtotal: {currencyFormatter.format(getSubtotal())}
+                    </p>
+                    <p className="text-lg font-semibold text-slate-900">
+                      Total {currencyFormatter.format(totalAmount)}
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
-                <div className="space-y-3">
-                  <p className="text-[13px] text-slate-500">Delivery Address</p>
-                  <p className="text-slate-800">
-                    {order.shippingAddress?.addressLine1}, {order.shippingAddress?.city}
+                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    Delivery address
                   </p>
-                  <p className="text-slate-800">
-                    {order.shippingAddress?.state} - {order.shippingAddress?.postalCode}
-                  </p>
-                  <p className="text-slate-800">{order.shippingAddress?.phone}</p>
+                  <div className="mt-3 space-y-1 text-sm text-slate-800">
+                    <p className="text-slate-800">
+                      {order.shippingAddress?.addressLine1}, {order.shippingAddress?.city}
+                    </p>
+                    <p className="text-slate-800">
+                      {order.shippingAddress?.state} - {order.shippingAddress?.postalCode}
+                    </p>
+                    {order.shippingAddress?.phone && (
+                      <p className="text-slate-800">Phone: {order.shippingAddress?.phone}</p>
+                    )}
+                  </div>
                 </div>
-                <div className="space-y-3">
-                  <p className="text-[13px] text-slate-500">Payment</p>
-                  <p className="text-slate-900 font-semibold">{order.paymentMethod?.toUpperCase() ?? "COD"}</p>
-                  <p className="text-slate-700">Payment Status: {order.paymentStatus}</p>
+                <div className="rounded-2xl border border-slate-100 bg-white p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    Delivery notes
+                  </p>
+                  <p className="mt-3 text-sm text-slate-700">{orderNotes}</p>
                 </div>
               </div>
             </div>
