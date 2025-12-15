@@ -605,6 +605,7 @@ function DashboardOverview() {
                   />
                   <QuickActionButton
                     label="Generate Invoice"
+                    onClick={() => navigate("/pharmacy/orders")}
                     colorClass="bg-emerald-700 shadow-[0_12px_30px_rgba(16,185,129,0.1)]"
                     icon="📄"
                   />

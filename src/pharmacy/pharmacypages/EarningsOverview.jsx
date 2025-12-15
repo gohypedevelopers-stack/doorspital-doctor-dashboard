@@ -206,12 +206,7 @@ function EarningsOverview() {
             </div>
 
             <div className="flex items-center gap-4">
-              <button className="flex items-center gap-2 rounded-xl bg-[#00b074] px-4 py-2 text-[12px] font-semibold text-white shadow-[0_12px_30px_rgba(0,176,116,0.45)] hover:bg-[#049662]">
-                <span className="flex h-6 w-6 items-center justify-center rounded-xl bg-white/10 text-sm">
-                  ⬇
-                </span>
-                <span>Export Report</span>
-              </button>
+              
               <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
                 <img src={bellicon} alt="Notifications" />
               </button>

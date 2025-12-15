@@ -88,11 +88,16 @@ function AddNewMedicine() {
         mrp: formatNumber(formData.mrp),
         stock: Number(formData.quantityInStock) || 0,
         dosageForm: formData.dosageForm,
-        strength: combineStrength(formData.strengthValue, formData.strengthUnit),
+        strength: combineStrength(
+          formData.strengthValue,
+          formData.strengthUnit
+        ),
         tags: [formData.category, formData.dosageForm],
         isPrescriptionRequired: formData.prescriptionRequired === "Yes",
         expiry: formData.expiry,
-        images: imagePreview ? [{ url: imagePreview, filename: "upload.jpg" }] : [],
+        images: imagePreview
+          ? [{ url: imagePreview, filename: "upload.jpg" }]
+          : [],
       };
       await apiRequest("/api/pharmacy/products", {
         method: "POST",
@@ -114,7 +119,9 @@ function AddNewMedicine() {
         <Sidebar />
         <div className="flex flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
-            <h1 className="text-[18px] font-semibold text-slate-900">Add New Medicine</h1>
+            <h1 className="text-[18px] font-semibold text-slate-900">
+              Add New Medicine
+            </h1>
             <div className="flex items-center gap-4">
               <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
                 <img src={bellicon} alt="Notifications" />
@@ -134,10 +141,18 @@ function AddNewMedicine() {
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div className="grid gap-4 md:grid-cols-2">
                   <Field label="Brand Name">
-                    <Input name="brandName" value={formData.brandName} onChange={handleChange} />
+                    <Input
+                      name="brandName"
+                      value={formData.brandName}
+                      onChange={handleChange}
+                    />
                   </Field>
                   <Field label="Generic Name">
-                    <Input name="genericName" value={formData.genericName} onChange={handleChange} />
+                    <Input
+                      name="genericName"
+                      value={formData.genericName}
+                      onChange={handleChange}
+                    />
                   </Field>
                 </div>
                 <div className="grid gap-4 md:grid-cols-3">
@@ -177,10 +192,24 @@ function AddNewMedicine() {
                 </div>
                 <div className="grid gap-4 md:grid-cols-3">
                   <Field label="MRP">
-                    <Input name="mrp" value={formData.mrp} onChange={handleChange} type="number" min="0" step="0.01" />
+                    <Input
+                      name="mrp"
+                      value={formData.mrp}
+                      onChange={handleChange}
+                      type="number"
+                      min="0"
+                      step="0.01"
+                    />
                   </Field>
                   <Field label="Unit Selling Price">
-                    <Input name="price" value={formData.price} onChange={handleChange} type="number" min="0" step="0.01" />
+                    <Input
+                      name="price"
+                      value={formData.price}
+                      onChange={handleChange}
+                      type="number"
+                      min="0"
+                      step="0.01"
+                    />
                   </Field>
                   <Field label="Quantity in Stock">
                     <Input
@@ -194,10 +223,19 @@ function AddNewMedicine() {
                 </div>
                 <div className="grid gap-4 md:grid-cols-3">
                   <Field label="SKU">
-                    <Input name="sku" value={formData.sku} onChange={handleChange} />
+                    <Input
+                      name="sku"
+                      value={formData.sku}
+                      onChange={handleChange}
+                    />
                   </Field>
                   <Field label="Expiry Date">
-                    <Input name="expiry" value={formData.expiry} onChange={handleChange} placeholder="MM/YYYY" />
+                    <Input
+                      name="expiry"
+                      value={formData.expiry}
+                      onChange={handleChange}
+                      placeholder="MM/YYYY"
+                    />
                   </Field>
                   <Field label="Category">
                     <select
@@ -230,15 +268,25 @@ function AddNewMedicine() {
                   </Field>
                 </div>
                 <div>
-                  <label className="text-[12px] text-slate-500">Medicine Image (optional)</label>
-                  <input type="file" onChange={handleImageChange} className="mt-2 rounded-xl border border-slate-200 px-3 py-2" />
+                  <label className="text-[12px] text-slate-500">
+                    Medicine Image (optional)
+                  </label>
+                  <input
+                    type="file"
+                    onChange={handleImageChange}
+                    className="mt-2 rounded-xl border border-slate-200 px-3 py-2"
+                  />
                   {imagePreview && (
-                    <img src={imagePreview} alt="Preview" className="mt-3 h-20 w-20 rounded-xl object-cover" />
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="mt-3 h-20 w-20 rounded-xl object-cover"
+                    />
                   )}
                 </div>
                 <div className="flex justify-end gap-3 text-[13px]">
                   <button
-                  type="button"
+                    type="button"
                     onClick={() => navigate("/pharmacy/inventory")}
                     className="px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
                   >
