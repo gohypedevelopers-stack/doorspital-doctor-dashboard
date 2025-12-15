@@ -23,8 +23,8 @@ const NavItem = ({ label, icon, to }) => {
       to={to}
       className={`w-full flex items-center gap-3 pl-0 pr-4 py-2.5 rounded-xl transition ${
         isActive
-          ? "bg-[#E8FBF3] text-emerald-600 font-medium"
-          : "text-slate-500 hover:bg-slate-50"
+          ? "bg-[#E8FBF3] text-emerald-1000 font-medium"
+          : "text-slate-900 hover:bg-slate-50"
       }`}
     >
       {/* Placeholder Icon - replace with actual icon components if available */}

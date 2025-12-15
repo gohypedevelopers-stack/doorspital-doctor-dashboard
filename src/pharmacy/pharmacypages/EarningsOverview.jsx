@@ -106,6 +106,8 @@ function EarningsOverview() {
     [deliveredOrders]
   );
 
+  const completedOrdersCount = deliveredOrders.length;
+
   const currentMonthRevenue = useMemo(
     () => sumOrdersForMonthOffset(deliveredOrders, 0),
     [deliveredOrders]
@@ -256,7 +258,7 @@ function EarningsOverview() {
                       {earningsData.totalOrders.toLocaleString()}
                     </div>
                     <div className="mt-2 text-[12px] text-slate-400">
-                      Completed orders
+                      Completed orders: {completedOrdersCount.toLocaleString()}
                     </div>
                   </div>
 
