@@ -175,7 +175,7 @@ export default function PharmacyDeliverySignupModal({
   border-[5px] border-blue-700/80 bg-gradient-to-b from-white to-slate-50 p-3 
   shadow-[0_30px_70px_rgba(15,23,42,0.25)] ring-1 ring-blue-600/40"        onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex h-full flex-col overflow-hidden rounded-[22px] bg-white/95 p-5 shadow-lg shadow-blue-900/10 ring-1 ring-slate-200/70">
+        <div className="flex h-full flex-col overflow-hidden rounded-[22px] bg-card/95 p-5 shadow-lg shadow-blue-900/10 ring-1 ring-slate-200/70">
           {/* Header */}
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-900">
@@ -202,7 +202,7 @@ export default function PharmacyDeliverySignupModal({
                   value={form.ownerName}
                   onChange={handleChange("ownerName")}
                   required
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -217,7 +217,7 @@ export default function PharmacyDeliverySignupModal({
                   value={form.storeName}
                   onChange={handleChange("storeName")}
                   required
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -232,7 +232,7 @@ export default function PharmacyDeliverySignupModal({
                   onChange={handleChange("email")}
                   required
                   placeholder="store@example.com"
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -245,8 +245,8 @@ export default function PharmacyDeliverySignupModal({
                   country="in"
                   value={form.phoneNumber}
                   onChange={handlePhoneChange("phoneNumber")}
-                  inputClass="h-10 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                  buttonClass="border border-slate-200"
+                  inputClass="h-10 rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                  buttonClass="border border-border"
                   containerClass="w-full"
                   enableSearch
                   specialLabel=""
@@ -264,7 +264,7 @@ export default function PharmacyDeliverySignupModal({
                     value={form.password}
                     onChange={handleChange("password")}
                     required
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                   />
                   <button
                     type="button"
@@ -287,7 +287,7 @@ export default function PharmacyDeliverySignupModal({
                     value={form.confirmPassword}
                     onChange={handleChange("confirmPassword")}
                     required
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                   />
                   <button
                     type="button"
@@ -308,7 +308,7 @@ export default function PharmacyDeliverySignupModal({
                   value={form.drugLicenseNumber}
                   onChange={handleChange("drugLicenseNumber")}
                   required
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -322,7 +322,7 @@ export default function PharmacyDeliverySignupModal({
                   onChange={handleChange("licenseAuthority")}
                   required
                   placeholder="e.g., State Drug Control Department"
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -336,7 +336,7 @@ export default function PharmacyDeliverySignupModal({
                   value={form.licenseExpiryDate}
                   onChange={handleChange("licenseExpiryDate")}
                   required
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -350,7 +350,7 @@ export default function PharmacyDeliverySignupModal({
                     value={form.gstNumber}
                     onChange={handleChange("gstNumber")}
                     placeholder="Optional"
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 <div className="space-y-1">
@@ -361,7 +361,7 @@ export default function PharmacyDeliverySignupModal({
                     value={form.panNumber}
                     onChange={handleChange("panNumber")}
                     placeholder="Optional"
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
               </div>
@@ -375,7 +375,7 @@ export default function PharmacyDeliverySignupModal({
                   value={form.pharmacyType}
                   onChange={handleChange("pharmacyType")}
                   required
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="">Select type</option>
                   {PHARMACY_TYPE_OPTIONS.map((option) => (
@@ -395,7 +395,7 @@ export default function PharmacyDeliverySignupModal({
                   value={form.addressLine1}
                   onChange={handleChange("addressLine1")}
                   required
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -408,7 +408,7 @@ export default function PharmacyDeliverySignupModal({
                   value={form.addressLine2}
                   onChange={handleChange("addressLine2")}
                   placeholder="Area, landmark"
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -422,7 +422,7 @@ export default function PharmacyDeliverySignupModal({
                     value={form.state}
                     onChange={handleStateChange}
                     required
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="">Select state</option>
                     {stateOptions.map((state) => (
@@ -441,7 +441,7 @@ export default function PharmacyDeliverySignupModal({
                     onChange={handleChange("city")}
                     required
                     disabled={!cityOptions.length}
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 disabled:bg-slate-100 disabled:cursor-not-allowed"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500 disabled:bg-slate-100 disabled:cursor-not-allowed"
                   >
                     <option value="">
                       {cityOptions.length ? "Select city" : "Select state first"}
@@ -465,7 +465,7 @@ export default function PharmacyDeliverySignupModal({
                   onChange={handleChange("pincode")}
                   required
                   maxLength={10}
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 

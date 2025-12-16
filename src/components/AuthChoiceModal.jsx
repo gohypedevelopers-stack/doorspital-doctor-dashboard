@@ -14,7 +14,7 @@ export default function AuthChoiceModal({
       onClick={onClose}
     >
       <div
-        className="w-full max-w-xs rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200"
+        className="w-full max-w-xs rounded-2xl bg-card p-6 shadow-xl ring-1 ring-slate-200"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex items-center justify-between">
@@ -37,7 +37,7 @@ export default function AuthChoiceModal({
           <button
             type="button"
             onClick={onDoctorSelect}
-            className="w-full rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-slate-50"
+            className="w-full rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-slate-900 shadow-sm transition hover:bg-muted/60"
           >
             Doctor
           </button>

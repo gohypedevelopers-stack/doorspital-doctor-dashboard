@@ -52,7 +52,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
       onClick={onClose}
     >
       <div
-        className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200"
+        className="w-full max-w-sm rounded-2xl bg-card p-6 shadow-xl ring-1 ring-slate-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
@@ -85,7 +85,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="you@example.com"
-              className="h-9 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+              className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
             />
           </div>
 
@@ -104,7 +104,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Enter your password"
-                className="h-9 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
               />
               <button
                 type="button"

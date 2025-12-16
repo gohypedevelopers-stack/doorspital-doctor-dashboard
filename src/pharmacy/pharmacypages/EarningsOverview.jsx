@@ -167,16 +167,16 @@ function EarningsOverview() {
       shipped: "bg-blue-100 text-blue-700",
       out_for_delivery: "bg-purple-100 text-purple-700",
       processing: "bg-yellow-100 text-yellow-700",
-      pending: "bg-gray-100 text-gray-700",
+      pending: "bg-muted text-muted-foreground",
       cancelled: "bg-red-100 text-red-700",
     };
-    return colors[status] || "bg-gray-100 text-gray-700";
+    return colors[status] || "bg-muted text-muted-foreground";
   };
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       return (
-        <div className="rounded-lg bg-white px-4 py-3 shadow-lg border border-slate-100">
+        <div className="rounded-lg bg-card px-4 py-3 shadow-lg border border-border">
           <p className="text-sm font-medium text-slate-700">{label}</p>
           <p className="text-lg font-semibold text-[#00b074]">
             {formatCurrency(payload[0].value)}
@@ -197,7 +197,7 @@ function EarningsOverview() {
 
         <div className="flex flex-1 flex-col">
           {/* Header */}
-          <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
             <div>
               <h1 className="text-[20px] font-semibold text-slate-900">
                 Earnings Overview
@@ -232,7 +232,7 @@ function EarningsOverview() {
                 {/* Top metric cards */}
                 <section className="grid grid-cols-4 gap-5">
                   {/* Total revenue */}
-                  <div className="rounded-xl bg-white px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+                  <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
                     <div className="text-[12px] font-medium text-slate-500">
                       Total Revenue
                     </div>
@@ -250,7 +250,7 @@ function EarningsOverview() {
                   </div>
 
                   {/* Total Orders */}
-                  <div className="rounded-xl bg-white px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+                  <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
                     <div className="text-[12px] font-medium text-slate-500">
                       Total Orders
                     </div>
@@ -263,7 +263,7 @@ function EarningsOverview() {
                   </div>
 
                   {/* AOV */}
-                  <div className="rounded-xl bg-white px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+                  <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
                     <div className="text-[12px] font-medium text-slate-500">
                       Average Order Value
                     </div>
@@ -276,7 +276,7 @@ function EarningsOverview() {
                   </div>
 
                   {/* Current Month Revenue */}
-                  <div className="rounded-xl bg-white px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+                  <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
                     <div className="text-[12px] font-medium text-slate-500">
                       This Month Revenue
                     </div>
@@ -290,7 +290,7 @@ function EarningsOverview() {
                 </section>
 
                 {/* Revenue Chart */}
-                <section className="rounded-3xl bg-white px-8 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+                <section className="rounded-3xl bg-card px-8 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
                   <div className="mb-4 flex items-center justify-between">
                     <h2 className="text-[14px] font-semibold text-slate-900">
                       Revenue Over Time (Last 7 Days)
@@ -363,7 +363,7 @@ function EarningsOverview() {
                 </section>
 
                 {/* Recent Orders Table */}
-                <section className="rounded-3xl bg-white px-8 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+                <section className="rounded-3xl bg-card px-8 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
                   <h2 className="mb-4 text-[14px] font-semibold text-slate-900">
                     Recent Orders
                   </h2>
@@ -376,7 +376,7 @@ function EarningsOverview() {
                     ) : (
                       <table className="min-w-full text-left text-[13px]">
                         <thead>
-                          <tr className="border-b border-slate-100 bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                          <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                             <th className="px-4 py-3">Order ID</th>
                             <th className="px-4 py-3">Customer</th>
                             <th className="px-4 py-3">Items</th>
@@ -392,7 +392,7 @@ function EarningsOverview() {
                               className={
                                 "text-slate-700 " +
                                 (idx !== earningsData.recentOrders.length - 1
-                                  ? "border-b border-slate-100"
+                                  ? "border-b border-border"
                                   : "")
                               }
                             >

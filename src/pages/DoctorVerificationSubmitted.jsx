@@ -7,14 +7,14 @@ export default function DoctorVerificationSubmitted() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#e8f0ff] via-[#f5fbff] to-[#e9fdfb]">
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-border bg-card">
         <div className="flex w-full items-center justify-between py-3 px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2">
             <div className="flex h-7 w-7 items-center justify-center rounded bg-blue-700 text-xs font-bold text-white">
               <div className="space-y-0.5">
-                <span className="block h-0.5 w-3 rounded bg-white" />
-                <span className="block h-0.5 w-3 rounded bg-white" />
-                <span className="block h-0.5 w-3 rounded bg-white" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
               </div>
             </div>
             <span className="text-sm font-semibold text-slate-900">Doorspital Partner</span>
@@ -28,7 +28,7 @@ export default function DoctorVerificationSubmitted() {
       </header>
 
       <main className="flex min-h-[calc(100vh-64px)] items-center justify-center px-4 py-12">
-        <div className="w-full max-w-lg rounded-[32px] bg-white/90 px-8 py-12 shadow-[0_35px_120px_rgba(15,23,42,0.18)] backdrop-blur">
+        <div className="w-full max-w-lg rounded-[32px] bg-card/90 px-8 py-12 shadow-[0_35px_120px_rgba(15,23,42,0.18)] backdrop-blur">
           <div className="flex flex-col items-center gap-6 text-center">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 shadow-lg">
               <svg

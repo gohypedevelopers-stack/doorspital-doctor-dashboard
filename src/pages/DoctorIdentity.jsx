@@ -68,9 +68,9 @@ export default function DoctorIdentity() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-muted">
       {/* Header */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-border bg-card">
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <img src={dpicon} className="w-8 h-8 object-contain" />
@@ -92,12 +92,12 @@ export default function DoctorIdentity() {
       <main className="w-full py-8 sm:py-10">
         <div className="space-y-3.5">
           {/* Progress bar card (step 4) */}
-          <div className="rounded-2xl bg-white px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
+          <div className="rounded-2xl bg-card px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
             <RegistrationProgressBar currentStep={4} />
           </div>
 
           {/* Card */}
-          <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+          <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
             <div className="space-y-6 px-6 py-6 sm:px-8 sm:py-8">
               <div>
                 <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">
@@ -120,7 +120,7 @@ export default function DoctorIdentity() {
                       className={`flex w-full items-center justify-between rounded-md border px-4 py-3 text-left text-sm ${
                         isActive
                           ? "border-blue-600 bg-blue-50"
-                          : "border-slate-200 bg-white hover:bg-slate-50"
+                          : "border-border bg-card hover:bg-muted/60"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -128,11 +128,11 @@ export default function DoctorIdentity() {
                           className={`flex h-4 w-4 items-center justify-center rounded-full border ${
                             isActive
                               ? "border-blue-600 bg-blue-600"
-                              : "border-slate-300 bg-white"
+                              : "border-slate-300 bg-card"
                           }`}
                         >
                           {isActive && (
-                            <span className="h-2 w-2 rounded-full bg-white" />
+                            <span className="h-2 w-2 rounded-full bg-card" />
                           )}
                         </span>
                         <span className="text-slate-800">{opt.label}</span>
@@ -147,7 +147,7 @@ export default function DoctorIdentity() {
                 className={`mt-4 rounded-2xl border border-dashed px-6 py-10 text-center ${
                   isDragging
                     ? "border-blue-500 bg-blue-50"
-                    : "border-slate-300 bg-slate-50"
+                    : "border-slate-300 bg-muted"
                 }`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}

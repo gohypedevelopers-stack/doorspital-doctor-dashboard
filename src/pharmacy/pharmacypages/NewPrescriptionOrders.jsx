@@ -151,7 +151,7 @@ function NewPrescriptionOrders() {
         <Sidebar />
 
         <div className="flex flex-1 flex-col">
-                 <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+                 <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
                    <h1 className="text-[18px] font-semibold text-slate-900">
                      New Prescription Orders
                    </h1>
@@ -173,7 +173,7 @@ function NewPrescriptionOrders() {
               </div>
             )}
             {/* Search + Filters (two horizontal rows) */}
-            <div className="mb-6 rounded-[32px] bg-white px-8 py-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] space-y-6">
+            <div className="mb-6 rounded-[32px] bg-card px-8 py-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] space-y-6">
               {/* Row 1 - Search orders + search bar */}
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-4">
                 <p className="text-[12px] font-medium text-slate-500 w-full lg:w-auto">
@@ -182,7 +182,7 @@ function NewPrescriptionOrders() {
 
                 <div className="w-full lg:max-w-md">
                   <div className="flex items-center gap-3 rounded-2xl bg-[#f7fafc] px-5 py-4 shadow-[0_8px_25px_rgba(15,23,42,0.03)]">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white shadow-sm">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-card shadow-sm">
                       <span className="text-slate-400 text-lg">🔍 </span>
                     </div>
                     <input
@@ -209,7 +209,7 @@ function NewPrescriptionOrders() {
                       "rounded-full px-4 py-2 text-[12px] font-semibold border transition",
                       activeFilter === "all"
                         ? "bg-[#00b074] text-white border-[#00b074]"
-                        : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50",
+                        : "bg-card text-slate-600 border-border hover:bg-muted/60",
                     ].join(" ")}
                   >
                     All ({orders.length})
@@ -223,7 +223,7 @@ function NewPrescriptionOrders() {
                         "rounded-full px-4 py-2 text-[12px] font-semibold border transition",
                         activeFilter === status
                           ? "bg-[#00b074] text-white border-[#00b074]"
-                          : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50",
+                          : "bg-card text-slate-600 border-border hover:bg-muted/60",
                       ].join(" ")}
                     >
                       {getStatusLabel(status)} ({statusCounts[status] || 0})
@@ -233,11 +233,11 @@ function NewPrescriptionOrders() {
               </div>
             </div>
 
-            <div className="rounded-[32px] bg-white shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+            <div className="rounded-[32px] bg-card shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-[13px]">
                   <thead>
-                    <tr className="border-b border-slate-100 bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                       <th className="px-8 py-4">Patient Name</th>
                       <th className="px-8 py-4">Order ID</th>
                       <th className="px-8 py-4">Medicine Count</th>
@@ -290,7 +290,7 @@ function NewPrescriptionOrders() {
                             className={
                               "text-slate-700 " +
                               (idx !== paginatedOrders.length - 1
-                                ? "border-b border-slate-100"
+                                ? "border-b border-border"
                                 : "")
                             }
                           >
@@ -324,19 +324,19 @@ function NewPrescriptionOrders() {
                 </table>
               </div>
 
-              <div className="flex items-center justify-between rounded-b-[32px] border-t border-slate-100 px-8 py-4 text-[12px] text-slate-500">
+              <div className="flex items-center justify-between rounded-b-[32px] border-t border-border px-8 py-4 text-[12px] text-slate-500">
                 <span>
                   Showing {paginatedOrders.length} of {totalFiltered} results
                 </span>
                 <div className="flex gap-2">
                   <button
-                    className="rounded-xl border border-slate-200 px-5 py-1.5 text-[12px] text-slate-500 hover:bg-slate-50"
+                    className="rounded-xl border border-border px-5 py-1.5 text-[12px] text-slate-500 hover:bg-muted/60"
                     onClick={() => goToPageDelta(-1)}
                   >
                     Previous
                   </button>
                   <button
-                    className="rounded-xl border border-slate-200 px-5 py-1.5 text-[12px] text-slate-500 hover:bg-slate-50"
+                    className="rounded-xl border border-border px-5 py-1.5 text-[12px] text-slate-500 hover:bg-muted/60"
                     onClick={() => goToPageDelta(1)}
                   >
                     Next

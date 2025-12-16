@@ -176,7 +176,7 @@ const InventoryList = () => {
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
             <h1 className="text-[18px] font-semibold text-slate-900">
               Inventory List
             </h1>
@@ -192,7 +192,7 @@ const InventoryList = () => {
 
           <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
             <div className="mb-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-2xl bg-white px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)] border border-slate-100">
+              <div className="rounded-2xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)] border border-border">
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Total Medicines Added
                 </p>
@@ -203,7 +203,7 @@ const InventoryList = () => {
                   Count of distinct SKU entries
                 </p>
               </div>
-              <div className="rounded-2xl bg-white px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)] border border-slate-100">
+              <div className="rounded-2xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)] border border-border">
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Total Stock Units
                 </p>
@@ -219,13 +219,13 @@ const InventoryList = () => {
                           <input
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              className="flex-1 min-w-[220px] rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
+              className="flex-1 min-w-[220px] rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
               placeholder="Search by medicine name or SKU..."
             />
               <select
                 value={activeStatus}
                 onChange={(event) => setActiveStatus(event.target.value)}
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
+                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
               >
                 {statusOptions.map((option) => (
                   <option key={option} value={option}>
@@ -236,7 +236,7 @@ const InventoryList = () => {
               <select
                 value={activeCategory}
                 onChange={(event) => setActiveCategory(event.target.value)}
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
+                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
               >
                 {CATEGORY_OPTIONS.map((option) => (
                   <option key={option} value={option}>
@@ -247,7 +247,7 @@ const InventoryList = () => {
               <select
                 value={sortOrder}
                 onChange={(event) => setSortOrder(event.target.value)}
-                className="rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
+                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
               >
                 <option value="asc">Sort by Expiry Date (Asc)</option>
                 <option value="desc">Sort by Expiry Date (Desc)</option>
@@ -261,7 +261,7 @@ const InventoryList = () => {
                     Add New Medicine
                   </button>
                 ) : (
-                  <span className="rounded-2xl border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-500">
+                  <span className="rounded-2xl border border-border bg-card px-4 py-2 text-xs font-semibold text-slate-500">
                     {token
                       ? "Admin or pharmacy access required."
                       : "Log in as pharmacy to add medicine."}
@@ -277,11 +277,11 @@ const InventoryList = () => {
               </div>
             )}
 
-            <div className="rounded-xl bg-white shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100">
+            <div className="rounded-xl bg-card shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-[13px]">
                   <thead>
-                    <tr className="border-b border-slate-100 bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                       <th className="px-6 py-4">Medicine Name</th>
                       <th className="px-6 py-4">SKU</th>
                       <th className="px-6 py-4">Current Stock</th>
@@ -369,7 +369,7 @@ const InventoryList = () => {
                 <button
                   onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                   disabled={currentPage === 1}
-                  className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 disabled:border-slate-200 disabled:text-slate-300"
+                  className="rounded-full border border-border px-3 py-1 text-xs font-semibold text-slate-600 disabled:border-border disabled:text-slate-300"
                 >
                   Prev
                 </button>
@@ -379,7 +379,7 @@ const InventoryList = () => {
                 <button
                   onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-600 disabled:border-slate-200 disabled:text-slate-300"
+                  className="rounded-full border border-border px-3 py-1 text-xs font-semibold text-slate-600 disabled:border-border disabled:text-slate-300"
                 >
                   Next
                 </button>

@@ -154,7 +154,7 @@ export function DashboardServices() {
 
             <div className="grid gap-6 md:grid-cols-2">
                 {/* Popular Services Section */}
-                <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                     <h4 className="mb-4 text-sm font-semibold text-slate-900">Popular Services</h4>
                     <p className="mb-4 text-xs text-slate-500">Tap to add or remove services from your profile.</p>
                     <div className="flex flex-wrap gap-2">
@@ -166,7 +166,7 @@ export function DashboardServices() {
                                     onClick={() => toggleService(service)}
                                     className={`rounded-full px-3 py-1.5 text-xs font-medium transition-all border ${isSelected
                                         ? "bg-blue-600 text-white border-blue-600 shadow-sm"
-                                        : "bg-white text-slate-600 border-slate-200 hover:border-blue-300 hover:text-blue-600"
+                                        : "bg-card text-slate-600 border-border hover:border-blue-300 hover:text-blue-600"
                                         }`}
                                 >
                                     {isSelected ? "✓ " : "+ "}{service}
@@ -177,7 +177,7 @@ export function DashboardServices() {
                 </div>
 
                 {/* Custom Service Input & Active List */}
-                <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                     <h4 className="mb-4 text-sm font-semibold text-slate-900">Custom & Active Services</h4>
 
                     <form onSubmit={handleAddService} className="flex gap-2 mb-6">
@@ -203,7 +203,7 @@ export function DashboardServices() {
                                 {services.map((service) => (
                                     <span
                                         key={service}
-                                        className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 border border-slate-200"
+                                        className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 border border-border"
                                     >
                                         {service}
                                         <button
@@ -218,7 +218,7 @@ export function DashboardServices() {
                                 ))}
                             </div>
                         ) : (
-                            <div className="flex flex-col items-center justify-center py-6 text-center border-2 border-dashed border-slate-100 rounded-[5px]">
+                            <div className="flex flex-col items-center justify-center py-6 text-center border-2 border-dashed border-border rounded-[5px]">
                                 <span className="text-2xl mb-2">📋</span>
                                 <p className="text-sm text-slate-500">No services selected.</p>
                                 <p className="text-xs text-slate-400">Select from popular options or add your own.</p>
@@ -229,7 +229,7 @@ export function DashboardServices() {
             </div>
 
             {/* Save Button Area */}
-            <div className="flex items-center justify-end gap-4 border-t border-slate-100 pt-6">
+            <div className="flex items-center justify-end gap-4 border-t border-border pt-6">
                 {successMsg && (
                     <span className="text-sm font-medium text-emerald-600 animate-pulse">
                         {successMsg}
@@ -330,7 +330,7 @@ export function DashboardProfile() {
             </div>
 
             {/* Main Profile Card */}
-            <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                 <div className="flex flex-col gap-6 md:flex-row md:items-start">
                     {/* Avatar Placeholder */}
                     <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-slate-100 text-3xl font-bold text-slate-400">
@@ -373,7 +373,7 @@ export function DashboardProfile() {
 
             {/* Professional Details Grid */}
             <div className="grid gap-6 md:grid-cols-2">
-                <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                     <h4 className="mb-4 text-base font-semibold text-slate-900">Professional Details</h4>
 
                     {isEditing ? (
@@ -431,7 +431,7 @@ export function DashboardProfile() {
                     )}
                 </div>
 
-                <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm flex flex-col">
+                <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm flex flex-col">
                     <h4 className="mb-4 text-base font-semibold text-slate-900">About</h4>
                     {isEditing ? (
                         <div className="flex-1 flex flex-col">
@@ -445,7 +445,7 @@ export function DashboardProfile() {
                             <div className="mt-4 flex justify-end gap-3">
                                 <button
                                     onClick={() => setIsEditing(false)}
-                                    className="rounded-[5px] border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+                                    className="rounded-[5px] border border-slate-300 bg-card px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-muted/60"
                                     disabled={saving}
                                 >
                                     Cancel
@@ -517,7 +517,7 @@ export function DashboardAppointments() {
             case 'cancelled': return 'bg-rose-100 text-rose-700 border-rose-200';
             case 'scheduled': return 'bg-blue-100 text-blue-700 border-blue-200';
             case 'confirmed': return 'bg-blue-100 text-blue-700 border-blue-200';
-            default: return 'bg-slate-100 text-slate-700 border-slate-200';
+            default: return 'bg-slate-100 text-slate-700 border-border';
         }
     };
 
@@ -530,13 +530,13 @@ export function DashboardAppointments() {
         <motion.section className="space-y-6" variants={fadeUp} initial="hidden" whileInView="visible">
             <SectionHeader kicker="Appointment Management" title="Upcoming Appointments" subtitle="Manage your patient schedule" />
 
-            <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                 {loading ? (
                     <p className="text-center text-sm text-slate-500 py-8">Loading appointments...</p>
                 ) : appointments.length ? (
                     <div className="space-y-4">
                         {appointments.map((appt) => (
-                            <div key={appt._id || appt.id} className="flex flex-col gap-4 rounded-[5px] border border-slate-100 bg-slate-50 p-4 md:flex-row md:items-center md:justify-between">
+                            <div key={appt._id || appt.id} className="flex flex-col gap-4 rounded-[5px] border border-border bg-muted p-4 md:flex-row md:items-center md:justify-between">
                                 <div className="flex-1 space-y-1">
                                     <div className="flex items-center gap-2">
                                         <h4 className="font-semibold text-slate-900">{getPatientName(appt)}</h4>
@@ -570,7 +570,7 @@ export function DashboardAppointments() {
                                         <button
                                             onClick={() => handleStatusUpdate(appt._id || appt.id, 'cancelled')}
                                             disabled={actionLoading === (appt._id || appt.id)}
-                                            className="rounded-[5px] border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                                            className="rounded-[5px] border border-slate-300 bg-card px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-muted/60 disabled:opacity-50"
                                         >
                                             Cancel
                                         </button>
@@ -617,7 +617,7 @@ export function DashboardPatients() {
             <SectionHeader kicker="Patient CRM" title="My Patients" subtitle="History and records of your patients" />
 
             {/* Tabs */}
-            <div className="flex border-b border-slate-200">
+            <div className="flex border-b border-border">
                 <button
                     onClick={() => setActiveTab("list")}
                     className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "list" ? "border-b-2 border-blue-600 text-blue-600" : "text-slate-500 hover:text-slate-700"}`}
@@ -638,7 +638,7 @@ export function DashboardPatients() {
                 </button>
             </div>
 
-            <div className="rounded-[5px] border border-slate-200 bg-white shadow-sm overflow-hidden p-6">
+            <div className="rounded-[5px] border border-border bg-card shadow-sm overflow-hidden p-6">
                 {activeTab === "list" && (
                     <>
                         {loading ? (
@@ -646,7 +646,7 @@ export function DashboardPatients() {
                         ) : patients.length ? (
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left text-sm text-slate-600">
-                                    <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+                                    <thead className="bg-muted text-xs uppercase text-slate-500">
                                         <tr>
                                             <th className="px-6 py-3 font-semibold">Patient Name</th>
                                             <th className="px-6 py-3 font-semibold">Last Visit</th>
@@ -656,7 +656,7 @@ export function DashboardPatients() {
                                     </thead>
                                     <tbody className="divide-y divide-slate-100">
                                         {patients.map((patient, i) => (
-                                            <tr key={i} className="hover:bg-slate-50">
+                                            <tr key={i} className="hover:bg-muted/60">
                                                 <td className="px-6 py-4 font-medium text-slate-900">
                                                     {patient.user?.userName || patient.name || "Unknown"}
                                                 </td>
@@ -745,7 +745,7 @@ export function DashboardNotifications() {
         <motion.section className="space-y-6" variants={fadeUp} initial="hidden" whileInView="visible">
             <SectionHeader kicker="Signal Center" title="Notifications" subtitle="Alerts and updates" />
 
-            <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                 {loading ? (
                     <p className="text-center text-sm text-slate-500 py-8">Loading notifications...</p>
                 ) : notifications.length ? (
@@ -753,7 +753,7 @@ export function DashboardNotifications() {
                         {notifications.map((notif) => (
                             <div
                                 key={notif._id || notif.id}
-                                className={`group relative flex gap-4 rounded-[5px] border p-4 transition-all ${notif.read ? "border-slate-100 bg-white" : "border-blue-100 bg-blue-50/50"
+                                className={`group relative flex gap-4 rounded-[5px] border p-4 transition-all ${notif.read ? "border-border bg-card" : "border-blue-100 bg-blue-50/50"
                                     }`}
                             >
                                 <div className={`mt-1 h-2 w-2 shrink-0 rounded-full ${notif.read ? "bg-slate-300" : "bg-blue-500"}`} />
@@ -905,7 +905,7 @@ export function DashboardAvailability() {
                 subtitle="Set your availability for appointments"
             />
 
-            <div className="rounded-[5px] border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                 <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-[5px] bg-blue-50 px-4 py-3 text-sm text-blue-700">
                     <p>
                         <span className="font-semibold">Quick Tip:</span> Set up Monday and click "Apply to Weekdays" to fast-track your setup.
@@ -925,8 +925,8 @@ export function DashboardAvailability() {
                             <div
                                 key={day.id}
                                 className={`rounded-[5px] border p-4 transition-all ${config.enabled
-                                    ? "border-blue-200 bg-slate-50"
-                                    : "border-slate-100 bg-white opacity-70 hover:opacity-100"
+                                    ? "border-blue-200 bg-muted"
+                                    : "border-border bg-card opacity-70 hover:opacity-100"
                                     }`}
                             >
                                 <div className="flex flex-wrap items-center gap-4">
@@ -988,7 +988,7 @@ export function DashboardAvailability() {
                     })}
                 </div>
 
-                <div className="mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
+                <div className="mt-6 flex items-center justify-between border-t border-border pt-6">
                     <div>
                         {successMsg && <span className="text-sm font-medium text-emerald-600">{successMsg}</span>}
                         {errorMsg && <span className="text-sm font-medium text-rose-600">{errorMsg}</span>}
@@ -1008,7 +1008,7 @@ export function DashboardAvailability() {
 
 export function DashboardFollowUps() {
     return (
-        <motion.section className="rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
+        <motion.section className="rounded-[5px] border border-border bg-card p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
             <SectionHeader kicker="Follow-Up System" title="Follow-up Reminders" subtitle="Track patient follow-ups" />
             <p className="mt-4 text-sm text-slate-500">Follow-up system coming soon.</p>
         </motion.section>
@@ -1017,7 +1017,7 @@ export function DashboardFollowUps() {
 
 export function DashboardNotes() {
     return (
-        <motion.section className="rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
+        <motion.section className="rounded-[5px] border border-border bg-card p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
             <SectionHeader kicker="Consultation Notes" title="Notes & Records" subtitle="Patient consultation history" />
             <p className="mt-4 text-sm text-slate-500">Consultation notes coming soon.</p>
         </motion.section>
@@ -1026,7 +1026,7 @@ export function DashboardNotes() {
 
 export function DashboardPrescriptions() {
     return (
-        <motion.section className="rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
+        <motion.section className="rounded-[5px] border border-border bg-card p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
             <SectionHeader kicker="Prescription Writing" title="Create Prescriptions" subtitle="Digital prescription management" />
             <p className="mt-4 text-sm text-slate-500">Prescription module coming soon.</p>
         </motion.section>
@@ -1035,7 +1035,7 @@ export function DashboardPrescriptions() {
 
 export function DashboardFinancial() {
     return (
-        <motion.section className="rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
+        <motion.section className="rounded-[5px] border border-border bg-card p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
             <SectionHeader kicker="Financial Tools" title="Revenue & Analytics" subtitle="Financial overview" />
             <p className="mt-4 text-sm text-slate-500">Financial tools coming soon.</p>
         </motion.section>
@@ -1044,7 +1044,7 @@ export function DashboardFinancial() {
 
 export function DashboardLeads() {
     return (
-        <motion.section className="rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
+        <motion.section className="rounded-[5px] border border-border bg-card p-6 shadow-sm" variants={fadeUp} initial="hidden" animate="visible">
             <SectionHeader kicker="Leads & Referrals" title="Business Growth" subtitle="Track leads and referrals" />
             <p className="mt-4 text-sm text-slate-500">Leads management coming soon.</p>
         </motion.section>
@@ -1171,15 +1171,15 @@ export function DashboardChat() {
 
     return (
         <motion.section
-            className="h-[calc(100vh-140px)] min-h-[600px] overflow-hidden rounded-[5px] border border-slate-200 bg-white shadow-sm flex"
+            className="h-[calc(100vh-140px)] min-h-[600px] overflow-hidden rounded-[5px] border border-border bg-card shadow-sm flex"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
         >
             {/* Sidebar */}
-            <div className="w-80 flex-shrink-0 border-r border-slate-200 flex flex-col bg-slate-50">
+            <div className="w-80 flex-shrink-0 border-r border-border flex flex-col bg-muted">
                 {/* Sidebar Tabs */}
-                <div className="flex border-b border-slate-200 bg-white">
+                <div className="flex border-b border-border bg-card">
                     <button
                         onClick={() => setSidebarView('chats')}
                         className={`flex-1 py-3 text-sm font-medium text-center transition-colors ${sidebarView === 'chats' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
@@ -1221,7 +1221,7 @@ export function DashboardChat() {
                                             <button
                                                 key={room._id || idx}
                                                 onClick={() => setActiveRoom(room)}
-                                                className={`w-full p-4 text-left hover:bg-white transition-colors flex gap-3 ${isActive ? 'bg-white border-l-4 border-blue-600 shadow-sm' : 'border-l-4 border-transparent'}`}
+                                                className={`w-full p-4 text-left hover:bg-card transition-colors flex gap-3 ${isActive ? 'bg-card border-l-4 border-blue-600 shadow-sm' : 'border-l-4 border-transparent'}`}
                                             >
                                                 <div className="h-10 w-10 shrink-0 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
                                                     {other?.userName?.charAt(0) || '?'}
@@ -1271,7 +1271,7 @@ export function DashboardChat() {
                             ) : (
                                 <div className="divide-y divide-slate-100">
                                     {appointments.map((appt, idx) => (
-                                        <div key={appt.appointmentId || appt._id || idx} className="p-4 hover:bg-white transition-colors">
+                                        <div key={appt.appointmentId || appt._id || idx} className="p-4 hover:bg-card transition-colors">
                                             <div className="flex items-center gap-3 mb-2">
                                                 <div className="h-8 w-8 shrink-0 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold text-xs">
                                                     {getPatientName(appt).charAt(0)}
@@ -1314,11 +1314,11 @@ export function DashboardChat() {
             </div>
 
             {/* Main Chat Area */}
-            <div className="flex-1 flex flex-col bg-white">
+            <div className="flex-1 flex flex-col bg-card">
                 {activeRoom ? (
                     <>
                         {/* Chat Header */}
-                        <div className="h-16 border-b border-slate-200 flex items-center justify-between px-6 bg-white shrink-0">
+                        <div className="h-16 border-b border-border flex items-center justify-between px-6 bg-card shrink-0">
                             <div className="flex items-center gap-3">
                                 <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-bold">
                                     {getOtherParticipant(activeRoom)?.userName?.charAt(0)}
@@ -1340,7 +1340,7 @@ export function DashboardChat() {
                         </div>
 
                         {/* Messages List */}
-                        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50/50">
+                        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-muted/50">
                             {loadingMessages ? (
                                 <div className="text-center py-10 text-sm text-slate-500">Loading messages...</div>
                             ) : messages.length === 0 ? (
@@ -1362,7 +1362,7 @@ export function DashboardChat() {
                                         <div key={msg._id || idx} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                                             <div className={`max-w-[70%] rounded-2xl px-4 py-2 text-sm ${isMe
                                                 ? 'bg-blue-600 text-white rounded-br-none'
-                                                : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none shadow-sm'
+                                                : 'bg-card border border-border text-slate-800 rounded-bl-none shadow-sm'
                                                 }`}>
                                                 <p>{msg.body}</p>
                                                 <p className={`text-[10px] mt-1 text-right ${isMe ? 'text-blue-100' : 'text-slate-400'}`}>
@@ -1377,7 +1377,7 @@ export function DashboardChat() {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-4 border-t border-slate-200 bg-white">
+                        <div className="p-4 border-t border-border bg-card">
                             <form onSubmit={handleSendMessage} className="flex gap-2">
                                 <input
                                     type="text"
@@ -1398,7 +1398,7 @@ export function DashboardChat() {
                         </div>
                     </>
                 ) : (
-                    <div className="flex-1 flex flex-col items-center justify-center text-center p-8 bg-slate-50/30">
+                    <div className="flex-1 flex flex-col items-center justify-center text-center p-8 bg-muted/30">
                         <div className="h-16 w-16 rounded-full bg-blue-50 flex items-center justify-center text-3xl mb-4">
                             💬
                         </div>

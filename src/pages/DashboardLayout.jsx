@@ -36,8 +36,8 @@ const Sidebar = ({ userName }) => {
     else greeting = "Good evening";
 
     return (
-        <aside className="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-slate-200 bg-slate-50 px-4 py-6">
-            <div className="rounded-3xl border border-slate-200 bg-white px-5 py-5 shadow-sm">
+        <aside className="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-border bg-muted px-4 py-6">
+            <div className="rounded-3xl border border-border bg-card px-5 py-5 shadow-sm">
                 <div className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-600 to-emerald-500 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-white shadow-[0_0_12px_rgba(37,99,235,1),0_0_20px_rgba(16,185,129,1)] animate-pulse">
                     Doorspital
                 </div>
@@ -56,8 +56,8 @@ const Sidebar = ({ userName }) => {
                                 to={section.path}
                                 className={`flex w-full items-center justify-between rounded-[5px] border px-4 py-3 text-sm font-medium leading-tight transition
                   ${isActive
-                                        ? "border-blue-300 bg-white shadow-sm text-slate-900"
-                                        : "border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:bg-blue-50/40"
+                                        ? "border-blue-300 bg-card shadow-sm text-slate-900"
+                                        : "border-border bg-card text-slate-700 hover:border-blue-200 hover:bg-blue-50/40"
                                     }
                 `}
                             >
@@ -149,7 +149,7 @@ export default function DashboardLayout({ token, user }) {
             animate="visible"
             className="max-w-2xl mx-auto"
         >
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-card rounded-2xl border border-border shadow-sm overflow-hidden">
                 <div className="bg-gradient-to-r from-blue-600 to-emerald-500 px-6 py-4">
                     <div className="flex items-center gap-3">
                         <span className="text-3xl">⏳</span>
@@ -167,7 +167,7 @@ export default function DashboardLayout({ token, user }) {
                         Our admin team is reviewing your submitted documents and credentials. 
                         This process typically takes up to <strong className="text-blue-600">48 hours</strong>.
                     </p>
-                    <div className="bg-slate-50 rounded-xl border border-slate-200 px-6 py-4 mt-6">
+                    <div className="bg-muted rounded-xl border border-border px-6 py-4 mt-6">
                         <div className="flex items-center justify-center gap-3 text-blue-600">
                             <div className="animate-pulse flex gap-1">
                                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
@@ -187,11 +187,11 @@ export default function DashboardLayout({ token, user }) {
     );
 
     return (
-        <div className="flex min-h-screen bg-slate-50">
+        <div className="flex min-h-screen bg-muted">
             <Sidebar userName={welcomeName} />
             <main className="flex-1 px-4 pb-16 pt-6 md:px-6 lg:px-10">
                 {loading && (
-                    <div className="rounded-[5px] border border-blue-100 bg-white/90 px-6 py-4 shadow-sm text-sm text-slate-600">
+                    <div className="rounded-[5px] border border-blue-100 bg-card/90 px-6 py-4 shadow-sm text-sm text-slate-600">
                         Loading dashboard...
                     </div>
                 )}

@@ -7,13 +7,16 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
 import { RegistrationProvider } from "./lib/registrationContext.jsx";
+import { ThemeProvider } from "@/components/theme-provider";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <RegistrationProvider>
-        <App />
-      </RegistrationProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <RegistrationProvider>
+          <App />
+        </RegistrationProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

@@ -312,7 +312,7 @@ export default function InvoicePage() {
               <p className="text-slate-500">Invoice not available.</p>
               <button
                 onClick={() => navigate("/pharmacy/orders")}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+                className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
               >
                 Back to orders
               </button>
@@ -385,7 +385,7 @@ export default function InvoicePage() {
         <Sidebar />
 
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
             <div>
               <p className="text-[13px] text-slate-500">Invoice overview</p>
               <h1 className="text-[18px] font-semibold text-slate-900">
@@ -422,7 +422,7 @@ export default function InvoicePage() {
             <div
               ref={invoiceRef}
               data-invoice-root
-              className="mx-auto w-full max-w-5xl space-y-6 rounded-[32px] bg-white p-8 shadow-[0_18px_45px_rgba(15,23,42,0.07)] border border-slate-100"
+              className="mx-auto w-full max-w-5xl space-y-6 rounded-[32px] bg-card p-8 shadow-[0_18px_45px_rgba(15,23,42,0.07)] border border-border"
             >
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
@@ -437,7 +437,7 @@ export default function InvoicePage() {
                   <p className="text-sm text-slate-600">GST: {gstNumber}</p>
                 </div>
 
-                <div className="space-y-3 rounded-2xl border border-slate-100 bg-slate-50 p-5 text-sm text-slate-700">
+                <div className="space-y-3 rounded-2xl border border-border bg-muted p-5 text-sm text-slate-700">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Invoice Date</span>
                     <span className="font-semibold text-slate-900">{invoiceDate}</span>
@@ -461,7 +461,7 @@ export default function InvoicePage() {
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-slate-100 bg-slate-50 p-5">
+              <div className="rounded-2xl border border-border bg-muted p-5">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Customer details
                 </p>
@@ -502,7 +502,7 @@ export default function InvoicePage() {
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b border-slate-100 bg-[#f1f5f9] text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">
+                    <tr className="border-b border-border bg-[#f1f5f9] text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-500">
                       <th className="px-4 py-3">Item</th>
                       <th className="px-4 py-3">Qty</th>
                       <th className="px-4 py-3">Unit price</th>
@@ -526,7 +526,7 @@ export default function InvoicePage() {
                       return (
                         <tr
                           key={rowKey}
-                          className="border-b border-slate-100 text-slate-700 last:border-0"
+                          className="border-b border-border text-slate-700 last:border-0"
                         >
                           <td className="px-4 py-3 font-semibold text-slate-900">
                             {item.name || item.product?.name}
@@ -546,7 +546,7 @@ export default function InvoicePage() {
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl border border-slate-100 bg-white p-5 space-y-3 text-sm text-slate-700">
+                <div className="rounded-2xl border border-border bg-card p-5 space-y-3 text-sm text-slate-700">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
                     Totals summary
                   </p>
@@ -568,7 +568,7 @@ export default function InvoicePage() {
                       {currencyFormatter.format(deliveryCharges)}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-100">
+                  <div className="flex items-center justify-between pt-2 border-t border-border">
                     <span className="font-semibold text-slate-900">Grand total</span>
                     <span className="text-lg font-bold text-slate-900">
                       {currencyFormatter.format(grandTotal)}
@@ -588,7 +588,7 @@ export default function InvoicePage() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-5 space-y-3 text-sm text-slate-700">
+                <div className="rounded-2xl border border-border bg-muted p-5 space-y-3 text-sm text-slate-700">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
                     Payment details
                   </p>

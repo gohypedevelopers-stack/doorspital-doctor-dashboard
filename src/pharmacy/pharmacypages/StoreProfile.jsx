@@ -25,7 +25,7 @@ const EditableField = ({ label, value, name, onChange }) => (
       name={name}
       value={value}
       onChange={onChange}
-      className="h-11 rounded-2xl border border-slate-200 bg-slate-50/60 px-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-100"
+      className="h-11 rounded-2xl border border-border bg-muted/60 px-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:bg-card focus:ring-2 focus:ring-emerald-100"
     />
   </div>
 );
@@ -156,7 +156,7 @@ export default function StoreProfile() {
         <Sidebar />
         <div className="flex flex-1 flex-col">
                   {/* Header */}
-                  <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+                  <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
                     <h1 className="text-[18px] font-semibold text-slate-900">
                       Store Profile
                     </h1>
@@ -173,7 +173,7 @@ export default function StoreProfile() {
 
           {/* Main content */}
           <main className="flex-1 overflow-y-auto px-4 md:px-10 py-6 md:py-8">
-            <section className="mx-auto w-full max-w-5xl rounded-3xl border border-slate-100 bg-white/95 p-6 md:p-10 shadow-[0_18px_45px_rgba(15,23,42,0.06)] space-y-8">
+            <section className="mx-auto w-full max-w-5xl rounded-3xl border border-border bg-card/95 p-6 md:p-10 shadow-[0_18px_45px_rgba(15,23,42,0.06)] space-y-8">
               {error && (
                 <div className="rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
                   {error}

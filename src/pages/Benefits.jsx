@@ -57,7 +57,7 @@ function StatCard({ value, suffix, label, index }) {
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-6 text-center"
+      className="relative overflow-hidden rounded-2xl border border-border bg-card px-6 py-6 text-center"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
@@ -76,7 +76,7 @@ function StatCard({ value, suffix, label, index }) {
 
 export default function Benefits() {
   return (
-    <div className="bg-white">
+    <div className="bg-background">
       {/* ========== HERO ========== */}
       <motion.section
         className="w-full bg-gradient-to-b from-[#bfcff5] via-[#d6e2ff] to-[#f4f7ff] py-16 text-center"
@@ -142,7 +142,7 @@ export default function Benefits() {
               ].map((doc, index) => (
                 <div
                   key={doc.alt}
-                  className={`relative h-24 w-24 rounded-full border-[1px] border-white bg-white/80 overflow-hidden shadow-md ${
+                  className={`relative h-24 w-24 rounded-full border-[1px] border-white bg-card/80 overflow-hidden shadow-md ${
                     index !== 3 ? "-mr-6" : ""
                   }`}
                 >
@@ -209,7 +209,7 @@ export default function Benefits() {
           ].map((card, index) => (
             <motion.div
               key={card.title}
-              className="rounded-[18px] border border-slate-200 bg-white px-7 py-6 text-sm"
+              className="rounded-[18px] border border-border bg-card px-7 py-6 text-sm"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
@@ -239,10 +239,10 @@ export default function Benefits() {
             Designed for Every Healthcare Partner
           </h2>
         </div>
-        <div className="mt-8 grid gap-0 overflow-hidden rounded-2xl border border-slate-200 bg-white md:grid-cols-2">
+        <div className="mt-8 grid gap-0 overflow-hidden rounded-2xl border border-border bg-card md:grid-cols-2">
           {/* For Doctors */}
           <motion.div
-            className="border-b border-slate-200 px-8 py-8 text-left md:border-b-0 md:border-r"
+            className="border-b border-border px-8 py-8 text-left md:border-b-0 md:border-r"
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -361,7 +361,7 @@ export default function Benefits() {
           <div className="mt-8 flex justify-center">
             <Link
               to="/register"
-              className="rounded-lg bg-white px-8 py-3 text-sm font-semibold text-slate-900 shadow-sm"
+              className="rounded-lg bg-card px-8 py-3 text-sm font-semibold text-slate-900 shadow-sm"
             >
               Become a Partner
             </Link>

@@ -447,9 +447,9 @@ export default function DoctorPersonalDetails() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-muted">
       {/* Top nav just for registration flow */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-border bg-card">
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <img src={dpicon} className="w-8 h-8 object-contain" />
@@ -483,12 +483,12 @@ export default function DoctorPersonalDetails() {
       <main className="w-full py-8 sm:py-10">
         <div className="space-y-3.5">
           {/* Progress bar card (step 1) */}
-          <div className="rounded-2xl bg-white px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
+          <div className="rounded-2xl bg-card px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
             <RegistrationProgressBar currentStep={1} />
           </div>
 
           {/* Form card */}
-          <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+          <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
             {/* Form */}
             <form
               className="space-y-6 px-6 py-6 sm:px-8 sm:py-8"
@@ -505,7 +505,7 @@ export default function DoctorPersonalDetails() {
               </div>
 
               {/* Doctor ID helper */}
-              <div className="space-y-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
+              <div className="space-y-2 rounded-lg border border-border bg-muted px-4 py-3">
                 <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
                   Doctor ID
                 </label>
@@ -515,7 +515,7 @@ export default function DoctorPersonalDetails() {
                     value={doctorIdInput}
                     onChange={(e) => setDoctorIdInput(e.target.value)}
                     placeholder="Paste your doctorId or auto-detect if logged in"
-                    className="h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:ring-2"
+                    className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:ring-2"
                   />
                   <button
                     type="button"
@@ -544,7 +544,7 @@ export default function DoctorPersonalDetails() {
                   value={form.fullName}
                   onChange={handleFormChange("fullName")}
                   placeholder="Enter your full name"
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                   required
                 />
               </div>
@@ -564,7 +564,7 @@ export default function DoctorPersonalDetails() {
                     value={form.email}
                     onChange={handleFormChange("email")}
                     placeholder="Enter your email address"
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                     required
                   />
                 </div>
@@ -581,7 +581,7 @@ export default function DoctorPersonalDetails() {
                     value={form.phoneNumber}
                     onChange={handleFormChange("phoneNumber")}
                     placeholder="Enter your phone number"
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                     required
                   />
                 </div>
@@ -607,11 +607,11 @@ export default function DoctorPersonalDetails() {
                       onBlur={() =>
                         setTimeout(() => setSpecFocused(false), 120)
                       }
-                      className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       required
                     />
                     {specFocused && filteredSpecializations.length > 0 && (
-                      <div className="absolute z-10 mt-1 max-h-64 w-full overflow-y-auto rounded-md border border-slate-200 bg-white shadow-sm">
+                      <div className="absolute z-10 mt-1 max-h-64 w-full overflow-y-auto rounded-md border border-border bg-card shadow-sm">
                         {filteredSpecializations.map((spec) => (
                           <button
                             key={spec}
@@ -640,7 +640,7 @@ export default function DoctorPersonalDetails() {
                       onChange={(e) =>
                         setOtherSpecialization(e.target.value)
                       }
-                      className="mt-2 h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                      className="mt-2 h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       required
                     />
                   )}
@@ -661,7 +661,7 @@ export default function DoctorPersonalDetails() {
                     value={form.yearsOfExperience}
                     onChange={handleFormChange("yearsOfExperience")}
                     placeholder="e.g., 5"
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                     required
                   />
                 </div>
@@ -681,7 +681,7 @@ export default function DoctorPersonalDetails() {
                   value={form.clinicHospitalName}
                   onChange={handleFormChange("clinicHospitalName")}
                   placeholder="Enter clinic or hospital name"
-                  className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                  className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                   required
                 />
               </div>
@@ -700,7 +700,7 @@ export default function DoctorPersonalDetails() {
                   value={form.clinicAddress}
                   onChange={handleFormChange("clinicAddress")}
                   placeholder="Enter the full address"
-                  className="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                  className="w-full rounded-md border border-border bg-muted px-3 py-2 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                   required
                 />
               </div>
@@ -726,11 +726,11 @@ export default function DoctorPersonalDetails() {
                       onBlur={() =>
                         setTimeout(() => setStateFocused(false), 120)
                       }
-                      className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       required
                     />
                     {stateFocused && stateSuggestions.length > 0 && (
-                      <div className="absolute bottom-[110%] left-0 z-10 w-full rounded-md border border-slate-200 bg-white shadow-sm">
+                      <div className="absolute bottom-[110%] left-0 z-10 w-full rounded-md border border-border bg-card shadow-sm">
                         {stateSuggestions.map((name) => (
                           <button
                             key={name}
@@ -755,7 +755,7 @@ export default function DoctorPersonalDetails() {
                       placeholder="Enter your state"
                       value={otherStateName}
                       onChange={(e) => setOtherStateName(e.target.value)}
-                      className="mt-2 h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                      className="mt-2 h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       required
                     />
                   )}
@@ -786,13 +786,13 @@ export default function DoctorPersonalDetails() {
                           setTimeout(() => setCityFocused(false), 120)
                         }
                         disabled={!selectedStateName}
-                        className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2 disabled:bg-slate-100"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2 disabled:bg-slate-100"
                         required
                       />
                       {cityFocused &&
                         selectedStateName &&
                         citySuggestions.length > 0 && (
-                          <div className="absolute bottom-[110%] left-0 z-10 w-full rounded-md border border-slate-200 bg-white shadow-sm">
+                          <div className="absolute bottom-[110%] left-0 z-10 w-full rounded-md border border-border bg-card shadow-sm">
                             {citySuggestions.map((city) => (
                               <button
                                 key={city.name}
@@ -818,7 +818,7 @@ export default function DoctorPersonalDetails() {
                       placeholder="Enter city"
                       value={otherCityName}
                       onChange={(e) => setOtherCityName(e.target.value)}
-                      className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       required
                     />
                   )}

@@ -39,9 +39,9 @@ export default function DoctorQualifications() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-muted">
       {/* Header reused in registration flow */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-border bg-card">
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <img src={dpicon} className="w-8 h-8 object-contain" />
@@ -63,12 +63,12 @@ export default function DoctorQualifications() {
       <main className="w-full py-8 sm:py-10">
         <div className="space-y-3.5">
           {/* Progress bar card (step 2) */}
-          <div className="rounded-2xl bg-white px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
+          <div className="rounded-2xl bg-card px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
             <RegistrationProgressBar currentStep={2} />
           </div>
 
           {/* Card with upload form */}
-          <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+          <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
             <form
               className="space-y-6 px-6 pb-6 pt-6 sm:px-8 sm:pb-8"
               onSubmit={handleSubmit}
@@ -85,7 +85,7 @@ export default function DoctorQualifications() {
               {/* Two upload cards side by side on desktop */}
               <div className="grid gap-6 md:grid-cols-2">
                 {/* MBBS certificate (required) */}
-                <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center">
+                <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-muted px-6 py-10 text-center">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600">
                     📄
                   </div>
@@ -136,7 +136,7 @@ export default function DoctorQualifications() {
                 </div>
 
                 {/* Other degree (optional) */}
-                <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center">
+                <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-muted px-6 py-10 text-center">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600">
                     📄
                   </div>

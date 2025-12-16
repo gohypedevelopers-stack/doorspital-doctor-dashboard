@@ -24,7 +24,7 @@ const NavItem = ({ label, icon, to }) => {
       className={`w-full flex items-center gap-3 pl-0 pr-4 py-2.5 rounded-xl transition ${
         isActive
           ? "bg-[#E8FBF3] text-emerald-1000 font-medium"
-          : "text-slate-900 hover:bg-slate-50"
+          : "text-slate-900 hover:bg-muted/60"
       }`}
     >
       {/* Placeholder Icon - replace with actual icon components if available */}
@@ -50,10 +50,10 @@ const Sidebar = () => {
   const storeName = pharmacy?.storeName || session?.user?.userName || "City Pharmacy";
   const statusLabel = (pharmacy?.status ?? "pending").toUpperCase();
   return (
-    <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-slate-100">
-      <div className="pl-0 pr-2 pt-6 pb-5 border-b border-slate-100">
+    <aside className="hidden lg:flex flex-col w-64 bg-card border-r border-border">
+      <div className="pl-0 pr-2 pt-6 pb-5 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-slate-50 flex items-center justify-center">
+          <div className="h-10 w-10 rounded-xl bg-muted flex items-center justify-center">
             <img
               src={storePanelLogo}
               alt="City Pharmacy logo"

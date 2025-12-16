@@ -8,7 +8,7 @@ import icon from "../assets/icon.png";
 export default function Footer() {
   return (
     <motion.footer
-      className="border-t border-slate-100 bg-white mt-12 mb-12"
+      className="border-t border-border bg-card mt-12 mb-12"
       initial={{ opacity: 0, y: 40 }}              // start lower + invisible
       whileInView={{ opacity: 1, y: 0 }}           // move up into place
       viewport={{ once: true, amount: 0.2 }}       // trigger when ~20% in view
@@ -93,7 +93,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="h-10 w-full rounded-md border border-slate-200 bg-white px-3 text-sm text-slate-700 outline-none ring-blue-500 placeholder:text-slate-400 focus:ring-2 sm:w-72"
+                className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-slate-700 outline-none ring-blue-500 placeholder:text-slate-400 focus:ring-2 sm:w-72"
               />
               <button className="h-10 rounded-md bg-gradient-to-r from-blue-600 to-emerald-500 px-5 text-sm font-semibold text-white hover:opacity-90">
                 Subscribe

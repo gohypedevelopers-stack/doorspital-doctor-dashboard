@@ -13,7 +13,7 @@ export default function Support() {
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex-1 overflow-y-auto px-6 py-8">
-          <div className="max-w-3xl rounded-3xl bg-white p-6 shadow-lg">
+          <div className="max-w-3xl rounded-3xl bg-card p-6 shadow-lg">
             <h1 className="text-2xl font-semibold text-slate-900">Support</h1>
             <p className="mt-2 text-sm text-slate-500">
               We are here to help you manage your pharmacy smoothly.
@@ -23,7 +23,7 @@ export default function Support() {
               {supportChannels.map((channel) => (
                 <div
                   key={channel.title}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3"
+                  className="rounded-2xl border border-border bg-muted px-4 py-3"
                 >
                   <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
                     <span>{channel.title}</span>

@@ -224,7 +224,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
         className="mx-auto max-h-[85vh] w-full max-w-sm overflow-visible rounded-[28px] border-[5px] border-blue-700/80 bg-gradient-to-b from-white to-slate-50 p-3 shadow-[0_30px_70px_rgba(15,23,42,0.25)] ring-1 ring-blue-600/40"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="flex h-full flex-col overflow-hidden rounded-[22px] bg-white/95 p-5 shadow-lg shadow-blue-900/10 ring-1 ring-slate-200/70">
+        <div className="flex h-full flex-col overflow-hidden rounded-[22px] bg-card/95 p-5 shadow-lg shadow-blue-900/10 ring-1 ring-slate-200/70">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-slate-900">
               Sign up
@@ -252,7 +252,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                       value={form.name}
                       onChange={handleChange("name")}
                       required
-                      className="h-10 w-full rounded-md border-[5px] border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-0.5 focus:ring-blue-500"
+                      className="h-10 w-full rounded-md border-[5px] border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-0.5 focus:ring-blue-500"
                     />
                   </div>
                   <div className="space-y-1">
@@ -261,8 +261,8 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                       country="in"
                       value={form.phoneNumber}
                       onChange={handlePhoneChange}
-                      inputClass="h-10 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
-                      buttonClass="border border-slate-200"
+                      inputClass="h-10 rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                      buttonClass="border border-border"
                       containerClass="w-full"
                       enableSearch
                       specialLabel=""
@@ -275,7 +275,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                       value={form.email}
                       onChange={handleChange("email")}
                       required
-                      className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div className="space-y-1">
@@ -286,7 +286,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         value={form.password}
                         onChange={handleChange("password")}
                         required
-                        className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                       <button
                         type="button"
@@ -336,7 +336,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         value={form.confirmPassword}
                         onChange={handleChange("confirmPassword")}
                         required
-                        className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                       <button
                         type="button"
@@ -384,7 +384,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                       value={form.specialization}
                       onChange={handleSpecializationChange}
                       required
-                      className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Select specialization</option>
                       {specializationOptions.map((option) => (
@@ -401,7 +401,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         value={form.otherSpecialization}
                         onChange={handleChange("otherSpecialization")}
                         required
-                        className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   )}
@@ -414,7 +414,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         value={form.experienceYears}
                         onChange={handleChange("experienceYears")}
                         required
-                        className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div className="space-y-1">
@@ -426,7 +426,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         value={form.consultationFee}
                         onChange={handleChange("consultationFee")}
                         required
-                        className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
@@ -435,7 +435,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                     <input
                       value={form.timezone}
                       readOnly
-                      className="h-10 w-full rounded-md border border-slate-200 bg-slate-100 px-3 text-sm text-slate-500 cursor-not-allowed focus:ring-0"
+                      className="h-10 w-full rounded-md border border-border bg-slate-100 px-3 text-sm text-slate-500 cursor-not-allowed focus:ring-0"
                     />
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -445,7 +445,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         value={form.state}
                         onChange={handleStateChange}
                         required
-                        className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Select state</option>
                         {stateOptions.map((state) => (
@@ -462,7 +462,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         onChange={handleChange("city")}
                         required
                         disabled={!cityOptions.length}
-                        className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-slate-100"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-slate-100"
                       >
                         <option value="">{cityOptions.length ? "Select city" : "Select state first"}</option>
                         {cityOptions.map((city) => (

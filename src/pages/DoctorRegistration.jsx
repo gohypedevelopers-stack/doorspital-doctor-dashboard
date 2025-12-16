@@ -150,9 +150,9 @@ export default function DoctorRegistration() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-muted">
       {/* Registration header */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-border bg-card">
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <img src={dpicon} className="w-8 h-8 object-contain" />
@@ -174,12 +174,12 @@ export default function DoctorRegistration() {
       <main className="w-full py-8 sm:py-10">
         <div className="space-y-3.5">
           {/* Progress bar card (step 3) */}
-          <div className="rounded-2xl bg-white px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
+          <div className="rounded-2xl bg-card px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
             <RegistrationProgressBar currentStep={3} />
           </div>
 
           {/* Form card */}
-          <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+          <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
             <form
               className="space-y-6 px-6 pb-6 pt-6 sm:px-8 sm:pb-8"
               onSubmit={handleSubmit}
@@ -206,7 +206,7 @@ export default function DoctorRegistration() {
                     value={registrationNumber}
                     onChange={(e) => setRegistrationNumber(e.target.value)}
                     placeholder="Enter your registration number"
-                    className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                     required
                   />
                 </div>
@@ -227,11 +227,11 @@ export default function DoctorRegistration() {
                       }}
                       onFocus={() => setShowCouncilDropdown(true)}
                       placeholder="Search council..."
-                      className="h-10 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                     />
 
                     {showCouncilDropdown && (
-                      <div className="absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-slate-200 bg-white shadow-lg">
+                      <div className="absolute z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-border bg-card shadow-lg">
                         {filteredCouncilOptions.length === 0 ? (
                           <div className="px-3 py-2 text-xs text-slate-500">
                             No councils found.
@@ -242,7 +242,7 @@ export default function DoctorRegistration() {
                               key={option}
                               type="button"
                               onClick={() => handleCouncilSelect(option)}
-                              className={`flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-slate-50 ${
+                              className={`flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-muted/60 ${
                                 selectedCouncil === option
                                   ? "bg-blue-50 text-blue-700"
                                   : "text-slate-700"
@@ -274,7 +274,7 @@ export default function DoctorRegistration() {
                         value={councilOther}
                         onChange={(e) => setCouncilOther(e.target.value)}
                         placeholder="Enter council name"
-                        className="h-9 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-xs text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                        className="h-9 w-full rounded-md border border-border bg-muted px-3 text-xs text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       />
                     </div>
                   )}
@@ -301,13 +301,13 @@ export default function DoctorRegistration() {
                     showMonthDropdown
                     showYearDropdown
                     dropdownMode="select"
-                    className="h-10 flex-1 rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-white focus:ring-2"
+                    className="h-10 flex-1 rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                   />
 
                   <button
                     type="button"
                     onClick={() => datePickerRef.current?.setOpen(true)}
-                    className="flex h-10 w-10 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-lg text-slate-500 hover:bg-slate-100"
+                    className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-muted text-lg text-slate-500 hover:bg-slate-100"
                     aria-label="Open calendar"
                   >
                     📅
@@ -322,7 +322,7 @@ export default function DoctorRegistration() {
                   <span className="text-rose-500">*</span>
                 </label>
 
-                <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center">
+                <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-muted px-6 py-10 text-center">
                   <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-600">
                     ⬆️
                   </div>

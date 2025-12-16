@@ -46,10 +46,10 @@ const Sidebar = ({ activeSection, setActiveSection, userName }) => {
   else greeting = "Good evening";
 
   return (
-    <aside className="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-slate-200 bg-slate-50 px-4 py-6">
-      <div className="rounded-3xl border border-slate-200 bg-white px-5 py-5 shadow-sm">
+    <aside className="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-border bg-muted px-4 py-6">
+      <div className="rounded-3xl border border-border bg-card px-5 py-5 shadow-sm">
         <div
-          class="inline-flex items-center rounded-full 
+          className="inline-flex items-center rounded-full 
   bg-gradient-to-r from-blue-600 to-emerald-500 
   px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-white
   shadow-[0_0_12px_rgba(37,99,235,1),0_0_20px_rgba(16,185,129,1)]
@@ -75,8 +75,8 @@ const Sidebar = ({ activeSection, setActiveSection, userName }) => {
                 onClick={() => setActiveSection(section.id)}
                 className={`flex w-full items-center justify-between rounded-[5px] border px-4 py-3 text-sm font-medium leading-tight transition
                   ${isActive
-                    ? "border-blue-300 bg-white shadow-sm text-slate-900"
-                    : "border-slate-200 bg-white text-slate-700 hover:border-blue-200 hover:bg-blue-50/40"
+                    ? "border-blue-300 bg-card shadow-sm text-slate-900"
+                    : "border-border bg-card text-slate-700 hover:border-blue-200 hover:bg-blue-50/40"
                   }
                 `}
               >
@@ -548,13 +548,13 @@ export default function DoctorDashboard({ token, user }) {
     sidebarSections.find((section) => section.id === activeSection)?.label ?? "Focus area";
 
   const loadingOverlay = (
-    <div className="rounded-[5px] border border-blue-100 bg-white/90 px-6 py-4 shadow-sm text-sm text-slate-600">
+    <div className="rounded-[5px] border border-blue-100 bg-card/90 px-6 py-4 shadow-sm text-sm text-slate-600">
       {error ? <span className="text-rose-500">{error}</span> : "Fetching dashboard data..."}
     </div>
   );
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-muted">
       <Sidebar
         activeSection={activeSection}
         setActiveSection={setActiveSection}
@@ -570,7 +570,7 @@ export default function DoctorDashboard({ token, user }) {
           animate="visible"
         >
           {snapshotStats.map((stat) => (
-            <div key={stat.label} className="rounded-[5px] border border-slate-100 bg-white px-6 py-5 shadow-sm">
+            <div key={stat.label} className="rounded-[5px] border border-border bg-card px-6 py-5 shadow-sm">
               <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{stat.label}</p>
               <p className="mt-3 text-4xl font-semibold text-slate-900">{stat.value}</p>
               {stat.meta && <p className="text-sm text-slate-500">{stat.meta}</p>}
@@ -580,7 +580,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.1" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             animate="visible"
@@ -593,7 +593,7 @@ export default function DoctorDashboard({ token, user }) {
             <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {onboardingSteps.length ? (
                 onboardingSteps.map((step) => (
-                  <div key={step.title} className="rounded-[5px] border border-slate-100 bg-slate-50 px-4 py-3">
+                  <div key={step.title} className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-medium text-slate-900">{step.title}</p>
                       <span className="text-xs uppercase text-slate-400">{step.type}</span>
@@ -623,7 +623,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.2" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -634,7 +634,7 @@ export default function DoctorDashboard({ token, user }) {
               subtitle="Profile data pulled from /api/profile/me"
             />
             <div className="mt-5 space-y-4">
-              <div className="flex flex-wrap items-center gap-4 rounded-[5px] bg-slate-50 px-4 py-3">
+              <div className="flex flex-wrap items-center gap-4 rounded-[5px] bg-muted px-4 py-3">
                 <div>
                   <p className="text-lg font-semibold text-slate-900">{profileSummary.name}</p>
                   <p className="text-sm text-slate-600">{profileSummary.specialty}</p>
@@ -650,7 +650,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.3" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -680,7 +680,7 @@ export default function DoctorDashboard({ token, user }) {
                   return (
                     <div
                       key={day.label}
-                      className={`flex flex-col rounded-[5px] border px-4 py-3 ${highlightOff ? "border-rose-100 bg-rose-50" : "border-slate-100 bg-slate-50"
+                      className={`flex flex-col rounded-[5px] border px-4 py-3 ${highlightOff ? "border-rose-100 bg-rose-50" : "border-border bg-muted"
                         }`}
                     >
                       <div className="flex items-center justify-between">
@@ -708,7 +708,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.4" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -721,13 +721,13 @@ export default function DoctorDashboard({ token, user }) {
             <div className="mt-4 space-y-3">
               {appointmentQueue.length ? (
                 appointmentQueue.map((appt) => (
-                  <div key={`${appt.patient}-${appt.time}`} className="rounded-[5px] border border-slate-100 bg-slate-50 px-4 py-3">
+                  <div key={`${appt.patient}-${appt.time}`} className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-semibold text-slate-900">{appt.patient}</p>
                         <p className="text-xs text-slate-500">{appt.notes || "No notes"}</p>
                       </div>
-                      <span className="rounded-[5px] bg-white px-2 py-0.5 text-xs font-semibold text-slate-700">
+                      <span className="rounded-[5px] bg-card px-2 py-0.5 text-xs font-semibold text-slate-700">
                         {appt.mode}
                       </span>
                     </div>
@@ -748,7 +748,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.5" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -766,7 +766,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.6" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -779,7 +779,7 @@ export default function DoctorDashboard({ token, user }) {
             <div className="mt-4 space-y-3">
               {crmPatients.length ? (
                 crmPatients.map((patient) => (
-                  <div key={patient.name} className="rounded-[5px] border border-slate-100 bg-slate-50 px-4 py-3">
+                  <div key={patient.name} className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-semibold text-slate-900">{patient.name}</p>
@@ -804,7 +804,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.7" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -844,7 +844,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.8" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -859,7 +859,7 @@ export default function DoctorDashboard({ token, user }) {
                 pharmacyProductCatalog.map((product) => (
                   <div
                     key={product.id ?? product._id ?? product.name}
-                    className="flex items-center justify-between rounded-[5px] border border-slate-100 bg-slate-50 px-4 py-3"
+                    className="flex items-center justify-between rounded-[5px] border border-border bg-muted px-4 py-3"
                   >
                     <div>
                       <p className="text-sm font-semibold text-slate-900">
@@ -869,7 +869,7 @@ export default function DoctorDashboard({ token, user }) {
                         {product.category ?? "General"} • Stock: {product.stock ?? "N/A"}
                       </p>
                     </div>
-                    <span className="rounded-[5px] bg-white px-3 py-1 text-xs font-semibold text-slate-700">
+                    <span className="rounded-[5px] bg-card px-3 py-1 text-xs font-semibold text-slate-700">
                       ₹{product.price ?? product.mrp ?? "—"}
                     </span>
                   </div>
@@ -888,7 +888,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.9" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -901,19 +901,19 @@ export default function DoctorDashboard({ token, user }) {
             <div className="mt-4 grid gap-4 md:grid-cols-3">
               {pharmacyOrderStats ? (
                 <>
-                  <div className="rounded-[5px] border border-slate-100 bg-slate-50 px-4 py-3">
+                  <div className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <p className="text-xs uppercase text-slate-500">Orders</p>
                     <p className="text-2xl font-semibold text-slate-900">{pharmacyOrderStats.total}</p>
                     <p className="text-xs text-slate-500">Last 5 orders</p>
                   </div>
-                  <div className="rounded-[5px] border border-slate-100 bg-slate-50 px-4 py-3">
+                  <div className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <p className="text-xs uppercase text-slate-500">Revenue</p>
                     <p className="text-2xl font-semibold text-slate-900">
                       ₹{pharmacyOrderStats.totalAmount.toLocaleString()}
                     </p>
                     <p className="text-xs text-slate-500">sum of reported totals</p>
                   </div>
-                  <div className="rounded-[5px] border border-slate-100 bg-slate-50 px-4 py-3">
+                  <div className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <p className="text-xs uppercase text-slate-500">Statuses</p>
                     <div className="mt-2 space-y-1 text-xs text-slate-600">
                       {Object.entries(pharmacyOrderStats.statuses).map(([status, count]) => (
@@ -938,7 +938,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.10" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -975,7 +975,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.11" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -985,7 +985,7 @@ export default function DoctorDashboard({ token, user }) {
               title="Live Consultation Room"
               subtitle="Chat state is still pending backend support."
             />
-            <div className="mt-4 rounded-[5px] border border-slate-100 bg-slate-50 p-4 text-sm text-slate-500">
+            <div className="mt-4 rounded-[5px] border border-border bg-muted p-4 text-sm text-slate-500">
               <p>No chat data available from the API yet.</p>
             </div>
           </motion.section>
@@ -993,7 +993,7 @@ export default function DoctorDashboard({ token, user }) {
 
         {activeSection === "2.12" && (
           <motion.section
-            className="mt-4 rounded-[5px] border border-slate-100 bg-white p-6 shadow-sm"
+            className="mt-4 rounded-[5px] border border-border bg-card p-6 shadow-sm"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -1006,7 +1006,7 @@ export default function DoctorDashboard({ token, user }) {
             <div className="mt-4 space-y-3">
               {notificationList.length ? (
                 notificationList.map((notification) => (
-                  <div key={`${notification.title}-${notification.time}`} className="rounded-[5px] border border-slate-100 bg-slate-50 px-4 py-3">
+                  <div key={`${notification.title}-${notification.time}`} className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <div className="flex items-center justify-between">
                       <p className="text-sm font-semibold text-slate-900">{notification.title}</p>
                       <span className="text-xs text-slate-500">{notification.time}</span>

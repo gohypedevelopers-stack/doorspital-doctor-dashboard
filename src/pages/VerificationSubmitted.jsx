@@ -15,14 +15,14 @@ export default function VerificationSubmitted() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-sky-50 to-emerald-50">
       {/* Top nav */}
-      <header className="border-b border-slate-200 bg-transparent">
+      <header className="border-b border-border bg-transparent">
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <div className="flex h-7 w-7 items-center justify-center rounded bg-blue-700 text-xs font-bold text-white">
               <div className="space-y-0.5">
-                <span className="block h-0.5 w-3 rounded bg-white" />
-                <span className="block h-0.5 w-3 rounded bg-white" />
-                <span className="block h-0.5 w-3 rounded bg-white" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
               </div>
             </div>
             <span className="text-sm font-semibold text-slate-900">
@@ -45,7 +45,7 @@ export default function VerificationSubmitted() {
 
       {/* Center card */}
       <main className="flex w-full items-center justify-center py-10 sm:py-16">
-        <div className="w-full max-w-md rounded-2xl bg-white px-8 py-10 text-center shadow-xl ring-1 ring-slate-200">
+        <div className="w-full max-w-md rounded-2xl bg-card px-8 py-10 text-center shadow-xl ring-1 ring-slate-200">
           {/* Green check icon */}
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500">

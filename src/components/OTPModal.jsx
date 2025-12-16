@@ -61,7 +61,7 @@ export default function OTPModal({ isOpen, onClose, email, onVerified }) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200"
+        className="w-full max-w-sm rounded-2xl bg-card p-6 shadow-xl ring-1 ring-slate-200"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
@@ -88,7 +88,7 @@ export default function OTPModal({ isOpen, onClose, email, onVerified }) {
               onChange={(e) => setOtp(e.target.value)}
               required
               maxLength={6}
-              className="h-9 w-full rounded-md border border-slate-200 bg-slate-50 px-3 text-sm text-slate-900 focus:bg-white focus:ring-2 focus:ring-blue-500"
+              className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
             />
           </div>
 

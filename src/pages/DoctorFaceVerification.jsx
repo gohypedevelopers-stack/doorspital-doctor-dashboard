@@ -331,16 +331,16 @@ export default function DoctorFaceVerification() {
       : "Lighting looks good.";
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-muted">
       {/* HEADER */}
-      <header className="border-b border-slate-200 bg-white">
+      <header className="border-b border-border bg-card">
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <div className="flex h-7 w-7 items-center justify-center rounded bg-blue-700 text-xs font-bold text-white">
               <div className="space-y-0.5">
-                <span className="block h-0.5 w-3 rounded bg-white" />
-                <span className="block h-0.5 w-3 rounded bg-white" />
-                <span className="block h-0.5 w-3 rounded bg-white" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
+                <span className="block h-0.5 w-3 rounded bg-card" />
               </div>
             </div>
             <span className="text-sm font-semibold text-slate-900">
@@ -359,9 +359,9 @@ export default function DoctorFaceVerification() {
 
       {/* MAIN CARD */}
       <main className="w-full py-8 sm:py-10">
-        <div className="rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+        <div className="rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
           {/* Title + step bar */}
-          <div className="border-b border-slate-200 px-6 py-5 sm:px-8">
+          <div className="border-b border-border px-6 py-5 sm:px-8">
             <h1 className="text-center text-xl font-semibold text-slate-900 sm:text-2xl">
               Doctor Verification
             </h1>
@@ -439,7 +439,7 @@ export default function DoctorFaceVerification() {
               </div>
 
               {/* CONDITIONS CARD */}
-              <div className="w-full max-w-md rounded-2xl bg-slate-50 px-5 py-4 text-sm text-slate-700">
+              <div className="w-full max-w-md rounded-2xl bg-muted px-5 py-4 text-sm text-slate-700">
                 {/* Lighting */}
                 <div className="flex items-start gap-3">
                   <span className="mt-0.5 text-emerald-500">📍</span>
@@ -452,7 +452,7 @@ export default function DoctorFaceVerification() {
                   </span>
                 </div>
 
-                <hr className="my-3 border-slate-200" />
+                <hr className="my-3 border-border" />
 
                 {/* Look directly at camera */}
                 <div className="flex items-start gap-3">
@@ -471,7 +471,7 @@ export default function DoctorFaceVerification() {
                   </span>
                 </div>
 
-                <hr className="my-3 border-slate-200" />
+                <hr className="my-3 border-border" />
 
                 {/* No mask / glasses */}
                 <div className="flex items-start gap-3">

@@ -4,6 +4,7 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import icon from "../assets/icon.png";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Navbar({
   onLoginClick,
@@ -34,32 +35,32 @@ export default function Navbar({
     "Partner Pharmacy";
 
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-100 bg-white/80 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
       <div className="flex w-full items-center justify-between py-3">
         {/* Logo / brand */}
         <Link to="/" className="flex items-center gap-2">
           <img src={icon} className="h-8 w-8 object-contain" />
-          <span className="text-lg font-semibold text-slate-900">
+          <span className="text-lg font-semibold text-foreground">
             Doorspital Partner
           </span>
         </Link>
 
         {/* Main nav links */}
-        <nav className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+        <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
           <a
             href="#about"
-            className="hover:text-slate-900 hover:underline underline-offset-4"
+            className="hover:text-foreground hover:underline underline-offset-4"
           >
             About
           </a>
 
-          <a href="#testimonials" className="hover:text-slate-900 hover:underline underline-offset-4"
+          <a href="#testimonials" className="hover:text-foreground hover:underline underline-offset-4"
           >
             Testimonials
           </a>
           <Link
             to="/benefits"
-            className={`hover:text-slate-900 hover:underline underline-offset-4 ${isBenefits ? "font-semibold text-slate-900" : ""
+            className={`hover:text-foreground hover:underline underline-offset-4 ${isBenefits ? "font-semibold text-foreground" : ""
               }`}
           >
             Benefits
@@ -67,7 +68,7 @@ export default function Navbar({
           <Link
             to="/dashboard"
             onClick={handleDashboardClick}
-            className={`hover:text-slate-900 hover:underline underline-offset-4 ${isDashboard ? "font-semibold text-slate-900" : ""
+            className={`hover:text-foreground hover:underline underline-offset-4 ${isDashboard ? "font-semibold text-foreground" : ""
               }`}
           >
             Dashboard
@@ -76,6 +77,7 @@ export default function Navbar({
 
         {/* Right-side auth buttons */}
         <div className="flex items-center gap-3">
+          <ModeToggle />
           {hasPharmacySession ? (
             <div className="flex items-center gap-3">
               <div className="text-right">

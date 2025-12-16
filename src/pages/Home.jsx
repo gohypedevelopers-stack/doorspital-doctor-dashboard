@@ -51,7 +51,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
   const handleDoctorJoin = onDoctorJoinClick ?? (() => { });
   const handlePharmacyJoin = onPharmacyJoinClick ?? (() => { });
   return (
-    <div className="bg-white">
+    <div className="bg-background">
       {/* ========== HERO: About Doorspital Partner Network ========== */}
       <motion.section
         className="flex w-full flex-col gap-10 py-16 lg:flex-row lg:items-center lg:gap-16"
@@ -172,7 +172,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
 
 
       {/* ========== HOW TO CONNECT WITH DOORSPITAL ========== */}
-      <section className="w-full bg-white pt-16 pb-20 flex flex-col items-center">
+      <section className="w-full bg-card pt-16 pb-20 flex flex-col items-center">
         <motion.h2
           className="mb-12 text-center text-3xl font-extrabold text-slate-900 sm:text-[32px] leading-[38px]"
           initial={{ opacity: 0, y: 30 }}
@@ -205,7 +205,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
           ].map((card, index) => (
             <motion.div
               key={card.title}
-              className="w-full max-w-[360px] min-h-[220px] rounded-[18px] border border-slate-300 bg-white px-9 py-10"
+              className="w-full max-w-[360px] min-h-[220px] rounded-[18px] border border-slate-300 bg-card px-9 py-10"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -228,7 +228,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
 
       {/* ========== APP PROMO ========== */}
       <motion.section
-        className="w-full bg-slate-50 py-16"
+        className="w-full bg-muted py-16"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.25 }}
@@ -280,7 +280,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         </div>
       </motion.section>
       {/* ========== WHY BECOME A DOORSPITAL PARTNER ========== */}
-      <section className="w-full bg-white py-20">
+      <section className="w-full bg-card py-20">
         <motion.h2
           className="mb-12 text-center text-3xl font-extrabold text-slate-900"
           initial={{ opacity: 0, y: 30 }}
@@ -316,7 +316,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
           ].map((card, index) => (
             <motion.div
               key={card.title}
-              className="flex h-full flex-col justify-start rounded-[22px] border border-slate-300 bg-white px-8 py-8"
+              className="flex h-full flex-col justify-start rounded-[22px] border border-slate-300 bg-card px-8 py-8"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
@@ -356,7 +356,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             <button
               type="button"
               onClick={handleDoctorJoin}
-              className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-blue-700"
+              className="rounded-full bg-card px-5 py-2 text-sm font-semibold text-blue-700"
             >
               Register as Doctor
             </button>

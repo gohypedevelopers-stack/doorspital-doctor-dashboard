@@ -101,7 +101,7 @@ const ChartBar = ({ label, value, type, maxValue = maxChartValue }) => {
 };
 
 const Card = ({ title, value, linkText, linkUrl, color, badge = true }) => (
-  <div className="bg-white p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100">
+  <div className="bg-card p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
     <div className="flex items-start justify-between">
       <h3 className="text-sm font-medium text-slate-500">{title}</h3>
       {badge && (
@@ -464,7 +464,7 @@ function DashboardOverview() {
         <Sidebar activePage="Dashboard" />
 
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
             <h1 className="text-[18px] font-semibold text-slate-900">
               Dashboard Overview
             </h1>
@@ -490,7 +490,7 @@ function DashboardOverview() {
                 <Card key={card.title} {...card} />
               ))}
 
-              <div className="bg-white p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100">
+              <div className="bg-card p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
                 <h3 className="text-sm font-medium text-slate-500">
                   {earningsSummary.title}
                 </h3>
@@ -509,11 +509,11 @@ function DashboardOverview() {
               <h2 className="text-[16px] font-semibold text-slate-900 mb-4">
                 Recent Prescription Orders
               </h2>
-              <div className="rounded-xl bg-white shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100">
+              <div className="rounded-xl bg-card shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
                 <div className="overflow-x-auto">
                   <table className="min-w-full text-left text-[13px]">
                     <thead>
-                      <tr className="border-b border-slate-100 bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                      <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                         <th className="px-6 py-4">Patient Name</th>
                         <th className="px-6 py-4">Order ID</th>
                         <th className="px-6 py-4">Medicine Count</th>
@@ -528,7 +528,7 @@ function DashboardOverview() {
                           key={order.id ?? idx}
                           className={
                             idx !== recentSlice.length - 1
-                              ? "border-b border-slate-100"
+                              ? "border-b border-border"
                               : ""
                           }
                         >
@@ -586,7 +586,7 @@ function DashboardOverview() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-              <div className="bg-white px-2 pt-5 pb-3 py-0 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100">
+              <div className="bg-card px-2 pt-5 pb-3 py-0 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
                 <h2 className="text-[16px] font-semibold text-slate-900 mb-4">
                   Quick Actions
                 </h2>
@@ -612,7 +612,7 @@ function DashboardOverview() {
                 </div>
               </div>
 
-              <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100">
+              <div className="lg:col-span-2 bg-card p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
                 <header className="flex justify-between items-center mb-6">
                   <h2 className="text-[16px] font-semibold text-slate-900">
                     Earnings Analytics
@@ -622,7 +622,7 @@ function DashboardOverview() {
                     <select
                       value={analyticsView}
                       onChange={(e) => setAnalyticsView(e.target.value)}
-                      className="h-9 rounded-xl border border-slate-200 bg-white px-3 text-slate-700"
+                      className="h-9 rounded-xl border border-border bg-card px-3 text-slate-700"
                     >
                       <option value="weekly">Weekly</option>
                       <option value="monthly">Monthly</option>
@@ -632,7 +632,7 @@ function DashboardOverview() {
                     <select
                       value={selectedYear}
                       onChange={(e) => setSelectedYear(Number(e.target.value))}
-                      className="h-9 rounded-xl border border-slate-200 bg-white px-3 text-slate-700"
+                      className="h-9 rounded-xl border border-border bg-card px-3 text-slate-700"
                     >
                       {availableYears.map((y) => (
                         <option key={y} value={y}>
@@ -645,7 +645,7 @@ function DashboardOverview() {
                       <select
                         value={selectedMonth}
                         onChange={(e) => setSelectedMonth(Number(e.target.value))}
-                        className="h-9 rounded-xl border border-slate-200 bg-white px-3 text-slate-700"
+                        className="h-9 rounded-xl border border-border bg-card px-3 text-slate-700"
                       >
                         {monthLabels.map((m, idx) => (
                           <option key={m} value={idx}>
@@ -659,7 +659,7 @@ function DashboardOverview() {
                       <select
                         value={selectedWeek}
                         onChange={(e) => setSelectedWeek(Number(e.target.value))}
-                        className="h-9 rounded-xl border border-slate-200 bg-white px-3 text-slate-700"
+                        className="h-9 rounded-xl border border-border bg-card px-3 text-slate-700"
                       >
                         {[1, 2, 3, 4, 5].map((w) => (
                           <option key={w} value={w}>
@@ -678,7 +678,7 @@ function DashboardOverview() {
                     ))}
                   </div>
 
-                  <div className="flex flex-1 pl-8 h-full border-l border-b border-slate-100">
+                  <div className="flex flex-1 pl-8 h-full border-l border-b border-border">
                     {earningsAnalytics.data.map((data) => (
                       <div key={data.label} className="flex-1 flex justify-center">
                         <ChartBar {...data} maxValue={earningsAnalytics.axisMax} />
@@ -688,7 +688,7 @@ function DashboardOverview() {
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100">
+              <div className="bg-card p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
                 <h2 className="text-[16px] font-semibold text-slate-900 mb-4">
                   Store Profile
                 </h2>

@@ -64,7 +64,7 @@ const SettingsPage = () => {
       
 
          <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
            <div>
             <h1 className="text-[18px] font-semibold text-slate-900">
 General Settings            </h1>
@@ -83,8 +83,8 @@ General Settings            </h1>
         {/* Content */}
         <main className="flex-1 p-4 md:p-8 space-y-5 max-w-5xl">
           {/* Profile Information */}
-          <section className="bg-white rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100 px-6 py-5">
-            <header className="border-b border-slate-100 pb-3 mb-4">
+          <section className="bg-card rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border px-6 py-5">
+            <header className="border-b border-border pb-3 mb-4">
               <h3 className="font-semibold text-[14px] text-slate-900">
                 Profile Information
               </h3>
@@ -112,8 +112,8 @@ General Settings            </h1>
           </section>
 
           {/* Pharmacy Details */}
-          <section className="bg-white rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100 px-6 py-5">
-            <header className="border-b border-slate-100 pb-3 mb-4">
+          <section className="bg-card rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border px-6 py-5">
+            <header className="border-b border-border pb-3 mb-4">
               <h3 className="font-semibold text-[14px] text-slate-900">
                 Pharmacy Details
               </h3>
@@ -136,8 +136,8 @@ General Settings            </h1>
           </section>
 
           {/* General Preferences */}
-          <section className="bg-white rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100 px-6 py-5 mb-4">
-            <header className="border-b border-slate-100 pb-3 mb-4">
+          <section className="bg-card rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border px-6 py-5 mb-4">
+            <header className="border-b border-border pb-3 mb-4">
               <h3 className="font-semibold text-[14px] text-slate-900">
                 General Preferences
               </h3>
@@ -164,7 +164,7 @@ General Settings            </h1>
 
           {/* Footer buttons */}
           <div className="pb-10 flex justify-end gap-3 text-[13px]">
-            <button className="px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50">
+            <button className="px-4 py-2 rounded-full border border-border bg-card text-slate-600 hover:bg-muted/60">
               Cancel
             </button>
             <button className="px-5 py-2 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-600">
@@ -189,7 +189,7 @@ const Field = ({ label, children }) => (
 const Input = (props) => (
   <input
     {...props}
-    className="h-10 rounded-xl border border-slate-200 bg-slate-50/70 px-3 text-[13px] outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+    className="h-10 rounded-xl border border-border bg-muted/70 px-3 text-[13px] outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
   />
 );
 
@@ -210,7 +210,7 @@ const Toggle = ({ enabled }) => (
     }`}
   >
     <span
-      className={`inline-block h-5 w-5 rounded-full bg-white transform transition-transform ${
+      className={`inline-block h-5 w-5 rounded-full bg-card transform transition-transform ${
         enabled ? "translate-x-5" : "translate-x-1"
       }`}
     />

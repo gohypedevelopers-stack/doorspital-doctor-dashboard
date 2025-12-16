@@ -16,7 +16,7 @@ const Field = ({ label, children }) => (
 const Input = (props) => (
   <input
     {...props}
-    className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 text-[13px] outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
+    className="h-10 w-full rounded-xl border border-border bg-muted px-3 text-[13px] outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
   />
 );
 
@@ -146,7 +146,7 @@ function EditMedicine() {
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
             <h1 className="text-[18px] font-semibold text-slate-900">
               Edit Medicine
             </h1>
@@ -161,7 +161,7 @@ function EditMedicine() {
           </header>
 
           <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
-            <div className="rounded-[32px] border border-slate-100 bg-white p-8 shadow-[0_18px_45px_rgba(15,23,42,0.08)] space-y-6">
+            <div className="rounded-[32px] border border-border bg-card p-8 shadow-[0_18px_45px_rgba(15,23,42,0.08)] space-y-6">
               {error && (
                 <div className="rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
                   {error}
@@ -227,7 +227,7 @@ function EditMedicine() {
                       name="status"
                       value={formData.status}
                       onChange={handleChange}
-                      className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50 px-3"
+                      className="h-10 w-full rounded-xl border border-border bg-muted px-3"
                     >
                       <option value="active">Active</option>
                       <option value="inactive">Inactive</option>
@@ -239,7 +239,7 @@ function EditMedicine() {
                   <button
                     type="button"
                     onClick={() => navigate("/pharmacy/inventory")}
-                    className="px-4 py-2 rounded-full border border-slate-200 bg-white text-slate-600 hover:bg-slate-50"
+                    className="px-4 py-2 rounded-full border border-border bg-card text-slate-600 hover:bg-muted/60"
                   >
                     Cancel
                   </button>

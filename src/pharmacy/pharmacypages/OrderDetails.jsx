@@ -126,7 +126,7 @@ export default function OrderDetails() {
               <p className="text-slate-500">Order not found.</p>
               <button
                 onClick={() => navigate("/pharmacy/orders")}
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+                className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
               >
                 <h1>Back to orders</h1>
               </button>
@@ -173,14 +173,14 @@ export default function OrderDetails() {
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-slate-100 bg-white px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
             <h1 className="text-[18px] font-semibold text-slate-900">
               Order #{orderId}
             </h1>
             <div className="flex items-center gap-3">
               <Link
                 to={`/pharmacy/orders/${orderId}/invoice`}
-                className="rounded-2xl border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-emerald-600 transition hover:border-emerald-400 hover:bg-emerald-50"
+                className="rounded-2xl border border-emerald-200 bg-card px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-emerald-600 transition hover:border-emerald-400 hover:bg-emerald-50"
               >
                 Invoice
               </Link>
@@ -197,7 +197,7 @@ export default function OrderDetails() {
               </div>
             )}
 
-            <div className="rounded-xl bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100 space-y-6">
+            <div className="rounded-xl bg-card p-6 shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border space-y-6">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <p className="text-[13px] text-slate-500">Customer</p>
@@ -212,7 +212,7 @@ export default function OrderDetails() {
                     value={order.status || "pending"}
                     onChange={handleStatusChange}
                     disabled={statusUpdating}
-                    className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-900"
+                    className="rounded-xl border border-border bg-muted px-3 py-2 text-sm font-semibold text-slate-900"
                   >
                     {statusOptions.map((status) => (
                       <option key={status.id} value={status.id}>
@@ -237,7 +237,7 @@ export default function OrderDetails() {
                 </div>
               </div>
               <div className="grid gap-5 md:grid-cols-3">
-                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                <div className="rounded-2xl border border-border bg-muted p-4">
                   <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                     Order log
                   </p>
@@ -259,7 +259,7 @@ export default function OrderDetails() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-slate-100 bg-white p-4">
+                <div className="rounded-2xl border border-border bg-card p-4">
                   <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                     Customer info
                   </p>
@@ -280,7 +280,7 @@ export default function OrderDetails() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-slate-100 bg-white p-4">
+                <div className="rounded-2xl border border-border bg-card p-4">
                   <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                     Payment
                   </p>
@@ -300,7 +300,7 @@ export default function OrderDetails() {
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
-                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                <div className="rounded-2xl border border-border bg-muted p-4">
                   <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                     Delivery address
                   </p>
@@ -316,7 +316,7 @@ export default function OrderDetails() {
                     )}
                   </div>
                 </div>
-                <div className="rounded-2xl border border-slate-100 bg-white p-4">
+                <div className="rounded-2xl border border-border bg-card p-4">
                   <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                     Delivery notes
                   </p>
@@ -325,11 +325,11 @@ export default function OrderDetails() {
               </div>
             </div>
 
-            <div className="rounded-xl bg-white shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-slate-100 mt-6">
+            <div className="rounded-xl bg-card shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border mt-6">
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-[13px]">
                   <thead>
-                    <tr className="border-b border-slate-100 bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                       <th className="px-6 py-4">Medicine</th>
                       <th className="px-6 py-4">Qty</th>
                       <th className="px-6 py-4">Price</th>
@@ -352,7 +352,7 @@ export default function OrderDetails() {
                   </tbody>
                 </table>
               </div>
-              <div className="flex justify-end border-t border-slate-100 p-6 text-sm">
+              <div className="flex justify-end border-t border-border p-6 text-sm">
                 <div className="space-y-2 text-right">
                   <p className="text-slate-500">Subtotal: {currencyFormatter.format(getSubtotal())}</p>
                   <p className="text-slate-900 font-semibold">Total: {currencyFormatter.format(order.total ?? 0)}</p>
