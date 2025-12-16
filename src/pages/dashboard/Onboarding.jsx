@@ -15,7 +15,7 @@ const StatusBadge = ({ status }) => {
     };
 
     const label = status ? status.replace("_", " ").toUpperCase() : "UNKNOWN";
-    const style = styles[status] || "bg-slate-100 text-slate-700 border-border";
+    const style = styles[status] || "bg-slate-100 text-slate-900 dark:text-slate-200 border-border";
 
     return (
         <span className={`px-3 py-1 rounded-full text-xs font-bold border ${style}`}>
@@ -39,7 +39,7 @@ const InfoCard = ({ title, children, icon }) => (
 const DetailRow = ({ label, value }) => (
     <div className="mb-4 last:mb-0">
         <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">{label}</p>
-        <p className="text-sm font-medium text-slate-900 mt-1">{value || "—"}</p>
+        <p className="text-sm font-medium text-slate-900 dark:text-slate-100 mt-1">{value || "—"}</p>
     </div>
 );
 
@@ -52,7 +52,7 @@ const DocumentItem = ({ label, file, status }) => {
                     {isUploaded ? '✓' : '—'}
                 </div>
                 <div>
-                    <p className="text-sm font-medium text-slate-900">{label}</p>
+                    <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{label}</p>
                     {file && <p className="text-xs text-slate-500 truncate max-w-[200px]">{file.filename}</p>}
                 </div>
             </div>
@@ -163,7 +163,7 @@ export default function Onboarding() {
             {/* Header & Status Banner */}
             <div className="bg-card rounded-xl border border-border shadow-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-900">Verification Status</h1>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Verification Status</h1>
                     <p className="text-slate-500 mt-1">Manage and track your doctor verification process.</p>
                 </div>
                 <div className="flex items-center gap-3">

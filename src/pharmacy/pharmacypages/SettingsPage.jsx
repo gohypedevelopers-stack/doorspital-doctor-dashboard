@@ -66,7 +66,7 @@ const SettingsPage = () => {
          <div className="flex flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
            <div>
-            <h1 className="text-[18px] font-semibold text-slate-900">
+            <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
 General Settings            </h1>
 
             </div>
@@ -85,7 +85,7 @@ General Settings            </h1>
           {/* Profile Information */}
           <section className="bg-card rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border px-6 py-5">
             <header className="border-b border-border pb-3 mb-4">
-              <h3 className="font-semibold text-[14px] text-slate-900">
+              <h3 className="font-semibold text-[14px] text-slate-900 dark:text-slate-100">
                 Profile Information
               </h3>
             </header>
@@ -114,7 +114,7 @@ General Settings            </h1>
           {/* Pharmacy Details */}
           <section className="bg-card rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border px-6 py-5">
             <header className="border-b border-border pb-3 mb-4">
-              <h3 className="font-semibold text-[14px] text-slate-900">
+              <h3 className="font-semibold text-[14px] text-slate-900 dark:text-slate-100">
                 Pharmacy Details
               </h3>
             </header>
@@ -138,7 +138,7 @@ General Settings            </h1>
           {/* General Preferences */}
           <section className="bg-card rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border px-6 py-5 mb-4">
             <header className="border-b border-border pb-3 mb-4">
-              <h3 className="font-semibold text-[14px] text-slate-900">
+              <h3 className="font-semibold text-[14px] text-slate-900 dark:text-slate-100">
                 General Preferences
               </h3>
             </header>

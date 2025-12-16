@@ -156,13 +156,13 @@ export default function DoctorRegistration() {
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <img src={dpicon} className="w-8 h-8 object-contain" />
-            <span className="text-sm font-semibold text-slate-900">
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Doorspital Partner
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">
-            <button className="hover:text-slate-900">Dashboard</button>
-            <button className="hover:text-slate-900">Help</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Dashboard</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Help</button>
             <button className="text-rose-600 hover:text-rose-700">
               Logout
             </button>
@@ -185,7 +185,7 @@ export default function DoctorRegistration() {
               onSubmit={handleSubmit}
             >
               <div>
-                <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">
+                <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
                   Medical Registration Details
                 </h1>
               </div>
@@ -196,7 +196,7 @@ export default function DoctorRegistration() {
                 <div className="space-y-1">
                   <label
                     htmlFor="registrationNumber"
-                    className="block text-sm font-medium text-slate-700"
+                    className="block text-sm font-medium text-slate-900 dark:text-slate-200"
                   >
                     Registration Number<span className="text-rose-500">*</span>
                   </label>
@@ -206,14 +206,14 @@ export default function DoctorRegistration() {
                     value={registrationNumber}
                     onChange={(e) => setRegistrationNumber(e.target.value)}
                     placeholder="Enter your registration number"
-                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
+                    className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                     required
                   />
                 </div>
 
                 {/* Council Name: searchable dropdown like specialization */}
                 <div className="space-y-1">
-                  <label className="block text-sm font-medium text-slate-700">
+                  <label className="block text-sm font-medium text-slate-900 dark:text-slate-200">
                     Council Name<span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
@@ -227,7 +227,7 @@ export default function DoctorRegistration() {
                       }}
                       onFocus={() => setShowCouncilDropdown(true)}
                       placeholder="Search council..."
-                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                     />
 
                     {showCouncilDropdown && (
@@ -245,7 +245,7 @@ export default function DoctorRegistration() {
                               className={`flex w-full items-center justify-between px-3 py-2 text-left text-sm hover:bg-muted/60 ${
                                 selectedCouncil === option
                                   ? "bg-blue-50 text-blue-700"
-                                  : "text-slate-700"
+                                  : "text-slate-900 dark:text-slate-200"
                               }`}
                             >
                               <span>{option}</span>
@@ -274,7 +274,7 @@ export default function DoctorRegistration() {
                         value={councilOther}
                         onChange={(e) => setCouncilOther(e.target.value)}
                         placeholder="Enter council name"
-                        className="h-9 w-full rounded-md border border-border bg-muted px-3 text-xs text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
+                        className="h-9 w-full rounded-md border border-border bg-muted px-3 text-xs text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       />
                     </div>
                   )}
@@ -285,7 +285,7 @@ export default function DoctorRegistration() {
               <div className="space-y-1">
                 <label
                   htmlFor="issueDateInput"
-                  className="block text-sm font-medium text-slate-700"
+                  className="block text-sm font-medium text-slate-900 dark:text-slate-200"
                 >
                   Issue Date<span className="text-rose-500">*</span>
                 </label>
@@ -301,7 +301,7 @@ export default function DoctorRegistration() {
                     showMonthDropdown
                     showYearDropdown
                     dropdownMode="select"
-                    className="h-10 flex-1 rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
+                    className="h-10 flex-1 rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                   />
 
                   <button
@@ -317,7 +317,7 @@ export default function DoctorRegistration() {
 
               {/* Upload registration certificate */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-slate-700">
+                <label className="block text-sm font-medium text-slate-900 dark:text-slate-200">
                   Upload Registration Certificate
                   <span className="text-rose-500">*</span>
                 </label>
@@ -326,7 +326,7 @@ export default function DoctorRegistration() {
                   <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-600">
                     ⬆️
                   </div>
-                  <p className="text-sm font-medium text-slate-900">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                     Click to upload or drag and drop
                   </p>
                   <p className="mt-1 text-xs text-slate-500">

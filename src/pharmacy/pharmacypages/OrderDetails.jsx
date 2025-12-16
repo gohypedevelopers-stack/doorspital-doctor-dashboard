@@ -105,7 +105,7 @@ export default function OrderDetails() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -118,7 +118,7 @@ export default function OrderDetails() {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -126,7 +126,7 @@ export default function OrderDetails() {
               <p className="text-slate-500">Order not found.</p>
               <button
                 onClick={() => navigate("/pharmacy/orders")}
-                className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+                className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-slate-900 dark:text-slate-200 hover:bg-slate-100"
               >
                 <h1>Back to orders</h1>
               </button>
@@ -169,12 +169,12 @@ export default function OrderDetails() {
   const totalAmount = order.total ?? getSubtotal();
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
-            <h1 className="text-[18px] font-semibold text-slate-900">
+            <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Order #{orderId}
             </h1>
             <div className="flex items-center gap-3">
@@ -201,7 +201,7 @@ export default function OrderDetails() {
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <p className="text-[13px] text-slate-500">Customer</p>
-                  <p className="text-base font-semibold text-slate-900">{customerName}</p>
+                  <p className="text-base font-semibold text-slate-900 dark:text-slate-100">{customerName}</p>
                   <p className="text-xs text-slate-400">
                     Order ref: {order.prescriptionId ?? order.orderId ?? order._id ?? orderId}
                   </p>
@@ -212,7 +212,7 @@ export default function OrderDetails() {
                     value={order.status || "pending"}
                     onChange={handleStatusChange}
                     disabled={statusUpdating}
-                    className="rounded-xl border border-border bg-muted px-3 py-2 text-sm font-semibold text-slate-900"
+                    className="rounded-xl border border-border bg-muted px-3 py-2 text-sm font-semibold text-slate-900 dark:text-slate-100"
                   >
                     {statusOptions.map((status) => (
                       <option key={status.id} value={status.id}>
@@ -228,11 +228,11 @@ export default function OrderDetails() {
 
               <div className="flex flex-wrap gap-6 text-xs uppercase tracking-wide text-slate-400">
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-900 lowercase font-semibold">{orderDateLabel}</span>
+                  <span className="text-slate-900 dark:text-slate-100 lowercase font-semibold">{orderDateLabel}</span>
                   <span className="text-slate-400">Date</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-900 lowercase font-semibold">{orderTimeLabel}</span>
+                  <span className="text-slate-900 dark:text-slate-100 lowercase font-semibold">{orderTimeLabel}</span>
                   <span className="text-slate-400">Time</span>
                 </div>
               </div>
@@ -244,15 +244,15 @@ export default function OrderDetails() {
                   <div className="mt-4 space-y-2 text-sm">
                     <div className="flex items-center justify-between text-slate-600">
                       <span>Date</span>
-                      <span className="font-semibold text-slate-900">{orderDateLabel}</span>
+                      <span className="font-semibold text-slate-900 dark:text-slate-100">{orderDateLabel}</span>
                     </div>
                     <div className="flex items-center justify-between text-slate-600">
                       <span>Time</span>
-                      <span className="font-semibold text-slate-900">{orderTimeLabel}</span>
+                      <span className="font-semibold text-slate-900 dark:text-slate-100">{orderTimeLabel}</span>
                     </div>
                     <div className="flex items-center justify-between text-slate-600">
                       <span className="text-[11px] uppercase tracking-wide text-slate-500">Order ID</span>
-                      <span className="font-semibold text-slate-900 text-right">
+                      <span className="font-semibold text-slate-900 dark:text-slate-100 text-right">
                         {order.prescriptionId ?? order.orderId ?? order._id ?? orderId}
                       </span>
                     </div>
@@ -264,17 +264,17 @@ export default function OrderDetails() {
                     Customer info
                   </p>
                   <div className="mt-3 space-y-2 text-sm">
-                    <p className="text-slate-900 font-semibold">{customerName}</p>
+                    <p className="text-slate-900 dark:text-slate-100 font-semibold">{customerName}</p>
                     <p className="text-[11px] uppercase tracking-wide text-slate-400">Phone</p>
-                    <p className="text-sm font-semibold text-slate-900">{customerPhone}</p>
+                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{customerPhone}</p>
                     <p className="text-[11px] uppercase tracking-wide text-slate-400">Email</p>
-                    <p className="text-sm text-slate-700">{customerEmail}</p>
+                    <p className="text-sm text-slate-900 dark:text-slate-200">{customerEmail}</p>
                     {customerId && (
                       <>
                         <p className="text-[11px] uppercase tracking-wide text-slate-400">
                           Customer ID
                         </p>
-                        <p className="text-sm text-slate-700">{customerId}</p>
+                        <p className="text-sm text-slate-900 dark:text-slate-200">{customerId}</p>
                       </>
                     )}
                   </div>
@@ -285,14 +285,14 @@ export default function OrderDetails() {
                     Payment
                   </p>
                   <div className="mt-3 space-y-2 text-sm">
-                    <p className="font-semibold text-slate-900">{paymentMethodLabel}</p>
+                    <p className="font-semibold text-slate-900 dark:text-slate-100">{paymentMethodLabel}</p>
                     <p className="text-slate-600">
                       Payment Status: {order.paymentStatus ?? "Pending"}
                     </p>
                     <p className="text-slate-600">
                       Subtotal: {currencyFormatter.format(getSubtotal())}
                     </p>
-                    <p className="text-lg font-semibold text-slate-900">
+                    <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                       Total {currencyFormatter.format(totalAmount)}
                     </p>
                   </div>
@@ -320,7 +320,7 @@ export default function OrderDetails() {
                   <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                     Delivery notes
                   </p>
-                  <p className="mt-3 text-sm text-slate-700">{orderNotes}</p>
+                  <p className="mt-3 text-sm text-slate-900 dark:text-slate-200">{orderNotes}</p>
                 </div>
               </div>
             </div>
@@ -339,7 +339,7 @@ export default function OrderDetails() {
                   <tbody>
                     {(order.items || []).map((item) => (
                       <tr key={item.product?._id ?? item.product}>
-                        <td className="px-6 py-3 text-slate-700">
+                        <td className="px-6 py-3 text-slate-900 dark:text-slate-200">
                           {item.name || item.product?.name}
                         </td>
                         <td className="px-6 py-3">{item.quantity}</td>
@@ -355,7 +355,7 @@ export default function OrderDetails() {
               <div className="flex justify-end border-t border-border p-6 text-sm">
                 <div className="space-y-2 text-right">
                   <p className="text-slate-500">Subtotal: {currencyFormatter.format(getSubtotal())}</p>
-                  <p className="text-slate-900 font-semibold">Total: {currencyFormatter.format(order.total ?? 0)}</p>
+                  <p className="text-slate-900 dark:text-slate-100 font-semibold">Total: {currencyFormatter.format(order.total ?? 0)}</p>
                 </div>
               </div>
             </div>

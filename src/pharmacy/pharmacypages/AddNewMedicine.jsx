@@ -114,12 +114,12 @@ function AddNewMedicine() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
-            <h1 className="text-[18px] font-semibold text-slate-900">
+            <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Add New Medicine
             </h1>
             <div className="flex items-center gap-4">

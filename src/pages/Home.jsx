@@ -62,7 +62,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         {/* Left text area – all items animate from bottom to top */}
         <div className="max-w-2xl space-y-6">
           <motion.h1
-            className="poppins-bold text-[52px] leading-[58px] tracking-[-1.4px] text-slate-900"
+            className="poppins-bold text-[52px] leading-[58px] tracking-[-1.4px] text-slate-900 dark:text-slate-100"
             variants={heroTextItem}
           >
             About Doorspital Partner
@@ -147,7 +147,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
           >
-            <h2 className="poppins-bold text-4xl leading-[44px] text-slate-900">
+            <h2 className="poppins-bold text-4xl leading-[44px] text-slate-900 dark:text-slate-100">
               What is Doorspital
               <br />
               Partner Platform?
@@ -174,7 +174,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
       {/* ========== HOW TO CONNECT WITH DOORSPITAL ========== */}
       <section className="w-full bg-card pt-16 pb-20 flex flex-col items-center">
         <motion.h2
-          className="mb-12 text-center text-3xl font-extrabold text-slate-900 sm:text-[32px] leading-[38px]"
+          className="mb-12 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100 sm:text-[32px] leading-[38px]"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -214,7 +214,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               <div className="text-blue-700">
                 <img src={card.icon} alt="" className="h-6 w-6" />
               </div>
-              <h3 className="mt-3 text-base font-semibold text-slate-900">
+              <h3 className="mt-3 text-base font-semibold text-slate-900 dark:text-slate-100">
                 {card.title}
               </h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">
@@ -241,7 +241,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             variants={fadeUp}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="text-3xl font-extrabold leading-[38px] text-slate-900">
+            <h2 className="text-3xl font-extrabold leading-[38px] text-slate-900 dark:text-slate-100">
               Connect Easily with the
               <br />
               Doorspital App
@@ -282,7 +282,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
       {/* ========== WHY BECOME A DOORSPITAL PARTNER ========== */}
       <section className="w-full bg-card py-20">
         <motion.h2
-          className="mb-12 text-center text-3xl font-extrabold text-slate-900"
+          className="mb-12 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -325,7 +325,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               <div className="text-emerald-600">
                 <img src={card.icon} alt="" className="h-7 w-7" />
               </div>
-              <h3 className="mt-3 text-base font-semibold text-slate-900">
+              <h3 className="mt-3 text-base font-semibold text-slate-900 dark:text-slate-100">
                 {card.title}
               </h3>
               <p className="mt-3 text-sm leading-6 text-slate-600">

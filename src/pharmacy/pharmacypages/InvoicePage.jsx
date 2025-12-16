@@ -291,7 +291,7 @@ export default function InvoicePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -304,7 +304,7 @@ export default function InvoicePage() {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -312,7 +312,7 @@ export default function InvoicePage() {
               <p className="text-slate-500">Invoice not available.</p>
               <button
                 onClick={() => navigate("/pharmacy/orders")}
-                className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100"
+                className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-slate-900 dark:text-slate-200 hover:bg-slate-100"
               >
                 Back to orders
               </button>
@@ -380,7 +380,7 @@ export default function InvoicePage() {
     "Returns/refunds must be raised within 7 days with original invoice and packaging.";
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar />
 
@@ -388,7 +388,7 @@ export default function InvoicePage() {
           <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
             <div>
               <p className="text-[13px] text-slate-500">Invoice overview</p>
-              <h1 className="text-[18px] font-semibold text-slate-900">
+              <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
                 Invoice #{invoiceNumber}
               </h1>
             </div>
@@ -429,7 +429,7 @@ export default function InvoicePage() {
                   <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
                     Seller details
                   </p>
-                  <p className="text-lg font-semibold text-slate-900">{sellerName}</p>
+                  <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">{sellerName}</p>
                   <p className="text-sm text-slate-600">{sellerAddress}</p>
                   <p className="text-sm text-slate-600">Phone: {sellerPhone}</p>
                   <p className="text-sm text-slate-600">Email: {sellerEmail}</p>
@@ -437,24 +437,24 @@ export default function InvoicePage() {
                   <p className="text-sm text-slate-600">GST: {gstNumber}</p>
                 </div>
 
-                <div className="space-y-3 rounded-2xl border border-border bg-muted p-5 text-sm text-slate-700">
+                <div className="space-y-3 rounded-2xl border border-border bg-muted p-5 text-sm text-slate-900 dark:text-slate-200">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Invoice Date</span>
-                    <span className="font-semibold text-slate-900">{invoiceDate}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{invoiceDate}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Invoice Time</span>
-                    <span className="font-semibold text-slate-900">{invoiceTime}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{invoiceTime}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Order Number</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       {order.orderId ?? order._id}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Payment Status</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       {order.paymentStatus ?? "Pending"}
                     </span>
                   </div>
@@ -465,22 +465,22 @@ export default function InvoicePage() {
                 <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
                   Customer details
                 </p>
-                <div className="grid gap-4 pt-4 text-sm text-slate-700 md:grid-cols-2">
+                <div className="grid gap-4 pt-4 text-sm text-slate-900 dark:text-slate-200 md:grid-cols-2">
                   <div className="space-y-1">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                       Customer name
                     </p>
-                    <p className="text-base font-semibold text-slate-900">{customerName}</p>
+                    <p className="text-base font-semibold text-slate-900 dark:text-slate-100">{customerName}</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Phone</p>
-                    <p className="text-sm text-slate-900">{customerPhone}</p>
+                    <p className="text-sm text-slate-900 dark:text-slate-100">{customerPhone}</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                       Billing address
                     </p>
-                    <p className="text-sm text-slate-900">
+                    <p className="text-sm text-slate-900 dark:text-slate-100">
                       {formatAddress(customerAddressBilling)}
                     </p>
                   </div>
@@ -488,13 +488,13 @@ export default function InvoicePage() {
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                       Shipping address
                     </p>
-                    <p className="text-sm text-slate-900">
+                    <p className="text-sm text-slate-900 dark:text-slate-100">
                       {formatAddress(customerAddressShipping)}
                     </p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Email</p>
-                    <p className="text-sm text-slate-900">{customerEmail}</p>
+                    <p className="text-sm text-slate-900 dark:text-slate-100">{customerEmail}</p>
                   </div>
                 </div>
               </div>
@@ -526,16 +526,16 @@ export default function InvoicePage() {
                       return (
                         <tr
                           key={rowKey}
-                          className="border-b border-border text-slate-700 last:border-0"
+                          className="border-b border-border text-slate-900 dark:text-slate-200 last:border-0"
                         >
-                          <td className="px-4 py-3 font-semibold text-slate-900">
+                          <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
                             {item.name || item.product?.name}
                           </td>
                           <td className="px-4 py-3">{quantity}</td>
                           <td className="px-4 py-3">{currencyFormatter.format(unitPrice)}</td>
                           <td className="px-4 py-3">{currencyFormatter.format(discount)}</td>
                           <td className="px-4 py-3">{currencyFormatter.format(taxAmount)}</td>
-                          <td className="px-4 py-3 font-semibold text-slate-900">
+                          <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
                             {currencyFormatter.format(lineTotal)}
                           </td>
                         </tr>
@@ -546,59 +546,59 @@ export default function InvoicePage() {
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl border border-border bg-card p-5 space-y-3 text-sm text-slate-700">
+                <div className="rounded-2xl border border-border bg-card p-5 space-y-3 text-sm text-slate-900 dark:text-slate-200">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
                     Totals summary
                   </p>
                   <div className="flex items-center justify-between">
                     <span>Subtotal</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       {currencyFormatter.format(subtotal)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Total discount</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       {currencyFormatter.format(totalDiscount)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Delivery charges</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       {currencyFormatter.format(deliveryCharges)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-border">
-                    <span className="font-semibold text-slate-900">Grand total</span>
-                    <span className="text-lg font-bold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">Grand total</span>
+                    <span className="text-lg font-bold text-slate-900 dark:text-slate-100">
                       {currencyFormatter.format(grandTotal)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Amount paid</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       {currencyFormatter.format(amountPaid)}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Balance due</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       {currencyFormatter.format(balanceDue)}
                     </span>
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-muted p-5 space-y-3 text-sm text-slate-700">
+                <div className="rounded-2xl border border-border bg-muted p-5 space-y-3 text-sm text-slate-900 dark:text-slate-200">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
                     Payment details
                   </p>
                   <div className="flex items-center justify-between">
                     <span>Method</span>
-                    <span className="font-semibold text-slate-900">{paymentMethod}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">{paymentMethod}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Status</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       {order.paymentStatus ?? "Unknown"}
                     </span>
                   </div>

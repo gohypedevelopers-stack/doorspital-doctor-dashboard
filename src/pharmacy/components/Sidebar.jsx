@@ -24,7 +24,7 @@ const NavItem = ({ label, icon, to }) => {
       className={`w-full flex items-center gap-3 pl-0 pr-4 py-2.5 rounded-xl transition ${
         isActive
           ? "bg-[#E8FBF3] text-emerald-1000 font-medium"
-          : "text-slate-900 hover:bg-muted/60"
+          : "text-slate-900 dark:text-slate-100 hover:bg-muted/60"
       }`}
     >
       {/* Placeholder Icon - replace with actual icon components if available */}
@@ -61,7 +61,7 @@ const Sidebar = () => {
             />
           </div>
           <div>
-            <h1 className="font-semibold text-slate-900 text-[18px]">
+            <h1 className="font-semibold text-slate-900 dark:text-slate-100 text-[18px]">
               {storeName}
             </h1>
             

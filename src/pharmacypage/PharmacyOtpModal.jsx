@@ -86,7 +86,7 @@ export default function PharmacyOtpModal({ isOpen, onClose, email, onVerified })
         onClick={(event) => event.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
             Verify pharmacy account
           </h2>
           <button
@@ -100,18 +100,18 @@ export default function PharmacyOtpModal({ isOpen, onClose, email, onVerified })
 
         <p className="text-sm text-slate-500">
           Enter the 6-digit code sent to{" "}
-          <span className="font-semibold text-slate-900">{email}</span>.
+          <span className="font-semibold text-slate-900 dark:text-slate-100">{email}</span>.
         </p>
 
         <form className="mt-4 space-y-4" onSubmit={handleVerify}>
           <div className="space-y-1">
-            <label className="block text-xs font-medium text-slate-700">OTP</label>
+            <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">OTP</label>
             <input
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               required
               maxLength={6}
-              className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+              className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
             />
           </div>
 

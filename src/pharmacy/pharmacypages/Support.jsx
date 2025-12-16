@@ -9,12 +9,12 @@ const supportChannels = [
 
 export default function Support() {
   return (
-    <div className="min-h-screen bg-[#f4f8f7] text-slate-900">
+    <div className="min-h-screen bg-[#f4f8f7] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex-1 overflow-y-auto px-6 py-8">
           <div className="max-w-3xl rounded-3xl bg-card p-6 shadow-lg">
-            <h1 className="text-2xl font-semibold text-slate-900">Support</h1>
+            <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">Support</h1>
             <p className="mt-2 text-sm text-slate-500">
               We are here to help you manage your pharmacy smoothly.
             </p>
@@ -25,7 +25,7 @@ export default function Support() {
                   key={channel.title}
                   className="rounded-2xl border border-border bg-muted px-4 py-3"
                 >
-                  <div className="flex items-center justify-between text-sm font-semibold text-slate-900">
+                  <div className="flex items-center justify-between text-sm font-semibold text-slate-900 dark:text-slate-100">
                     <span>{channel.title}</span>
                     <span>{channel.info}</span>
                   </div>

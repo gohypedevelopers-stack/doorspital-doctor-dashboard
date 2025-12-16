@@ -42,7 +42,7 @@ const Sidebar = ({ userName }) => {
                     Doorspital
                 </div>
                 <p className="mt-2 text-lg text-slate-500">
-                    {greeting}, <span className="font-semibold text-slate-900">{userName ?? "Doctor"}</span>
+                    {greeting}, <span className="font-semibold text-slate-900 dark:text-slate-100">{userName ?? "Doctor"}</span>
                 </p>
             </div>
             <div className="w-full border-t border-transparent bg-gradient-to-r from-emerald-200 via-emerald-300 to-emerald-400 py-0.5"></div>
@@ -56,12 +56,12 @@ const Sidebar = ({ userName }) => {
                                 to={section.path}
                                 className={`flex w-full items-center justify-between rounded-[5px] border px-4 py-3 text-sm font-medium leading-tight transition
                   ${isActive
-                                        ? "border-blue-300 bg-card shadow-sm text-slate-900"
-                                        : "border-border bg-card text-slate-700 hover:border-blue-200 hover:bg-blue-50/40"
+                                        ? "border-blue-300 bg-card shadow-sm text-slate-900 dark:text-slate-100"
+                                        : "border-border bg-card text-slate-900 dark:text-slate-200 hover:border-blue-200 hover:bg-blue-50/40"
                                     }
                 `}
                             >
-                                <span className="flex-1 text-left text-base font-medium tracking-tight text-slate-900 leading-snug">
+                                <span className="flex-1 text-left text-base font-medium tracking-tight text-slate-900 dark:text-slate-100 leading-snug">
                                     {section.label}
                                 </span>
                                 <span

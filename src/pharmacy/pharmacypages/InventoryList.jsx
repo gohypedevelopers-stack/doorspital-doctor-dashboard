@@ -172,12 +172,12 @@ const InventoryList = () => {
   }, [activeStatus, activeCategory, searchTerm, sortOrder]);
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
-            <h1 className="text-[18px] font-semibold text-slate-900">
+            <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Inventory List
             </h1>
             <div className="flex items-center gap-4">
@@ -196,7 +196,7 @@ const InventoryList = () => {
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Total Medicines Added
                 </p>
-                <p className="mt-3 text-3xl font-semibold text-slate-900">
+                <p className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
                   {totalMedicines.toLocaleString()}
                 </p>
                 <p className="mt-2 text-sm text-slate-500">
@@ -207,7 +207,7 @@ const InventoryList = () => {
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                   Total Stock Units
                 </p>
-                <p className="mt-3 text-3xl font-semibold text-slate-900">
+                <p className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
                   {totalStockUnits.toLocaleString()}
                 </p>
                 <p className="mt-2 text-sm text-slate-500">
@@ -219,13 +219,13 @@ const InventoryList = () => {
                           <input
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              className="flex-1 min-w-[220px] rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
+              className="flex-1 min-w-[220px] rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-900 dark:text-slate-200 shadow-sm focus:border-blue-500 focus:outline-none"
               placeholder="Search by medicine name or SKU..."
             />
               <select
                 value={activeStatus}
                 onChange={(event) => setActiveStatus(event.target.value)}
-                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
+                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-900 dark:text-slate-200 shadow-sm focus:border-blue-500 focus:outline-none"
               >
                 {statusOptions.map((option) => (
                   <option key={option} value={option}>
@@ -236,7 +236,7 @@ const InventoryList = () => {
               <select
                 value={activeCategory}
                 onChange={(event) => setActiveCategory(event.target.value)}
-                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
+                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-900 dark:text-slate-200 shadow-sm focus:border-blue-500 focus:outline-none"
               >
                 {CATEGORY_OPTIONS.map((option) => (
                   <option key={option} value={option}>
@@ -247,7 +247,7 @@ const InventoryList = () => {
               <select
                 value={sortOrder}
                 onChange={(event) => setSortOrder(event.target.value)}
-                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-blue-500 focus:outline-none"
+                className="rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-900 dark:text-slate-200 shadow-sm focus:border-blue-500 focus:outline-none"
               >
                 <option value="asc">Sort by Expiry Date (Asc)</option>
                 <option value="desc">Sort by Expiry Date (Desc)</option>
@@ -309,17 +309,17 @@ const InventoryList = () => {
                           key={item._id ?? item.sku ?? index}
                           className={index % 2 === 0 ? "bg-[#fffefe]" : "bg-[#fdfdfd]"}
                         >
-                          <td className="px-6 py-3 font-medium text-slate-700">
+                          <td className="px-6 py-3 font-medium text-slate-900 dark:text-slate-200">
                             {item.name}
                           </td>
                           <td className="px-6 py-3 text-slate-500">{item.sku}</td>
-                          <td className="px-6 py-3 text-slate-900 font-semibold">
+                          <td className="px-6 py-3 text-slate-900 dark:text-slate-100 font-semibold">
                             {stockValue}
                           </td>
-                          <td className="px-6 py-3 text-slate-700">
+                          <td className="px-6 py-3 text-slate-900 dark:text-slate-200">
                             {formatCurrency(priceValue)}
                           </td>
-                          <td className="px-6 py-3 text-slate-700">
+                          <td className="px-6 py-3 text-slate-900 dark:text-slate-200">
                             {expiryDisplay}
                           </td>
                           <td className="px-6 py-3">

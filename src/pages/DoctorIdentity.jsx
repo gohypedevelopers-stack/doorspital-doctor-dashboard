@@ -74,13 +74,13 @@ export default function DoctorIdentity() {
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <img src={dpicon} className="w-8 h-8 object-contain" />
-            <span className="text-sm font-semibold text-slate-900">
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Doorspital Partner
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">
-            <button className="hover:text-slate-900">Dashboard</button>
-            <button className="hover:text-slate-900">Help</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Dashboard</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Help</button>
             <button className="text-rose-600 hover:text-rose-700">
               Logout
             </button>
@@ -100,7 +100,7 @@ export default function DoctorIdentity() {
           <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
             <div className="space-y-6 px-6 py-6 sm:px-8 sm:py-8">
               <div>
-                <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">
+                <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
                   Upload Government ID
                 </h1>
                 <p className="mt-1 text-sm text-slate-500">
@@ -189,7 +189,7 @@ export default function DoctorIdentity() {
                     <button
                       type="button"
                       onClick={handlePreview}
-                      className="rounded-md border border-slate-300 px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
+                      className="rounded-md border border-slate-300 px-3 py-1 text-xs font-medium text-slate-900 dark:text-slate-200 hover:bg-slate-100"
                     >
                       Preview
                     </button>

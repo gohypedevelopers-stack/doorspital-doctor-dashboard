@@ -31,7 +31,7 @@ const SectionHeader = ({ kicker, title, subtitle, action }) => (
           {kicker}
         </p>
       )}
-      <h2 className="text-2xl font-semibold text-slate-900">{title}</h2>
+      <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
       {subtitle && <p className="text-sm text-slate-500">{subtitle}</p>}
     </div>
     {action}
@@ -60,7 +60,7 @@ const Sidebar = ({ activeSection, setActiveSection, userName }) => {
 
 
         <p className="mt-2 text-lg text-slate-500">
-          {greeting}, <span className="font-semibold text-slate-900">{userName ?? "Doctor"}</span>
+          {greeting}, <span className="font-semibold text-slate-900 dark:text-slate-100">{userName ?? "Doctor"}</span>
         </p>
       </div>
       <div className="w-full border-t border-transparent bg-gradient-to-r from-emerald-200 via-emerald-300 to-emerald-400 py-0.5"></div>
@@ -75,12 +75,12 @@ const Sidebar = ({ activeSection, setActiveSection, userName }) => {
                 onClick={() => setActiveSection(section.id)}
                 className={`flex w-full items-center justify-between rounded-[5px] border px-4 py-3 text-sm font-medium leading-tight transition
                   ${isActive
-                    ? "border-blue-300 bg-card shadow-sm text-slate-900"
-                    : "border-border bg-card text-slate-700 hover:border-blue-200 hover:bg-blue-50/40"
+                    ? "border-blue-300 bg-card shadow-sm text-slate-900 dark:text-slate-100"
+                    : "border-border bg-card text-slate-900 dark:text-slate-200 hover:border-blue-200 hover:bg-blue-50/40"
                   }
                 `}
               >
-                <span className="flex-1 text-left text-base font-medium tracking-tight text-slate-900 leading-snug">
+                <span className="flex-1 text-left text-base font-medium tracking-tight text-slate-900 dark:text-slate-100 leading-snug">
                   {section.label}
                 </span>
                 <span
@@ -572,7 +572,7 @@ export default function DoctorDashboard({ token, user }) {
           {snapshotStats.map((stat) => (
             <div key={stat.label} className="rounded-[5px] border border-border bg-card px-6 py-5 shadow-sm">
               <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{stat.label}</p>
-              <p className="mt-3 text-4xl font-semibold text-slate-900">{stat.value}</p>
+              <p className="mt-3 text-4xl font-semibold text-slate-900 dark:text-slate-100">{stat.value}</p>
               {stat.meta && <p className="text-sm text-slate-500">{stat.meta}</p>}
             </div>
           ))}
@@ -595,7 +595,7 @@ export default function DoctorDashboard({ token, user }) {
                 onboardingSteps.map((step) => (
                   <div key={step.title} className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-slate-900">{step.title}</p>
+                      <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{step.title}</p>
                       <span className="text-xs uppercase text-slate-400">{step.type}</span>
                     </div>
                     <span className="mt-2 inline-flex rounded-[5px] bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-600">
@@ -636,7 +636,7 @@ export default function DoctorDashboard({ token, user }) {
             <div className="mt-5 space-y-4">
               <div className="flex flex-wrap items-center gap-4 rounded-[5px] bg-muted px-4 py-3">
                 <div>
-                  <p className="text-lg font-semibold text-slate-900">{profileSummary.name}</p>
+                  <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">{profileSummary.name}</p>
                   <p className="text-sm text-slate-600">{profileSummary.specialty}</p>
                   <p className="text-xs text-slate-500">Experience: {profileSummary.experience}</p>
                 </div>
@@ -684,7 +684,7 @@ export default function DoctorDashboard({ token, user }) {
                         }`}
                     >
                       <div className="flex items-center justify-between">
-                        <p className="text-sm font-semibold text-slate-900">{day.label}</p>
+                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{day.label}</p>
                         <p className="text-xs text-slate-500">
                           {normalizedSlots.length === 0 ? "No slots" : `${normalizedSlots.length} block(s)`}
                         </p>
@@ -724,10 +724,10 @@ export default function DoctorDashboard({ token, user }) {
                   <div key={`${appt.patient}-${appt.time}`} className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-semibold text-slate-900">{appt.patient}</p>
+                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{appt.patient}</p>
                         <p className="text-xs text-slate-500">{appt.notes || "No notes"}</p>
                       </div>
-                      <span className="rounded-[5px] bg-card px-2 py-0.5 text-xs font-semibold text-slate-700">
+                      <span className="rounded-[5px] bg-card px-2 py-0.5 text-xs font-semibold text-slate-900 dark:text-slate-200">
                         {appt.mode}
                       </span>
                     </div>
@@ -782,7 +782,7 @@ export default function DoctorDashboard({ token, user }) {
                   <div key={patient.name} className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-semibold text-slate-900">{patient.name}</p>
+                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{patient.name}</p>
                         <p className="text-xs text-slate-500">Last visit: {patient.lastVisit}</p>
                       </div>
                       <span
@@ -817,7 +817,7 @@ export default function DoctorDashboard({ token, user }) {
             <div className="mt-4 space-y-2 text-sm text-slate-600">
               <p>
                 Status:{" "}
-                <span className="font-semibold text-slate-900">
+                <span className="font-semibold text-slate-900 dark:text-slate-100">
                   {verificationStatus?.status ?? "Pending"}
                 </span>
               </p>
@@ -862,14 +862,14 @@ export default function DoctorDashboard({ token, user }) {
                     className="flex items-center justify-between rounded-[5px] border border-border bg-muted px-4 py-3"
                   >
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">
+                      <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                         {product.name ?? product.title ?? "Unnamed product"}
                       </p>
                       <p className="text-xs text-slate-500">
                         {product.category ?? "General"} • Stock: {product.stock ?? "N/A"}
                       </p>
                     </div>
-                    <span className="rounded-[5px] bg-card px-3 py-1 text-xs font-semibold text-slate-700">
+                    <span className="rounded-[5px] bg-card px-3 py-1 text-xs font-semibold text-slate-900 dark:text-slate-200">
                       ₹{product.price ?? product.mrp ?? "—"}
                     </span>
                   </div>
@@ -903,12 +903,12 @@ export default function DoctorDashboard({ token, user }) {
                 <>
                   <div className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <p className="text-xs uppercase text-slate-500">Orders</p>
-                    <p className="text-2xl font-semibold text-slate-900">{pharmacyOrderStats.total}</p>
+                    <p className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{pharmacyOrderStats.total}</p>
                     <p className="text-xs text-slate-500">Last 5 orders</p>
                   </div>
                   <div className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <p className="text-xs uppercase text-slate-500">Revenue</p>
-                    <p className="text-2xl font-semibold text-slate-900">
+                    <p className="text-2xl font-semibold text-slate-900 dark:text-slate-100">
                       ₹{pharmacyOrderStats.totalAmount.toLocaleString()}
                     </p>
                     <p className="text-xs text-slate-500">sum of reported totals</p>
@@ -918,7 +918,7 @@ export default function DoctorDashboard({ token, user }) {
                     <div className="mt-2 space-y-1 text-xs text-slate-600">
                       {Object.entries(pharmacyOrderStats.statuses).map(([status, count]) => (
                         <p key={status}>
-                          <span className="font-semibold text-slate-900">{count}</span> {status}
+                          <span className="font-semibold text-slate-900 dark:text-slate-100">{count}</span> {status}
                         </p>
                       ))}
                     </div>
@@ -1008,7 +1008,7 @@ export default function DoctorDashboard({ token, user }) {
                 notificationList.map((notification) => (
                   <div key={`${notification.title}-${notification.time}`} className="rounded-[5px] border border-border bg-muted px-4 py-3">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-slate-900">{notification.title}</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-slate-100">{notification.title}</p>
                       <span className="text-xs text-slate-500">{notification.time}</span>
                     </div>
                     <p className="text-xs text-slate-600">{notification.detail}</p>

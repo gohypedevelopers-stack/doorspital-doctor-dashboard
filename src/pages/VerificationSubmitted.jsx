@@ -25,17 +25,17 @@ export default function VerificationSubmitted() {
                 <span className="block h-0.5 w-3 rounded bg-card" />
               </div>
             </div>
-            <span className="text-sm font-semibold text-slate-900">
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               DoOrSPital Partner
             </span>
           </Link>
 
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">
             {/* This looks like "Dashboard" but goes to home */}
-            <button className="hover:text-slate-900" onClick={goHome}>
+            <button className="hover:text-slate-900 dark:text-slate-100" onClick={goHome}>
               Dashboard
             </button>
-            <button className="hover:text-slate-900">Help</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Help</button>
             <button className="text-rose-600 hover:text-rose-700">
               Logout
             </button>
@@ -53,7 +53,7 @@ export default function VerificationSubmitted() {
             </div>
           </div>
 
-          <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
             Verification Submitted
           </h1>
           <p className="mt-3 text-sm text-slate-500">

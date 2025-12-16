@@ -15,7 +15,7 @@ const statusStyles = {
   "Ready for Delivery": "bg-[#FEF3C7] text-[#B45309]",
   "Out for Delivery": "bg-[#DBEAFE] text-[#1D4ED8]",
   Delivered: "bg-[#F3E8FF] text-[#7C3AED]",
-  Cancelled: "bg-[#FEE2E2] text-[#B91C1C]",
+Cancelled: "bg-[#FEE2E2] text-[#B91C1C] dark:bg-[#3B0A0A] dark:text-[#FCA5A5]",
 };
 
 const friendlyStatusLabels = {
@@ -146,13 +146,13 @@ function NewPrescriptionOrders() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar />
 
         <div className="flex flex-1 flex-col">
                  <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
-                   <h1 className="text-[18px] font-semibold text-slate-900">
+                   <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
                      New Prescription Orders
                    </h1>
                    <div className="flex items-center gap-4">
@@ -190,7 +190,7 @@ function NewPrescriptionOrders() {
                       placeholder="Search by patient name or Order ID..."
                       value={searchTerm}
                       onChange={(event) => setSearchTerm(event.target.value)}
-                      className="w-full border-none bg-transparent text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none"
+                      className="w-full border-none bg-transparent text-sm text-slate-900 dark:text-slate-200 placeholder:text-slate-400 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -288,7 +288,7 @@ function NewPrescriptionOrders() {
                           <tr
                             key={orderId}
                             className={
-                              "text-slate-700 " +
+                              "text-slate-900 dark:text-slate-200 " +
                               (idx !== paginatedOrders.length - 1
                                 ? "border-b border-border"
                                 : "")

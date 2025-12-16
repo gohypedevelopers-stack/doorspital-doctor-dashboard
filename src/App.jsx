@@ -174,7 +174,7 @@ export default function App() {
           <button
             type="button"
             onClick={() => setIsLoginOpen(true)}
-            className="ml-3 rounded-full border border-border px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100"
+            className="ml-3 rounded-full border border-border px-3 py-1 text-xs font-semibold text-slate-900 dark:text-slate-200 hover:bg-slate-100"
           >
             Open login
           </button>

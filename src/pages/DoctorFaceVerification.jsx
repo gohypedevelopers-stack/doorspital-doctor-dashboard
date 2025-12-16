@@ -343,13 +343,13 @@ export default function DoctorFaceVerification() {
                 <span className="block h-0.5 w-3 rounded bg-card" />
               </div>
             </div>
-            <span className="text-sm font-semibold text-slate-900">
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Doorspital Partner
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">
-            <button className="hover:text-slate-900">Dashboard</button>
-            <button className="hover:text-slate-900">Help</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Dashboard</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Help</button>
             <button className="text-rose-600 hover:text-rose-700">
               Logout
             </button>
@@ -362,7 +362,7 @@ export default function DoctorFaceVerification() {
         <div className="rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
           {/* Title + step bar */}
           <div className="border-b border-border px-6 py-5 sm:px-8">
-            <h1 className="text-center text-xl font-semibold text-slate-900 sm:text-2xl">
+            <h1 className="text-center text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
               Doctor Verification
             </h1>
             <div className="mt-4">
@@ -378,7 +378,7 @@ export default function DoctorFaceVerification() {
           {/* CONTENT */}
           <div className="px-6 py-8 sm:px-10 sm:py-10">
             <div className="text-center">
-              <h2 className="text-lg font-semibold text-slate-900 sm:text-xl">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 sm:text-xl">
                 Selfie Verification
               </h2>
               <p className="mt-1 text-sm text-slate-500">
@@ -439,7 +439,7 @@ export default function DoctorFaceVerification() {
               </div>
 
               {/* CONDITIONS CARD */}
-              <div className="w-full max-w-md rounded-2xl bg-muted px-5 py-4 text-sm text-slate-700">
+              <div className="w-full max-w-md rounded-2xl bg-muted px-5 py-4 text-sm text-slate-900 dark:text-slate-200">
                 {/* Lighting */}
                 <div className="flex items-start gap-3">
                   <span className="mt-0.5 text-emerald-500">📍</span>
@@ -527,7 +527,7 @@ export default function DoctorFaceVerification() {
                   disabled={!capturedImage}
                   className={`inline-flex w-full items-center justify-center rounded-md px-4 py-2 text-sm font-semibold shadow-sm sm:w-auto ${
                     capturedImage
-                      ? "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                      ? "bg-slate-100 text-slate-900 dark:text-slate-200 hover:bg-slate-200"
                       : "bg-slate-100 text-slate-400 cursor-not-allowed"
                   }`}
                 >

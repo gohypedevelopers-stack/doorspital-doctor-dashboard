@@ -56,7 +56,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-slate-900">Login</h2>
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Login</h2>
           <button
             type="button"
             onClick={onClose}
@@ -74,7 +74,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
           <div className="space-y-1">
             <label
               htmlFor="loginEmail"
-              className="block text-xs font-medium text-slate-700"
+              className="block text-xs font-medium text-slate-900 dark:text-slate-200"
             >
               Email
             </label>
@@ -85,14 +85,14 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="you@example.com"
-              className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
+              className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
             />
           </div>
 
           <div className="space-y-1">
             <label
               htmlFor="loginPassword"
-              className="block text-xs font-medium text-slate-700"
+              className="block text-xs font-medium text-slate-900 dark:text-slate-200"
             >
               Password
             </label>
@@ -104,7 +104,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Enter your password"
-                className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
+                className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
               />
               <button
                 type="button"

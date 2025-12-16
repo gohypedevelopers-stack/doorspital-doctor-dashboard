@@ -17,11 +17,11 @@ export default function DoctorVerificationSubmitted() {
                 <span className="block h-0.5 w-3 rounded bg-card" />
               </div>
             </div>
-            <span className="text-sm font-semibold text-slate-900">Doorspital Partner</span>
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">Doorspital Partner</span>
           </Link>
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">
-            <button className="hover:text-slate-900">Dashboard</button>
-            <button className="hover:text-slate-900">Help</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Dashboard</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Help</button>
             <button className="text-rose-600 hover:text-rose-700">Logout</button>
           </nav>
         </div>
@@ -44,7 +44,7 @@ export default function DoctorVerificationSubmitted() {
                 <circle cx="24" cy="24" r="22" strokeOpacity="0.3" />
               </svg>
             </div>
-            <h1 className="text-3xl font-semibold text-slate-900">Verification Submitted</h1>
+            <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100">Verification Submitted</h1>
             <p className="text-sm text-slate-500">
               Our team will review your documents within 24 hours.
             </p>

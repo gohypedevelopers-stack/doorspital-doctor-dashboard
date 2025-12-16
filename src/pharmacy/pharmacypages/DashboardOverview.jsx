@@ -110,7 +110,7 @@ const Card = ({ title, value, linkText, linkUrl, color, badge = true }) => (
         </span>
       )}
     </div>
-    <p className="mt-4 text-3xl font-bold text-slate-900">{value}</p>
+    <p className="mt-4 text-3xl font-bold text-slate-900 dark:text-slate-100">{value}</p>
     <a
       href={linkUrl}
       className={`mt-3 inline-block text-[13px] font-medium ${color} hover:underline`}
@@ -459,13 +459,13 @@ function DashboardOverview() {
   // -------------------------------------------------------------------------------------
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar activePage="Dashboard" />
 
         <div className="flex flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
-            <h1 className="text-[18px] font-semibold text-slate-900">
+            <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Dashboard Overview
             </h1>
             <div className="flex items-center gap-4">
@@ -494,7 +494,7 @@ function DashboardOverview() {
                 <h3 className="text-sm font-medium text-slate-500">
                   {earningsSummary.title}
                 </h3>
-                <p className="text-3xl font-bold text-slate-900 mt-1">
+                <p className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-1">
                   {earningsSummary.value}
                 </p>
                 <div className="flex items-center mt-3 text-[13px] font-medium">
@@ -506,7 +506,7 @@ function DashboardOverview() {
             </div>
 
             <div className="mb-8">
-              <h2 className="text-[16px] font-semibold text-slate-900 mb-4">
+              <h2 className="text-[16px] font-semibold text-slate-900 dark:text-slate-100 mb-4">
                 Recent Prescription Orders
               </h2>
               <div className="rounded-xl bg-card shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
@@ -532,7 +532,7 @@ function DashboardOverview() {
                               : ""
                           }
                         >
-                          <td className="px-6 py-3 font-medium text-slate-700">
+                          <td className="px-6 py-3 font-medium text-slate-900 dark:text-slate-200">
                             {order.patientName}
                           </td>
                           <td className="px-6 py-3 text-slate-500">
@@ -587,7 +587,7 @@ function DashboardOverview() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
               <div className="bg-card px-2 pt-5 pb-3 py-0 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
-                <h2 className="text-[16px] font-semibold text-slate-900 mb-4">
+                <h2 className="text-[16px] font-semibold text-slate-900 dark:text-slate-100 mb-4">
                   Quick Actions
                 </h2>
                 <div className="space-y-3">
@@ -614,7 +614,7 @@ function DashboardOverview() {
 
               <div className="lg:col-span-2 bg-card p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
                 <header className="flex justify-between items-center mb-6">
-                  <h2 className="text-[16px] font-semibold text-slate-900">
+                  <h2 className="text-[16px] font-semibold text-slate-900 dark:text-slate-100">
                     Earnings Analytics
                   </h2>
 
@@ -622,7 +622,7 @@ function DashboardOverview() {
                     <select
                       value={analyticsView}
                       onChange={(e) => setAnalyticsView(e.target.value)}
-                      className="h-9 rounded-xl border border-border bg-card px-3 text-slate-700"
+                      className="h-9 rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200 dark:text-slate-200"
                     >
                       <option value="weekly">Weekly</option>
                       <option value="monthly">Monthly</option>
@@ -632,7 +632,7 @@ function DashboardOverview() {
                     <select
                       value={selectedYear}
                       onChange={(e) => setSelectedYear(Number(e.target.value))}
-                      className="h-9 rounded-xl border border-border bg-card px-3 text-slate-700"
+                      className="h-9 rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
                     >
                       {availableYears.map((y) => (
                         <option key={y} value={y}>
@@ -645,7 +645,7 @@ function DashboardOverview() {
                       <select
                         value={selectedMonth}
                         onChange={(e) => setSelectedMonth(Number(e.target.value))}
-                        className="h-9 rounded-xl border border-border bg-card px-3 text-slate-700"
+                        className="h-9 rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
                       >
                         {monthLabels.map((m, idx) => (
                           <option key={m} value={idx}>
@@ -659,7 +659,7 @@ function DashboardOverview() {
                       <select
                         value={selectedWeek}
                         onChange={(e) => setSelectedWeek(Number(e.target.value))}
-                        className="h-9 rounded-xl border border-border bg-card px-3 text-slate-700"
+                        className="h-9 rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
                       >
                         {[1, 2, 3, 4, 5].map((w) => (
                           <option key={w} value={w}>
@@ -689,7 +689,7 @@ function DashboardOverview() {
               </div>
 
               <div className="bg-card p-6 rounded-xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
-                <h2 className="text-[16px] font-semibold text-slate-900 mb-4">
+                <h2 className="text-[16px] font-semibold text-slate-900 dark:text-slate-100 mb-4">
                   Store Profile
                 </h2>
                 <div className="text-[13px] space-y-2">
@@ -703,17 +703,17 @@ function DashboardOverview() {
                   </p>
                   <p>
                     <span className="font-medium text-slate-500">Address:</span>{" "}
-                    <span className="text-slate-700">{storeProfile.address}</span>
+                    <span className="text-slate-900 dark:text-slate-200">{storeProfile.address}</span>
                   </p>
                   <p>
                     <span className="font-medium text-slate-500">Contact:</span>{" "}
-                    <span className="text-slate-700">{storeProfile.contact}</span>
+                    <span className="text-slate-900 dark:text-slate-200">{storeProfile.contact}</span>
                   </p>
                   <p>
                     <span className="font-medium text-slate-500">
                       Delivery Radius:
                     </span>{" "}
-                    <span className="text-slate-700">
+                    <span className="text-slate-900 dark:text-slate-200">
                       {storeProfile.deliveryRadius}
                     </span>
                   </p>

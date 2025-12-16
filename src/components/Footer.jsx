@@ -26,7 +26,7 @@ export default function Footer() {
                 className="h-9 w-9 object-contain"
                 alt="Doorspital logo"
               />
-              <span className="text-base font-semibold text-slate-900">
+              <span className="text-base font-semibold text-slate-900 dark:text-slate-100">
                 Doorspital Partner
               </span>
             </div>
@@ -53,7 +53,7 @@ export default function Footer() {
 
           {/* About */}
           <div className="md:col-span-2">
-            <h3 className="text-sm font-semibold text-slate-900">About</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">About</h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-600">
               <li>About Us</li>
               <li>Benefits</li>
@@ -63,7 +63,7 @@ export default function Footer() {
 
           {/* Support */}
           <div className="md:col-span-2">
-            <h3 className="text-sm font-semibold text-slate-900">Support</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Support</h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-600">
               <li>Contact</li>
               <li>Help Center</li>
@@ -73,7 +73,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div className="md:col-span-2">
-            <h3 className="text-sm font-semibold text-slate-900">Legal</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Legal</h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-600">
               <li>Privacy Policy</li>
               <li>Terms &amp; Conditions</li>
@@ -83,7 +83,7 @@ export default function Footer() {
 
           {/* Stay Updated */}
           <div className="space-y-3 md:col-span-3">
-            <h3 className="text-sm font-semibold text-slate-900">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Stay Updated
             </h3>
             <p className="text-sm text-slate-600">
@@ -93,7 +93,7 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-slate-700 outline-none ring-blue-500 placeholder:text-slate-400 focus:ring-2 sm:w-72"
+                className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-slate-900 dark:text-slate-200 outline-none ring-blue-500 placeholder:text-slate-400 focus:ring-2 sm:w-72"
               />
               <button className="h-10 rounded-md bg-gradient-to-r from-blue-600 to-emerald-500 px-5 text-sm font-semibold text-white hover:opacity-90">
                 Subscribe

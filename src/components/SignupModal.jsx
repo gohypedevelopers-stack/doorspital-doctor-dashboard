@@ -226,7 +226,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
       >
         <div className="flex h-full flex-col overflow-hidden rounded-[22px] bg-card/95 p-5 shadow-lg shadow-blue-900/10 ring-1 ring-slate-200/70">
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-slate-900">
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
               Sign up
             </h2>
             <button
@@ -247,21 +247,21 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
               {(
                 <>
                   <div className="space-y-1">
-                    <label className="block text-xs font-medium text-slate-700">Name</label>
+                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Name</label>
                     <input
                       value={form.name}
                       onChange={handleChange("name")}
                       required
-                      className="h-10 w-full rounded-md border-[5px] border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-0.5 focus:ring-blue-500"
+                      className="h-10 w-full rounded-md border-[5px] border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-0.5 focus:ring-blue-500"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="block text-xs font-medium text-slate-700">Phone number</label>
+                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Phone number</label>
                     <PhoneInput
                       country="in"
                       value={form.phoneNumber}
                       onChange={handlePhoneChange}
-                      inputClass="h-10 rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                      inputClass="h-10 rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       buttonClass="border border-border"
                       containerClass="w-full"
                       enableSearch
@@ -269,24 +269,24 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="block text-xs font-medium text-slate-700">Email</label>
+                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Email</label>
                     <input
                       type="email"
                       value={form.email}
                       onChange={handleChange("email")}
                       required
-                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div className="space-y-1">
-                    <label className="block text-xs font-medium text-slate-700">Password</label>
+                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Password</label>
                     <div className="relative">
                       <input
                         type={showPassword ? "text" : "password"}
                         value={form.password}
                         onChange={handleChange("password")}
                         required
-                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                       <button
                         type="button"
@@ -329,14 +329,14 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <label className="block text-xs font-medium text-slate-700">Confirm password</label>
+                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Confirm password</label>
                     <div className="relative">
                       <input
                         type={showConfirm ? "text" : "password"}
                         value={form.confirmPassword}
                         onChange={handleChange("confirmPassword")}
                         required
-                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                       <button
                         type="button"
@@ -379,12 +379,12 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <label className="block text-xs font-medium text-slate-700">Specialization</label>
+                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Specialization</label>
                     <select
                       value={form.specialization}
                       onChange={handleSpecializationChange}
                       required
-                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                      className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="">Select specialization</option>
                       {specializationOptions.map((option) => (
@@ -396,29 +396,29 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                   </div>
                   {form.specialization === "Other" && (
                     <div className="space-y-1">
-                      <label className="block text-xs font-medium text-slate-700">Please specify</label>
+                      <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Please specify</label>
                       <input
                         value={form.otherSpecialization}
                         onChange={handleChange("otherSpecialization")}
                         required
-                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   )}
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div className="space-y-1">
-                      <label className="block text-xs font-medium text-slate-700">Experience (years)</label>
+                      <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Experience (years)</label>
                       <input
                         type="number"
                         min="0"
                         value={form.experienceYears}
                         onChange={handleChange("experienceYears")}
                         required
-                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="block text-xs font-medium text-slate-700">Consultation fee (₹)</label>
+                      <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Consultation fee (₹)</label>
                       <input
                         type="number"
                         min="0"
@@ -426,12 +426,12 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         value={form.consultationFee}
                         onChange={handleChange("consultationFee")}
                         required
-                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       />
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <label className="block text-xs font-medium text-slate-700">Timezone</label>
+                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Timezone</label>
                     <input
                       value={form.timezone}
                       readOnly
@@ -440,12 +440,12 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div className="space-y-1">
-                      <label className="block text-xs font-medium text-slate-700">State</label>
+                      <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">State</label>
                       <select
                         value={form.state}
                         onChange={handleStateChange}
                         required
-                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                       >
                         <option value="">Select state</option>
                         {stateOptions.map((state) => (
@@ -456,13 +456,13 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                       </select>
                     </div>
                     <div className="space-y-1">
-                      <label className="block text-xs font-medium text-slate-700">City</label>
+                      <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">City</label>
                       <select
                         value={form.city}
                         onChange={handleChange("city")}
                         required
                         disabled={!cityOptions.length}
-                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 focus:bg-card focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-slate-100"
+                        className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:bg-slate-100"
                       >
                         <option value="">{cityOptions.length ? "Select city" : "Select state first"}</option>
                         {cityOptions.map((city) => (

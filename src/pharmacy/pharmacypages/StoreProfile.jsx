@@ -10,7 +10,7 @@ const Field = ({ label, value }) => (
     <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">
       {label}
     </p>
-    <p className="text-base md:text-lg font-semibold text-slate-900">
+    <p className="text-base md:text-lg font-semibold text-slate-900 dark:text-slate-100">
       {value}
     </p>
   </div>
@@ -25,7 +25,7 @@ const EditableField = ({ label, value, name, onChange }) => (
       name={name}
       value={value}
       onChange={onChange}
-      className="h-11 rounded-2xl border border-border bg-muted/60 px-3 text-sm text-slate-900 outline-none transition focus:border-emerald-500 focus:bg-card focus:ring-2 focus:ring-emerald-100"
+      className="h-11 rounded-2xl border border-border bg-muted/60 px-3 text-sm text-slate-900 dark:text-slate-100 outline-none transition focus:border-emerald-500 focus:bg-card focus:ring-2 focus:ring-emerald-100"
     />
   </div>
 );
@@ -126,7 +126,7 @@ export default function StoreProfile() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -139,7 +139,7 @@ export default function StoreProfile() {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -151,13 +151,13 @@ export default function StoreProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900">
+    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
                   {/* Header */}
                   <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
-                    <h1 className="text-[18px] font-semibold text-slate-900">
+                    <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
                       Store Profile
                     </h1>
         
@@ -186,7 +186,7 @@ export default function StoreProfile() {
                   <span className="inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-emerald-700">
                     Store Profile
                   </span>
-                  <h2 className="text-xl md:text-2xl font-semibold text-slate-900">
+                  <h2 className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-slate-100">
                     Manage your pharmacy details and contact information.
                   </h2>
                   <p className="text-sm text-slate-500 max-w-xl">

@@ -48,7 +48,7 @@ const SectionHeader = ({ kicker, title, subtitle }) => (
             {kicker && (
                 <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">{kicker}</p>
             )}
-            <h2 className="text-2xl font-semibold text-slate-900">{title}</h2>
+            <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
             {subtitle && <p className="text-sm text-slate-500">{subtitle}</p>}
         </div>
     </div>
@@ -155,7 +155,7 @@ export function DashboardServices() {
             <div className="grid gap-6 md:grid-cols-2">
                 {/* Popular Services Section */}
                 <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
-                    <h4 className="mb-4 text-sm font-semibold text-slate-900">Popular Services</h4>
+                    <h4 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">Popular Services</h4>
                     <p className="mb-4 text-xs text-slate-500">Tap to add or remove services from your profile.</p>
                     <div className="flex flex-wrap gap-2">
                         {PREDEFINED_SERVICES.map((service) => {
@@ -178,7 +178,7 @@ export function DashboardServices() {
 
                 {/* Custom Service Input & Active List */}
                 <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
-                    <h4 className="mb-4 text-sm font-semibold text-slate-900">Custom & Active Services</h4>
+                    <h4 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">Custom & Active Services</h4>
 
                     <form onSubmit={handleAddService} className="flex gap-2 mb-6">
                         <input
@@ -203,7 +203,7 @@ export function DashboardServices() {
                                 {services.map((service) => (
                                     <span
                                         key={service}
-                                        className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-700 border border-border"
+                                        className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-sm font-medium text-slate-900 dark:text-slate-200 border border-border"
                                     >
                                         {service}
                                         <button
@@ -339,7 +339,7 @@ export function DashboardProfile() {
 
                     <div className="flex-1 space-y-4">
                         <div>
-                            <h3 className="text-2xl font-bold text-slate-900">{details.name}</h3>
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{details.name}</h3>
                             <p className="text-lg text-slate-600">{details.specialty}</p>
                             <div className="mt-2 flex flex-wrap gap-2">
                                 <span className="inline-flex items-center rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-medium text-blue-700">
@@ -354,14 +354,14 @@ export function DashboardProfile() {
                         <div className="grid gap-6 md:grid-cols-2">
                             <div className="space-y-1">
                                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Contact Info</p>
-                                <div className="text-sm text-slate-700">
+                                <div className="text-sm text-slate-900 dark:text-slate-200">
                                     <p><span className="font-medium">Email:</span> {details.email}</p>
                                     <p><span className="font-medium">Phone:</span> {details.phone}</p>
                                 </div>
                             </div>
                             <div className="space-y-1">
                                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">System IDs</p>
-                                <div className="text-sm text-slate-700">
+                                <div className="text-sm text-slate-900 dark:text-slate-200">
                                     <p><span className="font-medium">Doctor ID:</span> <span className="font-mono text-xs">{details.doctorId}</span></p>
                                     <p><span className="font-medium">User ID:</span> <span className="font-mono text-xs">{details.userId}</span></p>
                                 </div>
@@ -374,12 +374,12 @@ export function DashboardProfile() {
             {/* Professional Details Grid */}
             <div className="grid gap-6 md:grid-cols-2">
                 <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
-                    <h4 className="mb-4 text-base font-semibold text-slate-900">Professional Details</h4>
+                    <h4 className="mb-4 text-base font-semibold text-slate-900 dark:text-slate-100">Professional Details</h4>
 
                     {isEditing ? (
                         <div className="space-y-4">
                             <div>
-                                <label className="block text-xs font-medium text-slate-700 mb-1">Qualification</label>
+                                <label className="block text-xs font-medium text-slate-900 dark:text-slate-200 mb-1">Qualification</label>
                                 <input
                                     type="text"
                                     value={editForm.qualification}
@@ -390,7 +390,7 @@ export function DashboardProfile() {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-slate-700 mb-1">Experience (Years)</label>
+                                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200 mb-1">Experience (Years)</label>
                                     <input
                                         type="number"
                                         value={editForm.experienceYears}
@@ -399,7 +399,7 @@ export function DashboardProfile() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-medium text-slate-700 mb-1">Fee (₹)</label>
+                                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200 mb-1">Fee (₹)</label>
                                     <input
                                         type="number"
                                         value={editForm.consultationFee}
@@ -413,26 +413,26 @@ export function DashboardProfile() {
                         <dl className="space-y-4 text-sm">
                             <div className="grid grid-cols-3 gap-4">
                                 <dt className="font-medium text-slate-500">Experience</dt>
-                                <dd className="col-span-2 text-slate-900">{details.experience} Years</dd>
+                                <dd className="col-span-2 text-slate-900 dark:text-slate-100">{details.experience} Years</dd>
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <dt className="font-medium text-slate-500">Qualifications</dt>
-                                <dd className="col-span-2 text-slate-900">{details.qualifications}</dd>
+                                <dd className="col-span-2 text-slate-900 dark:text-slate-100">{details.qualifications}</dd>
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <dt className="font-medium text-slate-500">Fee</dt>
-                                <dd className="col-span-2 text-slate-900">₹{details.consultationFee}</dd>
+                                <dd className="col-span-2 text-slate-900 dark:text-slate-100">₹{details.consultationFee}</dd>
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <dt className="font-medium text-slate-500">Languages</dt>
-                                <dd className="col-span-2 text-slate-900">{details.languages}</dd>
+                                <dd className="col-span-2 text-slate-900 dark:text-slate-100">{details.languages}</dd>
                             </div>
                         </dl>
                     )}
                 </div>
 
                 <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm flex flex-col">
-                    <h4 className="mb-4 text-base font-semibold text-slate-900">About</h4>
+                    <h4 className="mb-4 text-base font-semibold text-slate-900 dark:text-slate-100">About</h4>
                     {isEditing ? (
                         <div className="flex-1 flex flex-col">
                             <textarea
@@ -445,7 +445,7 @@ export function DashboardProfile() {
                             <div className="mt-4 flex justify-end gap-3">
                                 <button
                                     onClick={() => setIsEditing(false)}
-                                    className="rounded-[5px] border border-slate-300 bg-card px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-muted/60"
+                                    className="rounded-[5px] border border-slate-300 bg-card px-4 py-2 text-sm font-semibold text-slate-900 dark:text-slate-200 hover:bg-muted/60"
                                     disabled={saving}
                                 >
                                     Cancel
@@ -517,7 +517,7 @@ export function DashboardAppointments() {
             case 'cancelled': return 'bg-rose-100 text-rose-700 border-rose-200';
             case 'scheduled': return 'bg-blue-100 text-blue-700 border-blue-200';
             case 'confirmed': return 'bg-blue-100 text-blue-700 border-blue-200';
-            default: return 'bg-slate-100 text-slate-700 border-border';
+            default: return 'bg-slate-100 text-slate-900 dark:text-slate-200 border-border';
         }
     };
 
@@ -539,7 +539,7 @@ export function DashboardAppointments() {
                             <div key={appt._id || appt.id} className="flex flex-col gap-4 rounded-[5px] border border-border bg-muted p-4 md:flex-row md:items-center md:justify-between">
                                 <div className="flex-1 space-y-1">
                                     <div className="flex items-center gap-2">
-                                        <h4 className="font-semibold text-slate-900">{getPatientName(appt)}</h4>
+                                        <h4 className="font-semibold text-slate-900 dark:text-slate-100">{getPatientName(appt)}</h4>
                                         <span className={`rounded-[5px] border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${getStatusColor(appt.status)}`}>
                                             {appt.status || "Pending"}
                                         </span>
@@ -570,7 +570,7 @@ export function DashboardAppointments() {
                                         <button
                                             onClick={() => handleStatusUpdate(appt._id || appt.id, 'cancelled')}
                                             disabled={actionLoading === (appt._id || appt.id)}
-                                            className="rounded-[5px] border border-slate-300 bg-card px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-muted/60 disabled:opacity-50"
+                                            className="rounded-[5px] border border-slate-300 bg-card px-3 py-1.5 text-xs font-semibold text-slate-900 dark:text-slate-200 hover:bg-muted/60 disabled:opacity-50"
                                         >
                                             Cancel
                                         </button>
@@ -582,7 +582,7 @@ export function DashboardAppointments() {
                 ) : (
                     <div className="flex flex-col items-center justify-center py-12 text-center">
                         <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">📅</div>
-                        <h3 className="text-sm font-semibold text-slate-900">No Appointments</h3>
+                        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">No Appointments</h3>
                         <p className="text-xs text-slate-500">You don't have any scheduled appointments yet.</p>
                     </div>
                 )}
@@ -620,19 +620,19 @@ export function DashboardPatients() {
             <div className="flex border-b border-border">
                 <button
                     onClick={() => setActiveTab("list")}
-                    className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "list" ? "border-b-2 border-blue-600 text-blue-600" : "text-slate-500 hover:text-slate-700"}`}
+                    className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "list" ? "border-b-2 border-blue-600 text-blue-600" : "text-slate-500 hover:text-slate-900 dark:text-slate-200"}`}
                 >
                     Patient List
                 </button>
                 <button
                     onClick={() => setActiveTab("notes")}
-                    className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "notes" ? "border-b-2 border-blue-600 text-blue-600" : "text-slate-500 hover:text-slate-700"}`}
+                    className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "notes" ? "border-b-2 border-blue-600 text-blue-600" : "text-slate-500 hover:text-slate-900 dark:text-slate-200"}`}
                 >
                     Consultation Notes
                 </button>
                 <button
                     onClick={() => setActiveTab("prescriptions")}
-                    className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "prescriptions" ? "border-b-2 border-blue-600 text-blue-600" : "text-slate-500 hover:text-slate-700"}`}
+                    className={`px-4 py-2 text-sm font-medium transition-colors ${activeTab === "prescriptions" ? "border-b-2 border-blue-600 text-blue-600" : "text-slate-500 hover:text-slate-900 dark:text-slate-200"}`}
                 >
                     Prescriptions
                 </button>
@@ -657,7 +657,7 @@ export function DashboardPatients() {
                                     <tbody className="divide-y divide-slate-100">
                                         {patients.map((patient, i) => (
                                             <tr key={i} className="hover:bg-muted/60">
-                                                <td className="px-6 py-4 font-medium text-slate-900">
+                                                <td className="px-6 py-4 font-medium text-slate-900 dark:text-slate-100">
                                                     {patient.user?.userName || patient.name || "Unknown"}
                                                 </td>
                                                 <td className="px-6 py-4">
@@ -679,7 +679,7 @@ export function DashboardPatients() {
                         ) : (
                             <div className="flex flex-col items-center justify-center py-12 text-center">
                                 <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">👥</div>
-                                <h3 className="text-sm font-semibold text-slate-900">No Patients Found</h3>
+                                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">No Patients Found</h3>
                                 <p className="text-xs text-slate-500">Patients will appear here after their first appointment.</p>
                             </div>
                         )}
@@ -689,7 +689,7 @@ export function DashboardPatients() {
                 {activeTab === "notes" && (
                     <div className="text-center py-12">
                         <div className="mb-3 inline-flex rounded-full bg-slate-100 p-3 text-2xl">📝</div>
-                        <h3 className="text-sm font-semibold text-slate-900">Consultation Notes</h3>
+                        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Consultation Notes</h3>
                         <p className="mt-1 text-xs text-slate-500">Select a patient from the list to view or add notes.</p>
                         <button className="mt-4 rounded-[5px] bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700">
                             Create New Note
@@ -700,7 +700,7 @@ export function DashboardPatients() {
                 {activeTab === "prescriptions" && (
                     <div className="text-center py-12">
                         <div className="mb-3 inline-flex rounded-full bg-slate-100 p-3 text-2xl">💊</div>
-                        <h3 className="text-sm font-semibold text-slate-900">Prescriptions</h3>
+                        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Prescriptions</h3>
                         <p className="mt-1 text-xs text-slate-500">Select a patient to write a digital prescription.</p>
                         <button className="mt-4 rounded-[5px] bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700">
                             Write Prescription
@@ -759,7 +759,7 @@ export function DashboardNotifications() {
                                 <div className={`mt-1 h-2 w-2 shrink-0 rounded-full ${notif.read ? "bg-slate-300" : "bg-blue-500"}`} />
                                 <div className="flex-1">
                                     <div className="flex items-start justify-between gap-4">
-                                        <h4 className={`text-sm font-semibold ${notif.read ? "text-slate-700" : "text-slate-900"}`}>
+                                        <h4 className={`text-sm font-semibold ${notif.read ? "text-slate-900 dark:text-slate-200" : "text-slate-900 dark:text-slate-100"}`}>
                                             {notif.title}
                                         </h4>
                                         <span className="text-xs text-slate-400 whitespace-nowrap">
@@ -783,7 +783,7 @@ export function DashboardNotifications() {
                 ) : (
                     <div className="flex flex-col items-center justify-center py-12 text-center">
                         <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">🔔</div>
-                        <h3 className="text-sm font-semibold text-slate-900">All Caught Up</h3>
+                        <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">All Caught Up</h3>
                         <p className="text-xs text-slate-500">You have no new notifications.</p>
                     </div>
                 )}
@@ -937,7 +937,7 @@ export function DashboardAvailability() {
                                             onChange={() => handleDayToggle(day.id)}
                                             className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                                         />
-                                        <span className={`font-medium ${config.enabled ? "text-slate-900" : "text-slate-500"}`}>
+                                        <span className={`font-medium ${config.enabled ? "text-slate-900 dark:text-slate-100" : "text-slate-500"}`}>
                                             {day.label}
                                         </span>
                                     </div>
@@ -1182,13 +1182,13 @@ export function DashboardChat() {
                 <div className="flex border-b border-border bg-card">
                     <button
                         onClick={() => setSidebarView('chats')}
-                        className={`flex-1 py-3 text-sm font-medium text-center transition-colors ${sidebarView === 'chats' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
+                        className={`flex-1 py-3 text-sm font-medium text-center transition-colors ${sidebarView === 'chats' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:text-slate-900 dark:text-slate-200'}`}
                     >
                         Chats
                     </button>
                     <button
                         onClick={() => setSidebarView('appointments')}
-                        className={`flex-1 py-3 text-sm font-medium text-center transition-colors ${sidebarView === 'appointments' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:text-slate-700'}`}
+                        className={`flex-1 py-3 text-sm font-medium text-center transition-colors ${sidebarView === 'appointments' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:text-slate-900 dark:text-slate-200'}`}
                     >
                         Upcoming
                     </button>
@@ -1228,7 +1228,7 @@ export function DashboardChat() {
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex justify-between items-baseline mb-1">
-                                                        <h4 className={`text-sm font-medium truncate ${hasUnread ? 'text-slate-900 font-bold' : 'text-slate-700'}`}>
+                                                        <h4 className={`text-sm font-medium truncate ${hasUnread ? 'text-slate-900 dark:text-slate-100 font-bold' : 'text-slate-900 dark:text-slate-200'}`}>
                                                             {other?.userName || 'Unknown'}
                                                         </h4>
                                                         {room.lastMessage && (
@@ -1237,7 +1237,7 @@ export function DashboardChat() {
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <p className={`text-xs truncate ${hasUnread ? 'text-slate-900 font-medium' : 'text-slate-500'}`}>
+                                                    <p className={`text-xs truncate ${hasUnread ? 'text-slate-900 dark:text-slate-100 font-medium' : 'text-slate-500'}`}>
                                                         {room.lastMessage?.text || 'No messages yet'}
                                                     </p>
                                                     {room.appointment?.startTime && (
@@ -1277,7 +1277,7 @@ export function DashboardChat() {
                                                     {getPatientName(appt).charAt(0)}
                                                 </div>
                                                 <div className="min-w-0">
-                                                    <h4 className="text-sm font-medium text-slate-900 truncate">
+                                                    <h4 className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
                                                         {getPatientName(appt)}
                                                     </h4>
                                                     <p className="text-xs text-slate-500 truncate">
@@ -1324,7 +1324,7 @@ export function DashboardChat() {
                                     {getOtherParticipant(activeRoom)?.userName?.charAt(0)}
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-slate-900">{getOtherParticipant(activeRoom)?.userName}</h3>
+                                    <h3 className="font-semibold text-slate-900 dark:text-slate-100">{getOtherParticipant(activeRoom)?.userName}</h3>
                                     <div className="flex items-center gap-2">
                                         <p className="text-xs text-slate-500">Patient</p>
                                         {activeRoom.appointment?.startTime && (
@@ -1402,7 +1402,7 @@ export function DashboardChat() {
                         <div className="h-16 w-16 rounded-full bg-blue-50 flex items-center justify-center text-3xl mb-4">
                             💬
                         </div>
-                        <h3 className="text-lg font-medium text-slate-900">Select a Conversation</h3>
+                        <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100">Select a Conversation</h3>
                         <p className="text-sm text-slate-500 max-w-xs mt-2">
                             Choose a chat from the list or start a new one from the <b>Upcoming</b> tab.
                         </p>

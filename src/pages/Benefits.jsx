@@ -87,7 +87,7 @@ export default function Benefits() {
       >
         <div className="mx-auto max-w-3xl space-y-4">
           <motion.h1
-            className="text-4xl font-extrabold leading-[46px] text-slate-900 sm:text-5xl sm:leading-[56px]"
+            className="text-4xl font-extrabold leading-[46px] text-slate-900 dark:text-slate-100 sm:text-5xl sm:leading-[56px]"
             variants={fadeUp}
             transition={{ duration: 0.7 }}
           >
@@ -176,7 +176,7 @@ export default function Benefits() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-extrabold text-slate-900">
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
             Why Partner with Doorspital?
           </h2>
           <p className="text-base text-slate-600">
@@ -218,7 +218,7 @@ export default function Benefits() {
               <div className="mb-3">
                 <img src={card.icon} alt="" className="h-7 w-7" />
               </div>
-              <h3 className="font-semibold text-slate-900">{card.title}</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">{card.title}</h3>
               <p className="mt-3 text-slate-600">{card.desc}</p>
             </motion.div>
           ))}
@@ -235,7 +235,7 @@ export default function Benefits() {
         transition={{ duration: 0.7 }}
       >
         <div className="space-y-2 text-center">
-          <h2 className="text-3xl font-extrabold text-slate-900">
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
             Designed for Every Healthcare Partner
           </h2>
         </div>
@@ -317,7 +317,7 @@ export default function Benefits() {
       {/* ========== METRICS STRIP (with counting numbers) ========== */}
       <section className="w-full pb-12 pt-4">
         <motion.h2
-          className="mb-6 text-center text-3xl font-extrabold text-slate-900"
+          className="mb-6 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -361,7 +361,7 @@ export default function Benefits() {
           <div className="mt-8 flex justify-center">
             <Link
               to="/register"
-              className="rounded-lg bg-card px-8 py-3 text-sm font-semibold text-slate-900 shadow-sm"
+              className="rounded-lg bg-card px-8 py-3 text-sm font-semibold text-slate-900 dark:text-slate-100 shadow-sm"
             >
               Become a Partner
             </Link>

@@ -177,7 +177,7 @@ function EarningsOverview() {
     if (active && payload && payload.length) {
       return (
         <div className="rounded-lg bg-card px-4 py-3 shadow-lg border border-border">
-          <p className="text-sm font-medium text-slate-700">{label}</p>
+          <p className="text-sm font-medium text-slate-900 dark:text-slate-200">{label}</p>
           <p className="text-lg font-semibold text-[#00b074]">
             {formatCurrency(payload[0].value)}
           </p>
@@ -191,7 +191,7 @@ function EarningsOverview() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f8f7] text-slate-900">
+    <div className="min-h-screen bg-[#f4f8f7] text-slate-900 dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar />
 
@@ -199,7 +199,7 @@ function EarningsOverview() {
           {/* Header */}
           <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
             <div>
-              <h1 className="text-[20px] font-semibold text-slate-900">
+              <h1 className="text-[20px] font-semibold text-slate-900 dark:text-slate-100">
                 Earnings Overview
               </h1>
               <p className="mt-1 text-[12px] text-slate-500">
@@ -236,7 +236,7 @@ function EarningsOverview() {
                     <div className="text-[12px] font-medium text-slate-500">
                       Total Revenue
                     </div>
-                    <div className="mt-3 text-3xl font-semibold text-slate-900">
+                    <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
                       {formatCurrency(totalRevenueValue)}
                     </div>
                     <div
@@ -254,7 +254,7 @@ function EarningsOverview() {
                     <div className="text-[12px] font-medium text-slate-500">
                       Total Orders
                     </div>
-                    <div className="mt-3 text-3xl font-semibold text-slate-900">
+                    <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
                       {earningsData.totalOrders.toLocaleString()}
                     </div>
                     <div className="mt-2 text-[12px] text-slate-400">
@@ -267,7 +267,7 @@ function EarningsOverview() {
                     <div className="text-[12px] font-medium text-slate-500">
                       Average Order Value
                     </div>
-                    <div className="mt-3 text-3xl font-semibold text-slate-900">
+                    <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
                       {formatCurrency(earningsData.averageOrderValue)}
                     </div>
                     <div className="mt-2 text-[12px] text-slate-400">
@@ -280,7 +280,7 @@ function EarningsOverview() {
                     <div className="text-[12px] font-medium text-slate-500">
                       This Month Revenue
                     </div>
-                    <div className="mt-3 text-3xl font-semibold text-slate-900">
+                    <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
                       {formatCurrency(currentMonthRevenue)}
                     </div>
                     <div className="mt-2 text-[12px] text-slate-400">
@@ -292,7 +292,7 @@ function EarningsOverview() {
                 {/* Revenue Chart */}
                 <section className="rounded-3xl bg-card px-8 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
                   <div className="mb-4 flex items-center justify-between">
-                    <h2 className="text-[14px] font-semibold text-slate-900">
+                    <h2 className="text-[14px] font-semibold text-slate-900 dark:text-slate-100">
                       Revenue Over Time (Last 7 Days)
                     </h2>
                   </div>
@@ -364,7 +364,7 @@ function EarningsOverview() {
 
                 {/* Recent Orders Table */}
                 <section className="rounded-3xl bg-card px-8 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
-                  <h2 className="mb-4 text-[14px] font-semibold text-slate-900">
+                  <h2 className="mb-4 text-[14px] font-semibold text-slate-900 dark:text-slate-100">
                     Recent Orders
                   </h2>
 
@@ -390,7 +390,7 @@ function EarningsOverview() {
                             <tr
                               key={order._id}
                               className={
-                                "text-slate-700 " +
+                                "text-slate-900 dark:text-slate-200 " +
                                 (idx !== earningsData.recentOrders.length - 1
                                   ? "border-b border-border"
                                   : "")
@@ -405,7 +405,7 @@ function EarningsOverview() {
                               <td className="px-4 py-3 text-slate-600">
                                 {order.itemCount} items
                               </td>
-                              <td className="px-4 py-3 font-semibold text-slate-900">
+                              <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
                                 {formatCurrency(order.total)}
                               </td>
                               <td className="px-4 py-3">

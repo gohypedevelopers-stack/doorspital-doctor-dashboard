@@ -54,7 +54,7 @@ export default function PharmacyLoginModal({
       >
         {/* Header */}
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-slate-900">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">
             Pharmacy Login
           </h2>
           <button
@@ -75,7 +75,7 @@ export default function PharmacyLoginModal({
           <div className="space-y-1">
             <label
               htmlFor="pharmacyLoginEmail"
-              className="block text-xs font-medium text-slate-700"
+              className="block text-xs font-medium text-slate-900 dark:text-slate-200"
             >
               Email
             </label>
@@ -86,14 +86,14 @@ export default function PharmacyLoginModal({
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="store@example.com"
-              className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
+              className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
             />
           </div>
 
           <div className="space-y-1">
             <label
               htmlFor="pharmacyLoginPassword"
-              className="block text-xs font-medium text-slate-700"
+              className="block text-xs font-medium text-slate-900 dark:text-slate-200"
             >
               Password
             </label>
@@ -105,7 +105,7 @@ export default function PharmacyLoginModal({
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Enter your password"
-                className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
+                className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
               />
               <button
                 type="button"

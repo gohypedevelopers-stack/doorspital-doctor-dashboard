@@ -45,13 +45,13 @@ export default function DoctorQualifications() {
         <div className="flex w-full items-center justify-between py-3">
           <Link to="/" className="flex items-center gap-2">
             <img src={dpicon} className="w-8 h-8 object-contain" />
-            <span className="text-sm font-semibold text-slate-900">
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Doorspital Partner
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">
-            <button className="hover:text-slate-900">Dashboard</button>
-            <button className="hover:text-slate-900">Help</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Dashboard</button>
+            <button className="hover:text-slate-900 dark:text-slate-100">Help</button>
             <button className="text-rose-600 hover:text-rose-700">
               Logout
             </button>
@@ -74,7 +74,7 @@ export default function DoctorQualifications() {
               onSubmit={handleSubmit}
             >
               <div>
-                <h1 className="text-xl font-semibold text-slate-900 sm:text-2xl">
+                <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
                   Upload Your Qualifications
                 </h1>
                 <p className="mt-1 text-sm text-slate-500">
@@ -89,7 +89,7 @@ export default function DoctorQualifications() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600">
                     📄
                   </div>
-                  <h3 className="text-sm font-semibold text-slate-900">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                     MBBS Certificate<span className="text-rose-500">*</span>
                   </h3>
                   <p className="mt-1 text-xs text-slate-500">
@@ -140,7 +140,7 @@ export default function DoctorQualifications() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600">
                     📄
                   </div>
-                  <h3 className="text-sm font-semibold text-slate-900">
+                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
                     MD/MS/BDS/Other (optional)
                   </h3>
                   <p className="mt-1 text-xs text-slate-500">
