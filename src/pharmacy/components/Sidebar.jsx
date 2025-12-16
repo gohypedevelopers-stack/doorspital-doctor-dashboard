@@ -20,13 +20,14 @@ const NavItem = ({ label, icon, to }) => {
 
   return (
     <Link
-      to={to}
-      className={`w-full flex items-center gap-3 pl-0 pr-4 py-2.5 rounded-xl transition ${
-        isActive
-          ? "bg-[#E8FBF3] text-emerald-1000 font-medium"
-          : "text-slate-900 dark:text-slate-100 hover:bg-muted/60"
-      }`}
-    >
+  to={to}
+  className={`w-full flex items-center gap-3 pl-0 pr-4 py-2.5 rounded-xl transition ${
+    isActive
+      ? "bg-[#E8FBF3] text-emerald-800 font-medium dark:bg-emerald-200/30 dark:text-emerald-200"
+      : "text-slate-900 dark:text-slate-100 hover:bg-muted/60"
+  }`}
+>
+
       {/* Placeholder Icon - replace with actual icon components if available */}
       <span className="h-7 w-7 rounded-lg bg-slate-100 flex items-center justify-center text-[15px] text-slate-400">
         {typeof icon === "string" ? (

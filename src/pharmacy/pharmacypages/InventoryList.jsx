@@ -176,7 +176,7 @@ const InventoryList = () => {
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
             <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Inventory List
             </h1>
@@ -277,7 +277,7 @@ const InventoryList = () => {
               </div>
             )}
 
-            <div className="rounded-xl bg-card shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
+<div className="rounded-xl bg-card shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border overflow-hidden">
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-[13px]">
                   <thead>
@@ -309,17 +309,17 @@ const InventoryList = () => {
                           key={item._id ?? item.sku ?? index}
                           className={index % 2 === 0 ? "bg-[#fffefe]" : "bg-[#fdfdfd]"}
                         >
-                          <td className="px-6 py-3 font-medium text-slate-900 dark:text-slate-200">
+                          <td className="px-6 py-3 font-medium text-black-900 dark:text-slate-900">
                             {item.name}
                           </td>
                           <td className="px-6 py-3 text-slate-500">{item.sku}</td>
-                          <td className="px-6 py-3 text-slate-900 dark:text-slate-100 font-semibold">
+                          <td className="px-6 py-3 text-slate-900 dark:text-slate-700 font-semibold">
                             {stockValue}
                           </td>
-                          <td className="px-6 py-3 text-slate-900 dark:text-slate-200">
+                          <td className="px-6 py-3 text-slate-900 dark:text-slate-500">
                             {formatCurrency(priceValue)}
                           </td>
-                          <td className="px-6 py-3 text-slate-900 dark:text-slate-200">
+                          <td className="px-6 py-3 text-slate-900 dark:text-slate-500">
                             {expiryDisplay}
                           </td>
                           <td className="px-6 py-3">

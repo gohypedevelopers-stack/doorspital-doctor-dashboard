@@ -464,7 +464,7 @@ function DashboardOverview() {
         <Sidebar activePage="Dashboard" />
 
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
             <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Dashboard Overview
             </h1>
@@ -509,7 +509,7 @@ function DashboardOverview() {
               <h2 className="text-[16px] font-semibold text-slate-900 dark:text-slate-100 mb-4">
                 Recent Prescription Orders
               </h2>
-              <div className="rounded-xl bg-card shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border">
+<div className="rounded-xl bg-card shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="min-w-full text-left text-[13px]">
                     <thead>

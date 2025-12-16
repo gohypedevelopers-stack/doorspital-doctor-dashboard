@@ -151,7 +151,7 @@ function NewPrescriptionOrders() {
         <Sidebar />
 
         <div className="flex flex-1 flex-col">
-                 <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
+                 <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
                    <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
                      New Prescription Orders
                    </h1>

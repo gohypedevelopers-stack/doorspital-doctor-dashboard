@@ -64,7 +64,7 @@ const SettingsPage = () => {
       
 
          <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
+          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
            <div>
             <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
 General Settings            </h1>
@@ -189,8 +189,12 @@ const Field = ({ label, children }) => (
 const Input = (props) => (
   <input
     {...props}
-    className="h-10 rounded-xl border border-border bg-muted/70 px-3 text-[13px] outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500"
-  />
+className="
+      h-10 rounded-xl border border-border bg-muted/70 px-3 text-[13px]
+      text-slate-900 dark:text-slate-100
+      outline-none transition
+      focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500
+    "  />
 );
 
 const PreferenceRow = ({ title, description, children }) => (

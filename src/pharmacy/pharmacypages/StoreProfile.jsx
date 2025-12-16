@@ -10,7 +10,7 @@ const Field = ({ label, value }) => (
     <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">
       {label}
     </p>
-    <p className="text-base md:text-lg font-semibold text-slate-900 dark:text-slate-100">
+    <p className="text-base md:text-lg font-semibold text-slate-900 dark:text-slate-700">
       {value}
     </p>
   </div>
@@ -156,7 +156,7 @@ export default function StoreProfile() {
         <Sidebar />
         <div className="flex flex-1 flex-col">
                   {/* Header */}
-                  <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
+                  <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
                     <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
                       Store Profile
                     </h1>
