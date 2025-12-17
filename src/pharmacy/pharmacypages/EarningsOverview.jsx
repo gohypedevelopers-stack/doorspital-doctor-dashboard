@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Sidebar from "../components/Sidebar.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 import {
   AreaChart,
   Area,
@@ -52,21 +53,25 @@ function EarningsOverview() {
     recentOrders: [],
     dailyRevenue: [],
   });
+  const { showLoader, hideLoader } = useGlobalLoader();
 
   useEffect(() => {
+    let cancelled = false;
     const fetchEarnings = async () => {
+      showLoader();
       try {
         setLoading(true);
         setError(null);
         const token = getPharmacyToken();
         if (!token) {
           setError("Please log in to view earnings");
-          setLoading(false);
           return;
         }
         const response = await apiRequest("/api/pharmacy/earnings", { token });
         if (response.success) {
-          setEarningsData(response.data);
+          if (!cancelled) {
+            setEarningsData(response.data);
+          }
         } else {
           setError(response.message || "Failed to load earnings");
         }
@@ -74,12 +79,18 @@ function EarningsOverview() {
         console.error("Error fetching earnings:", err);
         setError(err.message || "Failed to load earnings");
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
+        hideLoader();
       }
     };
 
     fetchEarnings();
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [hideLoader, showLoader]);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-IN", {
@@ -218,10 +229,10 @@ function EarningsOverview() {
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto bg-[#f4f8f7] px-10 py-7 space-y-6">
+          <main className="flex-1 overflow-y-auto bg-[#f4f8f7] dark:bg-[#1E293B] px-10 py-7 space-y-6">
             {loading ? (
               <div className="flex items-center justify-center h-64">
-                <div className="text-slate-500">Loading earnings data...</div>
+                <div className="text-slate-500"></div>
               </div>
             ) : error ? (
               <div className="flex items-center justify-center h-64">

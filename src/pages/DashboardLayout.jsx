@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, Outlet, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { apiRequest } from "../lib/api.js";
+import { useGlobalLoader } from "../lib/globalLoaderContext.jsx";
 
 const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -87,6 +88,7 @@ export default function DashboardLayout({ token, user }) {
     const [error, setError] = useState("");
     const [verificationPending, setVerificationPending] = useState(false);
     const location = useLocation();
+    const { showLoader, hideLoader } = useGlobalLoader();
 
     const refreshDashboard = async () => {
         if (!token) {
@@ -94,6 +96,7 @@ export default function DashboardLayout({ token, user }) {
             return;
         }
 
+        showLoader();
         setLoading(true);
         setError("");
         setVerificationPending(false);
@@ -123,6 +126,7 @@ export default function DashboardLayout({ token, user }) {
             }
         } finally {
             setLoading(false);
+            hideLoader();
         }
     };
 
@@ -190,11 +194,7 @@ export default function DashboardLayout({ token, user }) {
         <div className="flex min-h-screen bg-muted">
             <Sidebar userName={welcomeName} />
             <main className="flex-1 px-4 pb-16 pt-6 md:px-6 lg:px-10">
-                {loading && (
-                    <div className="rounded-[5px] border border-blue-100 bg-card/90 px-6 py-4 shadow-sm text-sm text-slate-600">
-                        Loading dashboard...
-                    </div>
-                )}
+                
                 {!loading && error && (
                     <div className="rounded-[5px] border border-rose-100 bg-rose-50 px-6 py-4 shadow-sm text-sm text-rose-600">
                         {error}

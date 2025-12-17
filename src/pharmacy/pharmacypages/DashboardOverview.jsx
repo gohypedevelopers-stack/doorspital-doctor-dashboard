@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 
 import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
@@ -137,11 +138,13 @@ function DashboardOverview() {
   const [loadingData, setLoadingData] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const sessionToken = getPharmacyToken();
+  const { showLoader, hideLoader } = useGlobalLoader();
 
   useEffect(() => {
     if (!sessionToken) return;
     let isCancelled = false;
     const fetchData = async () => {
+      showLoader();
       setLoadingData(true);
       setErrorMessage("");
       try {
@@ -160,13 +163,14 @@ function DashboardOverview() {
           setErrorMessage(error.message || "Failed to load dashboard data.");
       } finally {
         if (!isCancelled) setLoadingData(false);
+        hideLoader();
       }
     };
     fetchData();
     return () => {
       isCancelled = true;
     };
-  }, [sessionToken]);
+  }, [sessionToken, hideLoader, showLoader]);
 
   const ordersForDisplay = useMemo(() => {
     return recentOrders.map((order) => {
@@ -459,7 +463,8 @@ function DashboardOverview() {
   // -------------------------------------------------------------------------------------
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+<div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
       <div className="flex h-screen">
         <Sidebar activePage="Dashboard" />
 
@@ -478,7 +483,7 @@ function DashboardOverview() {
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
+<main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
             {statusMessage && (
               <div className="mb-6 rounded-xl bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-800 shadow-sm">
                 {statusMessage}

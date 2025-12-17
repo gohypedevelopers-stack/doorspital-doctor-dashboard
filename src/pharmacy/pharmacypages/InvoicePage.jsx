@@ -5,6 +5,7 @@ import bellicon from "../assets/bellicon.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacySession, getPharmacyToken } from "../../lib/pharmacySession.js";
 import html2pdf from "html2pdf.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 import GlobalLoader from "@/GlobalLoader.jsx";
 
 
@@ -181,6 +182,7 @@ export default function InvoicePage() {
   const navigate = useNavigate();
   const token = getPharmacyToken();
   const session = getPharmacySession();
+  const { showLoader, hideLoader } = useGlobalLoader();
 
   const [order, setOrder] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -228,6 +230,7 @@ export default function InvoicePage() {
     const invoiceNumber = order?.invoiceNumber ?? order?.orderId ?? order?._id ?? orderId;
 
     try {
+      showLoader();
       setDownloading(true);
 
       if (document.fonts?.ready) await document.fonts.ready;
@@ -288,6 +291,7 @@ export default function InvoicePage() {
       setError("Unable to download invoice PDF. Please try again.");
     } finally {
       setDownloading(false);
+      hideLoader();
     }
   };
 
@@ -297,7 +301,8 @@ export default function InvoicePage() {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+      <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -373,7 +378,8 @@ export default function InvoicePage() {
     "Returns/refunds must be raised within 7 days with original invoice and packaging.";
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
       <div className="flex h-screen">
         <Sidebar />
 
@@ -404,7 +410,7 @@ export default function InvoicePage() {
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
+          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
             {error && (
               <div className="mb-4 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
                 {error}

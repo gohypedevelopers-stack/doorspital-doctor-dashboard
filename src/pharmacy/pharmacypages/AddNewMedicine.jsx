@@ -5,6 +5,7 @@ import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 
 const initialFormState = {
   brandName: "",
@@ -53,6 +54,7 @@ function AddNewMedicine() {
   const [imagePreview, setImagePreview] = useState(null);
   const token = getPharmacyToken();
   const navigate = useNavigate();
+  const { showLoader, hideLoader } = useGlobalLoader();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -78,6 +80,7 @@ function AddNewMedicine() {
 
     setFeedback("");
     setLoading(true);
+    showLoader();
     try {
       const payload = {
         name: formData.brandName || formData.genericName,
@@ -110,11 +113,13 @@ function AddNewMedicine() {
       setFeedback(error.message || "Unable to add medicine.");
     } finally {
       setLoading(false);
+      hideLoader();
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
@@ -131,7 +136,7 @@ function AddNewMedicine() {
               </div>
             </div>
           </header>
-          <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
+          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
             <div className="rounded-[40px] border border-border bg-card p-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)]">
               {feedback && (
                 <div className="mb-4 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">

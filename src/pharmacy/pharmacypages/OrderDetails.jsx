@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar.jsx";
 import bellicon from "../assets/bellicon.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 import GlobalLoader from "@/GlobalLoader.jsx";
 
 
@@ -50,6 +51,7 @@ export default function OrderDetails() {
   const [statusUpdating, setStatusUpdating] = useState(false);
   const [error, setError] = useState("");
   const token = getPharmacyToken();
+  const { showLoader, hideLoader } = useGlobalLoader();
 
   useEffect(() => {
     if (!token || !orderId) {
@@ -83,6 +85,7 @@ export default function OrderDetails() {
     const newStatus = event.target.value;
     if (!orderId || !token) return;
     setStatusUpdating(true);
+    showLoader();
     try {
       await apiRequest(`/api/pharmacy/orders/${orderId}/status`, {
         method: "PATCH",
@@ -95,6 +98,7 @@ export default function OrderDetails() {
       setError(err.message || "Unable to update status");
     } finally {
       setStatusUpdating(false);
+      hideLoader();
     }
   };
 
@@ -111,7 +115,8 @@ export default function OrderDetails() {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+      <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -162,7 +167,8 @@ export default function OrderDetails() {
   const totalAmount = order.total ?? getSubtotal();
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
@@ -183,7 +189,7 @@ export default function OrderDetails() {
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
+          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
             {error && (
               <div className="mb-4 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
                 {error}

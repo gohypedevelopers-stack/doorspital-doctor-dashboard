@@ -9,6 +9,7 @@ import {
   getPharmacySession,
   getPharmacyToken,
 } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 
 const formatAddress = (address) => {
   if (!address) return "";
@@ -30,11 +31,13 @@ const SettingsPage = () => {
     storeAddress: "",
   });
   const token = getPharmacyToken();
+  const { showLoader, hideLoader } = useGlobalLoader();
 
   useEffect(() => {
     if (!token) return;
     let cancelled = false;
     const fetchProfile = async () => {
+      showLoader();
       try {
         const response = await apiRequest("/api/pharmacy/profile", { token });
         if (cancelled) return;
@@ -47,6 +50,8 @@ const SettingsPage = () => {
         });
       } catch (error) {
         console.error("Unable to load pharmacy profile for settings:", error);
+      } finally {
+        hideLoader();
       }
     };
 
@@ -54,7 +59,7 @@ const SettingsPage = () => {
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [token, hideLoader, showLoader]);
   return (
     <div className="min-h-screen bg-[#F3F7F6] flex text-slate-800">
       {/* SIDEBAR is now a component wrapping the whole page layout */}

@@ -5,6 +5,7 @@ import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 import GlobalLoader from "@/GlobalLoader.jsx";
 
 
@@ -27,6 +28,7 @@ function EditMedicine() {
   const location = useLocation();
   const navigate = useNavigate();
   const token = getPharmacyToken();
+  const { showLoader, hideLoader } = useGlobalLoader();
   const routeId =
     id ??
     location.state?.productId ??
@@ -104,6 +106,7 @@ function EditMedicine() {
     }
     setSaving(true);
     setError("");
+    showLoader();
     try {
       await apiRequest(`/api/pharmacy/products/${routeId}`, {
         method: "PUT",
@@ -127,6 +130,7 @@ function EditMedicine() {
       setError(err.message || "Unable to update medicine");
     } finally {
       setSaving(false);
+      hideLoader();
     }
   };
 
@@ -135,7 +139,8 @@ function EditMedicine() {
     }
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
@@ -153,7 +158,7 @@ function EditMedicine() {
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
+          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
             <div className="rounded-[32px] border border-border bg-card p-8 shadow-[0_18px_45px_rgba(15,23,42,0.08)] space-y-6">
               {error && (
                 <div className="rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">

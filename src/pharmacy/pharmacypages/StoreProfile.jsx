@@ -4,6 +4,7 @@ import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 import GlobalLoader from "@/GlobalLoader.jsx";
 
 
@@ -49,6 +50,7 @@ export default function StoreProfile() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const token = getPharmacyToken();
+  const { showLoader, hideLoader } = useGlobalLoader();
 
   const loadProfile = async () => {
     if (!token) {
@@ -96,6 +98,7 @@ export default function StoreProfile() {
     if (!token) return;
     setSaving(true);
     setError("");
+    showLoader();
     try {
       await apiRequest("/api/pharmacy/profile", {
         method: "PUT",
@@ -118,6 +121,7 @@ export default function StoreProfile() {
       setError(err.message || "Unable to save profile");
     } finally {
       setSaving(false);
+      hideLoader();
     }
   };
 
@@ -132,7 +136,8 @@ export default function StoreProfile() {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+      <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -144,7 +149,8 @@ export default function StoreProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">

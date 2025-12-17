@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 
 import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
@@ -59,6 +60,7 @@ function NewPrescriptionOrders() {
   const [errorMessage, setErrorMessage] = useState("");
   const pageSize = 15;
   const token = getPharmacyToken();
+  const { showLoader, hideLoader } = useGlobalLoader();
 
   useEffect(() => {
     if (!token) {
@@ -67,6 +69,7 @@ function NewPrescriptionOrders() {
     }
     let cancelled = false;
     const fetchOrders = async () => {
+      showLoader();
       setLoadingOrders(true);
       setErrorMessage("");
       try {
@@ -83,13 +86,14 @@ function NewPrescriptionOrders() {
         }
       } finally {
         if (!cancelled) setLoadingOrders(false);
+        hideLoader();
       }
     };
     fetchOrders();
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [token, hideLoader, showLoader]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -146,7 +150,8 @@ function NewPrescriptionOrders() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
       <div className="flex h-screen">
         <Sidebar />
 
@@ -166,7 +171,7 @@ function NewPrescriptionOrders() {
                  </header>
 
           {/* Body */}
-          <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
+          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
             {errorMessage && (
               <div className="mb-6 rounded-xl bg-rose-50 px-6 py-3 text-sm font-semibold text-rose-700">
                 {errorMessage}
@@ -237,7 +242,7 @@ function NewPrescriptionOrders() {
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-[13px]">
                   <thead>
-                    <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    <tr className="border-b border-border bg-[#020817] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                       <th className="px-8 py-4">Patient Name</th>
                       <th className="px-8 py-4">Order ID</th>
                       <th className="px-8 py-4">Medicine Count</th>

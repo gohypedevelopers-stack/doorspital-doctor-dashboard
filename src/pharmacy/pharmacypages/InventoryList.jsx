@@ -8,6 +8,7 @@ import {
   getPharmacySession,
   getPharmacyToken,
 } from "../../lib/pharmacySession.js";
+import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 
 const statusStyles = {
   "In Stock": "bg-[#e8fff4] text-[#00b074]",
@@ -86,6 +87,7 @@ const InventoryList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const token = getPharmacyToken();
   const session = getPharmacySession();
+  const { showLoader, hideLoader } = useGlobalLoader();
   const userRole = (session?.user?.role ?? "").toLowerCase();
   const canAddMedicine =
     Boolean(token) && ["admin", "pharmacy"].includes(userRole);
@@ -98,6 +100,7 @@ const InventoryList = () => {
     }
     let cancelled = false;
     const fetchInventory = async () => {
+      showLoader();
       setIsLoading(true);
       setError("");
       try {
@@ -116,13 +119,14 @@ const InventoryList = () => {
         }
       } finally {
         if (!cancelled) setIsLoading(false);
+        hideLoader();
       }
     };
     fetchInventory();
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [token, hideLoader, showLoader]);
 
   const normalizedSearch = searchTerm.trim().toLowerCase();
   const totalMedicines = useMemo(() => items.length, [items]);
@@ -172,7 +176,8 @@ const InventoryList = () => {
   }, [activeStatus, activeCategory, searchTerm, sortOrder]);
 
   return (
-    <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
@@ -190,7 +195,7 @@ const InventoryList = () => {
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto bg-[#f6fafb] px-10 py-7">
+          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
             <div className="mb-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)] border border-border">
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -281,7 +286,7 @@ const InventoryList = () => {
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-[13px]">
                   <thead>
-                    <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    <tr className="border-b border-border bg-[#020817] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                       <th className="px-6 py-4">Medicine Name</th>
                       <th className="px-6 py-4">SKU</th>
                       <th className="px-6 py-4">Current Stock</th>

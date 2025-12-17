@@ -532,7 +532,7 @@ export function DashboardAppointments() {
 
             <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                 {loading ? (
-                    <p className="text-center text-sm text-slate-500 py-8">Loading appointments...</p>
+                    <p className="text-center text-sm text-slate-500 py-8"></p>
                 ) : appointments.length ? (
                     <div className="space-y-4">
                         {appointments.map((appt) => (
@@ -642,7 +642,7 @@ export function DashboardPatients() {
                 {activeTab === "list" && (
                     <>
                         {loading ? (
-                            <p className="text-center text-sm text-slate-500">Loading patients...</p>
+                            <p className="text-center text-sm text-slate-500"></p>
                         ) : patients.length ? (
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left text-sm text-slate-600">
@@ -747,7 +747,7 @@ export function DashboardNotifications() {
 
             <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                 {loading ? (
-                    <p className="text-center text-sm text-slate-500 py-8">Loading notifications...</p>
+                    <p className="text-center text-sm text-slate-500 py-8"></p>
                 ) : notifications.length ? (
                     <div className="space-y-2">
                         {notifications.map((notif) => (
@@ -1199,7 +1199,7 @@ export function DashboardChat() {
                     {sidebarView === 'chats' ? (
                         <>
                             {loadingRooms ? (
-                                <div className="p-4 text-center text-sm text-slate-500">Loading...</div>
+                                <div className="p-4 text-center text-sm text-slate-500"></div>
                             ) : rooms.length === 0 ? (
                                 <div className="p-8 text-center">
                                     <p className="text-sm text-slate-500">No active conversations.</p>
@@ -1263,7 +1263,7 @@ export function DashboardChat() {
                     ) : (
                         <>
                             {loadingAppointments ? (
-                                <div className="p-4 text-center text-sm text-slate-500">Loading...</div>
+                                <div className="p-4 text-center text-sm text-slate-500"></div>
                             ) : appointments.length === 0 ? (
                                 <div className="p-8 text-center">
                                     <p className="text-sm text-slate-500">No upcoming appointments.</p>
@@ -1342,7 +1342,7 @@ export function DashboardChat() {
                         {/* Messages List */}
                         <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-muted/50">
                             {loadingMessages ? (
-                                <div className="text-center py-10 text-sm text-slate-500">Loading messages...</div>
+                                <div className="text-center py-10 text-sm text-slate-500"></div>
                             ) : messages.length === 0 ? (
                                 <div className="text-center py-10 text-sm text-slate-400">
                                     No messages yet. Start the conversation!
