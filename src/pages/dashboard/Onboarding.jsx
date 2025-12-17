@@ -122,9 +122,7 @@ export default function Onboarding() {
         }
     }, [shouldRedirect, loading, navigate]);
 
-    if (loading) {
-        return <GlobalLoader fullPage />;
-    }
+   
 
     if (error) {
         return (

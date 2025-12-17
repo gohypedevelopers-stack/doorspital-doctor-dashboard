@@ -136,7 +136,7 @@ export default function StoreProfile() {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+      <div className="min-h-screen bg-[#f4f8f7] text-slate-900 dark:bg-[#1E293B] dark:text-slate-100">
 
         <div className="flex h-screen">
           <Sidebar />
@@ -149,29 +149,29 @@ export default function StoreProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#f4f8f7] text-slate-900 dark:bg-[#1E293B] dark:text-slate-100">
 
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
-                  {/* Header */}
-                  <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
-                    <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
-                      Store Profile
-                    </h1>
-        
-                    <div className="flex items-center gap-4">
-                      <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-                        <img src={bellicon} alt="Notifications" />
-                      </button>
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-                        <img src={pharmacyProfile} alt="Profile" />
-                      </div>
-                    </div>
-                  </header>
+          {/* Header */}
+<header className="flex items-center justify-between border-b border-border bg-[#020817] px-10 py-1">
+              <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
+              Store Profile
+            </h1>
+
+            <div className="flex items-center gap-4">
+              <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+                <img src={bellicon} alt="Notifications" />
+              </button>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
+                <img src={pharmacyProfile} alt="Profile" />
+              </div>
+            </div>
+          </header>
 
           {/* Main content */}
-          <main className="flex-1 overflow-y-auto px-4 md:px-10 py-6 md:py-8">
+          <main className="flex-1 overflow-y-auto bg-[#f4f8f7] px-4 md:px-10 py-6 md:py-8 dark:bg-[#1E293B]">
             <section className="mx-auto w-full max-w-5xl rounded-3xl border border-border bg-card/95 p-6 md:p-10 shadow-[0_18px_45px_rgba(15,23,42,0.06)] space-y-8">
               {error && (
                 <div className="rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">

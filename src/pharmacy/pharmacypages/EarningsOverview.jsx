@@ -208,9 +208,9 @@ function EarningsOverview() {
 
         <div className="flex flex-1 flex-col">
           {/* Header */}
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
+<header className="flex items-center justify-between border-b border-border bg-[#020817] px-10 py-1">
             <div>
-              <h1 className="text-[20px] font-semibold text-slate-900 dark:text-slate-100">
+              <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
                 Earnings Overview
               </h1>
               <p className="mt-1 text-[12px] text-slate-500">

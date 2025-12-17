@@ -463,16 +463,17 @@ function DashboardOverview() {
   // -------------------------------------------------------------------------------------
 
   return (
-<div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
-
+    <div className="min-h-screen bg-[#f4f8f7] text-slate-900 dark:bg-[#1E293B] dark:text-slate-100">
       <div className="flex h-screen">
         <Sidebar activePage="Dashboard" />
 
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
-            <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
-              Dashboard Overview
-            </h1>
+          <header className="flex items-center justify-between border-b border-border bg-[#020817] px-10 py-1">
+            <div>
+              <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
+                Dashboard Overview
+              </h1>
+            </div>
             <div className="flex items-center gap-4">
               <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
                 <img src={bellicon} alt="Notifications" />
@@ -483,7 +484,7 @@ function DashboardOverview() {
             </div>
           </header>
 
-<main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
+          <main className="flex-1 overflow-y-auto bg-[#f4f8f7] px-10 py-7 dark:bg-[#1E293B]">
             {statusMessage && (
               <div className="mb-6 rounded-xl bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-800 shadow-sm">
                 {statusMessage}

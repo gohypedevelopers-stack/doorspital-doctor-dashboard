@@ -176,13 +176,13 @@ const InventoryList = () => {
   }, [activeStatus, activeCategory, searchTerm, sortOrder]);
 
   return (
-    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
+    <div className="min-h-screen bg-[#f4f8f7] text-slate-900 dark:bg-[#1E293B] dark:text-slate-100">
 
       <div className="flex h-screen">
         <Sidebar />
         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
-            <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
+<header className="flex items-center justify-between border-b border-border bg-[#020817] px-10 py-1">
+              <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
               Inventory List
             </h1>
             <div className="flex items-center gap-4">
@@ -195,7 +195,7 @@ const InventoryList = () => {
             </div>
           </header>
 
-          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
+          <main className="flex-1 overflow-y-auto bg-[#f4f8f7] px-10 py-7 dark:bg-[#1E293B]">
             <div className="mb-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               <div className="rounded-2xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)] border border-border">
                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">

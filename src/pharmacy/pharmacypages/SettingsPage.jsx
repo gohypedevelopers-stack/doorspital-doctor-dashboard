@@ -61,17 +61,17 @@ const SettingsPage = () => {
     };
   }, [token, hideLoader, showLoader]);
   return (
-    <div className="min-h-screen bg-[#F3F7F6] flex text-slate-800">
+    <div className="min-h-screen bg-[#f4f8f7] flex text-slate-900 dark:bg-[#1E293B] dark:text-slate-100">
       {/* SIDEBAR is now a component wrapping the whole page layout */}
       <Sidebar />
 
       {/* MAIN */}
       
 
-         <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-1">
+          <div className="flex flex-1 flex-col">
+<header className="flex items-center justify-between border-b border-border bg-[#020817] px-10 py-1">
            <div>
-            <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
+              <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
 General Settings            </h1>
 
             </div>
@@ -86,7 +86,7 @@ General Settings            </h1>
           </header>
 
         {/* Content */}
-        <main className="flex-1 p-4 md:p-8 space-y-5 max-w-5xl">
+         <main className="flex-1 p-4 md:p-8 space-y-5 max-w-5xl bg-[#f4f8f7] dark:bg-[#1E293B]">
           {/* Profile Information */}
           <section className="bg-card rounded-3xl shadow-[0_16px_40px_rgba(15,23,42,0.04)] border border-border px-6 py-5">
             <header className="border-b border-border pb-3 mb-4">
