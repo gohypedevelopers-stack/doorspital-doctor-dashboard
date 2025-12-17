@@ -30,7 +30,7 @@ export default function Footer() {
                 Doorspital Partner
               </span>
             </div>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-slate-600 dark:text-slate-300">
               Connecting Doctors, Medical Shops &amp; Patients.
             </p>
             <p className="text-xs text-slate-400">
@@ -54,7 +54,7 @@ export default function Footer() {
           {/* About */}
           <div className="md:col-span-2">
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">About</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-600">
+            <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>About Us</li>
               <li>Benefits</li>
               <li>Testimonials</li>
@@ -64,7 +64,7 @@ export default function Footer() {
           {/* Support */}
           <div className="md:col-span-2">
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Support</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-600">
+            <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>Contact</li>
               <li>Help Center</li>
               <li>FAQs</li>
@@ -74,7 +74,7 @@ export default function Footer() {
           {/* Legal */}
           <div className="md:col-span-2">
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Legal</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-600">
+            <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>Privacy Policy</li>
               <li>Terms &amp; Conditions</li>
               <li>Cookie Policy</li>
@@ -86,7 +86,7 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Stay Updated
             </h3>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-slate-600 dark:text-slate-300">
               Get the latest news and updates from our network.
             </p>
             <div className="flex flex-col gap-2 sm:flex-row">

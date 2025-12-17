@@ -176,10 +176,10 @@ export default function Benefits() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-slate-600">
             Why Partner with Doorspital?
           </h2>
-          <p className="text-base text-slate-600">
+          <p className="text-base text-slate-900">
             We help you focus on care — while we handle the rest.
           </p>
         </motion.div>

@@ -185,7 +185,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background px-[50px]">
+    <div className="flex min-h-screen flex-col bg-background px-[10px]">
       {!isRegisterFlow && (
         <>
           <Navbar

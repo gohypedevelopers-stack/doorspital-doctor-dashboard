@@ -71,7 +71,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
           </motion.h1>
 
           <motion.p
-            className="text-lg text-slate-600"
+            className="text-lg text-slate-800 dark:text-slate-300"
             variants={heroTextItem}
           >
             Connecting Doctors and Medical Shopkeepers for a seamless healthcare
@@ -152,7 +152,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               <br />
               Partner Platform?
             </h2>
-            <p className="text-lg leading-[30px] text-slate-600">
+            <p className="text-lg leading-[30px] text-slate-800 dark:text-slate-300">
               Our platform is a dedicated ecosystem designed to bridge the gap
               between healthcare professionals and pharmacies. We empower
               doctors to manage patient prescriptions digitally and connect them
@@ -217,7 +217,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               <h3 className="mt-3 text-base font-semibold text-slate-900 dark:text-slate-100">
                 {card.title}
               </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-600">
+              <p className="mt-2 text-sm leading-6 text-slate-300">
                 {card.desc}
               </p>
             </motion.div>
@@ -246,7 +246,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               <br />
               Doorspital App
             </h2>
-            <p className="text-base leading-7 text-slate-600">
+            <p className="text-base leading-7 text-slate-800 dark:text-slate-300">
               Manage everything from the palm of your hand. Our dedicated
               partner app allows you to handle prescriptions, communicate with
               patients, and track your business performance on the go.
@@ -328,7 +328,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               <h3 className="mt-3 text-base font-semibold text-slate-900 dark:text-slate-100">
                 {card.title}
               </h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">
+              <p className="mt-3 text-sm leading-6 text-slate-800 dark:text-slate-300">
                 {card.desc}
               </p>
             </motion.div>

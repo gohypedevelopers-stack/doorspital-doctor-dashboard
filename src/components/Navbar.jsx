@@ -39,7 +39,7 @@ export default function Navbar({
       <div className="flex w-full items-center justify-between py-3">
         {/* Logo / brand */}
         <Link to="/" className="flex items-center gap-2">
-          <img src={icon} className="h-8 w-8 object-contain" />
+          <img src={icon} className="h-13 w-13 object-contain" />
           <span className="text-lg font-semibold text-foreground">
             Doorspital Partner
           </span>
