@@ -5,6 +5,8 @@ import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import GlobalLoader from "@/GlobalLoader.jsx";
+import React from "react";
 
 const Field = ({ label, children }) => (
   <div className="flex flex-col gap-1">
@@ -129,17 +131,8 @@ function EditMedicine() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
-        <div className="flex h-screen">
-          <Sidebar />
-          <div className="flex flex-1 items-center justify-center">
-            <p className="text-sm text-slate-600">Loading medicine details…</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        return <GlobalLoader fullPage />;
+    }
 
   return (
     <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">

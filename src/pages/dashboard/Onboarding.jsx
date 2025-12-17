@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { apiRequest } from "../../lib/api.js";
-
+import GlobalLoader from "../../GlobalLoader";
 const fadeUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
 const StatusBadge = ({ status }) => {
@@ -123,11 +123,7 @@ export default function Onboarding() {
     }, [shouldRedirect, loading, navigate]);
 
     if (loading) {
-        return (
-            <div className="flex items-center justify-center h-96">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            </div>
-        );
+        return <GlobalLoader fullPage />;
     }
 
     if (error) {
@@ -142,11 +138,9 @@ export default function Onboarding() {
     if (!verification) {
         // This will briefly show while redirecting
         return (
-            <div className="flex items-center justify-center h-96">
-                <div className="text-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                    <p className="text-slate-500">Redirecting to registration...</p>
-                </div>
+            <div className="flex flex-col items-center justify-center gap-3 min-h-[240px] text-center">
+                <GlobalLoader />
+                <p className="text-slate-500 text-sm">Redirecting to registration...</p>
             </div>
         );
     }

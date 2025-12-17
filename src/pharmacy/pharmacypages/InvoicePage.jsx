@@ -5,6 +5,8 @@ import bellicon from "../assets/bellicon.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacySession, getPharmacyToken } from "../../lib/pharmacySession.js";
 import html2pdf from "html2pdf.js";
+import GlobalLoader from "@/GlobalLoader.jsx";
+import React from "react";
 
 const currencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
@@ -290,17 +292,8 @@ export default function InvoicePage() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
-        <div className="flex h-screen">
-          <Sidebar />
-          <div className="flex flex-1 items-center justify-center">
-            <p className="text-sm text-slate-600">Preparing invoice...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        return <GlobalLoader fullPage />;
+    }
 
   if (!order) {
     return (

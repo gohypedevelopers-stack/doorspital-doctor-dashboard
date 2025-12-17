@@ -4,6 +4,8 @@ import Sidebar from "../components/Sidebar.jsx";
 import bellicon from "../assets/bellicon.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import GlobalLoader from "@/GlobalLoader.jsx";
+import React from "react";
 
 const statusOptions = [
   { id: "pending", label: "Pending" },
@@ -104,17 +106,8 @@ export default function OrderDetails() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
-        <div className="flex h-screen">
-          <Sidebar />
-          <div className="flex flex-1 items-center justify-center">
-            <p className="text-sm text-slate-600">Loading order...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        return <GlobalLoader fullPage />;
+    }
 
   if (!order) {
     return (

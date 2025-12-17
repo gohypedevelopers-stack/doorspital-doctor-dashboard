@@ -9,6 +9,7 @@ import "./index.css";
 import { RegistrationProvider } from "./lib/registrationContext.jsx";
 import { ThemeProvider } from "@/components/theme-provider";
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

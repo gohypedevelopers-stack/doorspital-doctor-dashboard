@@ -4,6 +4,8 @@ import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
+import GlobalLoader from "@/GlobalLoader.jsx";
+
 
 const Field = ({ label, value }) => (
   <div className="flex flex-col gap-1">
@@ -125,17 +127,8 @@ export default function StoreProfile() {
   }, [profile]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#f6fafb] text-slate-900 dark:text-slate-100">
-        <div className="flex h-screen">
-          <Sidebar />
-          <div className="flex flex-1 items-center justify-center">
-            <p className="text-sm text-slate-600">Loading store profile…</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        return <GlobalLoader fullPage />;
+    }
 
   if (!profile) {
     return (

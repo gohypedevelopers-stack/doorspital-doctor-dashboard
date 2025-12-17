@@ -333,6 +333,7 @@ export default function App() {
           <Route path="/pharmacy/earnings" element={<EarningsOverview />} />
           <Route path="/pharmacy/store-profile" element={<StoreProfile />} />
           <Route path="/pharmacy/support" element={<Support />} />
+          
         </Routes>
       </main>
 
