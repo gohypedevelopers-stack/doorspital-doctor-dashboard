@@ -6,7 +6,7 @@ import pharmacyProfile from "../assets/pharmacyprofile.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
 import GlobalLoader from "@/GlobalLoader.jsx";
-import React from "react";
+
 
 const Field = ({ label, children }) => (
   <div className="flex flex-col gap-1">

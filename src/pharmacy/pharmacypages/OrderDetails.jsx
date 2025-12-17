@@ -5,7 +5,7 @@ import bellicon from "../assets/bellicon.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
 import GlobalLoader from "@/GlobalLoader.jsx";
-import React from "react";
+
 
 const statusOptions = [
   { id: "pending", label: "Pending" },

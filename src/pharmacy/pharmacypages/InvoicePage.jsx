@@ -6,7 +6,7 @@ import { apiRequest } from "../../lib/api.js";
 import { getPharmacySession, getPharmacyToken } from "../../lib/pharmacySession.js";
 import html2pdf from "html2pdf.js";
 import GlobalLoader from "@/GlobalLoader.jsx";
-import React from "react";
+
 
 const currencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
