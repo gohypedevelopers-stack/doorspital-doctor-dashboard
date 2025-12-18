@@ -62,16 +62,35 @@ const Sidebar = () => {
             />
           </div>
           <div>
-            <h1 className="font-semibold text-slate-900 dark:text-slate-100 text-[18px]">
-              {storeName}
-            </h1>
-            
-          </div>
+  <h1 className="relative inline-block font-semibold text-[18px]">
+    <span
+      className="
+        relative z-10
+        bg-gradient-to-r from-fuchsia-500 via-sky-500 to-emerald-500
+        bg-clip-text text-transparent
+      "
+    >
+      {storeName}
+    </span>
+
+    <span
+      aria-hidden="true"
+      className="
+        absolute inset-0 -z-10 rounded-md
+        bg-gradient-to-r from-fuchsia-600 via-sky-600 to-emerald-600
+        blur-lg opacity-25
+        dark:from-fuchsia-400 dark:via-sky-400 dark:to-emerald-400
+dark:opacity-80 dark:blur-3xl      "
+    />
+  </h1>
+</div>
+
+
         </div>
       </div>
 
-      <nav className="flex-1 pl-0 pr-3 py-9 text-[15px] space-y-2">
-        <NavItem label="Dashboard" icon={dashboardIcon} to="/pharmacy" />
+      <nav className="flex-1 pl-0 pr-3 py-9 text-[16px] space-y-2">
+        <NavItem label="Dashboard" icon={dashboardIcon} to="/pharmacy"  />
         <NavItem label="Orders" icon={orderIcon} to="/pharmacy/orders" />
         <NavItem label="Inventory" icon={inventoryIcon} to="/pharmacy/inventory" />
         <NavItem label="Earnings" icon={earningIcon} to="/pharmacy/earnings" />

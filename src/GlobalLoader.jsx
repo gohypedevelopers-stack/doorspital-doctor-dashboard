@@ -9,8 +9,9 @@ export default function GlobalLoader({ fullPage = false }) {
     >
       <DNA
         visible={true}
-        height="80"
-        width="80"
+        height="190"
+        width="190"
+          color="#7c3aed"
         ariaLabel="dna-loading"
       />
     </div>

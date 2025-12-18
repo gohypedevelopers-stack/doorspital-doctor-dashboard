@@ -137,7 +137,7 @@ export default function Onboarding() {
         // This will briefly show while redirecting
         return (
             <div className="flex flex-col items-center justify-center gap-3 min-h-[240px] text-center">
-                <GlobalLoader />
+                
                 <p className="text-slate-500 text-sm">Redirecting to registration...</p>
             </div>
         );

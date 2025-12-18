@@ -390,7 +390,7 @@ export function DashboardProfile() {
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200 mb-1">Experience (Years)</label>
+                                    <label className="block text-xs font-medium text-slate-900 dark:text-slate-200 mb-1">Experience ({details.experience}Years)</label>
                                     <input
                                         type="number"
                                         value={editForm.experienceYears}
