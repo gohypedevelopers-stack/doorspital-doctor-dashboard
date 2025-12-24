@@ -11,12 +11,12 @@ import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
 
 const statusStyles = {
-  Pending: "bg-[#E3E8EF] text-[#475569]",
-  Processing: "bg-[#FFF6DD] text-[#D19A1A]",
-  "Ready for Delivery": "bg-[#FEF3C7] text-[#B45309]",
-  "Out for Delivery": "bg-[#DBEAFE] text-[#1D4ED8]",
-  Delivered: "bg-[#F3E8FF] text-[#7C3AED]",
-Cancelled: "bg-[#FEE2E2] text-[#B91C1C] dark:bg-[#3B0A0A] dark:text-[#FCA5A5]",
+  Pending: "bg-slate-200 text-slate-600 dark:text-white-900",
+  Processing: "bg-slate-200 text-slate-600 dark:text-white-900",
+  "Ready for Delivery": "bg-slate-200 text-slate-600 dark:text-white-900",
+  "Out for Delivery": "bg-slate-200 text-slate-600 dark:text-white-900",
+  Delivered: "bg-slate-200 text-slate-600 dark:text-white-900",
+Cancelled: "bg-slate-200 text-slate-600 dark:text-white-900",
 };
 
 const friendlyStatusLabels = {
@@ -181,7 +181,7 @@ function NewPrescriptionOrders() {
             <div className="mb-6 rounded-[32px] bg-card px-8 py-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] space-y-6">
               {/* Row 1 - Search orders + search bar */}
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-4">
-                <p className="text-[12px] font-medium text-slate-500 w-full lg:w-auto">
+                <p className="text-[12px] font-medium text-slate-900 dark:text-slate-100 w-full lg:w-auto">
                   Search orders:
                 </p>
 
@@ -195,7 +195,7 @@ function NewPrescriptionOrders() {
                       placeholder="Search by patient name or Order ID..."
                       value={searchTerm}
                       onChange={(event) => setSearchTerm(event.target.value)}
-                      className="w-full border-none bg-transparent text-sm text-slate-900 dark:text-slate-200 placeholder:text-slate-400 focus:outline-none"
+                      className="w-full border-none bg-transparent text-sm text-slate-900  placeholder:text-slate-400 focus:outline-none"
                     />
                   </div>
                 </div>
@@ -203,7 +203,7 @@ function NewPrescriptionOrders() {
 
               {/* Row 2 - Filter by status + chips */}
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-4">
-                <p className="text-[12px] font-medium text-slate-500 w-full lg:w-auto">
+                <p className="text-[12px] font-medium text-slate-900 dark:text-slate-100 w-full lg:w-auto">
                   Filter by status:
                 </p>
 
@@ -242,7 +242,7 @@ function NewPrescriptionOrders() {
               <div className="overflow-x-auto">
                 <table className="min-w-full text-left text-[13px]">
                   <thead>
-                    <tr className="border-b border-border bg-[#020817] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                    <tr className="border-b border-border bg-[#3a3c40] text-[11px] font-semibold uppercase tracking-wide text-black-900">
                       <th className="px-8 py-4">Patient Name</th>
                       <th className="px-8 py-4">Order ID</th>
                       <th className="px-8 py-4">Medicine Count</th>

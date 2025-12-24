@@ -34,7 +34,7 @@ const NavItem = ({ label, icon, to }) => {
           <img
             src={icon}
             alt={`${label} icon`}
-            className="h-5 w-5 object-contain"
+            className="h-7 w-7 object-contain"
           />
         ) : (
           icon

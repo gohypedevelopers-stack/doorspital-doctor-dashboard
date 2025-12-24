@@ -1,7 +1,8 @@
 // src/components/Navbar.jsx
 // Top navigation for Home & Benefits pages.
+import React, { useState } from "react";
 
-import React from "react";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import icon from "../assets/icon.png";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -14,6 +15,7 @@ export default function Navbar({
   pharmacySession,
   onPharmacyLogout,
 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const pathname = location.pathname;
   const navigate = useNavigate();
@@ -35,8 +37,15 @@ export default function Navbar({
     "Partner Pharmacy";
 
   return (
-    <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
-      <div className="flex w-full items-center justify-between py-3">
+    <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur ">
+      <div className="flex w-full items-center justify-between py-3 md:flex">
+        <button
+  className="md:hidden text-2xl"
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+  ☰
+</button>
+
         {/* Logo / brand */}
         <Link to="/" className="flex items-center gap-2">
           <img src={icon} className="h-13 w-13 object-contain" />
@@ -76,7 +85,7 @@ export default function Navbar({
         </nav>
 
         {/* Right-side auth buttons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 md:flex">
           <ModeToggle />
           {hasPharmacySession ? (
             <div className="flex items-center gap-3">
@@ -117,13 +126,13 @@ export default function Navbar({
           ) : (
             <>
               <button
-                className="rounded-full border-2 border-blue-700 px-5 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50"
+                className="rounded-full border-2 border-blue-700 px-5 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50 "
                 onClick={onLoginClick}
               >
                 Login
               </button>
               <button
-                className="rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow"
+                className="rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow "
                 onClick={onSignupClick}
               >
                 Register Free
@@ -132,6 +141,59 @@ export default function Navbar({
           )}
         </div>
       </div>
+      {menuOpen && (
+        <div className="md:hidden border-t border-border bg-background px-6 py-4">
+          <nav className="flex flex-col gap-4 text-sm font-medium">
+            <Link to="/" onClick={() => setMenuOpen(false)}>
+              Home
+            </Link>
+
+            <a href="#about" onClick={() => setMenuOpen(false)}>
+              About
+            </a>
+
+            <a href="#testimonials" onClick={() => setMenuOpen(false)}>
+              Testimonials
+            </a>
+
+            <Link to="/benefits" onClick={() => setMenuOpen(false)}>
+              Benefits
+            </Link>
+
+            
+
+            {/* Auth buttons */}
+            {!isAuthenticated ? (
+              <>
+                <button
+                className="rounded-full border-2 border-blue-700 px-5 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50 hidden md:block"
+                onClick={onLoginClick}
+              >
+                Login
+              </button>
+              <button
+                className="rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow hidden md:block"
+                onClick={onSignupClick}
+              >
+                Register Free
+              </button>
+
+                
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  onLogout();
+                  setMenuOpen(false);
+                }}
+                className="rounded-md border border-red-700 px-4 py-2 text-red-600"
+              >
+                Logout
+              </button>
+            )}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

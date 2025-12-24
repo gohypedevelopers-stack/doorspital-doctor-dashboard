@@ -227,17 +227,19 @@ export default function OrderDetails() {
 
               <div className="flex flex-wrap gap-6 text-xs uppercase tracking-wide text-slate-400">
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-900 dark:text-slate-100 lowercase font-semibold">{orderDateLabel}</span>
                   <span className="text-slate-400">Date</span>
+                  <span className="text-slate-900 dark:text-slate-100 lowercase font-semibold">{orderDateLabel}</span>
+                  
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-slate-900 dark:text-slate-100 lowercase font-semibold">{orderTimeLabel}</span>
                   <span className="text-slate-400">Time</span>
+                  <span className="text-slate-900 dark:text-slate-100 lowercase font-semibold">{orderTimeLabel}</span>
+                  
                 </div>
               </div>
               <div className="grid gap-5 md:grid-cols-3">
                 <div className="rounded-2xl border border-border bg-muted p-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                  <p className="text-[16px] font-semibold uppercase tracking-wide text-slate-500 text-center">
                     Order log
                   </p>
                   <div className="mt-4 space-y-2 text-sm">
@@ -258,8 +260,8 @@ export default function OrderDetails() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-card p-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                <div className="rounded-2xl border border-border bg-muted p-4">
+                  <p className="text-[16px] font-semibold uppercase tracking-wide text-slate-500 text-center">
                     Customer info
                   </p>
                   <div className="mt-3 space-y-2 text-sm">
@@ -279,17 +281,23 @@ export default function OrderDetails() {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-card p-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                <div className="rounded-2xl border border-border bg-muted p-4">
+                  <p className="text-[16px] font-semibold uppercase tracking-wide text-slate-500 text-center">
                     Payment
                   </p>
                   <div className="mt-3 space-y-2 text-sm">
                     <p className="font-semibold text-slate-900 dark:text-slate-100">{paymentMethodLabel}</p>
+                   <p className="text-slate-600">
+  Payment Status:{" "}
+  <span className="font-semibold text-white-900 dark:text-slate-100">
+    {order.paymentStatus ?? "Pending"}
+  </span>
+</p>
                     <p className="text-slate-600">
-                      Payment Status: {order.paymentStatus ?? "Pending"}
-                    </p>
-                    <p className="text-slate-600">
-                      Subtotal: {currencyFormatter.format(getSubtotal())}
+                      Subtotal: 
+                        <span className="font-semibold text-white-900 dark:text-slate-100">
+{currencyFormatter.format(getSubtotal())}
+</span>
                     </p>
                     <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">
                       Total {currencyFormatter.format(totalAmount)}
@@ -300,23 +308,23 @@ export default function OrderDetails() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="rounded-2xl border border-border bg-muted p-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                  <p className="text-[16px] font-semibold uppercase tracking-wide text-slate-500 text-center">
                     Delivery address
                   </p>
                   <div className="mt-3 space-y-1 text-sm text-slate-800">
-                    <p className="text-slate-800">
+                    <p className="text-slate-400">
                       {order.shippingAddress?.addressLine1}, {order.shippingAddress?.city}
                     </p>
-                    <p className="text-slate-800">
+                    <p className="text-slate-400">
                       {order.shippingAddress?.state} - {order.shippingAddress?.postalCode}
                     </p>
                     {order.shippingAddress?.phone && (
-                      <p className="text-slate-800">Phone: {order.shippingAddress?.phone}</p>
+                      <p className="text-slate-400">Phone: {order.shippingAddress?.phone}</p>
                     )}
                   </div>
                 </div>
-                <div className="rounded-2xl border border-border bg-card p-4">
-                  <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                <div className="rounded-2xl border border-border bg-muted p-4">
+                  <p className="text-[16px] font-semibold uppercase tracking-wide text-slate-500 text-center">
                     Delivery notes
                   </p>
                   <p className="mt-3 text-sm text-slate-900 dark:text-slate-200">{orderNotes}</p>

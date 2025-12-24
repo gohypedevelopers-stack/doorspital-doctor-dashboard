@@ -8,7 +8,6 @@ import html2pdf from "html2pdf.js";
 import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
 import GlobalLoader from "@/GlobalLoader.jsx";
 
-
 const currencyFormatter = new Intl.NumberFormat("en-IN", {
   style: "currency",
   currency: "INR",
@@ -53,8 +52,6 @@ const formatTimeString = (value) => {
 ---------------------------------------------------------- */
 
 function oklchToRgba(oklchStr) {
-  // Only converts simple numeric OKLCH like: oklch(0.7 0.1 240 / 0.8)
-  // If OKLCH contains var(...) or nested functions, we will DROP those props later.
   const inside = oklchStr.trim().replace(/^oklch\(/, "").replace(/\)$/, "").trim();
   const [beforeAlpha, alphaPart] = inside.split("/");
   const parts = beforeAlpha.trim().split(/\s+/);
@@ -90,7 +87,7 @@ function oklchToRgba(oklchStr) {
 
   const l_ = l + 0.3963377774 * a_ + 0.2158037573 * b_;
   const m_ = l - 0.1055613458 * a_ - 0.0638541728 * b_;
-  const s_ = l - 0.0894841775 * a_ - 1.2914855480 * b_;
+  const s_ = l - 0.0894841775 * a_ - 1.291485548 * b_;
 
   const l3 = l_ * l_ * l_;
   const m3 = m_ * m_ * m_;
@@ -98,7 +95,7 @@ function oklchToRgba(oklchStr) {
 
   let r = 4.0767416621 * l3 - 3.3077115913 * m3 + 0.2309699292 * s3;
   let g = -1.2684380046 * l3 + 2.6097574011 * m3 - 0.3413193965 * s3;
-  let b = -0.0041960863 * l3 - 0.7034186147 * m3 + 1.7076147010 * s3;
+  let b = -0.0041960863 * l3 - 0.7034186147 * m3 + 1.707614701 * s3;
 
   const toSrgb = (x) => {
     x = Math.min(1, Math.max(0, x));
@@ -114,16 +111,9 @@ function oklchToRgba(oklchStr) {
 
 function replaceOklchInString(value) {
   if (!value || typeof value !== "string") return value;
-  // If it contains var( inside oklch, conversion will fail -> handled by stripper.
   return value.replace(/oklch\(([^)]+)\)/g, (match) => oklchToRgba(match) ?? match);
 }
 
-/**
- * Copy computed styles to clone, but:
- * - SKIP custom properties (CSS variables) that start with "--"
- * - Convert simple oklch(...) to rgba(...)
- * - Remove all class names (so Tailwind rules are not parsed)
- */
 function inlineComputedStylesNoVars(originalRoot, cloneRoot) {
   const origNodes = [originalRoot, ...originalRoot.querySelectorAll("*")];
   const cloneNodes = [cloneRoot, ...cloneRoot.querySelectorAll("*")];
@@ -137,7 +127,7 @@ function inlineComputedStylesNoVars(originalRoot, cloneRoot) {
 
     for (let j = 0; j < cs.length; j++) {
       const prop = cs[j];
-      if (!prop || prop.startsWith("--")) continue; // ✅ skip CSS variables
+      if (!prop || prop.startsWith("--")) continue;
 
       let val = cs.getPropertyValue(prop);
       const priority = cs.getPropertyPriority(prop);
@@ -156,17 +146,12 @@ function inlineComputedStylesNoVars(originalRoot, cloneRoot) {
   }
 }
 
-/**
- * Final cleanup: remove any inline style properties that still contain "oklch("
- * (usually from weird values, gradients, or nested functions)
- */
 function stripAnyOklchInline(root) {
   const nodes = [root, ...root.querySelectorAll("*")];
   for (const el of nodes) {
     const style = el.style;
     if (!style) continue;
 
-    // iterate backward because we may remove properties
     for (let i = style.length - 1; i >= 0; i--) {
       const prop = style[i];
       const val = style.getPropertyValue(prop);
@@ -223,11 +208,11 @@ export default function InvoicePage() {
     };
   }, [token, orderId]);
 
-  // ✅ Download ONLY invoiceRef part
   const handleDownload = async () => {
     if (!invoiceRef.current || !order || downloading) return;
 
-    const invoiceNumber = order?.invoiceNumber ?? order?.orderId ?? order?._id ?? orderId;
+    const invoiceNumberForFile =
+      order?.invoiceNumber ?? order?.orderId ?? order?._id ?? orderId;
 
     try {
       showLoader();
@@ -238,20 +223,30 @@ export default function InvoicePage() {
       const original = invoiceRef.current;
       const clone = original.cloneNode(true);
 
-      // Make clone independent from Tailwind CSS (and avoid oklch parsing)
       inlineComputedStylesNoVars(original, clone);
       stripAnyOklchInline(clone);
 
-      // A4 wrapper
+      // ✅ Avoid horizontal clipping in PDF
+      clone.querySelectorAll("*").forEach((el) => {
+        const sx = el.style?.overflowX;
+        if (sx === "auto" || sx === "scroll") el.style.overflowX = "visible";
+      });
+
+      // ✅ IMPORTANT: Use fixed A4-landscape width in PX to avoid scaling/wrapping
+      const A4_LANDSCAPE_PX = 1123; // approx at 96dpi
+      const targetWidth = A4_LANDSCAPE_PX;
+
       const wrapper = document.createElement("div");
-      wrapper.style.width = "210mm";
-      wrapper.style.minHeight = "297mm";
-      wrapper.style.padding = "12mm";
+      wrapper.style.width = `${targetWidth}px`;
+      wrapper.style.margin = "0";
+      wrapper.style.padding = "0";
       wrapper.style.boxSizing = "border-box";
       wrapper.style.background = "#ffffff";
+      wrapper.style.overflow = "visible";
+
+      clone.style.width = "100%";
       wrapper.appendChild(clone);
 
-      // page/table helpers
       const styleTag = document.createElement("style");
       styleTag.textContent = `
         * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -261,7 +256,6 @@ export default function InvoicePage() {
       `;
       wrapper.prepend(styleTag);
 
-      // hidden host
       const host = document.createElement("div");
       host.style.position = "fixed";
       host.style.left = "-100000px";
@@ -271,7 +265,7 @@ export default function InvoicePage() {
       document.body.appendChild(host);
 
       const opt = {
-        filename: `invoice-${invoiceNumber}.pdf`,
+        filename: `invoice-${invoiceNumberForFile}.pdf`,
         margin: 0,
         image: { type: "jpeg", quality: 0.98 },
         html2canvas: {
@@ -279,8 +273,10 @@ export default function InvoicePage() {
           backgroundColor: "#ffffff",
           scrollY: 0,
           useCORS: true,
+          windowWidth: targetWidth,
+          width: targetWidth,
         },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
         pagebreak: { mode: ["css", "legacy"] },
       };
 
@@ -295,14 +291,11 @@ export default function InvoicePage() {
     }
   };
 
-  if (loading) {
-        return <GlobalLoader fullPage />;
-    }
+  if (loading) return <GlobalLoader fullPage />;
 
   if (!order) {
     return (
       <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
-
         <div className="flex h-screen">
           <Sidebar />
           <div className="flex flex-1 items-center justify-center">
@@ -321,7 +314,7 @@ export default function InvoicePage() {
     );
   }
 
-  // --------- original data calculations (same as your code) ----------
+  // --------- calculations ----------
   const customerName =
     order.shippingAddress?.fullName ??
     order.user?.userName ??
@@ -332,17 +325,22 @@ export default function InvoicePage() {
   const customerAddressShipping = order.shippingAddress ?? null;
 
   const customerPhone =
-    order.shippingAddress?.phone ?? order.user?.phone ?? order.customerPhone ?? "Not provided";
+    order.shippingAddress?.phone ??
+    order.user?.phone ??
+    order.customerPhone ??
+    "Not provided";
 
   const customerEmail =
-    order.user?.email ?? order.shippingAddress?.email ?? order.customerEmail ?? "Not provided";
+    order.user?.email ??
+    order.shippingAddress?.email ??
+    order.customerEmail ??
+    "Not provided";
 
   const invoiceNumber = order.invoiceNumber ?? order.orderId ?? order._id ?? orderId;
   const invoiceDate = formatDateString(order.createdAt ?? order.orderDate);
   const invoiceTime = formatTimeString(order.createdAt ?? order.orderDate);
 
-  const sellerName =
-    profile?.storeName ?? session?.pharmacy?.storeName ?? "City Pharmacy";
+  const sellerName = profile?.storeName ?? session?.pharmacy?.storeName ?? "City Pharmacy";
 
   const hasStructuredAddress =
     profile?.address && typeof profile.address === "object" && Object.keys(profile.address).length;
@@ -352,7 +350,10 @@ export default function InvoicePage() {
     : profile?.storeAddress ?? "Not provided";
 
   const sellerPhone =
-    profile?.phoneNumber ?? profile?.whatsappNumber ?? session?.user?.phone ?? "Not provided";
+    profile?.phoneNumber ??
+    profile?.whatsappNumber ??
+    session?.user?.phone ??
+    "Not provided";
 
   const sellerEmail = session?.user?.email ?? profile?.ownerEmail ?? "info@doorspital.com";
   const sellerWebsite = profile?.website ?? "https://doorspital.com";
@@ -367,7 +368,8 @@ export default function InvoicePage() {
 
   const subtotal = order.subtotal ?? subtotalFromItems;
   const totalDiscount = order.totalDiscount ?? order.discount ?? order.discountAmount ?? 0;
-  const deliveryCharges = order.deliveryCharges ?? order.shippingCharges ?? order.shippingCost ?? 0;
+  const deliveryCharges =
+    order.deliveryCharges ?? order.shippingCharges ?? order.shippingCost ?? 0;
   const grandTotal = order.total ?? subtotal - totalDiscount + deliveryCharges;
   const amountPaid = order.amountPaid ?? order.paidAmount ?? order.totalPaid ?? grandTotal;
   const balanceDue = Math.max(grandTotal - amountPaid, 0);
@@ -379,7 +381,6 @@ export default function InvoicePage() {
 
   return (
     <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
-
       <div className="flex h-screen">
         <Sidebar />
 
@@ -417,7 +418,6 @@ export default function InvoicePage() {
               </div>
             )}
 
-            {/* ✅ ONLY THIS PART WILL DOWNLOAD */}
             <div
               ref={invoiceRef}
               data-invoice-root
@@ -428,7 +428,9 @@ export default function InvoicePage() {
                   <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-400">
                     Seller details
                   </p>
-                  <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">{sellerName}</p>
+                  <p className="text-lg font-semibold text-slate-900 dark:text-slate-100">
+                    {sellerName}
+                  </p>
                   <p className="text-sm text-slate-600">{sellerAddress}</p>
                   <p className="text-sm text-slate-600">Phone: {sellerPhone}</p>
                   <p className="text-sm text-slate-600">Email: {sellerEmail}</p>
@@ -439,21 +441,25 @@ export default function InvoicePage() {
                 <div className="space-y-3 rounded-2xl border border-border bg-muted p-5 text-sm text-slate-900 dark:text-slate-200">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Invoice Date</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{invoiceDate}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                      {invoiceDate}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Invoice Time</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{invoiceTime}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                      {invoiceTime}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Order Number</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
                       {order.orderId ?? order._id}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Payment Status</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
                       {order.paymentStatus ?? "Pending"}
                     </span>
                   </div>
@@ -469,7 +475,9 @@ export default function InvoicePage() {
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
                       Customer name
                     </p>
-                    <p className="text-base font-semibold text-slate-900 dark:text-slate-100">{customerName}</p>
+                    <p className="text-base font-semibold text-slate-900 dark:text-slate-100">
+                      {customerName}
+                    </p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Phone</p>
@@ -568,7 +576,9 @@ export default function InvoicePage() {
                     </span>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t border-border">
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">Grand total</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
+                      Grand total
+                    </span>
                     <span className="text-lg font-bold text-slate-900 dark:text-slate-100">
                       {currencyFormatter.format(grandTotal)}
                     </span>
@@ -593,11 +603,13 @@ export default function InvoicePage() {
                   </p>
                   <div className="flex items-center justify-between">
                     <span>Method</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{paymentMethod}</span>
+                    <span className="font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
+                      {paymentMethod}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Status</span>
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100 whitespace-nowrap">
                       {order.paymentStatus ?? "Unknown"}
                     </span>
                   </div>

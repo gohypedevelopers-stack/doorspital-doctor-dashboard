@@ -9,17 +9,16 @@ export default function Footer() {
   return (
     <motion.footer
       className="border-t border-border bg-card mt-12 mb-12"
-      initial={{ opacity: 0, y: 40 }}              // start lower + invisible
-      whileInView={{ opacity: 1, y: 0 }}           // move up into place
-      viewport={{ once: true, amount: 0.2 }}       // trigger when ~20% in view
+      initial={{ opacity: 0, y: 40 }} // start lower + invisible
+      whileInView={{ opacity: 1, y: 0 }} // move up into place
+      viewport={{ once: true, amount: 0.2 }} // trigger when ~20% in view
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="mx-auto w-full max-w-screen-2xl px-4 py-10">
+      <div className="mx-auto w-full max-w-screen-2xl px-4 py-10 ">
         {/* Top row: brand + 4 columns */}
-        <div className="grid gap-10 md:grid-cols-12">
-          {/* Brand / summary */}
-          <div className="space-y-4 md:col-span-3">
+        <div className="space-y-4 md:col-span-3">
             <div className="flex items-center gap-3">
+              
               {/* ✅ keep icon position */}
               <img
                 src={icon}
@@ -38,7 +37,8 @@ export default function Footer() {
             </p>
 
             {/* Social icons */}
-            <div className="mt-2 flex gap-3">
+            
+            <div className="mt-2 flex items-center gap-3">
               <button className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200">
                 @
               </button>
@@ -50,10 +50,15 @@ export default function Footer() {
               </button>
             </div>
           </div>
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-12 mt-4">
+          {/* Brand / summary */}
+          
 
           {/* About */}
           <div className="md:col-span-2">
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">About</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+              About
+            </h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>About Us</li>
               <li>Benefits</li>
@@ -63,7 +68,9 @@ export default function Footer() {
 
           {/* Support */}
           <div className="md:col-span-2">
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Support</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+              Support
+            </h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>Contact</li>
               <li>Help Center</li>
@@ -73,7 +80,9 @@ export default function Footer() {
 
           {/* Legal */}
           <div className="md:col-span-2">
-            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Legal</h3>
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+              Legal
+            </h3>
             <ul className="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>Privacy Policy</li>
               <li>Terms &amp; Conditions</li>
@@ -99,8 +108,9 @@ export default function Footer() {
                 Subscribe
               </button>
             </div>
+            </div>
           </div>
-        </div>
+        
       </div>
     </motion.footer>
   );
