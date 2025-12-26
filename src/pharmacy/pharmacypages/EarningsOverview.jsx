@@ -1,6 +1,6 @@
 // src/pharmacy/pharmacypages/EarningsOverview.jsx
 import React, { useEffect, useMemo, useState } from "react";
-import Sidebar from "../components/Sidebar.jsx";
+import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
 import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
@@ -202,255 +202,245 @@ function EarningsOverview() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f8f7] text-slate-900 dark:text-slate-100">
-      <div className="flex h-screen">
-        <Sidebar />
-
-        <div className="flex flex-1 flex-col">
-          {/* Header */}
-<header className="flex items-center justify-between border-b border-border bg-[#020817] px-10 py-1">
+    <PharmacyLayout
+      mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] dark:bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7 space-y-6"
+      header={({ openDrawer }) => (
+        <header className="flex items-center justify-between border-b border-border bg-[#020817] px-4 sm:px-6 lg:px-10 py-1">
+          <div className="flex items-start gap-3">
+            <PharmacyMenuToggle onClick={openDrawer} />
             <div>
               <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
                 Earnings Overview
               </h1>
-              <p className="mt-1 text-[12px] text-slate-500">
-                Review your pharmacy&apos;s financial performance.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-4">
               
-              <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-                <img src={bellicon} alt="Notifications" />
-              </button>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-                <img src={pharmacyProfile} alt="Profile" />
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+              <img src={bellicon} alt="Notifications" />
+            </button>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
+              <img src={pharmacyProfile} alt="Profile" />
+            </div>
+          </div>
+        </header>
+      )}
+    >
+      {loading ? (
+        <div className="flex items-center justify-center h-64">
+          <div className="text-slate-500"></div>
+        </div>
+      ) : error ? (
+        <div className="flex items-center justify-center h-64">
+          <div className="text-red-500">{error}</div>
+        </div>
+      ) : (
+        <>
+          {/* Top metric cards */}
+          <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {/* Total revenue */}
+            <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+              <div className="text-[12px] font-medium text-slate-500">
+                Total Revenue
+              </div>
+              <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
+                {formatCurrency(totalRevenueValue)}
+              </div>
+              <div
+                className={`mt-2 text-[12px] font-semibold ${
+                  earningsData.revenueGrowth >= 0
+                    ? "text-[#00b074]"
+                    : "text-[#d23434]"
+                }`}
+              >
+                {formatGrowth(earningsData.revenueGrowth)}
               </div>
             </div>
-          </header>
 
-          <main className="flex-1 overflow-y-auto bg-[#f4f8f7] dark:bg-[#1E293B] px-10 py-7 space-y-6">
-            {loading ? (
-              <div className="flex items-center justify-center h-64">
-                <div className="text-slate-500"></div>
+            {/* Total Orders */}
+            <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+              <div className="text-[12px] font-medium text-slate-500">
+                Total Orders
               </div>
-            ) : error ? (
-              <div className="flex items-center justify-center h-64">
-                <div className="text-red-500">{error}</div>
+              <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
+                {earningsData.totalOrders.toLocaleString()}
               </div>
-            ) : (
-              <>
-                {/* Top metric cards */}
-                <section className="grid grid-cols-4 gap-5">
-                  {/* Total revenue */}
-                  <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
-                    <div className="text-[12px] font-medium text-slate-500">
-                      Total Revenue
-                    </div>
-                    <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
-                      {formatCurrency(totalRevenueValue)}
-                    </div>
-                    <div
-                      className={`mt-2 text-[12px] font-semibold ${earningsData.revenueGrowth >= 0
-                          ? "text-[#00b074]"
-                          : "text-[#d23434]"
-                        }`}
-                    >
-                      {formatGrowth(earningsData.revenueGrowth)}
-                    </div>
-                  </div>
+              <div className="mt-2 text-[12px] text-slate-400">
+                Completed orders: {completedOrdersCount.toLocaleString()}
+              </div>
+            </div>
 
-                  {/* Total Orders */}
-                  <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
-                    <div className="text-[12px] font-medium text-slate-500">
-                      Total Orders
-                    </div>
-                    <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
-                      {earningsData.totalOrders.toLocaleString()}
-                    </div>
-                    <div className="mt-2 text-[12px] text-slate-400">
-                      Completed orders: {completedOrdersCount.toLocaleString()}
-                    </div>
-                  </div>
+            {/* AOV */}
+            <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+              <div className="text-[12px] font-medium text-slate-500">
+                Average Order Value
+              </div>
+              <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
+                {formatCurrency(earningsData.averageOrderValue)}
+              </div>
+              <div className="mt-2 text-[12px] text-slate-400">
+                Per order avg
+              </div>
+            </div>
 
-                  {/* AOV */}
-                  <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
-                    <div className="text-[12px] font-medium text-slate-500">
-                      Average Order Value
-                    </div>
-                    <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
-                      {formatCurrency(earningsData.averageOrderValue)}
-                    </div>
-                    <div className="mt-2 text-[12px] text-slate-400">
-                      Per order avg
-                    </div>
-                  </div>
+            {/* Current Month Revenue */}
+            <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+              <div className="text-[12px] font-medium text-slate-500">
+                This Month Revenue
+              </div>
+              <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
+                {formatCurrency(currentMonthRevenue)}
+              </div>
+              <div className="mt-2 text-[12px] text-slate-400">
+                Last month: {formatCurrency(lastMonthRevenue)}
+              </div>
+            </div>
+          </section>
 
-                  {/* Current Month Revenue */}
-                  <div className="rounded-xl bg-card px-6 py-5 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
-                    <div className="text-[12px] font-medium text-slate-500">
-                      This Month Revenue
-                    </div>
-                    <div className="mt-3 text-3xl font-semibold text-slate-900 dark:text-slate-100">
-                      {formatCurrency(currentMonthRevenue)}
-                    </div>
-                    <div className="mt-2 text-[12px] text-slate-400">
-                      Last month: {formatCurrency(lastMonthRevenue)}
-                    </div>
-                  </div>
-                </section>
+          {/* Revenue Chart */}
+          <section className="rounded-3xl bg-card px-4 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-[14px] font-semibold text-slate-900 dark:text-slate-100">
+                Revenue Over Time (Last 7 Days)
+              </h2>
+            </div>
 
-                {/* Revenue Chart */}
-                <section className="rounded-3xl bg-card px-8 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
-                  <div className="mb-4 flex items-center justify-between">
-                    <h2 className="text-[14px] font-semibold text-slate-900 dark:text-slate-100">
-                      Revenue Over Time (Last 7 Days)
-                    </h2>
-                  </div>
+            <div className="h-72">
+              {hasRevenueHistory ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart
+                    data={realtimeDailyRevenue}
+                    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                  >
+                    <defs>
+                      <linearGradient
+                        id="colorRevenue"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#00b074"
+                          stopOpacity={0.3}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#00b074"
+                          stopOpacity={0}
+                        />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="#e2e8f0"
+                      vertical={false}
+                    />
+                    <XAxis
+                      dataKey="day"
+                      tick={{ fill: "#64748b", fontSize: 12 }}
+                      tickLine={false}
+                      axisLine={{ stroke: "#e2e8f0" }}
+                    />
+                    <YAxis
+                      tick={{ fill: "#64748b", fontSize: 12 }}
+                      tickLine={false}
+                      axisLine={false}
+                      tickFormatter={(value) => `${Math.round(value / 1000)}k`}
+                    />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Area
+                      type="monotone"
+                      dataKey="revenue"
+                      stroke="#00b074"
+                      strokeWidth={3}
+                      fillOpacity={1}
+                      fill="url(#colorRevenue)"
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex h-full items-center justify-center text-slate-400">
+                  No revenue data available
+                </div>
+              )}
+            </div>
+          </section>
 
-                  <div className="h-72">
-                    {hasRevenueHistory ? (
-                      <ResponsiveContainer width="100%" height="100%">
-                        <AreaChart
-                          data={realtimeDailyRevenue}
-                          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-                        >
-                          <defs>
-                            <linearGradient
-                              id="colorRevenue"
-                              x1="0"
-                              y1="0"
-                              x2="0"
-                              y2="1"
-                            >
-                              <stop
-                                offset="5%"
-                                stopColor="#00b074"
-                                stopOpacity={0.3}
-                              />
-                              <stop
-                                offset="95%"
-                                stopColor="#00b074"
-                                stopOpacity={0}
-                              />
-                            </linearGradient>
-                          </defs>
-                          <CartesianGrid
-                            strokeDasharray="3 3"
-                            stroke="#e2e8f0"
-                            vertical={false}
-                          />
-                          <XAxis
-                            dataKey="day"
-                            tick={{ fill: "#64748b", fontSize: 12 }}
-                            tickLine={false}
-                            axisLine={{ stroke: "#e2e8f0" }}
-                          />
-                          <YAxis
-                            tick={{ fill: "#64748b", fontSize: 12 }}
-                            tickLine={false}
-                            axisLine={false}
-                            tickFormatter={(value) =>
-                              `₹${(value / 1000).toFixed(0)}k`
+          {/* Recent Orders Table */}
+          <section className="rounded-3xl bg-card px-4 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+            <h2 className="mb-4 text-[14px] font-semibold text-slate-900 dark:text-slate-100">
+              Recent Orders
+            </h2>
+
+            <div className="overflow-x-auto">
+              {earningsData.recentOrders.length === 0 ? (
+                <div className="py-8 text-center text-slate-400">
+                  No orders yet
+                </div>
+              ) : (
+                <table className="min-w-full text-left text-[13px]">
+                  <thead>
+                    <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+                      <th className="px-4 py-3">Order ID</th>
+                      <th className="px-4 py-3">Customer</th>
+                      <th className="px-4 py-3">Items</th>
+                      <th className="px-4 py-3">Amount</th>
+                      <th className="px-4 py-3">Status</th>
+                      <th className="px-4 py-3">Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {earningsData.recentOrders.map((order, idx) => (
+                      <tr
+                        key={order._id}
+                        className={
+                          "text-slate-900 dark:text-slate-200 " +
+                          (idx !== earningsData.recentOrders.length - 1
+                            ? "border-b border-border"
+                            : "")
+                        }
+                      >
+                        <td className="px-4 py-3 font-mono text-xs">
+                          #{order._id.slice(-8).toUpperCase()}
+                        </td>
+                        <td className="px-4 py-3">{order.customerName}</td>
+                        <td className="px-4 py-3 text-slate-600">
+                          {order.itemCount} items
+                        </td>
+                        <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
+                          {formatCurrency(order.total)}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span
+                            className={`rounded-full px-2 py-1 text-[10px] font-medium ${getStatusColor(
+                              order.status
+                            )}`}
+                          >
+                            {order.status.replace(/_/g, " ")}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-slate-600">
+                          {new Date(order.createdAt).toLocaleDateString(
+                            "en-IN",
+                            {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
                             }
-                          />
-                          <Tooltip content={<CustomTooltip />} />
-                          <Area
-                            type="monotone"
-                            dataKey="revenue"
-                            stroke="#00b074"
-                            strokeWidth={3}
-                            fillOpacity={1}
-                            fill="url(#colorRevenue)"
-                          />
-                        </AreaChart>
-                      </ResponsiveContainer>
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-slate-400">
-                        No revenue data available
-                      </div>
-                    )}
-                  </div>
-                </section>
-
-                {/* Recent Orders Table */}
-                <section className="rounded-3xl bg-card px-8 py-6 shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
-                  <h2 className="mb-4 text-[14px] font-semibold text-slate-900 dark:text-slate-100">
-                    Recent Orders
-                  </h2>
-
-                  <div className="overflow-x-auto">
-                    {earningsData.recentOrders.length === 0 ? (
-                      <div className="py-8 text-center text-slate-400">
-                        No orders yet
-                      </div>
-                    ) : (
-                      <table className="min-w-full text-left text-[13px]">
-                        <thead>
-                          <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
-                            <th className="px-4 py-3">Order ID</th>
-                            <th className="px-4 py-3">Customer</th>
-                            <th className="px-4 py-3">Items</th>
-                            <th className="px-4 py-3">Amount</th>
-                            <th className="px-4 py-3">Status</th>
-                            <th className="px-4 py-3">Date</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {earningsData.recentOrders.map((order, idx) => (
-                            <tr
-                              key={order._id}
-                              className={
-                                "text-slate-900 dark:text-slate-200 " +
-                                (idx !== earningsData.recentOrders.length - 1
-                                  ? "border-b border-border"
-                                  : "")
-                              }
-                            >
-                              <td className="px-4 py-3 font-mono text-xs">
-                                #{order._id.slice(-8).toUpperCase()}
-                              </td>
-                              <td className="px-4 py-3">
-                                {order.customerName}
-                              </td>
-                              <td className="px-4 py-3 text-slate-600">
-                                {order.itemCount} items
-                              </td>
-                              <td className="px-4 py-3 font-semibold text-slate-900 dark:text-slate-100">
-                                {formatCurrency(order.total)}
-                              </td>
-                              <td className="px-4 py-3">
-                                <span
-                                  className={`rounded-full px-2 py-1 text-[10px] font-medium ${getStatusColor(
-                                    order.status
-                                  )}`}
-                                >
-                                  {order.status.replace(/_/g, " ")}
-                                </span>
-                              </td>
-                              <td className="px-4 py-3 text-slate-600">
-                                {new Date(order.createdAt).toLocaleDateString(
-                                  "en-IN",
-                                  {
-                                    day: "numeric",
-                                    month: "short",
-                                    year: "numeric",
-                                  }
-                                )}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    )}
-                  </div>
-                </section>
-              </>
-            )}
-          </main>
-        </div>
-      </div>
-    </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </section>
+        </>
+      )}
+    </PharmacyLayout>
   );
 }
 

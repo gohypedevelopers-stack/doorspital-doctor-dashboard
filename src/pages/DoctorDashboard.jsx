@@ -38,15 +38,20 @@ const SectionHeader = ({ kicker, title, subtitle, action }) => (
   </div>
 );
 
-const Sidebar = ({ activeSection, setActiveSection, userName }) => {
+const SidebarContent = ({ activeSection, setActiveSection, userName, onNavigate, containerClassName }) => {
   const hour = new Date().getHours();
   let greeting = "Hello";
   if (hour < 12) greeting = "Good morning";
   else if (hour < 17) greeting = "Good afternoon";
   else greeting = "Good evening";
 
+  const handleSectionClick = (sectionId) => {
+    setActiveSection(sectionId);
+    onNavigate?.();
+  };
+
   return (
-    <aside className="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-border bg-muted px-4 py-6">
+    <div className={containerClassName}>
       <div className="rounded-3xl border border-border bg-card px-5 py-5 shadow-sm">
         <div
           className="inline-flex items-center rounded-full 
@@ -72,7 +77,7 @@ const Sidebar = ({ activeSection, setActiveSection, userName }) => {
               <button
                 key={section.id}
                 type="button"
-                onClick={() => setActiveSection(section.id)}
+                onClick={() => handleSectionClick(section.id)}
                 className={`flex w-full items-center justify-between rounded-[5px] border px-4 py-3 text-sm font-medium leading-tight transition
                   ${isActive
                     ? "border-blue-300 bg-card shadow-sm text-slate-900 dark:text-slate-100"
@@ -95,7 +100,44 @@ const Sidebar = ({ activeSection, setActiveSection, userName }) => {
           })}
         </div>
       </nav>
-    </aside>
+    </div>
+  );
+};
+
+const Sidebar = (props) => (
+  <aside className="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-border bg-muted px-4 py-6">
+    <SidebarContent {...props} containerClassName="flex flex-col gap-4" />
+  </aside>
+);
+
+const DoctorSidebarDrawer = ({
+  open,
+  onClose,
+  activeSection,
+  setActiveSection,
+  userName,
+}) => {
+  return (
+    <div
+      className={`fixed inset-0 z-40 flex md:hidden ${open ? "" : "pointer-events-none"}`}
+      aria-hidden={!open}
+    >
+      <div
+        className={`absolute inset-0 bg-black transition-opacity ${open ? "opacity-60" : "opacity-0"}`}
+        onClick={onClose}
+      />
+      <div
+        className={`relative h-full w-72 transform bg-[#020826] p-4 transition-transform ${open ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        <SidebarContent
+          activeSection={activeSection}
+          setActiveSection={setActiveSection}
+          userName={userName}
+          onNavigate={onClose}
+          containerClassName="flex h-full flex-col gap-4"
+        />
+      </div>
+    </div>
   );
 };
 
@@ -254,6 +296,7 @@ export default function DoctorDashboard({ token, user }) {
   const [verificationError, setVerificationError] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const resolvedDoctorId = useMemo(() => {
     // Try to get doctor ID from profile first
@@ -541,6 +584,11 @@ export default function DoctorDashboard({ token, user }) {
     () => profileSummary.name || user?.userName || "Doctor",
     [profileSummary.name, user?.userName]
   );
+  const openDrawer = () => setDrawerOpen(true);
+  const closeDrawer = () => setDrawerOpen(false);
+  const activeSectionLabel =
+    sidebarSections.find((section) => section.id === activeSection)?.label ||
+    "Dashboard";
 
   const verificationNotes = pickValue(verificationStatus, ["reviewNotes", "notes", "remark"], "");
 
@@ -555,12 +603,37 @@ export default function DoctorDashboard({ token, user }) {
 
   return (
     <div className="flex min-h-screen bg-muted">
+      <DoctorSidebarDrawer
+        open={drawerOpen}
+        onClose={closeDrawer}
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+        userName={welcomeName}
+      />
       <Sidebar
         activeSection={activeSection}
         setActiveSection={setActiveSection}
         userName={welcomeName}
       />
       <main className="flex-1 px-4 pb-16 pt-6 md:px-6 lg:px-10">
+        <div className="mb-4 flex items-center justify-between gap-3 rounded-2xl border border-border bg-card px-4 py-3 text-sm text-slate-900 shadow-sm md:hidden dark:bg-[#0b1324] dark:text-slate-100">
+          <button
+            onClick={openDrawer}
+            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-amber-400 bg-gradient-to-br from-orange-500 via-orange-600 to-amber-500 text-white shadow-lg shadow-orange-500/40"
+            aria-label="Open sidebar"
+          >
+            <span className="sr-only">Open navigation</span>
+            <span className="flex flex-col gap-1">
+              <span className="h-[2px] w-5 rounded-full bg-white" />
+              <span className="h-[2px] w-5 rounded-full bg-white" />
+              <span className="h-[2px] w-5 rounded-full bg-white" />
+            </span>
+          </button>
+          <span className="font-semibold">{activeSectionLabel}</span>
+          <span className="rounded-full border border-white/40 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">
+            Menu
+          </span>
+        </div>
         {loading && loadingOverlay}
 
         <motion.section

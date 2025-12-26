@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Sidebar from "../components/Sidebar.jsx";
+import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
 import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
@@ -463,28 +463,27 @@ function DashboardOverview() {
   // -------------------------------------------------------------------------------------
 
   return (
-    <div className="min-h-screen bg-[#f4f8f7] text-slate-900 dark:bg-[#1E293B] dark:text-slate-100">
-      <div className="flex h-screen">
-        <Sidebar activePage="Dashboard" />
-
-        <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-[#020817] px-10 py-1">
-            <div>
-              <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
-                Dashboard Overview
-              </h1>
+    <PharmacyLayout
+      mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] px-4 sm:px-6 lg:px-10 py-7 dark:bg-[#1E293B]"
+      header={({ openDrawer }) => (
+        <header className="flex items-center justify-between border-b border-border bg-[#020817] px-4 sm:px-6 lg:px-10 py-1">
+          <div className="flex items-center gap-3">
+            <PharmacyMenuToggle onClick={openDrawer} />
+            <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
+              Dashboard Overview
+            </h1>
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+              <img src={bellicon} alt="Notifications" />
+            </button>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
+              <img src={pharmacyProfile} alt="Profile" />
             </div>
-            <div className="flex items-center gap-4">
-              <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-                <img src={bellicon} alt="Notifications" />
-              </button>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-                <img src={pharmacyProfile} alt="Profile" />
-              </div>
-            </div>
-          </header>
-
-          <main className="flex-1 overflow-y-auto bg-[#f4f8f7] px-10 py-7 dark:bg-[#1E293B]">
+          </div>
+        </header>
+      )}
+    >
             {statusMessage && (
               <div className="mb-6 rounded-xl bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-800 shadow-sm">
                 {statusMessage}
@@ -732,10 +731,7 @@ function DashboardOverview() {
                 </div>
               </div>
             </div>
-          </main>
-        </div>
-      </div>
-    </div>
+    </PharmacyLayout>
   );
 }
 

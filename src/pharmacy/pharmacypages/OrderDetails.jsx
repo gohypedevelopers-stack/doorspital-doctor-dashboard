@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Sidebar from "../components/Sidebar.jsx";
+import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import bellicon from "../assets/bellicon.png";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
@@ -115,23 +115,38 @@ export default function OrderDetails() {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
-
-        <div className="flex h-screen">
-          <Sidebar />
-          <div className="flex flex-1 items-center justify-center">
-            <div className="space-y-3 text-center">
-              <p className="text-slate-500">Order not found.</p>
-              <button
-                onClick={() => navigate("/pharmacy/orders")}
-                className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-slate-900 dark:text-slate-200 hover:bg-slate-100"
-              >
-                <h1>Back to orders</h1>
-              </button>
+      <PharmacyLayout
+        outerClassName="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100"
+        mainClassName="flex-1 flex items-center justify-center px-4 py-12"
+        header={({ openDrawer }) => (
+          <header className="flex items-center justify-between border-b border-border bg-[#020817] px-4 sm:px-6 lg:px-10 py-1">
+            <div className="flex items-center gap-3">
+              <PharmacyMenuToggle onClick={openDrawer} />
+              <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
+                Order not found
+              </h1>
             </div>
-          </div>
+            <div className="flex items-center gap-4">
+              <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+                <img src={bellicon} alt="Notifications" />
+              </button>
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
+                <img src={pharmacyProfile} alt="Profile" />
+              </div>
+            </div>
+          </header>
+        )}
+      >
+        <div className="space-y-3 text-center">
+          <p className="text-slate-500">Order not found.</p>
+          <button
+            onClick={() => navigate("/pharmacy/orders")}
+            className="rounded-full border border-border px-4 py-2 text-sm font-semibold text-slate-900 dark:text-slate-200 hover:bg-slate-100"
+          >
+            <h1>Back to orders</h1>
+          </button>
         </div>
-      </div>
+      </PharmacyLayout>
     );
   }
 
@@ -167,29 +182,31 @@ export default function OrderDetails() {
   const totalAmount = order.total ?? getSubtotal();
 
   return (
-    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
-
-      <div className="flex h-screen">
-        <Sidebar />
-        <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
+    <PharmacyLayout
+      outerClassName="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100"
+      mainClassName="flex-1 overflow-y-auto bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7"
+      header={({ openDrawer }) => (
+        <header className="flex items-center justify-between border-b border-border bg-card px-4 sm:px-6 lg:px-10 py-5">
+          <div className="flex items-center gap-3">
+            <PharmacyMenuToggle onClick={openDrawer} />
             <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Order #{orderId}
             </h1>
-            <div className="flex items-center gap-3">
-              <Link
-                to={`/pharmacy/orders/${orderId}/invoice`}
-                className="rounded-2xl border border-emerald-200 bg-card px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-emerald-600 transition hover:border-emerald-400 hover:bg-emerald-50"
-              >
-                Invoice
-              </Link>
-              <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-                <img src={bellicon} alt="Notifications" />
-              </button>
-            </div>
-          </header>
-
-          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
+          </div>
+          <div className="flex items-center gap-3">
+            <Link
+              to={`/pharmacy/orders/${orderId}/invoice`}
+              className="rounded-2xl border border-emerald-200 bg-card px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-emerald-600 transition hover:border-emerald-400 hover:bg-emerald-50"
+            >
+              Invoice
+            </Link>
+            <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+              <img src={bellicon} alt="Notifications" />
+            </button>
+          </div>
+        </header>
+      )}
+    >
             {error && (
               <div className="mb-4 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
                 {error}
@@ -366,9 +383,6 @@ export default function OrderDetails() {
                 </div>
               </div>
             </div>
-          </main>
-        </div>
-      </div>
-    </div>
+    </PharmacyLayout>
   );
 }

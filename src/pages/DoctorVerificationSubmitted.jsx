@@ -27,7 +27,7 @@ export default function DoctorVerificationSubmitted() {
         </div>
       </header>
 
-      <main className="flex min-h-[calc(100vh-64px)] items-center justify-center px-4 py-12">
+      <main className="flex min-h-[calc(100vh-64px)] items-center justify-center px-4 py-12 sm:px-6 lg:px-10">
         <div className="w-full max-w-lg rounded-[32px] bg-card/90 px-8 py-12 shadow-[0_35px_120px_rgba(15,23,42,0.18)] backdrop-blur">
           <div className="flex flex-col items-center gap-6 text-center">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 shadow-lg">

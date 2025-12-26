@@ -44,7 +44,7 @@ export default function VerificationSubmitted() {
       </header>
 
       {/* Center card */}
-      <main className="flex w-full items-center justify-center py-10 sm:py-16">
+      <main className="flex w-full items-center justify-center py-10 sm:py-16 px-4 sm:px-6">
         <div className="w-full max-w-md rounded-2xl bg-card px-8 py-10 text-center shadow-xl ring-1 ring-slate-200">
           {/* Green check icon */}
           <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">

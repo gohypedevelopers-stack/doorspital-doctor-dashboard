@@ -358,8 +358,9 @@ export default function DoctorFaceVerification() {
       </header>
 
       {/* MAIN CARD */}
-      <main className="w-full py-8 sm:py-10">
-        <div className="rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
+      <main className="w-full px-4 py-8 sm:px-6 sm:py-10 lg:px-10">
+        <div className="mx-auto w-full max-w-4xl">
+          <div className="rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
           {/* Title + step bar */}
           <div className="border-b border-border px-6 py-5 sm:px-8">
             <h1 className="text-center text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
@@ -563,9 +564,9 @@ export default function DoctorFaceVerification() {
               )}
             </div>
           </div>
-        </div>
+        </div></div>
       </main>
-    </div>
+    </div> 
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/Sidebar.jsx";
+import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
 import { apiRequest } from "../../lib/api.js";
@@ -118,199 +118,185 @@ function AddNewMedicine() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
-
-      <div className="flex h-screen">
-        <Sidebar />
-        <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
+    <PharmacyLayout
+      outerClassName="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100"
+      mainClassName="flex-1 overflow-y-auto bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7"
+      header={({ openDrawer }) => (
+        <header className="flex items-center justify-between border-b border-border bg-card px-4 sm:px-6 lg:px-10 py-5">
+          <div className="flex items-center gap-3">
+            <PharmacyMenuToggle onClick={openDrawer} />
             <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Add New Medicine
             </h1>
-            <div className="flex items-center gap-4">
-              <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-                <img src={bellicon} alt="Notifications" />
-              </button>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-                <img src={pharmacyProfile} alt="Profile" />
-              </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+              <img src={bellicon} alt="Notifications" />
+            </button>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
+              <img src={pharmacyProfile} alt="Profile" />
             </div>
-          </header>
-          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
-            <div className="rounded-[40px] border border-border bg-card p-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)]">
-              {feedback && (
-                <div className="mb-4 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
-                  {feedback}
-                </div>
-              )}
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <Field label="Brand Name">
-                    <Input
-                      name="brandName"
-                      value={formData.brandName}
-                      onChange={handleChange}
-                    />
-                  </Field>
-                  <Field label="Generic Name">
-                    <Input
-                      name="genericName"
-                      value={formData.genericName}
-                      onChange={handleChange}
-                    />
-                  </Field>
-                </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  <Field label="Dosage Form">
-                    <select
-                      name="dosageForm"
-                      value={formData.dosageForm}
-                      onChange={handleChange}
-                      className="h-10 w-full rounded-xl border border-border bg-muted px-3 text-[13px]"
-                    >
-                      <option>Tablet</option>
-                      <option>Capsule</option>
-                      <option>Syrup</option>
-                      <option>Injection</option>
-                    </select>
-                  </Field>
-                  <Field label="Strength Value">
-                    <Input
-                      name="strengthValue"
-                      value={formData.strengthValue}
-                      onChange={handleChange}
-                      placeholder="500"
-                    />
-                  </Field>
-                  <Field label="Strength Unit">
-                    <select
-                      name="strengthUnit"
-                      value={formData.strengthUnit}
-                      onChange={handleChange}
-                      className="h-10 w-full rounded-xl border border-border bg-muted px-3 text-[13px]"
-                    >
-                      <option>mg</option>
-                      <option>ml</option>
-                      <option>g</option>
-                    </select>
-                  </Field>
-                </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  <Field label="MRP">
-                    <Input
-                      name="mrp"
-                      value={formData.mrp}
-                      onChange={handleChange}
-                      type="number"
-                      min="0"
-                      step="0.01"
-                    />
-                  </Field>
-                  <Field label="Unit Selling Price">
-                    <Input
-                      name="price"
-                      value={formData.price}
-                      onChange={handleChange}
-                      type="number"
-                      min="0"
-                      step="0.01"
-                    />
-                  </Field>
-                  <Field label="Quantity in Stock">
-                    <Input
-                      name="quantityInStock"
-                      value={formData.quantityInStock}
-                      onChange={handleChange}
-                      type="number"
-                      min="0"
-                    />
-                  </Field>
-                </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  <Field label="SKU">
-                    <Input
-                      name="sku"
-                      value={formData.sku}
-                      onChange={handleChange}
-                    />
-                  </Field>
-                  <Field label="Expiry Date">
-                    <Input
-                      name="expiry"
-                      value={formData.expiry}
-                      onChange={handleChange}
-                      placeholder="MM/YYYY"
-                    />
-                  </Field>
-                  <Field label="Category">
-                    <select
-                      name="category"
-                      value={formData.category}
-                      onChange={handleChange}
-                      className="h-10 w-full rounded-xl border border-border bg-muted px-3 text-[13px]"
-                    >
-                      <option>Tablet</option>
-                      <option>Capsule</option>
-                      <option>Syrup</option>
-                      <option>Suspension</option>
-                      <option>Solution</option>
-                      <option>Drops</option>
-                      <option>Injection</option>
-                      <option>Cream</option>
-                      <option>Ointment</option>
-                      <option>Gel</option>
-                      <option>Lotion</option>
-                      <option>Powder</option>
-                      <option>Granules/Sachet</option>
-                      <option>Spray</option>
-                      <option>Inhaler</option>
-                      <option>Nebulizer Solution</option>
-                      <option>Mouthwash/Gargle</option>
-                      <option>Lozenge</option>
-                      <option>Suppository</option>
-                      <option>Patch</option>
-                    </select>
-                  </Field>
-                </div>
-                <div>
-                  <label className="text-[12px] text-slate-500">
-                    Medicine Image (optional)
-                  </label>
-                  <input
-                    type="file"
-                    onChange={handleImageChange}
-                    className="mt-2 rounded-xl border border-border px-3 py-2"
-                  />
-                  {imagePreview && (
-                    <img
-                      src={imagePreview}
-                      alt="Preview"
-                      className="mt-3 h-20 w-20 rounded-xl object-cover"
-                    />
-                  )}
-                </div>
-                <div className="flex justify-end gap-3 text-[13px]">
-                  <button
-                    type="button"
-                    onClick={() => navigate("/pharmacy/inventory")}
-                    className="px-4 py-2 rounded-full border border-border bg-card text-slate-600 hover:bg-muted/60"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="px-5 py-2 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-600 shadow-[0_12px_30px_rgba(0,176,116,0.45)] disabled:opacity-60"
-                  >
-                    {loading ? "Saving..." : "Save Medicine"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </main>
-        </div>
+          </div>
+        </header>
+      )}
+    >
+      <div className="rounded-[40px] border border-border bg-card p-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)]">
+        {feedback && (
+          <div className="mb-4 rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
+            {feedback}
+          </div>
+        )}
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Field label="Brand Name">
+              <Input name="brandName" value={formData.brandName} onChange={handleChange} />
+            </Field>
+            <Field label="Generic Name">
+              <Input name="genericName" value={formData.genericName} onChange={handleChange} />
+            </Field>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Field label="Dosage Form">
+              <select
+                name="dosageForm"
+                value={formData.dosageForm}
+                onChange={handleChange}
+                className="h-10 w-full rounded-xl border border-border bg-muted px-3 text-[13px]"
+              >
+                <option>Tablet</option>
+                <option>Capsule</option>
+                <option>Syrup</option>
+                <option>Injection</option>
+              </select>
+            </Field>
+            <Field label="Strength Value">
+              <Input
+                name="strengthValue"
+                value={formData.strengthValue}
+                onChange={handleChange}
+                placeholder="500"
+              />
+            </Field>
+            <Field label="Strength Unit">
+              <select
+                name="strengthUnit"
+                value={formData.strengthUnit}
+                onChange={handleChange}
+                className="h-10 w-full rounded-xl border border-border bg-muted px-3 text-[13px]"
+              >
+                <option>mg</option>
+                <option>ml</option>
+                <option>g</option>
+              </select>
+            </Field>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Field label="MRP">
+              <Input
+                name="mrp"
+                value={formData.mrp}
+                onChange={handleChange}
+                type="number"
+                min="0"
+                step="0.01"
+              />
+            </Field>
+            <Field label="Unit Selling Price">
+              <Input
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                type="number"
+                min="0"
+                step="0.01"
+              />
+            </Field>
+            <Field label="Quantity in Stock">
+              <Input
+                name="quantityInStock"
+                value={formData.quantityInStock}
+                onChange={handleChange}
+                type="number"
+                min="0"
+              />
+            </Field>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Field label="SKU">
+              <Input name="sku" value={formData.sku} onChange={handleChange} />
+            </Field>
+            <Field label="Expiry Date">
+              <Input
+                name="expiry"
+                value={formData.expiry}
+                onChange={handleChange}
+                placeholder="MM/YYYY"
+              />
+            </Field>
+            <Field label="Category">
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="h-10 w-full rounded-xl border border-border bg-muted px-3 text-[13px]"
+              >
+                <option>Tablet</option>
+                <option>Capsule</option>
+                <option>Syrup</option>
+                <option>Suspension</option>
+                <option>Solution</option>
+                <option>Drops</option>
+                <option>Injection</option>
+                <option>Cream</option>
+                <option>Ointment</option>
+                <option>Gel</option>
+                <option>Lotion</option>
+                <option>Powder</option>
+                <option>Granules/Sachet</option>
+                <option>Spray</option>
+                <option>Inhaler</option>
+                <option>Nebulizer Solution</option>
+                <option>Mouthwash/Gargle</option>
+                <option>Lozenge</option>
+                <option>Suppository</option>
+                <option>Patch</option>
+              </select>
+            </Field>
+          </div>
+          <div>
+            <label className="text-[12px] text-slate-500">Medicine Image (optional)</label>
+            <input
+              type="file"
+              onChange={handleImageChange}
+              className="mt-2 rounded-xl border border-border px-3 py-2"
+            />
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="mt-3 h-20 w-20 rounded-xl object-cover"
+              />
+            )}
+          </div>
+          <div className="flex justify-end gap-3 text-[13px]">
+            <button
+              type="button"
+              onClick={() => navigate("/pharmacy/inventory")}
+              className="px-4 py-2 rounded-full border border-border bg-card text-slate-600 hover:bg-muted/60"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="px-5 py-2 rounded-full bg-emerald-500 text-white font-medium hover:bg-emerald-600 shadow-[0_12px_30px_rgba(0,176,116,0.45)] disabled:opacity-60"
+            >
+              {loading ? "Saving..." : "Save Medicine"}
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+    </PharmacyLayout>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import Sidebar from "../components/Sidebar.jsx";
+import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import bellicon from "../assets/bellicon.png";
 import pharmacyProfile from "../assets/pharmacyprofile.png";
 import { apiRequest } from "../../lib/api.js";
@@ -139,122 +139,120 @@ function EditMedicine() {
     }
 
   return (
-    <div className="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100">
-
-      <div className="flex h-screen">
-        <Sidebar />
-        <div className="flex flex-1 flex-col">
-          <header className="flex items-center justify-between border-b border-border bg-card px-10 py-5">
+    <PharmacyLayout
+      mainClassName="flex-1 overflow-y-auto bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7"
+      header={({ openDrawer }) => (
+        <header className="flex items-center justify-between border-b border-border bg-card px-4 sm:px-6 lg:px-10 py-5">
+          <div className="flex items-center gap-3">
+            <PharmacyMenuToggle onClick={openDrawer} />
             <h1 className="text-[18px] font-semibold text-slate-900 dark:text-slate-100">
               Edit Medicine
             </h1>
-            <div className="flex gap-4">
-              <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-                <img src={bellicon} alt="Notifications" />
-              </button>
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-                <img src={pharmacyProfile} alt="Profile" />
-              </div>
+          </div>
+          <div className="flex gap-4">
+            <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+              <img src={bellicon} alt="Notifications" />
+            </button>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
+              <img src={pharmacyProfile} alt="Profile" />
             </div>
-          </header>
-
-          <main className="flex-1 overflow-y-auto bg-[#1E293B] px-10 py-7">
-            <div className="rounded-[32px] border border-border bg-card p-8 shadow-[0_18px_45px_rgba(15,23,42,0.08)] space-y-6">
-              {error && (
-                <div className="rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
-                  {error}
-                </div>
-              )}
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                <div className="grid gap-4 md:grid-cols-2">
-                  <Field label="Medicine Name">
-                    <Input name="name" value={formData.name} onChange={handleChange} />
-                  </Field>
-                  <Field label="SKU">
-                    <Input name="sku" value={formData.sku} onChange={handleChange} />
-                  </Field>
-                </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  <Field label="Category">
-                    <Input name="category" value={formData.category} onChange={handleChange} />
-                  </Field>
-                  <Field label="Dosage Form">
-                    <Input name="dosageForm" value={formData.dosageForm} onChange={handleChange} />
-                  </Field>
-                  <Field label="Strength">
-                    <Input name="strength" value={formData.strength} onChange={handleChange} />
-                  </Field>
-                </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  <Field label="Unit Price">
-                    <Input
-                      name="price"
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      value={formData.price}
-                      onChange={handleChange}
-                    />
-                  </Field>
-                  <Field label="MRP">
-                    <Input
-                      name="mrp"
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      value={formData.mrp}
-                      onChange={handleChange}
-                    />
-                  </Field>
-                  <Field label="Stock">
-                    <Input
-                      name="stock"
-                      type="number"
-                      min="0"
-                      value={formData.stock}
-                      onChange={handleChange}
-                    />
-                  </Field>
-                </div>
-                <div className="grid gap-4 md:grid-cols-3">
-                  <Field label="Expiry">
-                    <Input name="expiry" value={formData.expiry} onChange={handleChange} />
-                  </Field>
-                  <Field label="Status">
-                    <select
-                      name="status"
-                      value={formData.status}
-                      onChange={handleChange}
-                      className="h-10 w-full rounded-xl border border-border bg-muted px-3"
-                    >
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                      <option value="draft">Draft</option>
-                    </select>
-                  </Field>
-                </div>
-                <div className="flex justify-end gap-3 text-[13px]">
-                  <button
-                    type="button"
-                    onClick={() => navigate("/pharmacy/inventory")}
-                    className="px-4 py-2 rounded-full border border-border bg-card text-slate-600 hover:bg-muted/60"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={saving}
-                    className="px-5 py-2 rounded-full bg-emerald-500 text-white font-medium shadow-[0_12px_30px_rgba(0,176,116,0.45)] hover:bg-emerald-600 disabled:opacity-60"
-                  >
-                    {saving ? "Saving..." : "Save Changes"}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </main>
-        </div>
+          </div>
+        </header>
+      )}
+    >
+      <div className="rounded-[32px] border border-border bg-card p-8 shadow-[0_18px_45px_rgba(15,23,42,0.08)] space-y-6">
+        {error && (
+          <div className="rounded-xl bg-rose-50 px-4 py-2 text-sm font-semibold text-rose-700">
+            {error}
+          </div>
+        )}
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Field label="Medicine Name">
+              <Input name="name" value={formData.name} onChange={handleChange} />
+            </Field>
+            <Field label="SKU">
+              <Input name="sku" value={formData.sku} onChange={handleChange} />
+            </Field>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Field label="Category">
+              <Input name="category" value={formData.category} onChange={handleChange} />
+            </Field>
+            <Field label="Dosage Form">
+              <Input name="dosageForm" value={formData.dosageForm} onChange={handleChange} />
+            </Field>
+            <Field label="Strength">
+              <Input name="strength" value={formData.strength} onChange={handleChange} />
+            </Field>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Field label="Unit Price">
+              <Input
+                name="price"
+                type="number"
+                min="0"
+                step="0.01"
+                value={formData.price}
+                onChange={handleChange}
+              />
+            </Field>
+            <Field label="MRP">
+              <Input
+                name="mrp"
+                type="number"
+                min="0"
+                step="0.01"
+                value={formData.mrp}
+                onChange={handleChange}
+              />
+            </Field>
+            <Field label="Stock">
+              <Input
+                name="stock"
+                type="number"
+                min="0"
+                value={formData.stock}
+                onChange={handleChange}
+              />
+            </Field>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Field label="Expiry">
+              <Input name="expiry" value={formData.expiry} onChange={handleChange} />
+            </Field>
+            <Field label="Status">
+              <select
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+                className="h-10 w-full rounded-xl border border-border bg-muted px-3"
+              >
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+                <option value="draft">Draft</option>
+              </select>
+            </Field>
+          </div>
+          <div className="flex justify-end gap-3 text-[13px]">
+            <button
+              type="button"
+              onClick={() => navigate("/pharmacy/inventory")}
+              className="px-4 py-2 rounded-full border border-border bg-card text-slate-600 hover:bg-muted/60"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="px-5 py-2 rounded-full bg-emerald-500 text-white font-medium shadow-[0_12px_30px_rgba(0,176,116,0.45)] hover:bg-emerald-600 disabled:opacity-60"
+            >
+              {saving ? "Saving..." : "Save Changes"}
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+    </PharmacyLayout>
   );
 }
 

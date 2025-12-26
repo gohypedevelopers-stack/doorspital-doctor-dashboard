@@ -480,8 +480,8 @@ export default function DoctorPersonalDetails() {
       </header>
 
       {/* Progress card + form card */}
-      <main className="w-full py-8 sm:py-10">
-        <div className="space-y-3.5">
+      <main className="w-full px-4 py-8 sm:px-6 sm:py-10 lg:px-10">
+        <div className="mx-auto w-full max-w-4xl space-y-3.5">
           {/* Progress bar card (step 1) */}
           <div className="rounded-2xl bg-card px-6 py-5 shadow-sm ring-1 ring-slate-200 sm:px-8">
             <RegistrationProgressBar currentStep={1} />
