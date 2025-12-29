@@ -76,6 +76,9 @@ export default function App() {
   const navigate = useNavigate();
   const isRegisterFlow = location.pathname.startsWith("/register");
 
+  // ✅ Keeping your px-1 padding exactly as requested
+  const pageShellClasses = "mx-auto w-full max-w-[1280px] px-1 sm:px-1 lg:px-1";
+
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isAuthChoiceOpen, setIsAuthChoiceOpen] = useState(false);
   const [authToken, setAuthToken] = useState(() => localStorage.getItem("authToken"));
@@ -189,17 +192,21 @@ export default function App() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background ">
+    <div className="flex min-h-screen flex-col bg-background overflow-x-hidden">
       {!isRegisterFlow && (
         <>
-          <Navbar
-            onLoginClick={() => setIsAuthChoiceOpen(true)}
-            isAuthenticated={Boolean(authUser)}
-            onLogout={handleLogout}
-            onSignupClick={() => setIsSignupOpen(true)}
-            pharmacySession={pharmacySession}
-            onPharmacyLogout={handlePharmacyLogout}
-          />
+          <div className="w-full">
+            <div className={pageShellClasses}>
+              <Navbar
+                onLoginClick={() => setIsAuthChoiceOpen(true)}
+                isAuthenticated={Boolean(authUser)}
+                onLogout={handleLogout}
+                onSignupClick={() => setIsSignupOpen(true)}
+                pharmacySession={pharmacySession}
+                onPharmacyLogout={handlePharmacyLogout}
+              />
+            </div>
+          </div>
 
           {/* Doctor auth modals */}
           <LoginModal
@@ -265,88 +272,84 @@ export default function App() {
         </>
       )}
 
-      <main className="flex-1">
-        <Routes>
-          {/* Marketing pages */}
-          <Route
-            path="/"
-            element={
-              <Home
-                onDoctorJoinClick={handleDoctorJoinClick}
-                onPharmacyJoinClick={handlePharmacyJoinClick}
-              />
-            }
-          />
-          <Route path="/benefits" element={<Benefits />} />
+      <main className="flex-1 min-w-0">
+        <div className={`${pageShellClasses} min-w-0`}>
+          <Routes>
+            {/* Marketing pages */}
+            <Route
+              path="/"
+              element={
+                <Home
+                  onDoctorJoinClick={handleDoctorJoinClick}
+                  onPharmacyJoinClick={handlePharmacyJoinClick}
+                />
+              }
+            />
+            <Route path="/benefits" element={<Benefits />} />
 
-          {/* Dashboard with nested routes */}
-          <Route
-            path="/dashboard"
-            element={
-            <ProtectedRoute
-              authToken={authToken}
-              onRequireAuth={() => setIsLoginOpen(true)}
-              onOpenLogin={() => setIsLoginOpen(true)}
+            {/* Dashboard with nested routes */}
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute
+                  authToken={authToken}
+                  onRequireAuth={() => setIsLoginOpen(true)}
+                  onOpenLogin={() => setIsLoginOpen(true)}
+                >
+                  <DashboardLayout token={authToken} user={authUser} />
+                </ProtectedRoute>
+              }
             >
-                <DashboardLayout token={authToken} user={authUser} />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="/dashboard/onboarding" replace />} />
-            <Route path="onboarding" element={<DashboardOnboarding />} />
-            <Route path="profile" element={<DashboardProfile />} />
-            <Route path="services" element={<DashboardServices />} />
-            <Route path="availability" element={<DashboardAvailability />} />
-            <Route path="appointments" element={<DashboardAppointments />} />
-            <Route path="follow-ups" element={<DashboardFollowUps />} />
-            <Route path="patients" element={<DashboardPatients />} />
-            <Route path="notes" element={<DashboardNotes />} />
-            <Route path="prescriptions" element={<DashboardPrescriptions />} />
-            <Route path="financial" element={<DashboardFinancial />} />
-            <Route path="leads" element={<DashboardLeads />} />
-            <Route path="chat" element={<DashboardChat />} />
-            <Route path="notifications" element={<DashboardNotifications />} />
-          </Route>
+              <Route index element={<Navigate to="/dashboard/onboarding" replace />} />
+              <Route path="onboarding" element={<DashboardOnboarding />} />
+              <Route path="profile" element={<DashboardProfile />} />
+              <Route path="services" element={<DashboardServices />} />
+              <Route path="availability" element={<DashboardAvailability />} />
+              <Route path="appointments" element={<DashboardAppointments />} />
+              <Route path="follow-ups" element={<DashboardFollowUps />} />
+              <Route path="patients" element={<DashboardPatients />} />
+              <Route path="notes" element={<DashboardNotes />} />
+              <Route path="prescriptions" element={<DashboardPrescriptions />} />
+              <Route path="financial" element={<DashboardFinancial />} />
+              <Route path="leads" element={<DashboardLeads />} />
+              <Route path="chat" element={<DashboardChat />} />
+              <Route path="notifications" element={<DashboardNotifications />} />
+            </Route>
 
-          {/* Registration + KYC flow */}
-          <Route path="/register" element={<DoctorPersonalDetails />} />
-          <Route
-            path="/register/qualifications"
-            element={<DoctorQualifications />}
-          />
-          <Route
-            path="/register/registration"
-            element={<DoctorRegistration />}
-          />
-          <Route path="/register/identity" element={<DoctorIdentity />} />
-          <Route
-            path="/register/face-verification"
-            element={<DoctorFaceVerification />}
-          />
-          <Route
-            path="/register/verification-submitted"
-            element={<DoctorVerificationSubmitted />}
-          />
+            {/* Registration + KYC flow */}
+            <Route path="/register" element={<DoctorPersonalDetails />} />
+            <Route path="/register/qualifications" element={<DoctorQualifications />} />
+            <Route path="/register/registration" element={<DoctorRegistration />} />
+            <Route path="/register/identity" element={<DoctorIdentity />} />
+            <Route path="/register/face-verification" element={<DoctorFaceVerification />} />
+            <Route
+              path="/register/verification-submitted"
+              element={<DoctorVerificationSubmitted />}
+            />
 
-          {/* Pharmacy routes */}
-          <Route path="/pharmacy" element={<DashboardOverview />} />
-          <Route path="/pharmacy/inventory" element={<InventoryList />} />
-          <Route path="/pharmacy/orders" element={<NewPrescriptionOrders />} />
-          <Route path="/pharmacy/orders/:orderId" element={<OrderDetails />} />
-          <Route path="/pharmacy/orders/:orderId/invoice" element={<InvoicePage />} />
-          <Route path="/pharmacy/add-medicine" element={<AddNewMedicine />} />
-          <Route path="/pharmacy/edit-medicine/:id" element={<EditMedicine />} />
-          <Route path="/pharmacy/settings" element={<SettingsPage />} />
-          <Route path="/pharmacy/earnings" element={<EarningsOverview />} />
-          <Route path="/pharmacy/store-profile" element={<StoreProfile />} />
-          <Route path="/pharmacy/support" element={<Support />} />
-          
-        </Routes>
+            {/* Pharmacy routes */}
+            <Route path="/pharmacy" element={<DashboardOverview />} />
+            <Route path="/pharmacy/inventory" element={<InventoryList />} />
+            <Route path="/pharmacy/orders" element={<NewPrescriptionOrders />} />
+            <Route path="/pharmacy/orders/:orderId" element={<OrderDetails />} />
+            <Route path="/pharmacy/orders/:orderId/invoice" element={<InvoicePage />} />
+            <Route path="/pharmacy/add-medicine" element={<AddNewMedicine />} />
+            <Route path="/pharmacy/edit-medicine/:id" element={<EditMedicine />} />
+            <Route path="/pharmacy/settings" element={<SettingsPage />} />
+            <Route path="/pharmacy/earnings" element={<EarningsOverview />} />
+            <Route path="/pharmacy/store-profile" element={<StoreProfile />} />
+            <Route path="/pharmacy/support" element={<Support />} />
+          </Routes>
+        </div>
       </main>
 
-      {!isRegisterFlow && <Footer />}
+      {!isRegisterFlow && (
+        <div className="w-full">
+          <div className={pageShellClasses}>
+            <Footer />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-

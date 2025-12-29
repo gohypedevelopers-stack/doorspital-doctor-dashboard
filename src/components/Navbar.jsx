@@ -1,7 +1,6 @@
 // src/components/Navbar.jsx
 // Top navigation for Home & Benefits pages.
 import React, { useState } from "react";
-
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import icon from "../assets/icon.png";
 import { ModeToggle } from "@/components/mode-toggle";
@@ -34,17 +33,27 @@ export default function Navbar({
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
-      <div className="flex w-full items-center justify-between py-3">
+      {/* ✅ Keeping your container/padding as-is */}
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
         {/* Logo / brand */}
         <Link to="/" className="flex items-center gap-2">
-          <img src={icon} className="h-13 w-13 object-contain" />
-          <span className="text-lg font-semibold text-foreground">
+          <img
+            src={icon}
+            className="h-10 w-10 sm:h-11 sm:w-11 object-contain"
+            alt="Doorspital logo"
+          />
+          <span className="text-base sm:text-lg font-semibold text-foreground">
             Doorspital Partner
           </span>
         </Link>
 
-        {/* Main nav links */}
-        <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
+        {/* Main nav links (tablet+ but compact on md) */}
+        <nav
+          className="hidden md:flex items-center font-medium text-muted-foreground
+                     md:gap-3 md:text-xs
+                     lg:gap-6 lg:text-sm
+                     xl:gap-8"
+        >
           <a
             href="#about"
             className="hover:text-foreground hover:underline underline-offset-4"
@@ -76,10 +85,12 @@ export default function Navbar({
           </Link>
         </nav>
 
-        {/* Right-side auth buttons */}
+        {/* Right-side */}
         <div className="flex items-center gap-3">
           <ModeToggle />
-          <div className="hidden items-center gap-3 md:flex">
+
+          {/* Auth buttons: show only on laptop+ to prevent tablet overflow */}
+          <div className="hidden items-center gap-2 lg:flex">
             {hasPharmacySession ? (
               <div className="flex items-center gap-3">
                 <button
@@ -122,7 +133,7 @@ export default function Navbar({
                   Login
                 </button>
                 <button
-                  className="rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow"
+                  className="rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow hover:opacity-90"
                   onClick={onSignupClick}
                 >
                   Register Free
@@ -131,10 +142,11 @@ export default function Navbar({
             )}
           </div>
 
+          {/* Hamburger: show on phones + tablets (< lg) */}
           <button
             type="button"
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="md:hidden rounded-full border border-border p-2 text-foreground/80 hover:text-foreground"
+            className="lg:hidden rounded-full border border-border p-2 text-foreground/80 hover:text-foreground"
             aria-label="Toggle navigation menu"
           >
             {menuOpen ? (
@@ -164,8 +176,9 @@ export default function Navbar({
         </div>
       </div>
 
+      {/* Mobile/Tablet dropdown (< lg) */}
       {menuOpen && (
-        <div className="md:hidden border-t border-border bg-background px-6 py-4">
+        <div className="lg:hidden border-t border-border bg-background px-6 py-4">
           <nav className="flex flex-col gap-4 text-sm font-medium">
             <Link to="/" onClick={() => setMenuOpen(false)}>
               Home
@@ -179,7 +192,17 @@ export default function Navbar({
             <Link to="/benefits" onClick={() => setMenuOpen(false)}>
               Benefits
             </Link>
+            <Link
+              to="/dashboard"
+              onClick={(e) => {
+                handleDashboardClick(e);
+                setMenuOpen(false);
+              }}
+            >
+              Dashboard
+            </Link>
           </nav>
+
           <div className="mt-4 flex flex-col gap-3">
             {hasPharmacySession ? (
               <>
@@ -229,16 +252,16 @@ export default function Navbar({
                 <button
                   className="w-full rounded-full border-2 border-blue-700 px-5 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50"
                   onClick={() => {
-                    onLoginClick();
+                    onLoginClick?.();
                     setMenuOpen(false);
                   }}
                 >
                   Login
                 </button>
                 <button
-                  className="w-full rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow"
+                  className="w-full rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow hover:opacity-90"
                   onClick={() => {
-                    onSignupClick();
+                    onSignupClick?.();
                     setMenuOpen(false);
                   }}
                 >
@@ -252,5 +275,3 @@ export default function Navbar({
     </header>
   );
 }
-
-
