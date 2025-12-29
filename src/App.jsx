@@ -52,6 +52,25 @@ import StoreProfile from "./pharmacy/pharmacypages/StoreProfile.jsx";
 import Support from "./pharmacy/pharmacypages/Support.jsx";
 import InvoicePage from "./pharmacy/pharmacypages/InvoicePage.jsx";
 
+const ProtectedRoute = ({ children, authToken, onRequireAuth, onOpenLogin }) => {
+  if (!authToken) {
+    onRequireAuth?.();
+    return (
+      <div className="flex min-h-screen items-center justify-center text-sm text-slate-500">
+        Please log in to continue.
+        <button
+          type="button"
+          onClick={() => onOpenLogin?.()}
+          className="ml-3 rounded-full border border-border px-3 py-1 text-xs font-semibold text-slate-900 dark:text-slate-200 hover:bg-slate-100"
+        >
+          Open login
+        </button>
+      </div>
+    );
+  }
+  return children;
+};
+
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -85,8 +104,12 @@ export default function App() {
 
   useEffect(() => {
     if (!authToken && location.pathname.startsWith("/dashboard")) {
-      setIsLoginOpen(true);
+      const timeoutId = setTimeout(() => {
+        setIsLoginOpen(true);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
+    return undefined;
   }, [authToken, location.pathname]);
 
   useEffect(() => {
@@ -115,7 +138,7 @@ export default function App() {
 
   const [isSignupOpen, setIsSignupOpen] = useState(false);
   const [isOtpOpen, setIsOtpOpen] = useState(false);
-  const [otpEmail, setOtpEmail] = useState("");
+  const [otpEmail] = useState("");
 
   const handleLoginSuccess = ({ user, token }) => {
     setAuthUser(user || null);
@@ -139,7 +162,7 @@ export default function App() {
     navigate("/");
   };
 
-  const handleSignupSuccess = (email) => {
+  const handleSignupSuccess = () => {
     setIsSignupOpen(false);
     // OTP verification removed - go directly to login
     setIsLoginOpen(true);
@@ -163,25 +186,6 @@ export default function App() {
   // Pharmacy CTA handler
   const handlePharmacyJoinClick = () => {
     setIsPharmacyLoginOpen(true);
-  };
-
-  const ProtectedRoute = ({ children, onRequireAuth }) => {
-    if (!authToken) {
-      onRequireAuth?.();
-      return (
-        <div className="flex min-h-screen items-center justify-center text-sm text-slate-500">
-          Please log in to continue.
-          <button
-            type="button"
-            onClick={() => setIsLoginOpen(true)}
-            className="ml-3 rounded-full border border-border px-3 py-1 text-xs font-semibold text-slate-900 dark:text-slate-200 hover:bg-slate-100"
-          >
-            Open login
-          </button>
-        </div>
-      );
-    }
-    return children;
   };
 
   return (
@@ -208,7 +212,6 @@ export default function App() {
             isOpen={isSignupOpen}
             onClose={() => setIsSignupOpen(false)}
             onSuccess={handleSignupSuccess}
-            onSwitchToLogin={() => setIsLoginOpen(true)}
           />
           <OTPModal
             isOpen={isOtpOpen}
@@ -250,7 +253,7 @@ export default function App() {
           <PharmacySignupModal
             isOpen={isPharmacySignupOpen}
             onClose={() => setIsPharmacySignupOpen(false)}
-            onSuccess={(email) => {
+            onSuccess={() => {
               setIsPharmacySignupOpen(false);
               setIsPharmacyLoginOpen(true);
             }}
@@ -280,7 +283,11 @@ export default function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute onRequireAuth={() => setIsLoginOpen(true)}>
+            <ProtectedRoute
+              authToken={authToken}
+              onRequireAuth={() => setIsLoginOpen(true)}
+              onOpenLogin={() => setIsLoginOpen(true)}
+            >
                 <DashboardLayout token={authToken} user={authUser} />
               </ProtectedRoute>
             }
@@ -341,3 +348,5 @@ export default function App() {
     </div>
   );
 }
+
+

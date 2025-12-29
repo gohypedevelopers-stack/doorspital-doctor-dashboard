@@ -5,7 +5,7 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import dpicon from "../assets/dpicon.png";
 import RegistrationProgressBar from "../components/RegistrationProgressBar.jsx";
-import { useRegistration } from "../lib/registrationContext.jsx";
+import { useRegistration } from "../lib/registration-context.js";
 
 export default function DoctorIdentity() {
   const { data, updateIdentity, updateFiles } = useRegistration();
@@ -172,9 +172,10 @@ export default function DoctorIdentity() {
                   Accepted formats: JPG, PNG, PDF. Max size: 5MB.
                 </p>
 
-                <input
-                  ref={fileInputRef}
-                  type="file"
+                  <input
+                    name="identityDocument"
+                    ref={fileInputRef}
+                    type="file"
                   accept=".jpg,.jpeg,.png,.pdf"
                   className="hidden"
                   onChange={(e) => handleFileSelect(e.target.files)}
@@ -219,3 +220,5 @@ export default function DoctorIdentity() {
     </div>
   );
 }
+
+

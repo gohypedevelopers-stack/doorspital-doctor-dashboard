@@ -5,10 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
-import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
+import { useGlobalLoader } from "../../lib/global-loader-context.js";
 
 import bellicon from "../assets/bellicon.png";
-import pharmacyProfile from "../assets/pharmacyprofile.png";
+import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 
 const statusStyles = {
   Pending: "bg-[#E3E8EF] text-[#475569]",
@@ -42,17 +42,6 @@ const getStatusLabel = (status) => {
       .replace(/\b\w/g, (char) => char.toUpperCase())
   );
 };
-
-// default fallback chartData (unused once live analytics is computed)
-const chartData = [
-  { label: "Mon", value: 60000, type: "light" },
-  { label: "Tue", value: 75000, type: "light" },
-  { label: "Wed", value: 78000, type: "light" },
-  { label: "Thu", value: 90000, type: "dark" },
-  { label: "Fri", value: 65000, type: "light" },
-  { label: "Sat", value: 95000, type: "dark" },
-  { label: "Sun", value: 40000, type: "light" },
-];
 
 const storeProfile = {
   licenseStatus: "Active",
@@ -478,7 +467,7 @@ function DashboardOverview() {
               <img src={bellicon} alt="Notifications" />
             </button>
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-              <img src={pharmacyProfile} alt="Profile" />
+              <PharmacyProfileBadge wrapperClassName="h-full w-full overflow-visible" imgClassName="rounded-xl" />
             </div>
           </div>
         </header>
@@ -736,3 +725,5 @@ function DashboardOverview() {
 }
 
 export default DashboardOverview;
+
+

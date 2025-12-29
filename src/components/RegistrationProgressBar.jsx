@@ -31,8 +31,6 @@ export default function RegistrationProgressBar({ currentStep }) {
   const [animatedProgress, setAnimatedProgress] = useState(0);
 
   useEffect(() => {
-    // restart from 0 so animation always starts at the beginning
-    setAnimatedProgress(0);
     const timeoutId = setTimeout(() => {
       setAnimatedProgress(clampedTarget);
     }, 50); // small delay so CSS transition kicks in
@@ -85,3 +83,5 @@ export default function RegistrationProgressBar({ currentStep }) {
     </div>
   );
 }
+
+

@@ -8,7 +8,7 @@ import { State as CSCState, City as CSCCity } from "country-state-city";
 import dpicon from "../assets/dpicon.png";
 import RegistrationProgressBar from "../components/RegistrationProgressBar.jsx";
 import { apiRequest } from "../lib/api.js";
-import { useRegistration } from "../lib/registrationContext.jsx";
+import { useRegistration } from "../lib/registration-context.js";
 
 // ----------------------
 // 1. Specialization list
@@ -245,8 +245,12 @@ export default function DoctorPersonalDetails() {
 
   useEffect(() => {
     if (data.doctorId && !doctorIdInput) {
-      setDoctorIdInput(data.doctorId);
+      const timeoutId = setTimeout(() => {
+        setDoctorIdInput(data.doctorId);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
+    return undefined;
   }, [data.doctorId, doctorIdInput]);
 
   const authToken =
@@ -326,7 +330,7 @@ export default function DoctorPersonalDetails() {
     };
 
     fetchExistingData();
-  }, [authToken]);
+  }, [authToken, form.yearsOfExperience, otherCityName, selectedCityName, selectedSpecialization, setDoctorId]);
 
   const handleDoctorLookup = async () => {
     if (!authToken) {
@@ -510,9 +514,10 @@ export default function DoctorPersonalDetails() {
                   Doctor ID
                 </label>
                 <div className="flex flex-col gap-2 sm:flex-row">
-                  <input
-                    type="text"
-                    value={doctorIdInput}
+                    <input
+                      name="doctorId"
+                      type="text"
+                      value={doctorIdInput}
                     onChange={(e) => setDoctorIdInput(e.target.value)}
                     placeholder="Paste your doctorId or auto-detect if logged in"
                     className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:ring-2"
@@ -595,10 +600,11 @@ export default function DoctorPersonalDetails() {
                     Medical Specialization
                   </label>
                   <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Search specialization..."
-                      value={specializationQuery}
+                      <input
+                        name="specializationQuery"
+                        type="text"
+                        placeholder="Search specialization..."
+                        value={specializationQuery}
                       onChange={(e) => {
                         setSpecializationQuery(e.target.value);
                         setSelectedSpecialization("");
@@ -633,10 +639,11 @@ export default function DoctorPersonalDetails() {
                     )}
                   </div>
                   {isSpecializationOther && (
-                    <input
-                      type="text"
-                      placeholder="Enter your specialization"
-                      value={otherSpecialization}
+                      <input
+                        name="otherSpecialization"
+                        type="text"
+                        placeholder="Enter your specialization"
+                        value={otherSpecialization}
                       onChange={(e) =>
                         setOtherSpecialization(e.target.value)
                       }
@@ -713,10 +720,11 @@ export default function DoctorPersonalDetails() {
                     State
                   </label>
                   <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Search state..."
-                      value={stateQuery}
+                      <input
+                        name="stateQuery"
+                        type="text"
+                        placeholder="Search state..."
+                        value={stateQuery}
                       onChange={(e) => {
                         setStateQuery(e.target.value);
                         setSelectedStateName("");
@@ -750,10 +758,11 @@ export default function DoctorPersonalDetails() {
 
                   </div>
                   {isOtherState && (
-                    <input
-                      type="text"
-                      placeholder="Enter your state"
-                      value={otherStateName}
+                      <input
+                        name="otherStateName"
+                        type="text"
+                        placeholder="Enter your state"
+                        value={otherStateName}
                       onChange={(e) => setOtherStateName(e.target.value)}
                       className="mt-2 h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       required
@@ -771,12 +780,13 @@ export default function DoctorPersonalDetails() {
                     <div className="relative">
                       <input
                         type="text"
-                        placeholder={
-                          selectedStateName
-                            ? "Search city..."
-                            : "Select state first"
-                        }
-                        value={cityQuery}
+                          placeholder={
+                            selectedStateName
+                              ? "Search city..."
+                              : "Select state first"
+                          }
+                          name="cityQuery"
+                          value={cityQuery}
                         onChange={(e) => {
                           setCityQuery(e.target.value);
                           setSelectedCityName("");
@@ -813,10 +823,11 @@ export default function DoctorPersonalDetails() {
 
                     </div>
                   ) : (
-                    <input
-                      type="text"
-                      placeholder="Enter city"
-                      value={otherCityName}
+                      <input
+                        name="otherCityName"
+                        type="text"
+                        placeholder="Enter city"
+                        value={otherCityName}
                       onChange={(e) => setOtherCityName(e.target.value)}
                       className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 outline-none ring-blue-500 placeholder:text-slate-400 focus:bg-card focus:ring-2"
                       required
@@ -842,3 +853,5 @@ export default function DoctorPersonalDetails() {
     </div>
   );
 }
+
+

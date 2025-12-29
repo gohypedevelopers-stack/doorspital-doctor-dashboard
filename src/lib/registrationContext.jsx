@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { RegistrationContext } from "@/lib/registration-context";
 
 const STORAGE_KEY = "doctorRegistrationData";
 
@@ -51,8 +52,6 @@ const hydrateFromStorage = () => {
   }
 };
 
-const RegistrationContext = createContext(null);
-
 export const RegistrationProvider = ({ children }) => {
   const [data, setData] = useState(() => hydrateFromStorage());
 
@@ -66,43 +65,61 @@ export const RegistrationProvider = ({ children }) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
   }, [data.doctorId, data.personal, data.registration, data.identity]);
 
-  const setDoctorId = (doctorId) =>
-    setData((prev) => ({
-      ...prev,
-      doctorId: doctorId?.trim() ?? "",
-    }));
+  const setDoctorId = useCallback(
+    (doctorId) =>
+      setData((prev) => ({
+        ...prev,
+        doctorId: doctorId?.trim() ?? "",
+      })),
+    []
+  );
 
-  const updatePersonal = (updates) =>
-    setData((prev) => ({
-      ...prev,
-      personal: { ...prev.personal, ...updates },
-    }));
+  const updatePersonal = useCallback(
+    (updates) =>
+      setData((prev) => ({
+        ...prev,
+        personal: { ...prev.personal, ...updates },
+      })),
+    []
+  );
 
-  const updateRegistration = (updates) =>
-    setData((prev) => ({
-      ...prev,
-      registration: { ...prev.registration, ...updates },
-    }));
+  const updateRegistration = useCallback(
+    (updates) =>
+      setData((prev) => ({
+        ...prev,
+        registration: { ...prev.registration, ...updates },
+      })),
+    []
+  );
 
-  const updateIdentity = (updates) =>
-    setData((prev) => ({
-      ...prev,
-      identity: { ...prev.identity, ...updates },
-    }));
+  const updateIdentity = useCallback(
+    (updates) =>
+      setData((prev) => ({
+        ...prev,
+        identity: { ...prev.identity, ...updates },
+      })),
+    []
+  );
 
-  const updateFiles = (files) =>
-    setData((prev) => ({
-      ...prev,
-      files: { ...prev.files, ...files },
-    }));
+  const updateFiles = useCallback(
+    (files) =>
+      setData((prev) => ({
+        ...prev,
+        files: { ...prev.files, ...files },
+      })),
+    []
+  );
 
-  const resetRegistration = (preserveDoctorId = true) => {
-    const doctorId = preserveDoctorId ? data.doctorId : "";
-    setData({ ...defaultState, doctorId });
-    if (!preserveDoctorId) {
-      localStorage.removeItem(STORAGE_KEY);
-    }
-  };
+  const resetRegistration = useCallback(
+    (preserveDoctorId = true) => {
+      const doctorId = preserveDoctorId ? data.doctorId : "";
+      setData({ ...defaultState, doctorId });
+      if (!preserveDoctorId) {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    },
+    [data.doctorId]
+  );
 
   const value = useMemo(
     () => ({
@@ -114,16 +131,19 @@ export const RegistrationProvider = ({ children }) => {
       updateFiles,
       resetRegistration,
     }),
-    [data]
+    [
+      data,
+      setDoctorId,
+      updatePersonal,
+      updateRegistration,
+      updateIdentity,
+      updateFiles,
+      resetRegistration,
+    ]
   );
 
   return <RegistrationContext.Provider value={value}>{children}</RegistrationContext.Provider>;
 };
 
-export const useRegistration = () => {
-  const ctx = useContext(RegistrationContext);
-  if (!ctx) {
-    throw new Error("useRegistration must be used within a RegistrationProvider");
-  }
-  return ctx;
-};
+
+

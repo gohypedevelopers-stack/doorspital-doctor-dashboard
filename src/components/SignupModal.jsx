@@ -5,18 +5,6 @@ import { City, State } from "country-state-city";
 import { apiRequest } from "../lib/api.js";
 
 const countryCode = "IN";
-const timezoneOptions = [
-  "Asia/Kolkata",
-  "Asia/Dubai",
-  "Asia/Singapore",
-  "Asia/Tokyo",
-  "Europe/London",
-  "Europe/Berlin",
-  "America/New_York",
-  "America/Chicago",
-  "America/Los_Angeles",
-  "Australia/Sydney",
-];
 const specializationOptions = [
   "General Physician",
   "Family Medicine Doctor",
@@ -102,7 +90,7 @@ const specializationOptions = [
   "Other",
 ];
 
-export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogin }) {
+export default function SignupModal({ isOpen, onClose, onSuccess }) {
   const [form, setForm] = useState({
     name: "",
     phoneNumber: "",
@@ -248,9 +236,10 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                 <>
                   <div className="space-y-1">
                     <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Name</label>
-                    <input
-                      value={form.name}
-                      onChange={handleChange("name")}
+                      <input
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange("name")}
                       required
                       className="h-10 w-full rounded-md border-[5px] border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-0.5 focus:ring-blue-500"
                     />
@@ -270,10 +259,11 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                   </div>
                   <div className="space-y-1">
                     <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Email</label>
-                    <input
-                      type="email"
-                      value={form.email}
-                      onChange={handleChange("email")}
+                      <input
+                        name="email"
+                        type="email"
+                        value={form.email}
+                        onChange={handleChange("email")}
                       required
                       className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
                     />
@@ -282,6 +272,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                     <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Password</label>
                     <div className="relative">
                       <input
+                        name="password"
                         type={showPassword ? "text" : "password"}
                         value={form.password}
                         onChange={handleChange("password")}
@@ -332,6 +323,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                     <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Confirm password</label>
                     <div className="relative">
                       <input
+                        name="confirmPassword"
                         type={showConfirm ? "text" : "password"}
                         value={form.confirmPassword}
                         onChange={handleChange("confirmPassword")}
@@ -380,8 +372,9 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                   </div>
                   <div className="space-y-1">
                     <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Specialization</label>
-                    <select
-                      value={form.specialization}
+                      <select
+                        name="specialization"
+                        value={form.specialization}
                       onChange={handleSpecializationChange}
                       required
                       className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
@@ -398,6 +391,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                     <div className="space-y-1">
                       <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Please specify</label>
                       <input
+                        name="otherSpecialization"
                         value={form.otherSpecialization}
                         onChange={handleChange("otherSpecialization")}
                         required
@@ -411,6 +405,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                       <input
                         type="number"
                         min="0"
+                        name="experienceYears"
                         value={form.experienceYears}
                         onChange={handleChange("experienceYears")}
                         required
@@ -423,6 +418,7 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                         type="number"
                         min="0"
                         step="10"
+                        name="consultationFee"
                         value={form.consultationFee}
                         onChange={handleChange("consultationFee")}
                         required
@@ -432,8 +428,9 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                   </div>
                   <div className="space-y-1">
                     <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">Timezone</label>
-                    <input
-                      value={form.timezone}
+                      <input
+                        name="timezone"
+                        value={form.timezone}
                       readOnly
                       className="h-10 w-full rounded-md border border-border bg-slate-100 px-3 text-sm text-slate-500 cursor-not-allowed focus:ring-0"
                     />
@@ -441,8 +438,9 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div className="space-y-1">
                       <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">State</label>
-                      <select
-                        value={form.state}
+                        <select
+                          name="state"
+                          value={form.state}
                         onChange={handleStateChange}
                         required
                         className="h-10 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
@@ -457,8 +455,9 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
                     </div>
                     <div className="space-y-1">
                       <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">City</label>
-                      <select
-                        value={form.city}
+                        <select
+                          name="city"
+                          value={form.city}
                         onChange={handleChange("city")}
                         required
                         disabled={!cityOptions.length}
@@ -495,3 +494,5 @@ export default function SignupModal({ isOpen, onClose, onSuccess, onSwitchToLogi
     </div>
   );
 }
+
+

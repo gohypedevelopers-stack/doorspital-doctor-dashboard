@@ -1,8 +1,9 @@
-// src/pages/Home.jsx
+﻿// src/pages/Home.jsx
 // "About Doorspital Partner Network" home / doctor page.
 // Includes Framer Motion animations on load + on scroll.
 
 import React from "react";
+/* eslint-disable-next-line no-unused-vars */
 import { motion } from "framer-motion";
 
 import doctorHero from "../assets/doctor.jpg";
@@ -16,7 +17,7 @@ import penVector from "../assets/penVector.png";
 import phonebookVector from "../assets/phonebookvector.png";
 import tickVector from "../assets/tickvector.png";
 
-// Generic fade-up (bottom → top)
+// Generic fade-up (bottom â†’ top)
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0 },
@@ -59,7 +60,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         initial="hidden"
         animate="visible"
       >
-        {/* Left text area – all items animate from bottom to top */}
+        {/* Left text area â€“ all items animate from bottom to top */}
         <div className="max-w-2xl space-y-6">
           <motion.h1
             className="poppins-bold text-[52px] leading-[58px] tracking-[-1.4px] text-slate-900 dark:text-slate-100"
@@ -100,7 +101,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
           </motion.div>
         </div>
 
-        {/* Right doctor illustration – slides in from right to left */}
+        {/* Right doctor illustration â€“ slides in from right to left */}
         <div className="relative flex flex-1 justify-center lg:justify-end">
           <div className="absolute inset-0 -z-10 rounded-[36px] bg-[radial-gradient(circle_at_center,_rgba(16,185,129,0.14)_0%,_rgba(255,255,255,0)_60%)]" />
           <motion.img
@@ -124,7 +125,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         transition={{ duration: 0.7 }}
       >
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          {/* LEFT: image slides in from LEFT → RIGHT */}
+          {/* LEFT: image slides in from LEFT â†’ RIGHT */}
           <motion.div
             className="flex justify-center lg:justify-start"
             initial={{ opacity: 0, x: -60 }}              // start left
@@ -139,7 +140,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             />
           </motion.div>
 
-          {/* RIGHT: title + text + button slide in from RIGHT → LEFT */}
+          {/* RIGHT: title + text + button slide in from RIGHT â†’ LEFT */}
           <motion.div
             className="space-y-4"
             initial={{ opacity: 0, x: 60 }}               // start right
@@ -373,3 +374,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
     </div>
   );
 }
+
+
+
+

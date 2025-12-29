@@ -1,7 +1,7 @@
 import React from "react";
 import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import bellicon from "../assets/bellicon.png";
-import pharmacyProfile from "../assets/pharmacyprofile.png";
+import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 
 const supportChannels = [
   { title: "Contact", info: "+91 79856 12345", description: "Call us 9am-9pm IST" },
@@ -26,7 +26,7 @@ export default function Support() {
               <img src={bellicon} alt="Notifications" />
             </button>
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-              <img src={pharmacyProfile} alt="Profile" />
+              <PharmacyProfileBadge wrapperClassName="h-full w-full overflow-visible" imgClassName="rounded-xl" />
             </div>
           </div>
         </header>
@@ -62,3 +62,5 @@ export default function Support() {
     </PharmacyLayout>
   );
 }
+
+

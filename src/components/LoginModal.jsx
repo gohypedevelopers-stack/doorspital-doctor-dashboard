@@ -187,3 +187,5 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
     </div>
   );
 }
+
+

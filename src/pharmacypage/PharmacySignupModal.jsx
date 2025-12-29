@@ -60,7 +60,6 @@ export default function PharmacyDeliverySignupModal({
   }, [form.state]);
 
   const closeModal = () => {
-    handleVerificationClose();
     onClose?.();
   };
 
@@ -108,7 +107,7 @@ export default function PharmacyDeliverySignupModal({
 
     try {
       // You can adjust this endpoint name to match your backend
-      const response = await apiRequest("/api/pharmacy/delivery/sign-up", {
+      await apiRequest("/api/pharmacy/delivery/sign-up", {
         method: "POST",
         body: {
           ownerName: form.ownerName,
@@ -507,3 +506,5 @@ export default function PharmacyDeliverySignupModal({
   </>
   );
 }
+
+

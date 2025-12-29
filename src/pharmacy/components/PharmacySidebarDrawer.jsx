@@ -26,3 +26,5 @@ export function PharmacySidebarDrawer({ open, onClose }) {
   </div>
 );
 }
+
+

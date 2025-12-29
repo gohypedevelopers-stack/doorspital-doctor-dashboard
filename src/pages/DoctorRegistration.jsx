@@ -12,7 +12,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import dpicon from "../assets/dpicon.png";
 import RegistrationProgressBar from "../components/RegistrationProgressBar.jsx";
-import { useRegistration } from "../lib/registrationContext.jsx";
+import { useRegistration } from "../lib/registration-context.js";
 
 // Council list (plus "Other")
 const COUNCIL_OPTIONS = [
@@ -217,9 +217,10 @@ export default function DoctorRegistration() {
                     Council Name<span className="text-rose-500">*</span>
                   </label>
                   <div className="relative">
-                    <input
-                      type="text"
-                      value={councilQuery}
+                      <input
+                        name="councilQuery"
+                        type="text"
+                        value={councilQuery}
                       onChange={(e) => {
                         setCouncilQuery(e.target.value);
                         setShowCouncilDropdown(true);
@@ -397,3 +398,5 @@ export default function DoctorRegistration() {
     </div>
   );
 }
+
+

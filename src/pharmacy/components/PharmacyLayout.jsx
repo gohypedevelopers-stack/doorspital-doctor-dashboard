@@ -17,7 +17,10 @@ export default function PharmacyLayout({
   const location = useLocation();
 
   useEffect(() => {
-    closeDrawer();
+    const timeoutId = setTimeout(() => {
+      closeDrawer();
+    }, 0);
+    return () => clearTimeout(timeoutId);
   }, [location.pathname]);
 
   return (
@@ -27,9 +30,9 @@ export default function PharmacyLayout({
         <div className="hidden lg:flex lg:w-64">
           <Sidebar />
         </div>
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col min-h-0 lg:h-screen overflow-hidden">
           {header ? header({ openDrawer }) : null}
-          <main className={`${mainClassName}`}>{children}</main>
+          <main className={`${mainClassName} flex-1 min-h-0 overflow-y-auto`}>{children}</main>
         </div>
       </div>
     </div>
@@ -46,9 +49,9 @@ export function PharmacyMenuToggle({ onClick }) {
     >
       <span className="sr-only">Open menu</span>
       <span className="flex flex-col gap-1">
-        <span className="h-0.5 w-6 bg-slate-900 dark:bg-slate-100" />
-        <span className="h-0.5 w-6 bg-slate-900 dark:bg-slate-100" />
-        <span className="h-0.5 w-4 bg-slate-900 dark:bg-slate-100" />
+        <span className="h-0.5 w-5 bg-slate-900 dark:bg-slate-100" />
+        <span className="h-0.5 w-3 bg-slate-900 dark:bg-slate-100" />
+        <span className="h-0.5 w-5 bg-slate-900 dark:bg-slate-100" />
       </span>
     </button>
   );

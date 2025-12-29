@@ -1,9 +1,11 @@
-// src/pages/dashboard/DashboardSections.jsx
+﻿// src/pages/dashboard/DashboardSections.jsx
 // All dashboard sections as components
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useCallback, useEffect, useState, useMemo } from "react";
 import { useOutletContext } from "react-router-dom";
+/* eslint-disable-next-line no-unused-vars */
 import { motion } from "framer-motion";
+import { ClipboardList, MessageCircle } from "lucide-react";
 import { apiRequest } from "../../lib/api.js";
 import Onboarding from "./Onboarding.jsx";
 
@@ -15,13 +17,6 @@ const pickValue = (source = {}, keys = [], fallback = undefined) => {
         if (source?.[key] !== undefined && source?.[key] !== null) return source[key];
     }
     return fallback;
-};
-
-const safeArray = (...values) => {
-    for (const value of values) {
-        if (Array.isArray(value) && value.length) return value;
-    }
-    return [];
 };
 
 const normalizeList = (payload) => {
@@ -169,7 +164,7 @@ export function DashboardServices() {
                                         : "bg-card text-slate-600 border-border hover:border-blue-300 hover:text-blue-600"
                                         }`}
                                 >
-                                    {isSelected ? "✓ " : "+ "}{service}
+                                    {isSelected ? "âœ“ " : "+ "}{service}
                                 </button>
                             );
                         })}
@@ -181,9 +176,10 @@ export function DashboardServices() {
                     <h4 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">Custom & Active Services</h4>
 
                     <form onSubmit={handleAddService} className="flex gap-2 mb-6">
-                        <input
-                            type="text"
-                            value={newService}
+                          <input
+                              name="newService"
+                              type="text"
+                              value={newService}
                             onChange={(e) => setNewService(e.target.value)}
                             placeholder="Add generic service..."
                             className="flex-1 rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
@@ -212,14 +208,14 @@ export function DashboardServices() {
                                             title="Remove service"
                                         >
                                             <span className="sr-only">Remove</span>
-                                            ×
+                                            Ã—
                                         </button>
                                     </span>
                                 ))}
                             </div>
                         ) : (
                             <div className="flex flex-col items-center justify-center py-6 text-center border-2 border-dashed border-border rounded-[5px]">
-                                <span className="text-2xl mb-2">📋</span>
+                                <ClipboardList className="text-2xl mb-2 h-8 w-8 text-slate-500" />
                                 <p className="text-sm text-slate-500">No services selected.</p>
                                 <p className="text-xs text-slate-400">Select from popular options or add your own.</p>
                             </div>
@@ -249,14 +245,17 @@ export function DashboardServices() {
 
 export function DashboardProfile() {
     const { profile, user, token, refreshDashboard } = useOutletContext();
-    const profileData = profile?.doctor || profile || {};
+    const profileData = useMemo(() => profile?.doctor || profile || {}, [profile]);
 
     const [isEditing, setIsEditing] = useState(false);
     const [saving, setSaving] = useState(false);
     const [editForm, setEditForm] = useState({});
 
     // Helper to safely get values
-    const getVal = (keys, fallback = "—") => pickValue(profileData, keys) || pickValue(user, keys) || fallback;
+    const getVal = useCallback(
+        (keys, fallback = "-") => pickValue(profileData, keys) || pickValue(user, keys) || fallback,
+        [profileData, user]
+    );
 
     const details = useMemo(() => ({
         // Personal
@@ -277,14 +276,14 @@ export function DashboardProfile() {
         userId: getVal(["_id", "id"]),
         role: getVal(["role"], "Doctor"),
         status: getVal(["status", "verificationStatus"], "Active"),
-    }), [profileData, user]);
+    }), [getVal, profileData.languages]);
 
     const handleEdit = () => {
         setEditForm({
             about: details.about !== "No bio available." ? details.about : "",
-            qualification: details.qualifications !== "—" ? details.qualifications : "",
-            experienceYears: details.experience !== "—" ? details.experience : "",
-            consultationFee: details.consultationFee !== "—" ? details.consultationFee : "",
+            qualification: details.qualifications !== "â€”" ? details.qualifications : "",
+            experienceYears: details.experience !== "â€”" ? details.experience : "",
+            consultationFee: details.consultationFee !== "â€”" ? details.consultationFee : "",
         });
         setIsEditing(true);
     };
@@ -380,9 +379,10 @@ export function DashboardProfile() {
                         <div className="space-y-4">
                             <div>
                                 <label className="block text-xs font-medium text-slate-900 dark:text-slate-200 mb-1">Qualification</label>
-                                <input
-                                    type="text"
-                                    value={editForm.qualification}
+                                  <input
+                                      name="qualification"
+                                      type="text"
+                                      value={editForm.qualification}
                                     onChange={(e) => setEditForm({ ...editForm, qualification: e.target.value })}
                                     className="w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
                                     placeholder="e.g. MBBS, MD"
@@ -391,18 +391,20 @@ export function DashboardProfile() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-medium text-slate-900 dark:text-slate-200 mb-1">Experience ({details.experience}Years)</label>
-                                    <input
-                                        type="number"
-                                        value={editForm.experienceYears}
+                                      <input
+                                          name="experienceYears"
+                                          type="number"
+                                          value={editForm.experienceYears}
                                         onChange={(e) => setEditForm({ ...editForm, experienceYears: e.target.value })}
                                         className="w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
                                     />
                                 </div>
                                 <div>
                                     <label className="block text-xs font-medium text-slate-900 dark:text-slate-200 mb-1">Fee (₹)</label>
-                                    <input
-                                        type="number"
-                                        value={editForm.consultationFee}
+                                      <input
+                                          name="consultationFee"
+                                          type="number"
+                                          value={editForm.consultationFee}
                                         onChange={(e) => setEditForm({ ...editForm, consultationFee: e.target.value })}
                                         className="w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
                                     />
@@ -421,7 +423,7 @@ export function DashboardProfile() {
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <dt className="font-medium text-slate-500">Fee</dt>
-                                <dd className="col-span-2 text-slate-900 dark:text-slate-100">₹{details.consultationFee}</dd>
+                                <dd className="col-span-2 text-slate-900 dark:text-slate-100">{details.consultationFee}</dd>
                             </div>
                             <div className="grid grid-cols-3 gap-4">
                                 <dt className="font-medium text-slate-500">Languages</dt>
@@ -435,8 +437,9 @@ export function DashboardProfile() {
                     <h4 className="mb-4 text-base font-semibold text-slate-900 dark:text-slate-100">About</h4>
                     {isEditing ? (
                         <div className="flex-1 flex flex-col">
-                            <textarea
-                                value={editForm.about}
+                              <textarea
+                                  name="about"
+                                  value={editForm.about}
                                 onChange={(e) => setEditForm({ ...editForm, about: e.target.value })}
                                 className="flex-1 w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none resize-none"
                                 placeholder="Write a brief bio about yourself..."
@@ -476,7 +479,7 @@ export function DashboardAppointments() {
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(null);
 
-    const fetchAppointments = async () => {
+    const fetchAppointments = useCallback(async () => {
         try {
             setLoading(true);
             const response = await apiRequest("/api/doctors/dashboard/appointments?limit=20&sort=-startTime", { token });
@@ -486,11 +489,11 @@ export function DashboardAppointments() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [token]);
 
     useEffect(() => {
         if (token) fetchAppointments();
-    }, [token]);
+    }, [fetchAppointments, token]);
 
     const handleStatusUpdate = async (apptId, newStatus) => {
         if (!confirm(`Are you sure you want to mark this appointment as ${newStatus}?`)) return;
@@ -547,13 +550,13 @@ export function DashboardAppointments() {
                                     <p className="text-sm text-slate-600 line-clamp-1">{appt.reason || "No reason provided"}</p>
                                     <div className="flex items-center gap-4 text-xs text-slate-500">
                                         <span className="flex items-center gap-1">
-                                            📅 {new Date(appt.startTime).toLocaleDateString()}
+                                            Date: {new Date(appt.startTime).toLocaleDateString()}
                                         </span>
                                         <span className="flex items-center gap-1">
-                                            ⏰ {formatTime(appt.startTime)}
+                                            Time: {formatTime(appt.startTime)}
                                         </span>
                                         <span className="flex items-center gap-1 capitalize">
-                                            🎥 {appt.mode || "Online"}
+                                            Mode: {appt.mode || "Online"}
                                         </span>
                                     </div>
                                 </div>
@@ -581,7 +584,7 @@ export function DashboardAppointments() {
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center py-12 text-center">
-                        <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">📅</div>
+                        <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">ðŸ“…</div>
                         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">No Appointments</h3>
                         <p className="text-xs text-slate-500">You don't have any scheduled appointments yet.</p>
                     </div>
@@ -678,7 +681,7 @@ export function DashboardPatients() {
                             </div>
                         ) : (
                             <div className="flex flex-col items-center justify-center py-12 text-center">
-                                <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">👥</div>
+                                <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">ðŸ‘¥</div>
                                 <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">No Patients Found</h3>
                                 <p className="text-xs text-slate-500">Patients will appear here after their first appointment.</p>
                             </div>
@@ -688,7 +691,7 @@ export function DashboardPatients() {
 
                 {activeTab === "notes" && (
                     <div className="text-center py-12">
-                        <div className="mb-3 inline-flex rounded-full bg-slate-100 p-3 text-2xl">📝</div>
+                        <div className="mb-3 inline-flex rounded-full bg-slate-100 p-3 text-2xl">ðŸ“</div>
                         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Consultation Notes</h3>
                         <p className="mt-1 text-xs text-slate-500">Select a patient from the list to view or add notes.</p>
                         <button className="mt-4 rounded-[5px] bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700">
@@ -699,7 +702,7 @@ export function DashboardPatients() {
 
                 {activeTab === "prescriptions" && (
                     <div className="text-center py-12">
-                        <div className="mb-3 inline-flex rounded-full bg-slate-100 p-3 text-2xl">💊</div>
+                        <div className="mb-3 inline-flex rounded-full bg-slate-100 p-3 text-2xl">ðŸ’Š</div>
                         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Prescriptions</h3>
                         <p className="mt-1 text-xs text-slate-500">Select a patient to write a digital prescription.</p>
                         <button className="mt-4 rounded-[5px] bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700">
@@ -717,7 +720,7 @@ export function DashboardNotifications() {
     const [notifications, setNotifications] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchNotifications = async () => {
+    const fetchNotifications = useCallback(async () => {
         try {
             const response = await apiRequest("/api/notifications?limit=20", { token });
             setNotifications(normalizeList(response?.data || response));
@@ -726,11 +729,11 @@ export function DashboardNotifications() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [token]);
 
     useEffect(() => {
         if (token) fetchNotifications();
-    }, [token]);
+    }, [fetchNotifications, token]);
 
     const markAsRead = async (id) => {
         try {
@@ -782,7 +785,7 @@ export function DashboardNotifications() {
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center py-12 text-center">
-                        <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">🔔</div>
+                        <div className="mb-3 rounded-full bg-slate-100 p-3 text-2xl">ðŸ””</div>
                         <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">All Caught Up</h3>
                         <p className="text-xs text-slate-500">You have no new notifications.</p>
                     </div>
@@ -869,7 +872,7 @@ export function DashboardAvailability() {
         try {
             // Transform to API payload
             const availability = Object.entries(schedule)
-                .filter(([_, config]) => config.enabled)
+                .filter(([, config]) => config.enabled)
                 .map(([dayId, config]) => ({
                     dayOfWeek: parseInt(dayId),
                     startTime: config.start,
@@ -931,9 +934,10 @@ export function DashboardAvailability() {
                             >
                                 <div className="flex flex-wrap items-center gap-4">
                                     <div className="flex w-32 items-center gap-3">
-                                        <input
-                                            type="checkbox"
-                                            checked={config.enabled}
+                                          <input
+                                              name={`availability-${day.id}`}
+                                              type="checkbox"
+                                              checked={config.enabled}
                                             onChange={() => handleDayToggle(day.id)}
                                             className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
                                         />
@@ -946,26 +950,29 @@ export function DashboardAvailability() {
                                         <div className="flex flex-1 flex-wrap items-center gap-4">
                                             <div className="flex items-center gap-2">
                                                 <label className="text-xs text-slate-500">Start</label>
-                                                <input
-                                                    type="time"
-                                                    value={config.start}
+                                                  <input
+                                                      name={`availability-start-${day.id}`}
+                                                      type="time"
+                                                      value={config.start}
                                                     onChange={(e) => handleTimeChange(day.id, "start", e.target.value)}
                                                     className="rounded-[5px] border border-slate-300 px-2 py-1 text-sm focus:border-blue-500 focus:outline-none"
                                                 />
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <label className="text-xs text-slate-500">End</label>
-                                                <input
-                                                    type="time"
-                                                    value={config.end}
+                                                  <input
+                                                      name={`availability-end-${day.id}`}
+                                                      type="time"
+                                                      value={config.end}
                                                     onChange={(e) => handleTimeChange(day.id, "end", e.target.value)}
                                                     className="rounded-[5px] border border-slate-300 px-2 py-1 text-sm focus:border-blue-500 focus:outline-none"
                                                 />
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <label className="text-xs text-slate-500">Duration (min)</label>
-                                                <select
-                                                    value={config.duration}
+                                                  <select
+                                                     name={`availability-duration-${day.id}`}
+                                                     value={config.duration}
                                                     onChange={(e) => handleTimeChange(day.id, "duration", e.target.value)}
                                                     className="rounded-[5px] border border-slate-300 px-2 py-1 text-sm focus:border-blue-500 focus:outline-none"
                                                 >
@@ -1066,7 +1073,7 @@ export function DashboardChat() {
     const messagesEndRef = React.useRef(null);
 
     // Fetch Rooms
-    const fetchRooms = async () => {
+    const fetchRooms = useCallback(async () => {
         if (!token) return;
         try {
             setLoadingRooms(true);
@@ -1080,10 +1087,10 @@ export function DashboardChat() {
         } finally {
             setLoadingRooms(false);
         }
-    };
+    }, [token]);
 
     // Fetch Appointments
-    const fetchAppointments = async () => {
+    const fetchAppointments = useCallback(async () => {
         if (!token) return;
         try {
             setLoadingAppointments(true);
@@ -1096,12 +1103,12 @@ export function DashboardChat() {
         } finally {
             setLoadingAppointments(false);
         }
-    };
+    }, [token]);
 
     useEffect(() => {
         fetchRooms();
         fetchAppointments();
-    }, [token]);
+    }, [fetchRooms, fetchAppointments]);
 
     // Fetch Messages when activeRoom changes
     useEffect(() => {
@@ -1156,10 +1163,31 @@ export function DashboardChat() {
 
         } catch (err) {
             console.error("Send message error:", err);
-            alert("Failed to send message");
+            alert(err.message || "Failed to send message");
         } finally {
+            setSending(false);
+        }
+    };
+
+    const handleStartChat = async (appt) => {
+        if (!token) return;
+        const appointmentId = appt.appointmentId || appt._id;
+        if (!appointmentId) return;
+        try {
+            const response = await apiRequest("/api/chat/rooms", {
+                token,
+                method: "POST",
+                body: { appointmentId },
+            });
+            const newRoom = response?.data || response;
+            if (newRoom?._id) {
+                await fetchRooms();
+                setActiveRoom(newRoom);
+                setSidebarView("chats");
+            }
+        } catch (err) {
             console.error("Start chat error:", err);
-            alert(err.message || "Failed to start chat");
+            alert(err.message || "Unable to start chat");
         }
     };
 
@@ -1242,7 +1270,7 @@ export function DashboardChat() {
                                                     </p>
                                                     {room.appointment?.startTime && (
                                                         <div className="mt-1 flex items-center gap-1 text-[10px] text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded w-fit">
-                                                            <span>📅</span>
+                                                            <span>Appointment:</span>
                                                             <span>
                                                                 {new Date(room.appointment.startTime).toLocaleString([], {
                                                                     month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
@@ -1287,7 +1315,7 @@ export function DashboardChat() {
                                             </div>
 
                                             <div className="flex items-center gap-2 text-xs text-slate-600 mb-3">
-                                                <span>🕒</span>
+                                                <span>ðŸ•’</span>
                                                 <span>
                                                     {new Date(appt.startTime).toLocaleString([], {
                                                         weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
@@ -1379,9 +1407,10 @@ export function DashboardChat() {
                         {/* Input Area */}
                         <div className="p-4 border-t border-border bg-card">
                             <form onSubmit={handleSendMessage} className="flex gap-2">
-                                <input
-                                    type="text"
-                                    value={newMessage}
+                                  <input
+                                      name="newMessage"
+                                      type="text"
+                                      value={newMessage}
                                     onChange={(e) => setNewMessage(e.target.value)}
                                     placeholder="Type your message..."
                                     className="flex-1 rounded-full border border-slate-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -1399,9 +1428,9 @@ export function DashboardChat() {
                     </>
                 ) : (
                     <div className="flex-1 flex flex-col items-center justify-center text-center p-8 bg-muted/30">
-                        <div className="h-16 w-16 rounded-full bg-blue-50 flex items-center justify-center text-3xl mb-4">
-                            💬
-                        </div>
+                    <div className="h-16 w-16 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 mb-4">
+                        <MessageCircle className="h-8 w-8" />
+                    </div>
                         <h3 className="text-lg font-medium text-slate-900 dark:text-slate-100">Select a Conversation</h3>
                         <p className="text-sm text-slate-500 max-w-xs mt-2">
                             Choose a chat from the list or start a new one from the <b>Upcoming</b> tab.
@@ -1412,3 +1441,17 @@ export function DashboardChat() {
         </motion.section>
     );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

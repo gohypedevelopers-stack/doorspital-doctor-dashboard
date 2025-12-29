@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
-import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
+import { useGlobalLoader } from "../../lib/global-loader-context.js";
 import {
   AreaChart,
   Area,
@@ -15,7 +15,7 @@ import {
 } from "recharts";
 
 import bellicon from "../assets/bellicon.png";
-import pharmacyProfile from "../assets/pharmacyprofile.png";
+import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 
 const normalizeStatus = (status) =>
   (status ?? "").toString().toLowerCase().replace(/[_\s]/g, "");
@@ -220,7 +220,7 @@ function EarningsOverview() {
               <img src={bellicon} alt="Notifications" />
             </button>
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-              <img src={pharmacyProfile} alt="Profile" />
+              <PharmacyProfileBadge wrapperClassName="h-full w-full overflow-visible" imgClassName="rounded-xl" />
             </div>
           </div>
         </header>
@@ -445,3 +445,5 @@ function EarningsOverview() {
 }
 
 export default EarningsOverview;
+
+

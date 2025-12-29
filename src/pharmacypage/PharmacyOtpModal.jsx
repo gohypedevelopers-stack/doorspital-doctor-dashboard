@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { apiRequest } from "../lib/api.js";
 
 export default function PharmacyOtpModal({ isOpen, onClose, email, onVerified }) {
@@ -9,7 +9,7 @@ export default function PharmacyOtpModal({ isOpen, onClose, email, onVerified })
   const [isSendingOtp, setIsSendingOtp] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
 
-  const sendOtp = async () => {
+  const sendOtp = useCallback(async () => {
     if (!email) return;
     setIsSendingOtp(true);
     setError("");
@@ -25,13 +25,13 @@ export default function PharmacyOtpModal({ isOpen, onClose, email, onVerified })
     } finally {
       setIsSendingOtp(false);
     }
-  };
+  }, [email]);
 
   useEffect(() => {
     if (isOpen && email) {
       sendOtp();
     }
-  }, [isOpen, email]);
+  }, [isOpen, email, sendOtp]);
 
   useEffect(() => {
     if (!isOpen || timer <= 0) return;
@@ -148,3 +148,5 @@ export default function PharmacyOtpModal({ isOpen, onClose, email, onVerified })
     </div>
   );
 }
+
+

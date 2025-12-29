@@ -12,3 +12,5 @@ export function getPharmacySession() {
 export function getPharmacyToken() {
     return getPharmacySession()?.token ?? null;
 }
+
+

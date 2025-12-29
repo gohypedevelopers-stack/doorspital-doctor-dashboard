@@ -1,12 +1,8 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { ThemeProviderContext } from "@/lib/theme-context";
 
 // Matches shadcn/ui docs (Vite): https://ui-v4.shadcn.com/docs/dark-mode/vite
 // Types removed (this repo is JS/JSX). Valid values: "light" | "dark" | "system".
-
-const ThemeProviderContext = createContext({
-  theme: "system",
-  setTheme: () => null,
-});
 
 export function ThemeProvider({
   children,
@@ -54,10 +50,4 @@ export function ThemeProvider({
   );
 }
 
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
-  if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
-};
+

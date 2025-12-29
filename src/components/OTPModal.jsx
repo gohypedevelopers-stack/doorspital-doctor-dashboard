@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { apiRequest } from "../lib/api.js";
 
 export default function OTPModal({ isOpen, onClose, email, onVerified }) {
@@ -9,7 +9,7 @@ export default function OTPModal({ isOpen, onClose, email, onVerified }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSendingOtp, setIsSendingOtp] = useState(false);
 
-  const sendOtp = async () => {
+  const sendOtp = useCallback(async () => {
     if (!email) return;
     setIsSendingOtp(true);
     setError("");
@@ -22,12 +22,12 @@ export default function OTPModal({ isOpen, onClose, email, onVerified }) {
     } finally {
       setIsSendingOtp(false);
     }
-  };
+  }, [email]);
 
   useEffect(() => {
     if (!isOpen) return;
     sendOtp();
-  }, [isOpen, email]);
+  }, [isOpen, sendOtp]);
 
   useEffect(() => {
     if (!isOpen || timer <= 0) return;
@@ -83,11 +83,12 @@ export default function OTPModal({ isOpen, onClose, email, onVerified }) {
         <form className="mt-4 space-y-4" onSubmit={handleVerify}>
           <div className="space-y-1">
             <label className="block text-xs font-medium text-slate-900 dark:text-slate-200">OTP</label>
-            <input
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              required
-              maxLength={6}
+              <input
+                name="otp"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+                maxLength={6}
               className="h-9 w-full rounded-md border border-border bg-muted px-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-card focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -125,3 +126,5 @@ export default function OTPModal({ isOpen, onClose, email, onVerified }) {
     </div>
   );
 }
+
+

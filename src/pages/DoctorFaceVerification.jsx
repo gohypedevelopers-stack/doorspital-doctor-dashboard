@@ -4,7 +4,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiRequest } from "../lib/api.js";
-import { useRegistration } from "../lib/registrationContext.jsx";
+import { useRegistration } from "../lib/registration-context.js";
 
 export default function DoctorFaceVerification() {
   const { data, updateFiles, resetRegistration } = useRegistration();
@@ -36,6 +36,12 @@ export default function DoctorFaceVerification() {
       ? new window.FaceDetector({ fastMode: true, maxDetectedFaces: 1 })
       : null
   );
+  const [isFaceDetectorAvailable, setIsFaceDetectorAvailable] = useState(false);
+  const [hasVideoStream, setHasVideoStream] = useState(false);
+
+  useEffect(() => {
+    setIsFaceDetectorAvailable(Boolean(faceDetectorRef.current));
+  }, []);
 
   // Progress calculation (3 conditions)
   const totalConditions = 3;
@@ -72,8 +78,13 @@ export default function DoctorFaceVerification() {
   useEffect(() => {
     if (data.files.selfie && !capturedImage) {
       const objectUrl = URL.createObjectURL(data.files.selfie);
-      setCapturedImage(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
+      const timeoutId = setTimeout(() => {
+        setCapturedImage(objectUrl);
+      }, 0);
+      return () => {
+        clearTimeout(timeoutId);
+        URL.revokeObjectURL(objectUrl);
+      };
     }
     return undefined;
   }, [capturedImage, data.files.selfie]);
@@ -91,6 +102,7 @@ export default function DoctorFaceVerification() {
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           await videoRef.current.play();
+          setHasVideoStream(true);
         }
         // clear any previous error once camera works
         setCameraError("");
@@ -106,6 +118,7 @@ export default function DoctorFaceVerification() {
 
     return () => {
       if (stream) stream.getTracks().forEach((t) => t.stop());
+      setHasVideoStream(false);
     };
   }, []);
 
@@ -462,7 +475,7 @@ export default function DoctorFaceVerification() {
                     <p className="font-medium">Look directly at the camera</p>
                     <p className="text-xs text-slate-500">
                       Keep your face centered and close to the camera.
-                      {faceDetectorRef.current
+                      {isFaceDetectorAvailable
                         ? ""
                         : " (FaceDetector API not available in this browser, so this is not fully automatic.)"}
                     </p>
@@ -484,11 +497,12 @@ export default function DoctorFaceVerification() {
                       or glasses.
                     </p>
                     <label className="mt-2 flex items-center gap-2 text-xs">
-                      <input
-                        type="checkbox"
-                        className="h-3.5 w-3.5 rounded border-slate-300 text-blue-600"
-                        checked={noMaskGlassesOk}
-                        onChange={(e) => setNoMaskGlassesOk(e.target.checked)}
+                        <input
+                          name="noMaskGlassesOk"
+                          type="checkbox"
+                          className="h-3.5 w-3.5 rounded border-slate-300 text-blue-600"
+                          checked={noMaskGlassesOk}
+                          onChange={(e) => setNoMaskGlassesOk(e.target.checked)}
                       />
                       <span>I confirm I am not wearing a mask or glasses.</span>
                     </label>
@@ -559,7 +573,7 @@ export default function DoctorFaceVerification() {
               )}
 
               {/* Show error only if we don't actually have a stream */}
-              {cameraError && !videoRef.current?.srcObject && (
+              {cameraError && !hasVideoStream && (
                 <p className="mt-3 text-xs text-rose-600">{cameraError}</p>
               )}
             </div>
@@ -569,6 +583,8 @@ export default function DoctorFaceVerification() {
     </div> 
   );
 }
+
+
 
 
 

@@ -1,7 +1,6 @@
-import { createContext, useCallback, useContext, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import GlobalLoader from "@/GlobalLoader.jsx";
-
-const GlobalLoaderContext = createContext(null);
+import { GlobalLoaderContext } from "./global-loader-context.js";
 
 export function GlobalLoaderProvider({ children }) {
   const [activeCount, setActiveCount] = useState(0);
@@ -31,10 +30,4 @@ export function GlobalLoaderProvider({ children }) {
   );
 }
 
-export function useGlobalLoader() {
-  const context = useContext(GlobalLoaderContext);
-  if (!context) {
-    throw new Error("useGlobalLoader must be used within GlobalLoaderProvider");
-  }
-  return context;
-}
+

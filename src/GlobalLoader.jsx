@@ -17,3 +17,5 @@ export default function GlobalLoader({ fullPage = false }) {
     </div>
   );
 }
+
+

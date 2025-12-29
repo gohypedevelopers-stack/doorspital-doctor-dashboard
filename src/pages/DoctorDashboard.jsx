@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { apiRequest } from "../lib/api.js";
+import DoctorSidebar from "./doctor/DoctorSidebar.jsx";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -38,76 +39,11 @@ const SectionHeader = ({ kicker, title, subtitle, action }) => (
   </div>
 );
 
-const SidebarContent = ({ activeSection, setActiveSection, userName, onNavigate, containerClassName }) => {
-  const hour = new Date().getHours();
-  let greeting = "Hello";
-  if (hour < 12) greeting = "Good morning";
-  else if (hour < 17) greeting = "Good afternoon";
-  else greeting = "Good evening";
-
-  const handleSectionClick = (sectionId) => {
-    setActiveSection(sectionId);
-    onNavigate?.();
-  };
-
-  return (
-    <div className={containerClassName}>
-      <div className="rounded-3xl border border-border bg-card px-5 py-5 shadow-sm">
-        <div
-          className="inline-flex items-center rounded-full 
-  bg-gradient-to-r from-blue-600 to-emerald-500 
-  px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-white
-  shadow-[0_0_12px_rgba(37,99,235,1),0_0_20px_rgba(16,185,129,1)]
-  animate-pulse
-  ">
-          Doorspital
-        </div>
-
-
-        <p className="mt-2 text-lg text-slate-500">
-          {greeting}, <span className="font-semibold text-slate-900 dark:text-slate-100">{userName ?? "Doctor"}</span>
-        </p>
-      </div>
-      <div className="w-full border-t border-transparent bg-gradient-to-r from-emerald-200 via-emerald-300 to-emerald-400 py-0.5"></div>
-      <nav className="flex-1 space-y-3 overflow-y-auto px-1 pt-3">
-        <div className="space-y-2">
-          {sidebarSections.map((section) => {
-            const isActive = activeSection === section.id;
-            return (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => handleSectionClick(section.id)}
-                className={`flex w-full items-center justify-between rounded-[5px] border px-4 py-3 text-sm font-medium leading-tight transition
-                  ${isActive
-                    ? "border-blue-300 bg-card shadow-sm text-slate-900 dark:text-slate-100"
-                    : "border-border bg-card text-slate-900 dark:text-slate-200 hover:border-blue-200 hover:bg-blue-50/40"
-                  }
-                `}
-              >
-                <span className="flex-1 text-left text-base font-medium tracking-tight text-slate-900 dark:text-slate-100 leading-snug">
-                  {section.label}
-                </span>
-                <span
-                  className={`flex h-6 items-center rounded-[5px] px-3 py-1 text-[11px] font-semibold leading-none
-                    ${isActive ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-500"}
-                  `}
-                >
-                  {isActive ? "Active" : "View"}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
-    </div>
-  );
-};
-
 const Sidebar = (props) => (
-  <aside className="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-border bg-muted px-4 py-6">
-    <SidebarContent {...props} containerClassName="flex flex-col gap-4" />
-  </aside>
+  <DoctorSidebar
+    {...props}
+    containerClassName="hidden md:flex md:w-72 xl:w-80 flex-col gap-4 border-r border-border bg-muted px-4 py-6"
+  />
 );
 
 const DoctorSidebarDrawer = ({
@@ -129,7 +65,7 @@ const DoctorSidebarDrawer = ({
       <div
         className={`relative h-full w-72 transform bg-[#020826] p-4 transition-transform ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <SidebarContent
+        <DoctorSidebar
           activeSection={activeSection}
           setActiveSection={setActiveSection}
           userName={userName}

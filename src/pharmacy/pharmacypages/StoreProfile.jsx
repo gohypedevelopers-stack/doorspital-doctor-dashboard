@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import bellicon from "../assets/bellicon.png";
-import pharmacyProfile from "../assets/pharmacyprofile.png";
+import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
-import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
+import { useGlobalLoader } from "../../lib/global-loader-context.js";
 import GlobalLoader from "@/GlobalLoader.jsx";
 
 const Field = ({ label, value }) => (
@@ -51,18 +51,18 @@ export default function StoreProfile() {
         <PharmacyMenuToggle onClick={openDrawer} />
         <h1 className="text-[20px] font-semibold text-slate-100">{title}</h1>
       </div>
-      <div className="flex items-center gap-4">
-        <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
-          <img src={bellicon} alt="Notifications" />
-        </button>
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-          <img src={pharmacyProfile} alt="Profile" />
+        <div className="flex items-center gap-4">
+          <button className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-500">
+            <img src={bellicon} alt="Notifications" />
+          </button>
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
+            <PharmacyProfileBadge wrapperClassName="h-full w-full overflow-visible" imgClassName="rounded-xl" />
+          </div>
         </div>
-      </div>
     </header>
   );
 
-  const loadProfile = async () => {
+  const loadProfile = useCallback(async () => {
     if (!token) {
       setLoading(false);
       return;
@@ -91,11 +91,11 @@ export default function StoreProfile() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     loadProfile();
-  }, [token]);
+  }, [loadProfile]);
 
   const handleFormChange = (event) => {
     const { name, value } = event.target;
@@ -239,3 +239,5 @@ export default function StoreProfile() {
     </PharmacyLayout>
   );
 }
+
+

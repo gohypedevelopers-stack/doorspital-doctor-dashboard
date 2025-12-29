@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import dpicon from "../assets/dpicon.png";
 import RegistrationProgressBar from "../components/RegistrationProgressBar.jsx";
-import { useRegistration } from "../lib/registrationContext.jsx";
+import { useRegistration } from "../lib/registration-context.js";
 
 export default function DoctorQualifications() {
   const { data, updateFiles } = useRegistration();
@@ -201,3 +201,5 @@ export default function DoctorQualifications() {
     </div>
   );
 }
+
+

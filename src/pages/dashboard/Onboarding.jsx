@@ -1,6 +1,7 @@
 // src/pages/dashboard/Onboarding.jsx
 import React, { useEffect, useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { Briefcase, CheckCircle, FileText, ShieldCheck, User, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 import { apiRequest } from "../../lib/api.js";
 import GlobalLoader from "../../GlobalLoader";
@@ -39,17 +40,18 @@ const InfoCard = ({ title, children, icon }) => (
 const DetailRow = ({ label, value }) => (
     <div className="mb-4 last:mb-0">
         <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">{label}</p>
-        <p className="text-sm font-medium text-slate-900 dark:text-slate-100 mt-1">{value || "—"}</p>
+        <p className="text-sm font-medium text-slate-900 dark:text-slate-100 mt-1">{value ?? "—"}</p>
     </div>
 );
 
-const DocumentItem = ({ label, file, status }) => {
+const DocumentItem = ({ label, file }) => {
     const isUploaded = !!file;
+    const Icon = isUploaded ? CheckCircle : ShieldCheck;
     return (
         <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted mb-3 last:mb-0">
             <div className="flex items-center gap-3">
                 <div className={`h-8 w-8 rounded-full flex items-center justify-center ${isUploaded ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-200 text-slate-400'}`}>
-                    {isUploaded ? '✓' : '—'}
+                    <Icon className="h-5 w-5" />
                 </div>
                 <div>
                     <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{label}</p>
@@ -168,7 +170,7 @@ export default function Onboarding() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                 {/* Personal Details */}
-                <InfoCard title="Personal Details" icon="👤">
+                <InfoCard title="Personal Details" icon={<User className="h-6 w-6 text-slate-600 dark:text-slate-200" />}>
                     <div className="grid grid-cols-1 gap-y-4">
                         <DetailRow label="Full Name" value={personalDetails?.fullName} />
                         <DetailRow label="Email" value={personalDetails?.email} />
@@ -178,7 +180,7 @@ export default function Onboarding() {
                 </InfoCard>
 
                 {/* Professional Info */}
-                <InfoCard title="Professional Info" icon="👨‍⚕️">
+                <InfoCard title="Professional Info" icon={<Briefcase className="h-6 w-6 text-slate-600 dark:text-slate-200" />}>
                     <div className="grid grid-cols-1 gap-y-4">
                         <DetailRow label="Specialization" value={personalDetails?.medicalSpecialization} />
                         <DetailRow label="Experience" value={`${personalDetails?.yearsOfExperience || 0} Years`} />
@@ -188,7 +190,7 @@ export default function Onboarding() {
                 </InfoCard>
 
                 {/* Registration Details */}
-                <InfoCard title="Registration" icon="📜">
+                <InfoCard title="Registration" icon={<ShieldCheck className="h-6 w-6 text-slate-600 dark:text-slate-200" />}>
                     <div className="grid grid-cols-1 gap-y-4">
                         <DetailRow label="Registration Number" value={registration?.registrationNumber} />
                         <DetailRow label="Council Name" value={registration?.councilName} />
@@ -198,7 +200,7 @@ export default function Onboarding() {
 
                 {/* Documents - Spans full width on mobile, 2 cols on large */}
                 <div className="md:col-span-2 lg:col-span-3">
-                    <InfoCard title="Submitted Documents" icon="📁">
+                    <InfoCard title="Submitted Documents" icon={<FileText className="h-6 w-6 text-slate-600 dark:text-slate-200" />}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <DocumentItem
                                 label="MBBS Certificate"
@@ -231,7 +233,7 @@ export default function Onboarding() {
             {verification.reviewNotes && (
                 <div className="bg-blue-50 border border-blue-100 rounded-xl p-6">
                     <h3 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
-                        <span>📝</span> Reviewer Notes
+                        <MessageSquare className="h-5 w-5 text-blue-600" /> Reviewer Notes
                     </h3>
                     <p className="text-blue-800 text-sm">{verification.reviewNotes}</p>
                 </div>

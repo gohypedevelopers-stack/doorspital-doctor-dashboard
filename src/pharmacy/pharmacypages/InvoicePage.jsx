@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
 import bellicon from "../assets/bellicon.png";
+import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacySession, getPharmacyToken } from "../../lib/pharmacySession.js";
 import html2pdf from "html2pdf.js";
-import { useGlobalLoader } from "../../lib/globalLoaderContext.jsx";
+import { useGlobalLoader } from "../../lib/global-loader-context.js";
 import GlobalLoader from "@/GlobalLoader.jsx";
 
 const currencyFormatter = new Intl.NumberFormat("en-IN", {
@@ -310,7 +311,7 @@ export default function InvoicePage() {
                 <img src={bellicon} alt="Notifications" />
               </button>
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-                <img src={pharmacyProfile} alt="Profile" />
+                <PharmacyProfileBadge wrapperClassName="h-full w-full overflow-visible" imgClassName="rounded-xl" />
               </div>
             </div>
           </header>
@@ -644,3 +645,5 @@ export default function InvoicePage() {
     </PharmacyLayout>
   );
 }
+
+
