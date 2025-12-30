@@ -2,7 +2,9 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
+import PharmacyLayout, {
+  PharmacyMenuToggle,
+} from "../components/PharmacyLayout.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
 import { useGlobalLoader } from "../../lib/global-loader-context.js";
@@ -16,7 +18,7 @@ const statusStyles = {
   "Ready for Delivery": "bg-slate-200 text-slate-600 dark:text-white-900",
   "Out for Delivery": "bg-slate-200 text-slate-600 dark:text-white-900",
   Delivered: "bg-slate-200 text-slate-600 dark:text-white-900",
-Cancelled: "bg-slate-200 text-slate-600 dark:text-white-900",
+  Cancelled: "bg-slate-200 text-slate-600 dark:text-white-900",
 };
 
 const friendlyStatusLabels = {
@@ -37,7 +39,8 @@ const filterStatuses = [
   "cancelled",
 ];
 
-const getStatusKey = (status) => (status ? status.toString().toLowerCase() : "pending");
+const getStatusKey = (status) =>
+  status ? status.toString().toLowerCase() : "pending";
 
 const getStatusLabel = (status) => {
   if (!status) return "Pending";
@@ -104,7 +107,8 @@ function NewPrescriptionOrders() {
   const filteredOrders = useMemo(() => {
     return orders.filter((order) => {
       const orderStatus = getStatusKey(order.status);
-      const matchesFilter = activeFilter === "all" ? true : orderStatus === activeFilter;
+      const matchesFilter =
+        activeFilter === "all" ? true : orderStatus === activeFilter;
       const patientName = (
         order.shippingAddress?.fullName ??
         order.user?.userName ??
@@ -114,7 +118,10 @@ function NewPrescriptionOrders() {
         .toString()
         .toLowerCase();
       const orderIdLabel = (
-        order.prescriptionId ?? order.orderId ?? order._id ?? ""
+        order.prescriptionId ??
+        order.orderId ??
+        order._id ??
+        ""
       )
         .toString()
         .toLowerCase();
@@ -130,7 +137,10 @@ function NewPrescriptionOrders() {
   const totalPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
   const safePage = Math.min(currentPage, totalPages);
   const startIndex = (safePage - 1) * pageSize;
-  const paginatedOrders = filteredOrders.slice(startIndex, startIndex + pageSize);
+  const paginatedOrders = filteredOrders.slice(
+    startIndex,
+    startIndex + pageSize
+  );
 
   const statusCounts = useMemo(() => {
     return orders.reduce((acc, order) => {
@@ -165,193 +175,205 @@ function NewPrescriptionOrders() {
               <img src={bellicon} alt="Notifications" />
             </button>
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-              <PharmacyProfileBadge wrapperClassName="h-full w-full overflow-visible" imgClassName="rounded-xl" />
+              <PharmacyProfileBadge
+                wrapperClassName="h-full w-full overflow-visible"
+                imgClassName="rounded-xl"
+              />
             </div>
           </div>
         </header>
       )}
     >
-            {errorMessage && (
-              <div className="mb-6 rounded-xl bg-rose-50 px-6 py-3 text-sm font-semibold text-rose-700">
-                {errorMessage}
+      {errorMessage && (
+        <div className="mb-6 rounded-xl bg-rose-50 px-6 py-3 text-sm font-semibold text-rose-700">
+          {errorMessage}
+        </div>
+      )}
+      {/* Search + Filters (two horizontal rows) */}
+      <div className="mb-6 rounded-[32px] bg-card px-8 py-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] space-y-6">
+        {/* Row 1 - Search orders + search bar */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-4">
+          <p className="text-[12px] font-medium text-slate-900 dark:text-slate-100 w-full lg:w-auto">
+            Search orders:
+          </p>
+
+          <div className="w-full lg:max-w-md">
+            <div className="flex items-center gap-3 rounded-2xl bg-[#f7fafc] px-5 py-4 shadow-[0_8px_25px_rgba(15,23,42,0.03)]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-card shadow-sm">
+                <span className="text-slate-400 text-lg">🔍 </span>
               </div>
-            )}
-            {/* Search + Filters (two horizontal rows) */}
-            <div className="mb-6 rounded-[32px] bg-card px-8 py-8 shadow-[0_18px_45px_rgba(15,23,42,0.06)] space-y-6">
-              {/* Row 1 - Search orders + search bar */}
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-4">
-                <p className="text-[12px] font-medium text-slate-900 dark:text-slate-100 w-full lg:w-auto">
-                  Search orders:
-                </p>
+              <input
+                type="text"
+                placeholder="Search by patient name or Order ID..."
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
+                className="w-full border-none bg-transparent text-sm text-slate-900  placeholder:text-slate-400 focus:outline-none"
+              />
+            </div>
+          </div>
+        </div>
 
-                <div className="w-full lg:max-w-md">
-                  <div className="flex items-center gap-3 rounded-2xl bg-[#f7fafc] px-5 py-4 shadow-[0_8px_25px_rgba(15,23,42,0.03)]">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-card shadow-sm">
-                      <span className="text-slate-400 text-lg">🔍 </span>
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="Search by patient name or Order ID..."
-                      value={searchTerm}
-                      onChange={(event) => setSearchTerm(event.target.value)}
-                      className="w-full border-none bg-transparent text-sm text-slate-900  placeholder:text-slate-400 focus:outline-none"
-                    />
-                  </div>
-                </div>
-              </div>
+        {/* Row 2 - Filter by status + chips */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-4">
+          <p className="text-[12px] font-medium text-slate-900 dark:text-slate-100 w-full lg:w-auto">
+            Filter by status:
+          </p>
 
-              {/* Row 2 - Filter by status + chips */}
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-start gap-4">
-                <p className="text-[12px] font-medium text-slate-900 dark:text-slate-100 w-full lg:w-auto">
-                  Filter by status:
-                </p>
+          <div className="flex flex-wrap justify-start gap-2">
+            <button
+              onClick={() => setActiveFilter("all")}
+              className={[
+                "rounded-full px-4 py-2 text-[12px] font-semibold border transition",
+                activeFilter === "all"
+                  ? "bg-[#00b074] text-white border-[#00b074]"
+                  : "bg-card text-slate-600 border-border hover:bg-muted/60",
+              ].join(" ")}
+            >
+              All ({orders.length})
+            </button>
 
-                <div className="flex flex-wrap justify-start gap-2">
-                  <button
-                    onClick={() => setActiveFilter("all")}
-                    className={[
-                      "rounded-full px-4 py-2 text-[12px] font-semibold border transition",
-                      activeFilter === "all"
-                        ? "bg-[#00b074] text-white border-[#00b074]"
-                        : "bg-card text-slate-600 border-border hover:bg-muted/60",
-                    ].join(" ")}
+            {filterStatuses.map((status) => (
+              <button
+                key={status}
+                onClick={() => setActiveFilter(status)}
+                className={[
+                  "rounded-full px-4 py-2 text-[12px] font-semibold border transition",
+                  activeFilter === status
+                    ? "bg-[#00b074] text-white border-[#00b074]"
+                    : "bg-card text-slate-600 border-border hover:bg-muted/60",
+                ].join(" ")}
+              >
+                {getStatusLabel(status)} ({statusCounts[status] || 0})
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="rounded-[32px] bg-card shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-left text-[13px]">
+            <thead>
+              <tr className="border-b border-border bg-[#3a3c40] text-[11px] font-semibold uppercase tracking-wide text-black-900">
+                <th className="px-8 py-4">Patient Name</th>
+                <th className="px-8 py-4">Order ID</th>
+                <th className="px-8 py-4">Medicine Count</th>
+                <th className="px-8 py-4">Order Time &amp; Type</th>
+                <th className="px-8 py-4">Status</th>
+                <th className="px-8 py-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loadingOrders && (
+                <tr>
+                  <td
+                    colSpan="6"
+                    className="px-8 py-16 text-center text-sm text-slate-500"
                   >
-                    All ({orders.length})
-                  </button>
+                    Loading orders...
+                  </td>
+                </tr>
+              )}
+              {!loadingOrders && paginatedOrders.length === 0 && (
+                <tr>
+                  <td
+                    colSpan="6"
+                    className="px-8 py-16 text-center text-sm text-slate-500"
+                  >
+                    No orders found.
+                  </td>
+                </tr>
+              )}
+              {!loadingOrders &&
+                paginatedOrders.map((order, idx) => {
+                  const orderId = order._id ?? order.id ?? idx;
+                  const patientName =
+                    order.shippingAddress?.fullName ??
+                    order.user?.userName ??
+                    order.customerName ??
+                    "Patient";
+                  const prescriptionId =
+                    order.prescriptionId ?? order.orderId ?? `ORD-${orderId}`;
+                  const medicineCount =
+                    order.items?.reduce(
+                      (sum, item) => sum + (item.quantity ?? 0),
+                      0
+                    ) ?? 0;
+                  const createdAt = order.createdAt
+                    ? new Date(order.createdAt)
+                    : null;
+                  const timeLabel = createdAt
+                    ? `${createdAt.toLocaleTimeString("en-IN", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}, ${order.metadata?.deliveryType ?? "Home Delivery"}`
+                    : "-";
+                  const statusLabel = getStatusLabel(order.status);
+                  const statusClass =
+                    statusStyles[statusLabel] || "bg-[#E3E8EF] text-[#475569]";
 
-                  {filterStatuses.map((status) => (
-                    <button
-                      key={status}
-                      onClick={() => setActiveFilter(status)}
-                      className={[
-                        "rounded-full px-4 py-2 text-[12px] font-semibold border transition",
-                        activeFilter === status
-                          ? "bg-[#00b074] text-white border-[#00b074]"
-                          : "bg-card text-slate-600 border-border hover:bg-muted/60",
-                      ].join(" ")}
+                  return (
+                    <tr
+                      key={orderId}
+                      className={
+                        "text-slate-900 dark:text-slate-200 " +
+                        (idx !== paginatedOrders.length - 1
+                          ? "border-b border-border"
+                          : "")
+                      }
                     >
-                      {getStatusLabel(status)} ({statusCounts[status] || 0})
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-[32px] bg-card shadow-[0_18px_45px_rgba(15,23,42,0.04)]">
-              <div className="overflow-x-auto">
-                <table className="min-w-full text-left text-[13px]">
-                  <thead>
-                    <tr className="border-b border-border bg-[#3a3c40] text-[11px] font-semibold uppercase tracking-wide text-black-900">
-                      <th className="px-8 py-4">Patient Name</th>
-                      <th className="px-8 py-4">Order ID</th>
-                      <th className="px-8 py-4">Medicine Count</th>
-                      <th className="px-8 py-4">Order Time &amp; Type</th>
-                      <th className="px-8 py-4">Status</th>
-                      <th className="px-8 py-4 text-right">Action</th>
+                      <td className="px-8 py-4 text-[13px]">{patientName}</td>
+                      <td className="px-8 py-4 text-[13px] text-slate-500">
+                        {prescriptionId}
+                      </td>
+                      <td className="px-8 py-4 text-[13px]">{medicineCount}</td>
+                      <td className="px-8 py-4 text-[13px] text-slate-500">
+                        {timeLabel}
+                      </td>
+                      <td className="px-8 py-4">
+                        <span
+                          className={`inline-flex rounded-xl px-3 py-1 text-[11px] font-semibold ${statusClass}`}
+                        >
+                          {statusLabel}
+                        </span>
+                      </td>
+                      <td className="px-8 py-4 text-right">
+                        <Link
+                          to={`/pharmacy/orders/${orderId}`}
+                          className="inline-flex w-full items-center justify-center whitespace-nowrap rounded-full bg-[#00b074] px-2 py-1 text-[8px] shadow-[0_8px_20px_rgba(0,176,116,0.45)] transition hover:bg-[#049662] sm:w-auto sm:px-3 sm:py-1 sm:text-[8px] md:px-3 md:py-1 md:text-sm lg:px-4 lg:py-2.5 lg:text-base"
+                        >
+                          View Order
+                        </Link>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {loadingOrders && (
-                      <tr>
-                        <td colSpan="6" className="px-8 py-16 text-center text-sm text-slate-500">
-                          Loading orders...
-                        </td>
-                      </tr>
-                    )}
-                    {!loadingOrders && paginatedOrders.length === 0 && (
-                      <tr>
-                        <td colSpan="6" className="px-8 py-16 text-center text-sm text-slate-500">
-                          No orders found.
-                        </td>
-                      </tr>
-                    )}
-                    {!loadingOrders &&
-                      paginatedOrders.map((order, idx) => {
-                        const orderId = order._id ?? order.id ?? idx;
-                        const patientName =
-                          order.shippingAddress?.fullName ??
-                          order.user?.userName ??
-                          order.customerName ??
-                          "Patient";
-                        const prescriptionId =
-                          order.prescriptionId ?? order.orderId ?? `ORD-${orderId}`;
-                        const medicineCount =
-                          order.items?.reduce((sum, item) => sum + (item.quantity ?? 0), 0) ?? 0;
-                        const createdAt = order.createdAt ? new Date(order.createdAt) : null;
-                        const timeLabel = createdAt
-                          ? `${createdAt.toLocaleTimeString("en-IN", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}, ${order.metadata?.deliveryType ?? "Home Delivery"}`
-                          : "-";
-                        const statusLabel = getStatusLabel(order.status);
-                        const statusClass = statusStyles[statusLabel] ||
-                          "bg-[#E3E8EF] text-[#475569]";
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
 
-                        return (
-                          <tr
-                            key={orderId}
-                            className={
-                              "text-slate-900 dark:text-slate-200 " +
-                              (idx !== paginatedOrders.length - 1
-                                ? "border-b border-border"
-                                : "")
-                            }
-                          >
-                            <td className="px-8 py-4 text-[13px]">{patientName}</td>
-                            <td className="px-8 py-4 text-[13px] text-slate-500">
-                              {prescriptionId}
-                            </td>
-                            <td className="px-8 py-4 text-[13px]">{medicineCount}</td>
-                            <td className="px-8 py-4 text-[13px] text-slate-500">
-                              {timeLabel}
-                            </td>
-                            <td className="px-8 py-4">
-                              <span
-                                className={`inline-flex rounded-xl px-3 py-1 text-[11px] font-semibold ${statusClass}`}
-                              >
-                                {statusLabel}
-                              </span>
-                            </td>
-                            <td className="px-8 py-4 text-right">
-                              <Link
-                                to={`/pharmacy/orders/${orderId}`}
-  className="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-[#00b074] px-5 py-1.5 text-[12px] font-semibold text-white shadow-[0_8px_20px_rgba(0,176,116,0.45)] transition hover:bg-[#049662]"
-                              >
-                                View Order
-                              </Link>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="flex items-center justify-between rounded-b-[32px] border-t border-border px-8 py-4 text-[12px] text-slate-500">
-                <span>
-                  Showing {paginatedOrders.length} of {totalFiltered} results
-                </span>
-                <div className="flex gap-2">
-                  <button
-                    className="rounded-xl border border-border px-5 py-1.5 text-[12px] text-slate-500 hover:bg-muted/60"
-                    onClick={() => goToPageDelta(-1)}
-                  >
-                    Previous
-                  </button>
-                  <button
-                    className="rounded-xl border border-border px-5 py-1.5 text-[12px] text-slate-500 hover:bg-muted/60"
-                    onClick={() => goToPageDelta(1)}
-                  >
-                    Next
-                  </button>
-                </div>
-              </div>
-            </div>
+        <div className="flex items-center justify-between rounded-b-[32px] border-t border-border px-8 py-4 text-[12px] text-slate-500">
+          <span>
+            Showing {paginatedOrders.length} of {totalFiltered} results
+          </span>
+          <div className="flex gap-2">
+            <button
+              className="rounded-xl border border-border px-5 py-1.5 text-[12px] text-slate-500 hover:bg-muted/60"
+              onClick={() => goToPageDelta(-1)}
+            >
+              Previous
+            </button>
+            <button
+              className="rounded-xl border border-border px-5 py-1.5 text-[12px] text-slate-500 hover:bg-muted/60"
+              onClick={() => goToPageDelta(1)}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
     </PharmacyLayout>
   );
 }
 
 export default NewPrescriptionOrders;
-
-

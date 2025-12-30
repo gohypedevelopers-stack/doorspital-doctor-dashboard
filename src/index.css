@@ -86,7 +86,7 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--foreground);
-  padding: 10px;
+  padding: 0;
 }
 
 /* (Optional) keep these if you want fine-grained weight classes */

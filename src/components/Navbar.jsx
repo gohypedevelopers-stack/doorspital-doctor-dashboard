@@ -34,8 +34,7 @@ export default function Navbar({
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/80 backdrop-blur">
       {/* ✅ Keeping your container/padding as-is */}
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        {/* Logo / brand */}
+<div className="mx-auto flex w-full items-center justify-between px-4 py-3 sm:px-6 lg:px-8">        {/* Logo / brand */}
         <Link to="/" className="flex items-center gap-2">
           <img
             src={icon}

@@ -77,7 +77,7 @@ export default function App() {
   const isRegisterFlow = location.pathname.startsWith("/register");
 
   // ✅ Keeping your px-1 padding exactly as requested
-  const pageShellClasses = "mx-auto w-full max-w-[1280px] px-1 sm:px-1 lg:px-1";
+  const pageShellClasses = "mx-auto w-full px-0 sm:px-0 lg:px-0";
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isAuthChoiceOpen, setIsAuthChoiceOpen] = useState(false);
