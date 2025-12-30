@@ -175,19 +175,22 @@ export function DashboardServices() {
                 <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
                     <h4 className="mb-4 text-sm font-semibold text-slate-900 dark:text-slate-100">Custom & Active Services</h4>
 
-                    <form onSubmit={handleAddService} className="flex gap-2 mb-6">
+                    <form
+                        onSubmit={handleAddService}
+                        className="flex flex-col gap-2 mb-6 sm:flex-row sm:items-center"
+                    >
                           <input
                               name="newService"
                               type="text"
                               value={newService}
                             onChange={(e) => setNewService(e.target.value)}
                             placeholder="Add generic service..."
-                            className="flex-1 rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
+                            className="flex-1 w-full rounded-[5px] border border-slate-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none"
                         />
                         <button
                             type="submit"
                             disabled={!newService.trim()}
-                            className="rounded-[5px] bg-slate-800 px-4 py-2 text-xs font-bold uppercase text-white hover:bg-slate-700 disabled:opacity-50"
+                            className="w-full rounded-[5px] bg-slate-800 px-4 py-2 text-xs font-bold uppercase text-white hover:bg-slate-700 disabled:opacity-50 sm:w-auto"
                         >
                             Add
                         </button>
@@ -329,14 +332,14 @@ export function DashboardProfile() {
             </div>
 
             {/* Main Profile Card */}
-            <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
-                <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                <div className="rounded-[5px] border border-border bg-card p-6 shadow-sm">
+                    <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
                     {/* Avatar Placeholder */}
                     <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-slate-100 text-3xl font-bold text-slate-400">
                         {details.name.charAt(0)}
                     </div>
 
-                    <div className="flex-1 space-y-4">
+                        <div className="flex-1 min-w-0 space-y-4">
                         <div>
                             <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100">{details.name}</h3>
                             <p className="text-lg text-slate-600">{details.specialty}</p>
@@ -350,7 +353,7 @@ export function DashboardProfile() {
                             </div>
                         </div>
 
-                        <div className="grid gap-6 md:grid-cols-2">
+                        <div className="grid gap-6 lg:grid-cols-2">
                             <div className="space-y-1">
                                 <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Contact Info</p>
                                 <div className="text-sm text-slate-900 dark:text-slate-200">
@@ -1199,13 +1202,13 @@ export function DashboardChat() {
 
     return (
         <motion.section
-            className="h-[calc(100vh-140px)] min-h-[600px] overflow-hidden rounded-[5px] border border-border bg-card shadow-sm flex"
+            className="min-h-[600px] flex flex-col overflow-hidden rounded-[5px] border border-border bg-card shadow-sm lg:flex-row lg:h-[calc(100vh-140px)]"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
         >
             {/* Sidebar */}
-            <div className="w-80 flex-shrink-0 border-r border-border flex flex-col bg-muted">
+            <div className="w-full border-b border-border flex flex-col bg-muted lg:w-80 lg:border-b-0 lg:border-r lg:flex-shrink-0">
                 {/* Sidebar Tabs */}
                 <div className="flex border-b border-border bg-card">
                     <button

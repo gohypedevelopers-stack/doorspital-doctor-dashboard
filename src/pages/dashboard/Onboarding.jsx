@@ -48,18 +48,18 @@ const DocumentItem = ({ label, file }) => {
     const isUploaded = !!file;
     const Icon = isUploaded ? CheckCircle : ShieldCheck;
     return (
-        <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted mb-3 last:mb-0">
-            <div className="flex items-center gap-3">
-                <div className={`h-8 w-8 rounded-full flex items-center justify-center ${isUploaded ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-200 text-slate-400'}`}>
-                    <Icon className="h-5 w-5" />
-                </div>
-                <div>
-                    <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{label}</p>
-                    {file && <p className="text-xs text-slate-500 truncate max-w-[200px]">{file.filename}</p>}
-                </div>
-            </div>
+    <div className="flex w-full min-w-0 items-center justify-between gap-4 p-3 rounded-lg border border-border bg-muted mb-3 last:mb-0">
+      <div className="flex items-center gap-3">
+        <div className={`h-8 w-8 flex-shrink-0 rounded-full flex items-center justify-center ${isUploaded ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-200 text-slate-400'}`}>
+          <Icon className="h-5 w-5" />
+        </div>
+        <div className="min-w-0">
+          <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{label}</p>
+          {file && <p className="text-xs text-slate-500 truncate max-w-[200px]">{file.filename}</p>}
+        </div>
+      </div>
             {isUploaded ? (
-                <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Uploaded</span>
+                <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded"></span>
             ) : (
                 <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded">Pending</span>
             )}

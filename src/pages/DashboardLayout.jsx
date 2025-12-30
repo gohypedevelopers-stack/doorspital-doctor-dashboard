@@ -144,10 +144,7 @@ const DoctorSidebarDrawer = ({ open, onClose, userName, currentPath }) => (
       transition={{ type: "tween", duration: 0.3 }}
     >
       <div className="mb-4 flex items-center justify-between text-white">
-        <div className="flex items-center gap-2 text-sm font-semibold">
-          <span className="h-8 w-8 rounded-2xl bg-gradient-to-br from-blue-600 to-emerald-400" />
-          <span>Doorspital</span>
-        </div>
+        
         <button
           onClick={onClose}
           className="rounded-full border border-white/30 bg-white/10 p-1 text-white transition hover:bg-white/20"

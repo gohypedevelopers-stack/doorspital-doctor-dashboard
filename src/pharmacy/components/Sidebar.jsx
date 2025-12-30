@@ -50,7 +50,7 @@ const Sidebar = ({ onNavigate }) => {
   const userName = session?.user?.userName ?? "Pharmacy Partner";
 
   return (
-    <aside className="flex flex-col h-screen w-full space-y-9 overflow-hidden bg-[#050a1a] p-6 text-white md:w-82 lg:w-90 lg:border-r lg:border-border">
+    <aside className="relative flex h-full w-full max-w-[280px] flex-col space-y-9 overflow-hidden bg-[#050a1a] px-5 py-6 text-white shadow-lg lg:h-screen lg:w-72 lg:border-r lg:border-border">
       <div className="space-y-6">
         {/* Top line */}
         <div className="flex justify-center">
@@ -88,7 +88,7 @@ const Sidebar = ({ onNavigate }) => {
         <div className="h-1.5 w-full rounded-full bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-500" />
       </div>
 
-      <nav className="flex flex-1 flex-col gap-6 overflow-y-auto pr-1 pb-2">
+      <nav className="flex flex-1 flex-col gap-6 overflow-y-auto pr-1 pb-2 min-w-0">
         {menuItems.map((item) => (
           <NavItem
             key={item.label}
