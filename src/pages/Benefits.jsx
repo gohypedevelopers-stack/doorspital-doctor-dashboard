@@ -77,7 +77,7 @@ function StatCard({ value, suffix, label, index }) {
 
 export default function Benefits() {
   return (
-    <div className="bg-background">
+    <div className="bg-background px-[9px]">
       {/* ========== HERO ========== */}
       <motion.section
         className="w-full bg-gradient-to-b from-[#bfcff5] via-[#d6e2ff] to-[#f4f7ff] py-16 text-center"

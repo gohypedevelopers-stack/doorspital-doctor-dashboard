@@ -455,7 +455,7 @@ function DashboardOverview() {
     <PharmacyLayout
       mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] px-4 sm:px-6 lg:px-10 py-7 dark:bg-[#1E293B]"
       header={({ openDrawer }) => (
-        <header className="flex items-center justify-between border-b border-border bg-[#020817] px-4 sm:px-6 lg:px-10 py-1">
+        <header className="flex items-center justify-between border-b border-border bg-[#707888] px-4 sm:px-6 lg:px-10 py-1">
           <div className="flex items-center gap-3">
             <PharmacyMenuToggle onClick={openDrawer} />
             <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
@@ -612,11 +612,11 @@ function DashboardOverview() {
                     Earnings Analytics
                   </h2>
 
-                  <div className="flex items-center gap-2 text-[12px] font-medium text-slate-500">
+                  <div className="flex flex-wrap items-center gap-2 text-[12px] font-medium text-slate-500">
                     <select
                       value={analyticsView}
                       onChange={(e) => setAnalyticsView(e.target.value)}
-                      className="h-9 rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200 dark:text-slate-200"
+                      className="h-9 min-w-[110px] rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
                     >
                       <option value="weekly">Weekly</option>
                       <option value="monthly">Monthly</option>
@@ -626,7 +626,7 @@ function DashboardOverview() {
                     <select
                       value={selectedYear}
                       onChange={(e) => setSelectedYear(Number(e.target.value))}
-                      className="h-9 rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
+                      className="h-9 min-w-[90px] rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
                     >
                       {availableYears.map((y) => (
                         <option key={y} value={y}>
@@ -639,7 +639,7 @@ function DashboardOverview() {
                       <select
                         value={selectedMonth}
                         onChange={(e) => setSelectedMonth(Number(e.target.value))}
-                        className="h-9 rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
+                        className="h-9 min-w-[80px] rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
                       >
                         {monthLabels.map((m, idx) => (
                           <option key={m} value={idx}>
@@ -653,7 +653,7 @@ function DashboardOverview() {
                       <select
                         value={selectedWeek}
                         onChange={(e) => setSelectedWeek(Number(e.target.value))}
-                        className="h-9 rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
+                        className="h-9 min-w-[90px] rounded-xl border border-border bg-card px-3 text-slate-900 dark:text-slate-200"
                       >
                         {[1, 2, 3, 4, 5].map((w) => (
                           <option key={w} value={w}>
@@ -672,12 +672,14 @@ function DashboardOverview() {
                     ))}
                   </div>
 
-                  <div className="flex flex-1 pl-8 h-full border-l border-b border-border">
-                    {earningsAnalytics.data.map((data) => (
-                      <div key={data.label} className="flex-1 flex justify-center">
-                        <ChartBar {...data} maxValue={earningsAnalytics.axisMax} />
-                      </div>
-                    ))}
+                  <div className="flex flex-1 pl-8 h-full border-l border-b border-border overflow-x-auto">
+                    <div className="flex h-full gap-4 pr-2">
+                      {earningsAnalytics.data.map((data) => (
+                        <div key={data.label} className="flex-none flex justify-center min-w-[64px]">
+                          <ChartBar {...data} maxValue={earningsAnalytics.axisMax} />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

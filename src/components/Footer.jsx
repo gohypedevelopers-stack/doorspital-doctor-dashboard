@@ -10,7 +10,7 @@ import icon from "../assets/icon.png";
 export default function Footer() {
   return (
     <motion.footer
-      className="border-t border-border bg-card mt-12 mb-1 md:mb-1"
+      className="border-t border-border bg-card mt-12 mb-1 md:mb-1 p-[6px]"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}

@@ -46,7 +46,7 @@ export default function StoreProfile() {
   const { showLoader, hideLoader } = useGlobalLoader();
 
   const renderHeader = (title) => ({ openDrawer }) => (
-    <header className="flex items-center justify-between border-b border-border bg-[#020817] px-4 sm:px-6 lg:px-10 py-1">
+    <header className="flex items-center justify-between border-b border-border bg-[#707888] px-4 sm:px-6 lg:px-10 py-1">
       <div className="flex items-center gap-3">
         <PharmacyMenuToggle onClick={openDrawer} />
         <h1 className="text-[20px] font-semibold text-slate-100">{title}</h1>

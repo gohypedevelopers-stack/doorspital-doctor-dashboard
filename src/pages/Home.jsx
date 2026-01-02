@@ -52,7 +52,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
   const handleDoctorJoin = onDoctorJoinClick ?? (() => { });
   const handlePharmacyJoin = onPharmacyJoinClick ?? (() => { });
   return (
-    <div className="bg-background">
+    <div className="bg-background px-[9px]">
       {/* ========== HERO: About Doorspital Partner Network ========== */}
       <motion.section
         className="flex w-full flex-col gap-10 py-16 lg:flex-row lg:items-center lg:gap-16"

@@ -14,7 +14,7 @@ export default function Support() {
     <PharmacyLayout
       mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] dark:bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-8"
       header={({ openDrawer }) => (
-        <header className="flex items-center justify-between border-b border-border bg-[#020817] px-4 sm:px-6 lg:px-10 py-1">
+        <header className="flex items-center justify-between border-b border-border bg-[#707888] px-4 sm:px-6 lg:px-10 py-1">
           <div className="flex items-center gap-3">
             <PharmacyMenuToggle onClick={openDrawer} />
             <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
