@@ -2,13 +2,10 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import PharmacyLayout, {
-  PharmacyMenuToggle,
-} from "../components/PharmacyLayout.jsx";
+import PharmacyLayout, {PharmacyMenuToggle,} from "../components/PharmacyLayout.jsx";
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
 import { useGlobalLoader } from "../../lib/global-loader-context.js";
-
 import bellicon from "../assets/bellicon.png";
 import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 
@@ -254,7 +251,7 @@ function NewPrescriptionOrders() {
         <div className="overflow-x-auto">
           <table className="min-w-full text-left text-[13px]">
             <thead>
-              <tr className="border-b border-border bg-[#707888] text-[11px] font-semibold uppercase tracking-wide text-white-700 dark:text-white-100">
+              <tr className="border-b border-border bg-[#fbfcff] text-[11px] font-semibold uppercase tracking-wide text-slate-500">
                 <th className="px-8 py-4">Patient Name</th>
                 <th className="px-8 py-4">Order ID</th>
                 <th className="px-8 py-4">Medicine Count</th>

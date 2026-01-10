@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from "framer-motion";
-
 import videoConsultVector from "../assets/video consult vector.png";
 import prescriptionUploadVector from "../assets/priscription upload vector.png";
 import calendarVector from "../assets/calender vector.png";
@@ -17,8 +16,6 @@ import noteDeckVector from "../assets/notedeckVector.png";
 import arrowGrowthVector from "../assets/arrowgrowthvector.png";
 import timeVector from "../assets/timevector.png";
 import lockVector from "../assets/lockvector.png";
-
-// ✅ doctor images for the hero bubbles
 import benefitdoctor1 from "../assets/benefitdoctor1.png";
 import benefitdoctor2 from "../assets/benefitdoctor2.png";
 import benefitdoctor3 from "../assets/benefitdoctor3.png";
@@ -102,9 +99,9 @@ export default function Benefits() {
             variants={fadeUp}
             transition={{ duration: 0.7, delay: 0.1 }}
           >
-            Join India’s fastest healthcare partner network. Manage appointments,
-            accept medicine orders, and boost your earnings — all from one
-            dashboard.
+            Join India’s fastest healthcare partner network. Manage
+            appointments, accept medicine orders, and boost your earnings — all
+            from one dashboard.
           </motion.p>
 
           <motion.div
@@ -219,7 +216,9 @@ export default function Benefits() {
               <div className="mb-3">
                 <img src={card.icon} alt="" className="h-7 w-7" />
               </div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">{card.title}</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                {card.title}
+              </h3>
               <p className="mt-3 text-slate-600">{card.desc}</p>
             </motion.div>
           ))}
@@ -372,5 +371,3 @@ export default function Benefits() {
     </div>
   );
 }
-
-

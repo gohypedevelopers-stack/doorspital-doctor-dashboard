@@ -5,7 +5,6 @@
 import React from "react";
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from "framer-motion";
-
 import doctorHero from "../assets/doctor.jpg";
 import diagramImg from "../assets/diagram.png";
 import homePhone from "../assets/homephone.png";
@@ -167,11 +166,6 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         </div>
       </motion.section>
 
-
-
-
-
-
       {/* ========== HOW TO CONNECT WITH DOORSPITAL ========== */}
       <section className="w-full bg-card pt-16 pb-20 flex flex-col items-center">
         <motion.h2
@@ -310,6 +304,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               icon: signalVector,
             },
             {
+              
               title: "Reach More Patients",
               desc: "Expand your reach through our growing network.",
               icon: teamVector,

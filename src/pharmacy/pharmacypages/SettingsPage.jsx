@@ -4,10 +4,7 @@ import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout
 import bellicon from "../assets/bellicon.png";
 import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 import { apiRequest } from "../../lib/api.js";
-import {
-  getPharmacySession,
-  getPharmacyToken,
-} from "../../lib/pharmacySession.js";
+import {getPharmacySession,getPharmacyToken,} from "../../lib/pharmacySession.js";
 import { useGlobalLoader } from "../../lib/global-loader-context.js";
 
 const formatAddress = (address) => {

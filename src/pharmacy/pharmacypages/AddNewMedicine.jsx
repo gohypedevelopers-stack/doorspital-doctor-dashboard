@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout.jsx";
+import PharmacyLayout, {
+  PharmacyMenuToggle,
+} from "../components/PharmacyLayout.jsx";
 import bellicon from "../assets/bellicon.png";
 import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 import { apiRequest } from "../../lib/api.js";
@@ -134,7 +136,10 @@ function AddNewMedicine() {
               <img src={bellicon} alt="Notifications" />
             </button>
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#ffe9d6]">
-              <PharmacyProfileBadge wrapperClassName="h-full w-full overflow-visible" imgClassName="rounded-xl" />
+              <PharmacyProfileBadge
+                wrapperClassName="h-full w-full overflow-visible"
+                imgClassName="rounded-xl"
+              />
             </div>
           </div>
         </header>
@@ -149,10 +154,18 @@ function AddNewMedicine() {
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="grid gap-4 md:grid-cols-2">
             <Field label="Brand Name">
-              <Input name="brandName" value={formData.brandName} onChange={handleChange} />
+              <Input
+                name="brandName"
+                value={formData.brandName}
+                onChange={handleChange}
+              />
             </Field>
             <Field label="Generic Name">
-              <Input name="genericName" value={formData.genericName} onChange={handleChange} />
+              <Input
+                name="genericName"
+                value={formData.genericName}
+                onChange={handleChange}
+              />
             </Field>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
@@ -240,35 +253,36 @@ function AddNewMedicine() {
                 onChange={handleChange}
                 className="h-10 w-full rounded-xl border border-border bg-muted px-3 text-[13px]"
               >
-                <option>Tablet</option>
-                <option>Capsule</option>
-                <option>Syrup</option>
-                <option>Suspension</option>
-                <option>Solution</option>
-                <option>Drops</option>
-                <option>Injection</option>
-                <option>Cream</option>
-                <option>Ointment</option>
                 <option>Gel</option>
+                <option>Spray</option>
+                <option>Syrup</option>
+                <option>Drops</option>
+                <option>Patch</option>
+                <option>Cream</option>
                 <option>Lotion</option>
                 <option>Powder</option>
-                <option>Granules/Sachet</option>
-                <option>Spray</option>
+                <option>Tablet</option>
+                <option>Capsule</option>
                 <option>Inhaler</option>
-                <option>Nebulizer Solution</option>
-                <option>Mouthwash/Gargle</option>
-                <option>Lozenge</option>
+                <option>Solution</option>
+                <option>Ointment</option>
+                <option>Injection</option>
+                <option>Suspension</option>
                 <option>Suppository</option>
-                <option>Patch</option>
+                <option>Granules/Sachet</option>
+                <option>Mouthwash/Gargle</option>
+                <option>Nebulizer Solution</option>
               </select>
             </Field>
           </div>
           <div>
-            <label className="text-[12px] text-slate-500">Medicine Image (optional)</label>
+            <label className="text-[12px] text-slate-500">
+              Medicine Image (optional)
+            </label>
             <input
               type="file"
               onChange={handleImageChange}
-              className="mt-2 rounded-xl border border-border px-3 py-2"
+              className="mt-2 w-full rounded-xl border border-border px-3 py-2"
             />
             {imagePreview && (
               <img
@@ -301,5 +315,3 @@ function AddNewMedicine() {
 }
 
 export default AddNewMedicine;
-
-

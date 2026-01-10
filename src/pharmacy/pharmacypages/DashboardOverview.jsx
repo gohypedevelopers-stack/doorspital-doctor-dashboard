@@ -6,7 +6,6 @@ import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout
 import { apiRequest } from "../../lib/api.js";
 import { getPharmacyToken } from "../../lib/pharmacySession.js";
 import { useGlobalLoader } from "../../lib/global-loader-context.js";
-
 import bellicon from "../assets/bellicon.png";
 import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 

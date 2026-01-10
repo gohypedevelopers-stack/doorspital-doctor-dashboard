@@ -4,10 +4,7 @@ import PharmacyLayout, { PharmacyMenuToggle } from "../components/PharmacyLayout
 import bellicon from "../assets/bellicon.png";
 import PharmacyProfileBadge from "../components/PharmacyProfileBadge.jsx";
 import { apiRequest } from "../../lib/api.js";
-import {
-  getPharmacySession,
-  getPharmacyToken,
-} from "../../lib/pharmacySession.js";
+import {getPharmacySession,getPharmacyToken,} from "../../lib/pharmacySession.js";
 import { useGlobalLoader } from "../../lib/global-loader-context.js";
 
 const statusStyles = {
@@ -177,7 +174,7 @@ const InventoryList = () => {
 
   return (
     <PharmacyLayout
-      mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] px-4 sm:px-6 lg:px-10 py-7 dark:bg-[#1E293B]"
+      mainClassName="flex-1 bg-[#f4f8f7] px-4 sm:px-6 lg:px-10 py-7 dark:bg-[#1E293B]"
       header={({ openDrawer }) => (
         <header className="flex items-center justify-between border-b border-border bg-[#707888] px-4 sm:px-6 lg:px-10 py-1">
           <div className="flex items-center gap-3">
