@@ -203,7 +203,7 @@ function EarningsOverview() {
 
   return (
     <PharmacyLayout
-      mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] dark:bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7 space-y-6"
+      mainClassName="flex-1 bg-[#f4f8f7] dark:bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7 space-y-6"
       header={({ openDrawer }) => (
         <header className="flex items-center justify-between border-b border-border bg-[#707888] px-4 sm:px-6 lg:px-10 py-1">
           <div className="flex items-start gap-3">
@@ -445,5 +445,4 @@ function EarningsOverview() {
 }
 
 export default EarningsOverview;
-
 

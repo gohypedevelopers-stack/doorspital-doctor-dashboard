@@ -57,7 +57,7 @@ const DoctorSidebar = ({
         <div className="h-0.5 w-full rounded-full bg-gradient-to-r from-emerald-200 via-emerald-300 to-emerald-400" />
       </div>
 
-      <nav className="flex-1 space-y-3 overflow-y-auto px-1 pt-3">
+      <nav className="flex-1 space-y-3 px-1 pt-3">
         <Onboarding
           isActive={activeSection === sections.onboarding}
           onClick={handleClick(sections.onboarding)}

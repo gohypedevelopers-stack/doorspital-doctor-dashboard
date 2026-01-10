@@ -122,7 +122,7 @@ function AddNewMedicine() {
   return (
     <PharmacyLayout
       outerClassName="min-h-screen bg-[#1E293B] text-slate-900 dark:text-slate-100"
-      mainClassName="flex-1 overflow-y-auto bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7"
+      mainClassName="flex-1 bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7"
       header={({ openDrawer }) => (
         <header className="flex items-center justify-between border-b border-border bg-card px-4 sm:px-6 lg:px-10 py-5">
           <div className="flex items-center gap-3">

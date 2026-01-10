@@ -8,7 +8,7 @@ export default function PharmacyLayout({
   header,
   children,
   outerClassName = "min-h-screen bg-[#f4f8f7] text-slate-900 dark:bg-[#1E293B] dark:text-slate-100",
-  mainClassName = "flex-1 overflow-y-auto px-4 sm:px-6 lg:px-10 py-7 bg-[#f4f8f7] dark:bg-[#1E293B]",
+  mainClassName = "flex-1 px-4 sm:px-6 lg:px-10 py-7 bg-[#f4f8f7] dark:bg-[#1E293B]",
 }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -30,9 +30,9 @@ export default function PharmacyLayout({
         <div className="hidden lg:flex lg:w-64">
           <Sidebar />
         </div>
-        <div className="flex flex-1 flex-col min-h-0 lg:h-screen overflow-hidden">
+        <div className="flex flex-1 flex-col min-h-0 overflow-hidden">
           {header ? header({ openDrawer }) : null}
-          <main className={`${mainClassName} flex-1 min-h-0 overflow-y-auto`}>{children}</main>
+          <main className={`${mainClassName} flex-1 min-h-0`}>{children}</main>
         </div>
       </div>
     </div>

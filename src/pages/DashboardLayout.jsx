@@ -79,7 +79,7 @@ const SidebarContent = ({ userName, currentPath, onNavigate }) => {
         </p>
       </div>
       <div className="w-full border-t border-transparent bg-gradient-to-r from-emerald-200 via-emerald-300 to-emerald-400 py-0.5" />
-      <nav className="flex-1 space-y-3 overflow-y-auto px-1 pt-3">
+      <nav className="flex-1 space-y-3 px-1 pt-3">
         <div className="space-y-2">
           {sidebarSections.map((section) => {
             const isActive = currentPath === section.path;

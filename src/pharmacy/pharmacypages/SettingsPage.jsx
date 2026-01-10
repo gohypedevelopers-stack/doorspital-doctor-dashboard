@@ -58,7 +58,7 @@ const SettingsPage = () => {
   }, [token, hideLoader, showLoader]);
   return (
     <PharmacyLayout
-      mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] px-4 sm:px-6 lg:px-10 py-6 dark:bg-[#1E293B]"
+      mainClassName="flex-1 bg-[#f4f8f7] px-4 sm:px-6 lg:px-10 py-6 dark:bg-[#1E293B]"
       header={({ openDrawer }) => (
         <header className="flex items-center justify-between border-b border-border bg-[#707888] px-4 sm:px-6 lg:px-10 py-1">
           <div className="flex items-center gap-3">
@@ -220,5 +220,4 @@ const Toggle = ({ enabled }) => (
 
 
 export default SettingsPage;
-
 

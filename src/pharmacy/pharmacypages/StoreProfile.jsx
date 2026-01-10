@@ -145,7 +145,7 @@ export default function StoreProfile() {
   if (!profile) {
     return (
       <PharmacyLayout
-        mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] dark:bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7"
+        mainClassName="flex-1 bg-[#f4f8f7] dark:bg-[#1E293B] px-4 sm:px-6 lg:px-10 py-7"
         header={renderHeader("Store Profile")}
       >
         <div className="flex flex-1 items-center justify-center text-sm text-slate-600">
@@ -157,7 +157,7 @@ export default function StoreProfile() {
 
   return (
     <PharmacyLayout
-      mainClassName="flex-1 overflow-y-auto bg-[#f4f8f7] px-4 sm:px-6 lg:px-10 py-6 dark:bg-[#1E293B]"
+      mainClassName="flex-1 bg-[#f4f8f7] px-4 sm:px-6 lg:px-10 py-6 dark:bg-[#1E293B]"
       header={renderHeader("Store Profile")}
     >
       <div className="mx-auto w-full max-w-5xl space-y-6 rounded-3xl border border-border bg-card/95 p-6 md:p-10 shadow-[0_18px_45px_rgba(15,23,42,0.06)]">
@@ -239,5 +239,4 @@ export default function StoreProfile() {
     </PharmacyLayout>
   );
 }
-
 

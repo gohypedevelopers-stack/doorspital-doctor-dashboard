@@ -1202,7 +1202,7 @@ export function DashboardChat() {
 
     return (
         <motion.section
-            className="min-h-[600px] flex flex-col overflow-hidden rounded-[5px] border border-border bg-card shadow-sm lg:flex-row lg:h-[calc(100vh-140px)]"
+            className="min-h-[600px] flex flex-col overflow-hidden rounded-[5px] border border-border bg-card shadow-sm lg:flex-row"
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
@@ -1226,7 +1226,7 @@ export function DashboardChat() {
                 </div>
 
                 {/* Sidebar Content */}
-                <div className="flex-1 overflow-y-auto">
+                <div className="flex-1">
                     {sidebarView === 'chats' ? (
                         <>
                             {loadingRooms ? (
@@ -1371,7 +1371,7 @@ export function DashboardChat() {
                         </div>
 
                         {/* Messages List */}
-                        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-muted/50">
+                        <div className="flex-1 p-6 space-y-4 bg-muted/50">
                             {loadingMessages ? (
                                 <div className="text-center py-10 text-sm text-slate-500"></div>
                             ) : messages.length === 0 ? (
