@@ -9,7 +9,7 @@ export default function Faqs() {
     },
     {
       q: "Are there any hidden charges?",
-      a: "No! Using the Doorspital Partner network has transparent pricing with zero hidden charges for onboarding."
+      a: "No! Using the Doorspitals Partner network has transparent pricing with zero hidden charges for onboarding."
     },
     {
       q: "How can I connect with medical shops?",

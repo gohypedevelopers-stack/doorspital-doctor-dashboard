@@ -17,7 +17,7 @@ export default function DoctorVerificationSubmitted() {
                 <span className="block h-0.5 w-3 rounded bg-card" />
               </div>
             </div>
-            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">Doorspital Partner</span>
+            <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">Doorspitals Partner</span>
           </Link>
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">
             <button className="hover:text-slate-900 dark:text-slate-100">Dashboard</button>

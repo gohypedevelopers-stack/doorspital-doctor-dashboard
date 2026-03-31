@@ -67,7 +67,7 @@ const Sidebar = ({ onNavigate }) => {
             after:absolute after:inset-0 after:rounded-full after:bg-gradient-to-r after:from-blue-400 after:to-emerald-400 after:opacity-40 after:blur-xl
           "
           >
-            Doorspital
+            Doorspitals
           </span>
         </div>
 

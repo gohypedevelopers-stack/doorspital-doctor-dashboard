@@ -175,7 +175,7 @@ export default function Benefits() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl font-extrabold text-slate-900 dark:text-slate-600">
-            Why Partner with Doorspital?
+            Why Partner with Doorspitals?
           </h2>
           <p className="text-base text-slate-900">
             We help you focus on care — while we handle the rest.
@@ -356,7 +356,7 @@ export default function Benefits() {
           <h2 className="text-3xl font-extrabold leading-tight">
             Start Growing Your Healthcare Business
             <br />
-            with Doorspital Today!
+            with Doorspitals Today!
           </h2>
           <div className="mt-8 flex justify-center">
             <Link

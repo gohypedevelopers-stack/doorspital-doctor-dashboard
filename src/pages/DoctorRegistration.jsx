@@ -157,7 +157,7 @@ export default function DoctorRegistration() {
           <Link to="/" className="flex items-center gap-2">
             <img src={dpicon} className="w-8 h-8 object-contain" />
             <span className="text-sm font-semibold text-slate-900 dark:text-slate-100">
-              Doorspital Partner
+              Doorspitals Partner
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-xs font-medium text-slate-600 sm:text-sm">

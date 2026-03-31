@@ -10,7 +10,7 @@ export default function Terms() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4 text-slate-900 dark:text-slate-100">1. Acceptance of Terms</h2>
       <p>
-        By accessing the Doorspital Partner Platform, you agree to be bound by these Terms and Conditions. 
+        By accessing the Doorspitals Partner Platform, you agree to be bound by these Terms and Conditions. 
         If you disagree with any part of these terms and conditions, do not use our platform.
       </p>
 
@@ -29,7 +29,7 @@ export default function Terms() {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4 text-slate-900 dark:text-slate-100">4. Modifications</h2>
       <p>
-        Doorspital reserves the right, at its sole discretion, to modify or replace these terms at any time. 
+        Doorspitals reserves the right, at its sole discretion, to modify or replace these terms at any time. 
         It is your responsibility to review these terms periodically for changes.
       </p>
     </div>

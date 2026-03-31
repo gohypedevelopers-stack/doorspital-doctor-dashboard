@@ -45,7 +45,7 @@ const DoctorSidebar = ({
           <div
             className="inline-flex items-center rounded-full bg-gradient-to-r from-blue-600 to-emerald-500 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-white shadow-[0_0_12px_rgba(37,99,235,1),0_0_20px_rgba(16,185,129,1)]"
           >
-            Doorspital
+            Doorspitals
           </div>
           <p className="mt-2 text-lg text-slate-500">
             {greeting},{" "}

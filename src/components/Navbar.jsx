@@ -39,10 +39,10 @@ export default function Navbar({
           <img
             src={icon}
             className="h-10 w-10 sm:h-11 sm:w-11 object-contain"
-            alt="Doorspital logo"
+            alt="Doorspitals logo"
           />
           <span className="text-base sm:text-lg font-semibold text-foreground">
-            Doorspital Partner
+            Doorspitals Partner
           </span>
         </Link>
 

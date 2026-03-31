@@ -26,7 +26,7 @@ export default function CookiePolicy() {
       <h2 className="text-2xl font-semibold mt-8 mb-4 text-slate-900 dark:text-slate-100">Managing Your Cookies</h2>
       <p>
         You can choose to delete or disable cookies within your browser settings. However, doing so 
-        will disable the ability to log in or maintain an active session on the Doorspital Partner dashboard.
+        will disable the ability to log in or maintain an active session on the Doorspitals Partner dashboard.
       </p>
     </div>
   );

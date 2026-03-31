@@ -67,7 +67,7 @@ export default function LoginModal({ isOpen, onClose, onSuccess, onSwitchToSignu
         </div>
 
         <p className="mb-4 text-sm text-slate-500">
-          Use your Doorspital credentials to access the dashboard.
+          Use your Doorspitals credentials to access the dashboard.
         </p>
 
         <form className="space-y-4" onSubmit={handleSubmit}>

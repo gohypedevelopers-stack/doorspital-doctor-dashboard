@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-// "About Doorspital Partner Network" home / doctor page.
+// "About Doorspitals Partner Network" home / doctor page.
 // Includes Framer Motion animations on load + on scroll.
 
 import React from "react";
@@ -52,7 +52,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
   const handlePharmacyJoin = onPharmacyJoinClick ?? (() => { });
   return (
     <div className="bg-background">
-      {/* ========== HERO: About Doorspital Partner Network ========== */}
+      {/* ========== HERO: About Doorspitals Partner Network ========== */}
       <motion.section
         className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8 lg:flex-row lg:items-center lg:gap-16"
         variants={heroSectionVariants}
@@ -65,7 +65,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             className="poppins-bold text-[52px] leading-[58px] tracking-[-1.4px] text-slate-900 dark:text-slate-100"
             variants={heroTextItem}
           >
-            About Doorspital Partner
+            About Doorspitals Partner
             <br />
             Network
           </motion.h1>
@@ -148,7 +148,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
           >
             <h2 className="poppins-bold text-4xl leading-[44px] text-slate-900 dark:text-slate-100">
-              What is Doorspital
+              What is Doorspitals
               <br />
               Partner Platform?
             </h2>
@@ -178,7 +178,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         >
           How to Connect
           <br className="hidden sm:block" />
-          with Doorspital
+          with Doorspitals
         </motion.h2>
 
         <div className="grid gap-8 md:grid-cols-3 justify-items-center w-full">
@@ -240,7 +240,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             <h2 className="text-3xl font-extrabold leading-[38px] text-slate-900 dark:text-slate-100">
               Connect Easily with the
               <br />
-              Doorspital App
+              Doorspitals App
             </h2>
             <p className="text-base leading-7 text-slate-800 dark:text-slate-300">
               Manage everything from the palm of your hand. Our dedicated
@@ -267,7 +267,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             <div className="rounded-[28px] bg-[#f3e6dc] p-6 shadow-lg">
               <img
                 src={homePhone}
-                alt="Doorspital app on phone"
+                alt="Doorspitals app on phone"
                 className="max-h-[360px] object-contain"
               />
             </div>
@@ -285,7 +285,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          Why Become a Doorspital Partner?
+          Why Become a Doorspitals Partner?
         </motion.h2>
 
         <div className="grid gap-6 md:grid-cols-4">
@@ -345,7 +345,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
       >
         <div className="mx-auto w-full max-w-7xl px-4 py-10 text-center text-white sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold">
-            Join the Doorspital Partner Network Today
+            Join the Doorspitals Partner Network Today
           </h2>
           <p className="mt-3 text-sm text-blue-100">
             Become part of the future of healthcare. Start connecting with

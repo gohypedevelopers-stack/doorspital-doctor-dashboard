@@ -24,17 +24,17 @@ export default function Footer() {
               <img
                 src={icon}
                 className="h-9 w-9 object-contain"
-                alt="Doorspital logo"
+                alt="Doorspitals logo"
               />
               <span className="text-base font-semibold text-slate-900 dark:text-slate-100">
-                Doorspital Partner
+                Doorspitals Partner
               </span>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-300">
               Connecting Doctors, Medical Shops &amp; Patients.
             </p>
             <p className="text-xs text-slate-400">
-              <span className="text-base font-bold">©</span> 2024 Doorspital.
+              <span className="text-base font-bold">©</span> 2024 Doorspitals.
               All rights reserved.
             </p>
             <div className="mt-2 flex items-center gap-3">
