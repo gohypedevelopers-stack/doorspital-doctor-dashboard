@@ -5,6 +5,7 @@ import React from "react";
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from "framer-motion";
 import { AtSign, Mail, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 import icon from "../assets/icon.png";
 
 export default function Footer() {
@@ -38,12 +39,13 @@ export default function Footer() {
             </p>
             <div className="mt-2 flex items-center gap-3">
               {[AtSign, Mail, MessageCircle].map((Icon, index) => (
-                <button
+                <a
                   key={index}
+                  href="#"
                   className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200"
                 >
                   <Icon className="h-4 w-4" />
-                </button>
+                </a>
               ))}
             </div>
           </div>
@@ -52,10 +54,16 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               About
             </h3>
-            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-              <li>About Us</li>
-              <li>Benefits</li>
-              <li>Testimonials</li>
+            <ul className="flex flex-col space-y-2 text-sm text-slate-600 dark:text-slate-300">
+              <li>
+                <a href="#about" className="hover:text-blue-600 hover:underline">About Us</a>
+              </li>
+              <li>
+                <Link to="/benefits" className="hover:text-blue-600 hover:underline">Benefits</Link>
+              </li>
+              <li>
+                <a href="#testimonials" className="hover:text-blue-600 hover:underline">Testimonials</a>
+              </li>
             </ul>
           </div>
 
@@ -63,10 +71,16 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Support
             </h3>
-            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-              <li>Contact</li>
-              <li>Help Center</li>
-              <li>FAQs</li>
+            <ul className="flex flex-col space-y-2 text-sm text-slate-600 dark:text-slate-300">
+              <li>
+                <Link to="/contact" className="hover:text-blue-600 hover:underline">Contact</Link>
+              </li>
+              <li>
+                <Link to="/help-center" className="hover:text-blue-600 hover:underline">Help Center</Link>
+              </li>
+              <li>
+                <Link to="/faqs" className="hover:text-blue-600 hover:underline">FAQs</Link>
+              </li>
             </ul>
           </div>
 
@@ -74,10 +88,16 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Legal
             </h3>
-            <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-              <li>Privacy Policy</li>
-              <li>Terms &amp; Conditions</li>
-              <li>Cookie Policy</li>
+            <ul className="flex flex-col space-y-2 text-sm text-slate-600 dark:text-slate-300">
+              <li>
+                <Link to="/privacy-policy" className="hover:text-blue-600 hover:underline">Privacy Policy</Link>
+              </li>
+              <li>
+                <Link to="/terms" className="hover:text-blue-600 hover:underline">Terms &amp; Conditions</Link>
+              </li>
+              <li>
+                <Link to="/cookie-policy" className="hover:text-blue-600 hover:underline">Cookie Policy</Link>
+              </li>
             </ul>
           </div>
 

@@ -22,6 +22,12 @@ import DoctorRegistration from "./pages/DoctorRegistration.jsx";
 import DoctorIdentity from "./pages/DoctorIdentity.jsx";
 import DoctorFaceVerification from "./pages/DoctorFaceVerification.jsx";
 import DoctorVerificationSubmitted from "./pages/DoctorVerificationSubmitted.jsx";
+import Contact from "./pages/Contact.jsx";
+import HelpCenter from "./pages/HelpCenter.jsx";
+import Faqs from "./pages/Faqs.jsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
+import Terms from "./pages/Terms.jsx";
+import CookiePolicy from "./pages/CookiePolicy.jsx";
 import DashboardLayout from "./pages/DashboardLayout.jsx";
 import {
   DashboardOnboarding,
@@ -192,7 +198,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background overflow-x-hidden">
+    <div className="flex min-h-screen flex-col bg-background w-full">
       {!isRegisterFlow && (
         <>
           <div className="w-full">
@@ -286,6 +292,14 @@ export default function App() {
               }
             />
             <Route path="/benefits" element={<Benefits />} />
+            
+            {/* Footer static pages */}
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/help-center" element={<HelpCenter />} />
+            <Route path="/faqs" element={<Faqs />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
 
             {/* Dashboard with nested routes */}
             <Route

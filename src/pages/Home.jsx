@@ -1,4 +1,4 @@
-﻿// src/pages/Home.jsx
+// src/pages/Home.jsx
 // "About Doorspital Partner Network" home / doctor page.
 // Includes Framer Motion animations on load + on scroll.
 
@@ -51,10 +51,10 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
   const handleDoctorJoin = onDoctorJoinClick ?? (() => { });
   const handlePharmacyJoin = onPharmacyJoinClick ?? (() => { });
   return (
-    <div className="bg-background px-[9px]">
+    <div className="bg-background">
       {/* ========== HERO: About Doorspital Partner Network ========== */}
       <motion.section
-        className="flex w-full flex-col gap-10 py-16 lg:flex-row lg:items-center lg:gap-16"
+        className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-16 sm:px-6 lg:px-8 lg:flex-row lg:items-center lg:gap-16"
         variants={heroSectionVariants}
         initial="hidden"
         animate="visible"
@@ -123,7 +123,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         variants={fadeUp}
         transition={{ duration: 0.7 }}
       >
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
           {/* LEFT: image slides in from LEFT â†’ RIGHT */}
           <motion.div
             className="flex justify-center lg:justify-start"
@@ -167,9 +167,10 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
       </motion.section>
 
       {/* ========== HOW TO CONNECT WITH DOORSPITAL ========== */}
-      <section className="w-full bg-card pt-16 pb-20 flex flex-col items-center">
-        <motion.h2
-          className="mb-12 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100 sm:text-[32px] leading-[38px]"
+      <section className="w-full bg-card pb-20 pt-16">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center px-4 sm:px-6 lg:px-8">
+          <motion.h2
+            className="mb-12 text-center text-3xl font-extrabold leading-[38px] text-slate-900 dark:text-slate-100 sm:text-[32px]"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -218,8 +219,8 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             </motion.div>
           ))}
         </div>
+        </div>
       </section>
-
 
       {/* ========== APP PROMO ========== */}
       <motion.section
@@ -230,7 +231,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         variants={fadeUp}
         transition={{ duration: 0.7 }}
       >
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8">
           <motion.div
             className="space-y-5"
             variants={fadeUp}
@@ -276,8 +277,9 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
       </motion.section>
       {/* ========== WHY BECOME A DOORSPITAL PARTNER ========== */}
       <section className="w-full bg-card py-20">
-        <motion.h2
-          className="mb-12 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100"
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.h2
+            className="mb-12 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -330,6 +332,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             </motion.div>
           ))}
         </div>
+        </div>
       </section>
 
       {/* ========== CTA ========== */}
@@ -340,7 +343,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.7 }}
       >
-        <div className="w-full py-10 text-center text-white">
+        <div className="mx-auto w-full max-w-7xl px-4 py-10 text-center text-white sm:px-6 lg:px-8">
           <h2 className="text-2xl font-semibold">
             Join the Doorspital Partner Network Today
           </h2>
