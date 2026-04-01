@@ -123,7 +123,7 @@ export default function OrderDetails() {
           <header className="flex items-center justify-between border-b border-border bg-[#020817] px-4 sm:px-6 lg:px-10 py-1">
             <div className="flex items-center gap-3">
               <PharmacyMenuToggle onClick={openDrawer} />
-              <h1 className="text-[20px] font-semibold text-slate-100 dark:text-slate-100">
+              <h1 className="text-[20px] font-semibold text-slate-900 dark:text-slate-100">
                 Order not found
               </h1>
             </div>

@@ -24,16 +24,16 @@ const NavItem = ({ label, to, status, onNavigate }) => {
     <Link
       to={to}
       onClick={() => onNavigate?.()}
-      className={`relative flex items-center justify-between rounded-2xl border border-white/30 bg-slate-900/70 px-4 py-3 text-left text-sm font-semibold text-white shadow-md transition hover:bg-slate-900 ${
+      className={`relative flex items-center justify-between rounded-2xl border px-4 py-3 text-left text-sm font-semibold shadow-md transition ${
         isActive
-          ? "border-emerald-400 text-white shadow-[0_10px_30px_rgba(0,255,173,0.15)]"
-          : ""
+          ? "border-emerald-500 bg-emerald-50 text-emerald-700 shadow-[0_10px_30px_rgba(16,185,129,0.15)] dark:border-emerald-400 dark:bg-emerald-900/20 dark:text-white"
+          : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-300 dark:hover:bg-slate-900"
       }`}
     >
       <span>{label}</span>
       <span
         className={`text-[10px] font-bold uppercase tracking-[0.3em] ${
-          isActive ? "text-emerald-400" : "text-slate-500"
+          isActive ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-slate-500"
         }`}
       >
         {isActive ? "Active" : status ?? "View"}
@@ -50,7 +50,7 @@ const Sidebar = ({ onNavigate }) => {
   const userName = session?.user?.userName ?? "Pharmacy Partner";
 
   return (
-    <aside className="relative flex h-full w-full max-w-[280px] flex-col space-y-9 bg-[#050a1a] px-5 py-6 text-white shadow-lg lg:w-72 lg:border-r lg:border-border">
+    <aside className="relative flex h-full w-full max-w-[280px] flex-col space-y-9 bg-card px-5 py-6 text-slate-900 shadow-lg dark:bg-[#050a1a] dark:text-white lg:w-72 lg:border-r lg:border-border">
       <div className="space-y-6">
         {/* Top line */}
         <div className="flex justify-center">
@@ -81,7 +81,7 @@ const Sidebar = ({ onNavigate }) => {
             />
           </div>
 
-          <p className="text-lg font-semibold leading-tight">{storeName}</p>
+          <p className="text-lg font-semibold leading-tight text-slate-900 dark:text-white">{storeName}</p>
         </div>
 
         {/* Divider */}
