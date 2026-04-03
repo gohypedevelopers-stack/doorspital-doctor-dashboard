@@ -28,6 +28,12 @@ import Faqs from "./pages/Faqs.jsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.jsx";
 import Terms from "./pages/Terms.jsx";
 import CookiePolicy from "./pages/CookiePolicy.jsx";
+import RefundPolicy from "./pages/RefundPolicy.jsx";
+import ShippingPolicy from "./pages/ShippingPolicy.jsx";
+import GrievancePolicy from "./pages/GrievancePolicy.jsx";
+import About from "./pages/About.jsx";
+import Testimonials from "./pages/Testimonials.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 import DashboardLayout from "./pages/DashboardLayout.jsx";
 import {
   DashboardOnboarding,
@@ -199,6 +205,7 @@ export default function App() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background w-full">
+      <ScrollToTop />
       {!isRegisterFlow && (
         <>
           <div className="w-full">
@@ -300,6 +307,11 @@ export default function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
+            <Route path="/shipping-policy" element={<ShippingPolicy />} />
+            <Route path="/grievance-policy" element={<GrievancePolicy />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/testimonials" element={<Testimonials />} />
 
             {/* Dashboard with nested routes */}
             <Route

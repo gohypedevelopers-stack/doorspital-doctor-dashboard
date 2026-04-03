@@ -344,6 +344,125 @@ export default function Benefits() {
         </div>
       </section>
 
+      {/* ========== TESTIMONIALS ========== */}
+      <section id="testimonials" style={{ width: "100%", padding: "72px 16px", background: "#f8fafc" }}>
+        <motion.div
+          style={{ textAlign: "center", marginBottom: 48 }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#eff6ff", color: "#2563eb", padding: "6px 14px", borderRadius: 999, fontSize: 12, fontWeight: 600, border: "1px solid #bfdbfe", marginBottom: 14 }}>
+            ★ Testimonials
+          </div>
+          <h2 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 12px" }}>
+            Trusted by Healthcare Professionals Across India
+          </h2>
+          <p style={{ color: "#64748b", fontSize: 16, maxWidth: 560, margin: "0 auto" }}>
+            Real stories from doctors and pharmacists who have grown their practice with Doorspitals.
+          </p>
+        </motion.div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, maxWidth: 1100, margin: "0 auto" }}>
+          {[
+            {
+              name: "Dr. Priya Sharma",
+              role: "General Physician, Delhi",
+              avatar: "PS",
+              color: "#3b82f6",
+              stars: 5,
+              text: "Since joining Doorspitals, my patient base has grown by 40%. The digital prescription feature saves me hours every week, and the seamless pharmacy tie-up means my patients actually get their medicines on time. Absolutely worth it!",
+            },
+            {
+              name: "Dr. Rakesh Menon",
+              role: "Cardiologist, Bengaluru",
+              avatar: "RM",
+              color: "#059669",
+              stars: 5,
+              text: "The video consultation feature is incredibly smooth. I now see 20+ online patients daily without the overhead of a physical clinic. Payouts are always on time and transparent. Doorspitals has genuinely changed how I practice medicine.",
+            },
+            {
+              name: "Fatima Pharmacy",
+              role: "Pharmacy Owner, Hyderabad",
+              avatar: "FP",
+              color: "#7c3aed",
+              stars: 5,
+              text: "Our prescription order volume went up 3x in the first month after joining Doorspitals. The inventory management system is intuitive, and the integration with doctors in our area means we never miss an order. Highly recommend to all pharmacies.",
+            },
+            {
+              name: "Dr. Anita Desai",
+              role: "Pediatrician, Mumbai",
+              avatar: "AD",
+              color: "#f59e0b",
+              stars: 5,
+              text: "As a busy pediatrician, managing appointments used to be chaos. The Doorspitals dashboard organizes everything perfectly. My patients love the digital prescriptions — no more illegible handwriting! The support team is also very responsive.",
+            },
+            {
+              name: "MedPlus Pharmacy",
+              role: "Medical Store, Chennai",
+              avatar: "MP",
+              color: "#ec4899",
+              stars: 5,
+              text: "We joined skeptically but the results speak for themselves. Doorspitals connected us with 15+ local doctors whose prescriptions now come directly to us. Our monthly revenue increased significantly. The platform is well-designed and reliable.",
+            },
+            {
+              name: "Dr. Suresh Kumar",
+              role: "Orthopedic Surgeon, Pune",
+              avatar: "SK",
+              color: "#06b6d4",
+              stars: 5,
+              text: "The KYC process was smooth and professional. Once verified, I was live within 48 hours. Patients can now find me easily and book slots without calling my clinic. The analytics dashboard helps me understand peak hours and optimize my schedule.",
+            },
+          ].map((t, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 16 }}
+            >
+              {/* Stars */}
+              <div style={{ display: "flex", gap: 3 }}>
+                {Array.from({ length: t.stars }).map((_, s) => (
+                  <span key={s} style={{ color: "#f59e0b", fontSize: 16 }}>★</span>
+                ))}
+              </div>
+              {/* Quote */}
+              <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7, margin: 0, flex: 1 }}>
+                &ldquo;{t.text}&rdquo;
+              </p>
+              {/* Author */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <div style={{ width: 44, height: 44, borderRadius: "50%", background: t.color, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, flexShrink: 0 }}>
+                  {t.avatar}
+                </div>
+                <div>
+                  <p style={{ fontWeight: 700, fontSize: 14, color: "#0f172a", margin: 0 }}>{t.name}</p>
+                  <p style={{ fontSize: 12, color: "#64748b", margin: 0 }}>{t.role}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Trust badges */}
+        <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 24, marginTop: 48 }}>
+          {[
+            { icon: "🏥", label: "20,000+ Verified Partners" },
+            { icon: "⭐", label: "4.9 Average Partner Rating" },
+            { icon: "💊", label: "1L+ Prescriptions Fulfilled" },
+            { icon: "🔒", label: "RBI-Compliant Payments" },
+          ].map((badge) => (
+            <div key={badge.label} style={{ display: "flex", alignItems: "center", gap: 8, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 50, padding: "10px 20px", fontSize: 14, fontWeight: 600, color: "#374151" }}>
+              <span style={{ fontSize: 20 }}>{badge.icon}</span>
+              {badge.label}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ========== CTA ========== */}
       <motion.section
         className="w-full rounded-[24px] overflow-hidden bg-gradient-to-r from-blue-700 to-emerald-500"

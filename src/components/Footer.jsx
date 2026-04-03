@@ -34,7 +34,7 @@ export default function Footer() {
               Connecting Doctors, Medical Shops &amp; Patients.
             </p>
             <p className="text-xs text-slate-400">
-              <span className="text-base font-bold">©</span> 2024 Doorspitals.
+              <span className="text-base font-bold">©</span> 2026 Doorspitals.
               All rights reserved.
             </p>
             <div className="mt-2 flex items-center gap-3">
@@ -56,13 +56,13 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>
-                <a href="#about" className="hover:text-blue-600 hover:underline">About Us</a>
+                <Link to="/about" className="hover:text-blue-600 hover:underline">About Us</Link>
               </li>
               <li>
                 <Link to="/benefits" className="hover:text-blue-600 hover:underline">Benefits</Link>
               </li>
               <li>
-                <a href="#testimonials" className="hover:text-blue-600 hover:underline">Testimonials</a>
+                <Link to="/testimonials" className="hover:text-blue-600 hover:underline">Testimonials</Link>
               </li>
             </ul>
           </div>
@@ -97,6 +97,15 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/cookie-policy" className="hover:text-blue-600 hover:underline">Cookie Policy</Link>
+              </li>
+              <li>
+                <Link to="/refund-policy" className="hover:text-blue-600 hover:underline">Refund &amp; Cancellation</Link>
+              </li>
+              <li>
+                <Link to="/shipping-policy" className="hover:text-blue-600 hover:underline">Shipping Policy</Link>
+              </li>
+              <li>
+                <Link to="/grievance-policy" className="hover:text-blue-600 hover:underline">Grievance Redressal</Link>
               </li>
             </ul>
           </div>

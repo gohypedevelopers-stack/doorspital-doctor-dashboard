@@ -53,18 +53,18 @@ export default function Navbar({
                      lg:gap-6 lg:text-sm
                      xl:gap-8"
         >
-          <a
-            href="#about"
+          <Link
+            to="/about"
             className="hover:text-foreground hover:underline underline-offset-4"
           >
             About
-          </a>
-          <a
-            href="#testimonials"
+          </Link>
+          <Link
+            to="/testimonials"
             className="hover:text-foreground hover:underline underline-offset-4"
           >
             Testimonials
-          </a>
+          </Link>
           <Link
             to="/benefits"
             className={`hover:text-foreground hover:underline underline-offset-4 ${
@@ -182,12 +182,12 @@ export default function Navbar({
             <Link to="/" onClick={() => setMenuOpen(false)}>
               Home
             </Link>
-            <a href="#about" onClick={() => setMenuOpen(false)}>
+            <Link to="/about" onClick={() => setMenuOpen(false)}>
               About
-            </a>
-            <a href="#testimonials" onClick={() => setMenuOpen(false)}>
+            </Link>
+            <Link to="/testimonials" onClick={() => setMenuOpen(false)}>
               Testimonials
-            </a>
+            </Link>
             <Link to="/benefits" onClick={() => setMenuOpen(false)}>
               Benefits
             </Link>
