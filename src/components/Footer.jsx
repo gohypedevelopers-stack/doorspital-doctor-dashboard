@@ -107,6 +107,9 @@ export default function Footer() {
               <li>
                 <Link to="/grievance-policy" className="hover:text-blue-600 hover:underline">Grievance Redressal</Link>
               </li>
+              <li>
+                <Link to="/delete-account" className="hover:text-blue-600 hover:underline">Delete Account</Link>
+              </li>
             </ul>
           </div>
 

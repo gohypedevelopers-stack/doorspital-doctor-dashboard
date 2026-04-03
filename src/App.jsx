@@ -33,6 +33,7 @@ import ShippingPolicy from "./pages/ShippingPolicy.jsx";
 import GrievancePolicy from "./pages/GrievancePolicy.jsx";
 import About from "./pages/About.jsx";
 import Testimonials from "./pages/Testimonials.jsx";
+import DeleteAccount from "./pages/DeleteAccount.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import DashboardLayout from "./pages/DashboardLayout.jsx";
 import {
@@ -312,6 +313,7 @@ export default function App() {
             <Route path="/grievance-policy" element={<GrievancePolicy />} />
             <Route path="/about" element={<About />} />
             <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/delete-account" element={<DeleteAccount />} />
 
             {/* Dashboard with nested routes */}
             <Route
