@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ThemeProviderContext } from "@/lib/theme-context";
 
 // Matches shadcn/ui docs (Vite): https://ui-v4.shadcn.com/docs/dark-mode/vite
@@ -15,10 +16,18 @@ export function ThemeProvider({
     return stored || defaultTheme;
   });
 
+  const location = useLocation();
+
   useEffect(() => {
     const root = window.document.documentElement;
 
     root.classList.remove("light", "dark");
+    
+    // Force light mode on Home page "/"
+    if (location.pathname === "/") {
+      root.classList.add("light");
+      return;
+    }
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -30,7 +39,7 @@ export function ThemeProvider({
     }
 
     root.classList.add(theme);
-  }, [theme]);
+  }, [theme, location.pathname]);
 
   const value = useMemo(
     () => ({

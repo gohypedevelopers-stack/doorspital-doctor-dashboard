@@ -58,8 +58,8 @@ export default function Contact() {
           <MessageCircle style={{ width: 14, height: 14 }} />
           Get in Touch
         </div>
-        <h1 style={{ fontSize: 40, fontWeight: 700, color: "#0f172a", margin: "0 0 12px" }}>Contact Us</h1>
-        <p style={{ color: "#64748b", fontSize: 16, maxWidth: 540, margin: "0 auto" }}>
+        <h1 style={{ fontSize: 40, fontWeight: 700, color: "var(--foreground)", margin: "0 0 12px" }}>Contact Us</h1>
+        <p style={{ color: "var(--muted-foreground)", fontSize: 16, maxWidth: 540, margin: "0 auto" }}>
           Have a question, need support, or want to partner with us? We're here to help — reach out through any channel below.
         </p>
       </div>
@@ -69,13 +69,13 @@ export default function Contact() {
         {contactCards.map((card) => {
           const Icon = card.icon;
           return (
-            <div key={card.title} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 20 }}>
+            <div key={card.title} style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 20 }}>
               <div style={{ width: 44, height: 44, borderRadius: "50%", background: card.color, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
                 <Icon style={{ width: 20, height: 20, color: card.iconColor }} />
               </div>
-              <h3 style={{ fontWeight: 600, fontSize: 15, color: "#0f172a", margin: "0 0 8px" }}>{card.title}</h3>
+              <h3 style={{ fontWeight: 600, fontSize: 15, color: "var(--foreground)", margin: "0 0 8px" }}>{card.title}</h3>
               {card.lines.map((line) => (
-                <p key={line} style={{ margin: "0 0 3px", fontSize: 14, color: "#334155", fontWeight: 500 }}>{line}</p>
+                <p key={line} style={{ margin: "0 0 3px", fontSize: 14, color: "var(--foreground)", fontWeight: 500 }}>{line}</p>
               ))}
               <p style={{ margin: "8px 0 0", fontSize: 12, color: "#94a3b8" }}>{card.sub}</p>
             </div>
@@ -87,8 +87,8 @@ export default function Contact() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 32, alignItems: "start" }}>
         {/* Left: Topics */}
         <div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, color: "#0f172a", marginBottom: 8 }}>Frequently Contacted For</h2>
-          <p style={{ fontSize: 14, color: "#64748b", marginBottom: 24 }}>
+          <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--foreground)", marginBottom: 8 }}>Frequently Contacted For</h2>
+          <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 24 }}>
             Select the topic that best matches your query to get the fastest response.
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -100,60 +100,60 @@ export default function Contact() {
               { topic: "Formal Grievances", email: "grievance@doorspitals.com", tag: "Grievance" },
               { topic: "Partnership & Business Enquiries", email: "partners@doorspitals.com", tag: "Business" },
             ].map((item) => (
-              <div key={item.topic} style={{ border: "1px solid #e2e8f0", borderRadius: 12, padding: "12px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div key={item.topic} style={{ border: "1px solid var(--border)", borderRadius: 12, padding: "12px 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <div>
-                  <p style={{ fontWeight: 600, fontSize: 14, color: "#0f172a", margin: "0 0 3px" }}>{item.topic}</p>
+                  <p style={{ fontWeight: 600, fontSize: 14, color: "var(--foreground)", margin: "0 0 3px" }}>{item.topic}</p>
                   <a href={"mailto:" + item.email} style={{ fontSize: 12, color: "#2563eb", textDecoration: "none" }}>{item.email}</a>
                 </div>
-                <span style={{ fontSize: 11, fontWeight: 600, background: "#f1f5f9", color: "#475569", padding: "3px 10px", borderRadius: 999 }}>{item.tag}</span>
+                <span style={{ fontSize: 11, fontWeight: 600, backgroundColor: "var(--secondary)", color: "var(--muted-foreground)", padding: "3px 10px", borderRadius: 999 }}>{item.tag}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Right: Form */}
-        <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 20, padding: 32 }}>
+        <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 20, padding: 32 }}>
           {sent ? (
             <div style={{ textAlign: "center", padding: "40px 20px" }}>
               <div style={{ width: 64, height: 64, borderRadius: "50%", background: "#d1fae5", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 16px" }}>
                 <CheckCircle style={{ width: 32, height: 32, color: "#059669" }} />
               </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>Message Sent!</h3>
-              <p style={{ fontSize: 14, color: "#64748b", margin: 0 }}>
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", margin: "0 0 8px" }}>Message Sent!</h3>
+              <p style={{ fontSize: 14, color: "var(--muted-foreground)", margin: 0 }}>
                 Thank you for contacting us. We will respond within 24 business hours.
               </p>
-              <button onClick={() => { setSent(false); setForm({ name: "", email: "", subject: "", message: "" }); }} style={{ marginTop: 20, background: "#2563eb", color: "#fff", border: "none", borderRadius: 999, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
+              <button onClick={() => { setSent(false); setForm({ name: "", email: "", subject: "", message: "" }); }} style={{ marginTop: 20, background: "#2563eb", color: "var(--card)", border: "none", borderRadius: 999, padding: "10px 24px", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
                 Send Another Message
               </button>
             </div>
           ) : (
             <>
-              <h2 style={{ fontSize: 22, fontWeight: 700, color: "#0f172a", margin: "0 0 6px" }}>Send Us a Message</h2>
+              <h2 style={{ fontSize: 22, fontWeight: 700, color: "var(--foreground)", margin: "0 0 6px" }}>Send Us a Message</h2>
               <p style={{ fontSize: 14, color: "#94a3b8", margin: "0 0 24px" }}>We'll get back to you within 24 hours.</p>
               <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                   <div>
-                    <label style={{ fontSize: 13, fontWeight: 500, color: "#374151", display: "block", marginBottom: 6 }}>Full Name *</label>
+                    <label style={{ fontSize: 13, fontWeight: 500, color: "var(--foreground)", display: "block", marginBottom: 6 }}>Full Name *</label>
                     <input
                       required type="text" placeholder="Dr. Arjun Mehta"
                       value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px", border: "1px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", background: "#f8fafc", color: "#0f172a" }}
+                      style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 10, fontSize: 14, outline: "none", backgroundColor: "var(--background)", color: "var(--foreground)" }}
                     />
                   </div>
                   <div>
-                    <label style={{ fontSize: 13, fontWeight: 500, color: "#374151", display: "block", marginBottom: 6 }}>Email Address *</label>
+                    <label style={{ fontSize: 13, fontWeight: 500, color: "var(--foreground)", display: "block", marginBottom: 6 }}>Email Address *</label>
                     <input
                       required type="email" placeholder="you@example.com"
                       value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px", border: "1px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", background: "#f8fafc", color: "#0f172a" }}
+                      style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 10, fontSize: 14, outline: "none", backgroundColor: "var(--background)", color: "var(--foreground)" }}
                     />
                   </div>
                 </div>
                 <div>
-                  <label style={{ fontSize: 13, fontWeight: 500, color: "#374151", display: "block", marginBottom: 6 }}>Subject *</label>
+                  <label style={{ fontSize: 13, fontWeight: 500, color: "var(--foreground)", display: "block", marginBottom: 6 }}>Subject *</label>
                   <select
                     required value={form.subject} onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                    style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px", border: "1px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", background: "#f8fafc", color: "#0f172a" }}
+                    style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 10, fontSize: 14, outline: "none", backgroundColor: "var(--background)", color: "var(--foreground)" }}
                   >
                     <option value="">Select a subject...</option>
                     <option>Doctor Registration & KYC Help</option>
@@ -165,14 +165,14 @@ export default function Contact() {
                   </select>
                 </div>
                 <div>
-                  <label style={{ fontSize: 13, fontWeight: 500, color: "#374151", display: "block", marginBottom: 6 }}>Message *</label>
+                  <label style={{ fontSize: 13, fontWeight: 500, color: "var(--foreground)", display: "block", marginBottom: 6 }}>Message *</label>
                   <textarea
                     required rows={5} placeholder="Describe your query in detail..."
                     value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px", border: "1px solid #e2e8f0", borderRadius: 10, fontSize: 14, outline: "none", background: "#f8fafc", color: "#0f172a", resize: "vertical" }}
+                    style={{ width: "100%", boxSizing: "border-box", padding: "10px 14px", border: "1px solid var(--border)", borderRadius: 10, fontSize: 14, outline: "none", backgroundColor: "var(--background)", color: "var(--foreground)", resize: "vertical" }}
                   />
                 </div>
-                <button type="submit" style={{ background: "linear-gradient(135deg, #2563eb, #059669)", color: "#fff", border: "none", borderRadius: 12, padding: "13px", fontSize: 15, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
+                <button type="submit" style={{ background: "linear-gradient(135deg, #2563eb, #059669)", color: "var(--card)", border: "none", borderRadius: 12, padding: "13px", fontSize: 15, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
                   <Send style={{ width: 16, height: 16 }} /> Send Message
                 </button>
               </form>

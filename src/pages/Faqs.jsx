@@ -52,18 +52,18 @@ const faqData = {
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden", marginBottom: 12, background: "#fff" }}>
+    <div style={{ border: "1px solid var(--border)", borderRadius: 12, overflow: "hidden", marginBottom: 12, backgroundColor: "var(--card)" }}>
       <button
         onClick={() => setOpen(!open)}
-        style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", background: open ? "#f8fafc" : "#fff", border: "none", cursor: "pointer", textAlign: "left", gap: 12 }}
+        style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", background: open ? "var(--background)" : "var(--card)", border: "none", cursor: "pointer", textAlign: "left", gap: 12 }}
       >
-        <span style={{ fontWeight: 600, fontSize: 15, color: "#0f172a" }}>{q}</span>
+        <span style={{ fontWeight: 600, fontSize: 15, color: "var(--foreground)" }}>{q}</span>
         {open
           ? <ChevronUp style={{ width: 18, height: 18, color: "#2563eb", flexShrink: 0 }} />
           : <ChevronDown style={{ width: 18, height: 18, color: "#94a3b8", flexShrink: 0 }} />}
       </button>
       {open && (
-        <div style={{ padding: "0 20px 20px", fontSize: 14, color: "#475569", lineHeight: 1.7, background: "#f8fafc" }}>
+        <div style={{ padding: "0 20px 20px", fontSize: 14, color: "var(--muted-foreground)", lineHeight: 1.7, backgroundColor: "var(--background)" }}>
           {a}
         </div>
       )}
@@ -84,17 +84,17 @@ export default function Faqs() {
   const categories = Object.keys(faqData);
 
   return (
-    <div style={{ minHeight: "100vh", padding: "60px 16px", maxWidth: 900, margin: "0 auto", background: "#fff" }}>
+    <div style={{ minHeight: "100vh", padding: "60px 16px", maxWidth: 900, margin: "0 auto", backgroundColor: "var(--card)" }}>
       {/* ── HEADER ── */}
       <div style={{ textAlign: "center", marginBottom: 40 }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#eff6ff", color: "#2563eb", padding: "6px 14px", borderRadius: 999, fontSize: 12, fontWeight: 600, border: "1px solid #bfdbfe", marginBottom: 14 }}>
           <HelpCircle style={{ width: 14, height: 14 }} />
           Help & Support
         </div>
-        <h1 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 10px" }}>
+        <h1 style={{ fontSize: 36, fontWeight: 700, color: "var(--foreground)", margin: "0 0 10px" }}>
           Frequently Asked Questions
         </h1>
-        <p style={{ color: "#64748b", fontSize: 14, maxWidth: 500, margin: "0 auto" }}>
+        <p style={{ color: "var(--muted-foreground)", fontSize: 14, maxWidth: 500, margin: "0 auto" }}>
           Everything you need to know about joining and using the Doorspitals platform.
         </p>
       </div>
@@ -110,9 +110,9 @@ export default function Faqs() {
               onClick={() => setActiveCategory(cat)}
               style={{
                 display: "flex", alignItems: "center", gap: 6, padding: "8px 16px",
-                borderRadius: 999, border: isActive ? "2px solid #2563eb" : "1px solid #e2e8f0",
-                background: isActive ? "#eff6ff" : "#fff", cursor: "pointer",
-                fontSize: 13, fontWeight: 600, color: isActive ? "#2563eb" : "#64748b",
+                borderRadius: 999, border: isActive ? "2px solid #2563eb" : "1px solid var(--border)",
+                background: isActive ? "#eff6ff" : "var(--card)", cursor: "pointer",
+                fontSize: 13, fontWeight: 600, color: isActive ? "#2563eb" : "var(--muted-foreground)",
               }}
             >
               <Icon style={{ width: 14, height: 14 }} />
@@ -130,16 +130,16 @@ export default function Faqs() {
       </div>
 
       {/* ── CONTACT ── */}
-      <div style={{ textAlign: "center", marginTop: 48, padding: "32px", background: "#f8fafc", borderRadius: 20, border: "1px solid #e2e8f0" }}>
-        <h3 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>Still have questions?</h3>
-        <p style={{ fontSize: 14, color: "#64748b", margin: "0 0 20px" }}>
+      <div style={{ textAlign: "center", marginTop: 48, padding: "32px", backgroundColor: "var(--background)", borderRadius: 20, border: "1px solid var(--border)" }}>
+        <h3 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", margin: "0 0 8px" }}>Still have questions?</h3>
+        <p style={{ fontSize: 14, color: "var(--muted-foreground)", margin: "0 0 20px" }}>
           Our support team is here to help you get started or resolve any issues.
         </p>
         <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
-          <Link to="/contact" style={{ background: "#2563eb", color: "#fff", fontWeight: 600, padding: "10px 24px", borderRadius: 8, fontSize: 14, textDecoration: "none" }}>
+          <Link to="/contact" style={{ background: "#2563eb", color: "var(--card)", fontWeight: 600, padding: "10px 24px", borderRadius: 8, fontSize: 14, textDecoration: "none" }}>
             Contact Support
           </Link>
-          <a href="mailto:support@doorspitals.com" style={{ background: "#fff", color: "#475569", fontWeight: 600, padding: "10px 24px", borderRadius: 8, fontSize: 14, textDecoration: "none", border: "1px solid #e2e8f0" }}>
+          <a href="mailto:support@doorspitals.com" style={{ backgroundColor: "var(--card)", color: "var(--muted-foreground)", fontWeight: 600, padding: "10px 24px", borderRadius: 8, fontSize: 14, textDecoration: "none", border: "1px solid var(--border)" }}>
             Email Us
           </a>
         </div>

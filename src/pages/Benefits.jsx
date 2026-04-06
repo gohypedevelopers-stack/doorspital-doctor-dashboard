@@ -77,7 +77,7 @@ export default function Benefits() {
     <div className="bg-background px-[9px]">
       {/* ========== HERO ========== */}
       <motion.section
-        className="w-full bg-gradient-to-b from-[#bfcff5] via-[#d6e2ff] to-[#f4f7ff] py-16 text-center"
+        className="w-full bg-gradient-to-b from-[#bfcff5] dark:from-slate-900 via-[#d6e2ff] dark:via-slate-800 to-[#f4f7ff] dark:to-background py-16 text-center"
         initial="hidden"
         animate="visible"
         variants={fadeUp}
@@ -166,7 +166,7 @@ export default function Benefits() {
       </motion.section>
 
       {/* ========== WHY PARTNER ========== */}
-      <section className="w-full py-14 bg-[#F8F9FB]">
+      <section className="w-full py-14 bg-[#F8F9FB] dark:bg-background">
         <motion.div
           className="space-y-2 text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -174,10 +174,10 @@ export default function Benefits() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-slate-600">
+          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">
             Why Partner with Doorspitals?
           </h2>
-          <p className="text-base text-slate-900">
+          <p className="text-base text-slate-900 dark:text-slate-300">
             We help you focus on care — while we handle the rest.
           </p>
         </motion.div>
@@ -345,7 +345,7 @@ export default function Benefits() {
       </section>
 
       {/* ========== TESTIMONIALS ========== */}
-      <section id="testimonials" style={{ width: "100%", padding: "72px 16px", background: "#f8fafc" }}>
+      <section id="testimonials" style={{ width: "100%", padding: "72px 16px", backgroundColor: "var(--background)" }}>
         <motion.div
           style={{ textAlign: "center", marginBottom: 48 }}
           initial={{ opacity: 0, y: 30 }}
@@ -356,10 +356,10 @@ export default function Benefits() {
           <div style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#eff6ff", color: "#2563eb", padding: "6px 14px", borderRadius: 999, fontSize: 12, fontWeight: 600, border: "1px solid #bfdbfe", marginBottom: 14 }}>
             ★ Testimonials
           </div>
-          <h2 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 12px" }}>
+          <h2 style={{ fontSize: 36, fontWeight: 700, color: "var(--foreground)", margin: "0 0 12px" }}>
             Trusted by Healthcare Professionals Across India
           </h2>
-          <p style={{ color: "#64748b", fontSize: 16, maxWidth: 560, margin: "0 auto" }}>
+          <p style={{ color: "var(--muted-foreground)", fontSize: 16, maxWidth: 560, margin: "0 auto" }}>
             Real stories from doctors and pharmacists who have grown their practice with Doorspitals.
           </p>
         </motion.div>
@@ -421,7 +421,7 @@ export default function Benefits() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 16 }}
+              style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 20, padding: 24, display: "flex", flexDirection: "column", gap: 16 }}
             >
               {/* Stars */}
               <div style={{ display: "flex", gap: 3 }}>
@@ -430,17 +430,17 @@ export default function Benefits() {
                 ))}
               </div>
               {/* Quote */}
-              <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7, margin: 0, flex: 1 }}>
+              <p style={{ fontSize: 14, color: "var(--foreground)", lineHeight: 1.7, margin: 0, flex: 1 }}>
                 &ldquo;{t.text}&rdquo;
               </p>
               {/* Author */}
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <div style={{ width: 44, height: 44, borderRadius: "50%", background: t.color, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, flexShrink: 0 }}>
+                <div style={{ width: 44, height: 44, borderRadius: "50%", background: t.color, color: "var(--card)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 14, flexShrink: 0 }}>
                   {t.avatar}
                 </div>
                 <div>
-                  <p style={{ fontWeight: 700, fontSize: 14, color: "#0f172a", margin: 0 }}>{t.name}</p>
-                  <p style={{ fontSize: 12, color: "#64748b", margin: 0 }}>{t.role}</p>
+                  <p style={{ fontWeight: 700, fontSize: 14, color: "var(--foreground)", margin: 0 }}>{t.name}</p>
+                  <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: 0 }}>{t.role}</p>
                 </div>
               </div>
             </motion.div>
@@ -455,7 +455,7 @@ export default function Benefits() {
             { icon: "💊", label: "1L+ Prescriptions Fulfilled" },
             { icon: "🔒", label: "RBI-Compliant Payments" },
           ].map((badge) => (
-            <div key={badge.label} style={{ display: "flex", alignItems: "center", gap: 8, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 50, padding: "10px 20px", fontSize: 14, fontWeight: 600, color: "#374151" }}>
+            <div key={badge.label} style={{ display: "flex", alignItems: "center", gap: 8, backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 50, padding: "10px 20px", fontSize: 14, fontWeight: 600, color: "var(--foreground)" }}>
               <span style={{ fontSize: 20 }}>{badge.icon}</span>
               {badge.label}
             </div>

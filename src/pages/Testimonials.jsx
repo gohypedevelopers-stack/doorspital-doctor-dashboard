@@ -156,7 +156,7 @@ export default function Testimonials() {
             <Star style={{ width: 13, height: 13 }} />
             Partner Testimonials
           </div>
-          <h1 style={{ fontSize: 44, fontWeight: 800, color: "#fff", margin: "0 0 16px", lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 44, fontWeight: 800, color: "var(--card)", margin: "0 0 16px", lineHeight: 1.2 }}>
             Trusted by Healthcare Professionals<br />
             <span style={{ color: "#86efac" }}>Across India</span>
           </h1>
@@ -198,15 +198,15 @@ export default function Testimonials() {
                 style={{
                   display: "flex", alignItems: "center", gap: 8,
                   padding: "10px 22px", borderRadius: 999, fontSize: 14, fontWeight: 600, cursor: "pointer",
-                  border: active ? "2px solid #2563eb" : "1px solid #e2e8f0",
-                  background: active ? "#eff6ff" : "#fff",
-                  color: active ? "#2563eb" : "#475569",
+                  border: active ? "2px solid #2563eb" : "1px solid var(--border)",
+                  background: active ? "#eff6ff" : "var(--card)",
+                  color: active ? "#2563eb" : "var(--muted-foreground)",
                   transition: "all 0.15s",
                 }}
               >
                 <Icon style={{ width: 15, height: 15 }} />
                 {f.label}
-                <span style={{ background: active ? "#bfdbfe" : "#f1f5f9", color: active ? "#1d4ed8" : "#64748b", padding: "1px 8px", borderRadius: 999, fontSize: 12 }}>
+                <span style={{ background: active ? "#bfdbfe" : "var(--secondary)", color: active ? "#1d4ed8" : "var(--muted-foreground)", padding: "1px 8px", borderRadius: 999, fontSize: 12 }}>
                   {f.key === "all" ? allTestimonials.length : allTestimonials.filter(t => t.type === f.key).length}
                 </span>
               </button>
@@ -221,7 +221,7 @@ export default function Testimonials() {
               key={i}
               style={{
                 breakInside: "avoid", marginBottom: 24,
-                background: "#fff", border: "1px solid #e2e8f0", borderRadius: 20, padding: 24,
+                backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 20, padding: 24,
                 display: "flex", flexDirection: "column", gap: 16,
               }}
             >
@@ -239,20 +239,20 @@ export default function Testimonials() {
 
               {/* Quote icon + text */}
               <div style={{ position: "relative" }}>
-                <Quote style={{ width: 28, height: 28, color: "#e2e8f0", position: "absolute", top: -4, left: -4 }} />
-                <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.75, margin: 0, paddingLeft: 20 }}>
+                <Quote style={{ width: 28, height: 28, color: "var(--border)", position: "absolute", top: -4, left: -4 }} />
+                <p style={{ fontSize: 14, color: "var(--foreground)", lineHeight: 1.75, margin: 0, paddingLeft: 20 }}>
                   {t.text}
                 </p>
               </div>
 
               {/* Author */}
-              <div style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 8, borderTop: "1px solid #f1f5f9" }}>
-                <div style={{ width: 46, height: 46, borderRadius: "50%", background: t.color, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 15, flexShrink: 0 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 8, borderTop: "1px solid var(--secondary)" }}>
+                <div style={{ width: 46, height: 46, borderRadius: "50%", background: t.color, color: "var(--card)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 15, flexShrink: 0 }}>
                   {t.avatar}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontWeight: 700, fontSize: 14, color: "#0f172a", margin: 0 }}>{t.name}</p>
-                  <p style={{ fontSize: 12, color: "#64748b", margin: 0 }}>{t.role} · {t.city}</p>
+                  <p style={{ fontWeight: 700, fontSize: 14, color: "var(--foreground)", margin: 0 }}>{t.name}</p>
+                  <p style={{ fontSize: 12, color: "var(--muted-foreground)", margin: 0 }}>{t.role} · {t.city}</p>
                 </div>
                 <span style={{ fontSize: 11, fontWeight: 600, background: t.type === "doctor" ? "#eff6ff" : "#ecfdf5", color: t.type === "doctor" ? "#2563eb" : "#059669", padding: "3px 10px", borderRadius: 999 }}>
                   {t.type === "doctor" ? "Doctor" : "Pharmacy"}
@@ -266,9 +266,9 @@ export default function Testimonials() {
       {/* ══════════════════════════════════════
           TRUST STATS
       ══════════════════════════════════════ */}
-      <section style={{ background: "#f8fafc", padding: "56px 16px" }}>
+      <section style={{ backgroundColor: "var(--background)", padding: "56px 16px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <h2 style={{ fontSize: 28, fontWeight: 700, color: "#0f172a", textAlign: "center", margin: "0 0 36px" }}>
+          <h2 style={{ fontSize: 28, fontWeight: 700, color: "var(--foreground)", textAlign: "center", margin: "0 0 36px" }}>
             Why Partners Trust Doorspitals
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
@@ -278,10 +278,10 @@ export default function Testimonials() {
               { icon: "💳", value: "T+5", label: "Avg. Payout Time", sub: "Business days" },
               { icon: "🛡️", value: "24/7", label: "Support Available", sub: "Chat, email & phone" },
             ].map((s) => (
-              <div key={s.label} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: "20px 16px", textAlign: "center" }}>
+              <div key={s.label} style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: "20px 16px", textAlign: "center" }}>
                 <div style={{ fontSize: 28, marginBottom: 8 }}>{s.icon}</div>
-                <div style={{ fontSize: 28, fontWeight: 800, color: "#0f172a" }}>{s.value}</div>
-                <div style={{ fontSize: 13, fontWeight: 600, color: "#374151", margin: "4px 0 2px" }}>{s.label}</div>
+                <div style={{ fontSize: 28, fontWeight: 800, color: "var(--foreground)" }}>{s.value}</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: "var(--foreground)", margin: "4px 0 2px" }}>{s.label}</div>
                 <div style={{ fontSize: 12, color: "#94a3b8" }}>{s.sub}</div>
               </div>
             ))}
@@ -294,17 +294,17 @@ export default function Testimonials() {
       ══════════════════════════════════════ */}
       <section style={{ background: "linear-gradient(135deg, #2563eb, #059669)", padding: "64px 16px", textAlign: "center" }}>
         <div style={{ maxWidth: 580, margin: "0 auto" }}>
-          <h2 style={{ fontSize: 34, fontWeight: 700, color: "#fff", margin: "0 0 12px" }}>
+          <h2 style={{ fontSize: 34, fontWeight: 700, color: "var(--card)", margin: "0 0 12px" }}>
             Ready to Write Your Own Success Story?
           </h2>
           <p style={{ fontSize: 16, color: "#bfdbfe", margin: "0 0 32px" }}>
             Join 20,000+ doctors and pharmacies growing their practice with Doorspitals.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12 }}>
-            <Link to="/register" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "#2563eb", fontWeight: 700, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none" }}>
+            <Link to="/register" style={{ display: "inline-flex", alignItems: "center", gap: 8, backgroundColor: "var(--card)", color: "#2563eb", fontWeight: 700, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none" }}>
               Register Free <ArrowRight style={{ width: 16, height: 16 }} />
             </Link>
-            <Link to="/benefits" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.15)", color: "#fff", fontWeight: 600, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.3)" }}>
+            <Link to="/benefits" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.15)", color: "var(--card)", fontWeight: 600, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.3)" }}>
               See Benefits
             </Link>
           </div>

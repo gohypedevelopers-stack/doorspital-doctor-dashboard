@@ -53,20 +53,20 @@ export default function About() {
             <Building2 style={{ width: 13, height: 13 }} />
             About Doorspitals
           </div>
-          <h1 style={{ fontSize: 48, fontWeight: 800, color: "#fff", margin: "0 0 20px", lineHeight: 1.15 }}>
+          <h1 style={{ fontSize: 48, fontWeight: 800, color: "var(--card)", margin: "0 0 20px", lineHeight: 1.15 }}>
             Bridging the Gap Between<br />
             <span style={{ background: "linear-gradient(90deg, #60a5fa, #34d399)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Doctors, Pharmacies & Patients
             </span>
           </h1>
           <p style={{ fontSize: 18, color: "#93c5fd", lineHeight: 1.7, margin: "0 0 36px" }}>
-            Doorspitals is India's trusted digital health partner platform — built by <strong style={{ color: "#fff" }}>GoHype Technologies Private Limited</strong> — connecting verified healthcare professionals with millions of patients across India.
+            Doorspitals is India's trusted digital health partner platform — built by <strong style={{ color: "var(--card)" }}>GoHype Technologies Private Limited</strong> — connecting verified healthcare professionals with millions of patients across India.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12 }}>
-            <Link to="/register" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #2563eb, #059669)", color: "#fff", fontWeight: 700, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none" }}>
+            <Link to="/register" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "linear-gradient(135deg, #2563eb, #059669)", color: "var(--card)", fontWeight: 700, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none" }}>
               Join as a Partner <ArrowRight style={{ width: 16, height: 16 }} />
             </Link>
-            <Link to="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.1)", color: "#fff", fontWeight: 600, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)" }}>
+            <Link to="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.1)", color: "var(--card)", fontWeight: 600, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.2)" }}>
               Contact Us
             </Link>
           </div>
@@ -99,13 +99,13 @@ export default function About() {
               <Target style={{ width: 13, height: 13 }} />
               Our Mission
             </div>
-            <h2 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 16px", lineHeight: 1.25 }}>
+            <h2 style={{ fontSize: 36, fontWeight: 700, color: "var(--foreground)", margin: "0 0 16px", lineHeight: 1.25 }}>
               Making Quality Healthcare Accessible to Every Indian
             </h2>
-            <p style={{ fontSize: 15, color: "#475569", lineHeight: 1.8, margin: "0 0 16px" }}>
+            <p style={{ fontSize: 15, color: "var(--muted-foreground)", lineHeight: 1.8, margin: "0 0 16px" }}>
               India has over 1 million registered doctors and 900,000 pharmacies — yet patients often struggle to find trusted, accessible care. Doorspitals was built to fix this by creating a seamless, verified digital bridge between healthcare providers and the people who need them most.
             </p>
-            <p style={{ fontSize: 15, color: "#475569", lineHeight: 1.8, margin: "0 0 24px" }}>
+            <p style={{ fontSize: 15, color: "var(--muted-foreground)", lineHeight: 1.8, margin: "0 0 24px" }}>
               We empower doctors to manage their practice digitally, enable pharmacies to grow their prescription business, and ensure patients receive timely, quality healthcare — regardless of where they live.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -115,7 +115,7 @@ export default function About() {
                 "RBI-compliant payment processing via Razorpay",
                 "Zero hidden charges — complete financial transparency",
               ].map((point) => (
-                <div key={point} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "#374151" }}>
+                <div key={point} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "var(--foreground)" }}>
                   <div style={{ width: 20, height: 20, borderRadius: "50%", background: "#d1fae5", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>
                     <span style={{ fontSize: 11, color: "#059669", fontWeight: 700 }}>✓</span>
                   </div>
@@ -132,13 +132,13 @@ export default function About() {
             ].map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.title} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 20, display: "flex", alignItems: "flex-start", gap: 16 }}>
+                <div key={item.title} style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 20, display: "flex", alignItems: "flex-start", gap: 16 }}>
                   <div style={{ width: 48, height: 48, borderRadius: 14, background: item.bg, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                     <Icon style={{ width: 22, height: 22, color: item.color }} />
                   </div>
                   <div>
-                    <h3 style={{ fontWeight: 700, fontSize: 16, color: "#0f172a", margin: "0 0 6px" }}>{item.title}</h3>
-                    <p style={{ fontSize: 14, color: "#64748b", margin: 0, lineHeight: 1.6 }}>{item.desc}</p>
+                    <h3 style={{ fontWeight: 700, fontSize: 16, color: "var(--foreground)", margin: "0 0 6px" }}>{item.title}</h3>
+                    <p style={{ fontSize: 14, color: "var(--muted-foreground)", margin: 0, lineHeight: 1.6 }}>{item.desc}</p>
                   </div>
                 </div>
               );
@@ -150,11 +150,11 @@ export default function About() {
       {/* ══════════════════════════════════════
           OUR VALUES
       ══════════════════════════════════════ */}
-      <section style={{ background: "#f8fafc", padding: "72px 16px" }}>
+      <section style={{ backgroundColor: "var(--background)", padding: "72px 16px" }}>
         <div style={{ maxWidth: 1024, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 12px" }}>Our Core Values</h2>
-            <p style={{ color: "#64748b", fontSize: 15, maxWidth: 480, margin: "0 auto" }}>
+            <h2 style={{ fontSize: 36, fontWeight: 700, color: "var(--foreground)", margin: "0 0 12px" }}>Our Core Values</h2>
+            <p style={{ color: "var(--muted-foreground)", fontSize: 15, maxWidth: 480, margin: "0 auto" }}>
               These principles guide every decision we make at Doorspitals.
             </p>
           </div>
@@ -162,12 +162,12 @@ export default function About() {
             {values.map((v) => {
               const Icon = v.icon;
               return (
-                <div key={v.title} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 18, padding: 24 }}>
+                <div key={v.title} style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 18, padding: 24 }}>
                   <div style={{ width: 50, height: 50, borderRadius: 14, background: v.bg, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 16 }}>
                     <Icon style={{ width: 24, height: 24, color: v.color }} />
                   </div>
-                  <h3 style={{ fontWeight: 700, fontSize: 17, color: "#0f172a", margin: "0 0 8px" }}>{v.title}</h3>
-                  <p style={{ fontSize: 14, color: "#64748b", margin: 0, lineHeight: 1.65 }}>{v.desc}</p>
+                  <h3 style={{ fontWeight: 700, fontSize: 17, color: "var(--foreground)", margin: "0 0 8px" }}>{v.title}</h3>
+                  <p style={{ fontSize: 14, color: "var(--muted-foreground)", margin: 0, lineHeight: 1.65 }}>{v.desc}</p>
                 </div>
               );
             })}
@@ -180,23 +180,23 @@ export default function About() {
       ══════════════════════════════════════ */}
       <section style={{ padding: "72px 16px", maxWidth: 860, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 12px" }}>Our Journey</h2>
-          <p style={{ color: "#64748b", fontSize: 15 }}>From a bold idea to India's growing healthcare partner network.</p>
+          <h2 style={{ fontSize: 36, fontWeight: 700, color: "var(--foreground)", margin: "0 0 12px" }}>Our Journey</h2>
+          <p style={{ color: "var(--muted-foreground)", fontSize: 15 }}>From a bold idea to India's growing healthcare partner network.</p>
         </div>
         <div style={{ position: "relative" }}>
           {/* Vertical line */}
-          <div style={{ position: "absolute", left: 56, top: 0, bottom: 0, width: 2, background: "#e2e8f0" }} />
+          <div style={{ position: "absolute", left: 56, top: 0, bottom: 0, width: 2, background: "var(--border)" }} />
           <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
             {milestones.map((m, i) => (
               <div key={i} style={{ display: "flex", gap: 24, paddingBottom: 36 }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 112, flexShrink: 0 }}>
-                  <div style={{ background: i === milestones.length - 1 ? "linear-gradient(135deg, #2563eb, #059669)" : "#fff", border: "2px solid #2563eb", borderRadius: 999, padding: "6px 14px", fontSize: 13, fontWeight: 700, color: i === milestones.length - 1 ? "#fff" : "#2563eb", zIndex: 1, whiteSpace: "nowrap" }}>
+                  <div style={{ background: i === milestones.length - 1 ? "linear-gradient(135deg, #2563eb, #059669)" : "var(--card)", border: "2px solid #2563eb", borderRadius: 999, padding: "6px 14px", fontSize: 13, fontWeight: 700, color: i === milestones.length - 1 ? "var(--card)" : "#2563eb", zIndex: 1, whiteSpace: "nowrap" }}>
                     {m.year}
                   </div>
                 </div>
-                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: "18px 22px", flex: 1 }}>
-                  <h3 style={{ fontWeight: 700, fontSize: 16, color: "#0f172a", margin: "0 0 6px" }}>{m.title}</h3>
-                  <p style={{ fontSize: 14, color: "#64748b", margin: 0, lineHeight: 1.65 }}>{m.desc}</p>
+                <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: "18px 22px", flex: 1 }}>
+                  <h3 style={{ fontWeight: 700, fontSize: 16, color: "var(--foreground)", margin: "0 0 6px" }}>{m.title}</h3>
+                  <p style={{ fontSize: 14, color: "var(--muted-foreground)", margin: 0, lineHeight: 1.65 }}>{m.desc}</p>
                 </div>
               </div>
             ))}
@@ -207,22 +207,22 @@ export default function About() {
       {/* ══════════════════════════════════════
           TEAM
       ══════════════════════════════════════ */}
-      <section style={{ background: "#f8fafc", padding: "72px 16px" }}>
+      <section style={{ backgroundColor: "var(--background)", padding: "72px 16px" }}>
         <div style={{ maxWidth: 1024, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <h2 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 12px" }}>The Team Behind Doorspitals</h2>
-            <p style={{ color: "#64748b", fontSize: 15, maxWidth: 480, margin: "0 auto" }}>
+            <h2 style={{ fontSize: 36, fontWeight: 700, color: "var(--foreground)", margin: "0 0 12px" }}>The Team Behind Doorspitals</h2>
+            <p style={{ color: "var(--muted-foreground)", fontSize: 15, maxWidth: 480, margin: "0 auto" }}>
               A passionate team of healthcare professionals, technologists, and entrepreneurs united by one goal.
             </p>
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
             {teamMembers.map((m) => (
-              <div key={m.name} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 18, padding: 24, textAlign: "center" }}>
-                <div style={{ width: 72, height: 72, borderRadius: "50%", background: m.color, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 22, margin: "0 auto 16px" }}>
+              <div key={m.name} style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 18, padding: 24, textAlign: "center" }}>
+                <div style={{ width: 72, height: 72, borderRadius: "50%", background: m.color, color: "var(--card)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 22, margin: "0 auto 16px" }}>
                   {m.initials}
                 </div>
-                <h3 style={{ fontWeight: 700, fontSize: 15, color: "#0f172a", margin: "0 0 8px" }}>{m.name}</h3>
-                <p style={{ fontSize: 13, color: "#64748b", margin: 0, lineHeight: 1.6 }}>{m.desc}</p>
+                <h3 style={{ fontWeight: 700, fontSize: 15, color: "var(--foreground)", margin: "0 0 8px" }}>{m.name}</h3>
+                <p style={{ fontSize: 13, color: "var(--muted-foreground)", margin: 0, lineHeight: 1.6 }}>{m.desc}</p>
               </div>
             ))}
           </div>
@@ -234,8 +234,8 @@ export default function About() {
       ══════════════════════════════════════ */}
       <section style={{ padding: "56px 16px", maxWidth: 1024, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <h2 style={{ fontSize: 24, fontWeight: 700, color: "#0f172a", margin: "0 0 8px" }}>Compliance & Certifications</h2>
-          <p style={{ fontSize: 14, color: "#64748b" }}>We operate in full compliance with Indian regulatory requirements.</p>
+          <h2 style={{ fontSize: 24, fontWeight: 700, color: "var(--foreground)", margin: "0 0 8px" }}>Compliance & Certifications</h2>
+          <p style={{ fontSize: 14, color: "var(--muted-foreground)" }}>We operate in full compliance with Indian regulatory requirements.</p>
         </div>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16 }}>
           {[
@@ -246,7 +246,7 @@ export default function About() {
             { emoji: "⚖️", label: "IT Act 2000 Compliant" },
             { emoji: "📋", label: "DPDP Act Compliant" },
           ].map((b) => (
-            <div key={b.label} style={{ display: "flex", alignItems: "center", gap: 10, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 999, padding: "10px 20px", fontSize: 14, fontWeight: 500, color: "#374151" }}>
+            <div key={b.label} style={{ display: "flex", alignItems: "center", gap: 10, backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 999, padding: "10px 20px", fontSize: 14, fontWeight: 500, color: "var(--foreground)" }}>
               <span style={{ fontSize: 20 }}>{b.emoji}</span>
               {b.label}
             </div>
@@ -259,17 +259,17 @@ export default function About() {
       ══════════════════════════════════════ */}
       <section style={{ background: "linear-gradient(135deg, #1e3a8a, #065f46)", padding: "64px 16px", margin: "0 0 0" }}>
         <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
-          <h2 style={{ fontSize: 36, fontWeight: 700, color: "#fff", margin: "0 0 12px" }}>
+          <h2 style={{ fontSize: 36, fontWeight: 700, color: "var(--card)", margin: "0 0 12px" }}>
             Join the Doorspitals Partner Network
           </h2>
           <p style={{ fontSize: 16, color: "#93c5fd", margin: "0 0 32px" }}>
             Whether you're a doctor, pharmacist, or healthcare entrepreneur — there's a place for you in our ecosystem.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12 }}>
-            <Link to="/register" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#fff", color: "#1e3a8a", fontWeight: 700, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none" }}>
+            <Link to="/register" style={{ display: "inline-flex", alignItems: "center", gap: 8, backgroundColor: "var(--card)", color: "#1e3a8a", fontWeight: 700, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none" }}>
               Register Free <ArrowRight style={{ width: 16, height: 16 }} />
             </Link>
-            <Link to="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "#fff", fontWeight: 600, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.3)" }}>
+            <Link to="/contact" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "var(--card)", fontWeight: 600, padding: "13px 28px", borderRadius: 999, fontSize: 15, textDecoration: "none", border: "1px solid rgba(255,255,255,0.3)" }}>
               <Mail style={{ width: 16, height: 16 }} /> Contact Us
             </Link>
           </div>

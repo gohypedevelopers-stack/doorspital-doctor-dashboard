@@ -74,10 +74,10 @@ export default function ShippingPolicy() {
           <Truck style={{ width: 14, height: 14 }} />
           Shipping &amp; Delivery Policy
         </div>
-        <h1 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 10px" }}>
+        <h1 style={{ fontSize: 36, fontWeight: 700, color: "var(--foreground)", margin: "0 0 10px" }}>
           Shipping &amp; Delivery Policy
         </h1>
-        <p style={{ color: "#64748b", fontSize: 14, maxWidth: 520, margin: "0 auto" }}>
+        <p style={{ color: "var(--muted-foreground)", fontSize: 14, maxWidth: 520, margin: "0 auto" }}>
           Everything you need to know about medicine delivery from Doorspitals-registered pharmacies.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16, marginTop: 14, fontSize: 12, color: "#94a3b8" }}>
@@ -100,14 +100,14 @@ export default function ShippingPolicy() {
         {infoCards.map((card) => {
           const Icon = card.icon;
           return (
-            <div key={card.title} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 20 }}>
+            <div key={card.title} style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 20 }}>
               <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
                 <div style={{ width: 40, height: 40, borderRadius: "50%", background: card.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <Icon style={{ width: 20, height: 20, color: card.iconColor }} />
                 </div>
                 <div>
-                  <h3 style={{ fontWeight: 600, fontSize: 15, color: "#0f172a", margin: "0 0 8px" }}>{card.title}</h3>
-                  <ul style={{ fontSize: 13, color: "#475569", lineHeight: 1.8, paddingLeft: 0, listStyle: "none", margin: 0 }}>
+                  <h3 style={{ fontWeight: 600, fontSize: 15, color: "var(--foreground)", margin: "0 0 8px" }}>{card.title}</h3>
+                  <ul style={{ fontSize: 13, color: "var(--muted-foreground)", lineHeight: 1.8, paddingLeft: 0, listStyle: "none", margin: 0 }}>
                     {card.points.map((p, i) => <li key={i}>{p}</li>)}
                   </ul>
                 </div>
@@ -118,27 +118,27 @@ export default function ShippingPolicy() {
       </div>
 
       {/* ── PRESCRIPTION REQUIREMENTS ── */}
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, marginBottom: 20 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
+      <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 24, marginBottom: 20 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
           <CheckCircle style={{ width: 20, height: 20, color: "#059669" }} />
           Prescription Requirements
         </h2>
-        <p style={{ fontSize: 14, color: "#475569", marginBottom: 16 }}>
+        <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 16 }}>
           India's drug laws require a valid prescription for certain categories of medicines:
         </p>
-        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid #e2e8f0" }}>
+        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--border)" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-            <thead style={{ background: "#f8fafc" }}>
+            <thead style={{ backgroundColor: "var(--background)" }}>
               <tr>
                 {["Drug Category", "Prescription Required?", "Notes"].map((h) => (
-                  <th key={h} style={{ textAlign: "left", padding: "10px 14px", fontWeight: 600, color: "#374151" }}>{h}</th>
+                  <th key={h} style={{ textAlign: "left", padding: "10px 14px", fontWeight: 600, color: "var(--foreground)" }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {prescriptionTable.map((row, i) => (
-                <tr key={i} style={{ borderTop: "1px solid #e2e8f0" }}>
-                  <td style={{ padding: "10px 14px", fontWeight: 500, color: "#0f172a" }}>{row.cat}</td>
+                <tr key={i} style={{ borderTop: "1px solid var(--border)" }}>
+                  <td style={{ padding: "10px 14px", fontWeight: 500, color: "var(--foreground)" }}>{row.cat}</td>
                   <td style={{ padding: "10px 14px", fontWeight: 600, fontSize: 12, color: row.ok ? "#059669" : "#dc2626" }}>{row.req}</td>
                   <td style={{ padding: "10px 14px", color: "#6b7280", fontSize: 12 }}>{row.note}</td>
                 </tr>
@@ -152,15 +152,15 @@ export default function ShippingPolicy() {
       </div>
 
       {/* ── DELAYS ── */}
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, marginBottom: 20 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
+      <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 24, marginBottom: 20 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
           <AlertTriangle style={{ width: 20, height: 20, color: "#f59e0b" }} />
           Delays, Exceptions &amp; Non-Deliverable Areas
         </h2>
-        <p style={{ fontSize: 14, color: "#475569", marginBottom: 12 }}>
+        <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 12 }}>
           Doorspitals is not liable for delivery delays caused by:
         </p>
-        <ul style={{ fontSize: 14, color: "#475569", lineHeight: 2, paddingLeft: 20 }}>
+        <ul style={{ fontSize: 14, color: "var(--muted-foreground)", lineHeight: 2, paddingLeft: 20 }}>
           <li>Natural disasters, floods, or extreme weather conditions (force majeure).</li>
           <li>Government-mandated curfews, lockdowns, or supply chain disruptions.</li>
           <li>Incorrect or incomplete delivery address provided by the customer.</li>
@@ -174,9 +174,9 @@ export default function ShippingPolicy() {
       </div>
 
       {/* ── PACKAGING ── */}
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, marginBottom: 32 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 12 }}>Packaging Standards</h2>
-        <p style={{ fontSize: 14, color: "#475569", marginBottom: 12 }}>
+      <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 24, marginBottom: 32 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 12 }}>Packaging Standards</h2>
+        <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 12 }}>
           Partner pharmacies are required to adhere to the following packaging standards:
         </p>
         <ul style={{ listStyle: "none", paddingLeft: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
@@ -186,7 +186,7 @@ export default function ShippingPolicy() {
             "Temperature-sensitive medicines (insulin, eye drops) must use insulated packaging with ice packs.",
             "A printed invoice must accompany every order for regulatory compliance.",
           ].map((item, i) => (
-            <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "#475569" }}>
+            <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "var(--muted-foreground)" }}>
               <CheckCircle style={{ width: 16, height: 16, color: "#059669", flexShrink: 0, marginTop: 2 }} />
               {item}
             </li>
@@ -196,13 +196,13 @@ export default function ShippingPolicy() {
 
       {/* ── FOOTER CTA ── */}
       <div style={{ background: "linear-gradient(135deg, #f97316, #f59e0b)", borderRadius: 16, padding: "32px 24px", textAlign: "center" }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#fff", margin: "0 0 8px" }}>Delivery Issues? We're Here to Help.</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--card)", margin: "0 0 8px" }}>Delivery Issues? We're Here to Help.</h2>
         <p style={{ fontSize: 14, color: "#fef3c7", margin: "0 0 20px" }}>Contact us if your order is delayed, damaged, or hasn't arrived.</p>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12 }}>
-          <a href="/contact" style={{ background: "#fff", color: "#c2410c", fontWeight: 600, padding: "10px 24px", borderRadius: 999, fontSize: 14, textDecoration: "none" }}>
+          <a href="/contact" style={{ backgroundColor: "var(--card)", color: "#c2410c", fontWeight: 600, padding: "10px 24px", borderRadius: 999, fontSize: 14, textDecoration: "none" }}>
             Contact Support
           </a>
-          <a href="mailto:support@doorspitals.com" style={{ background: "rgba(255,255,255,0.2)", color: "#fff", fontWeight: 600, padding: "10px 24px", borderRadius: 999, fontSize: 14, textDecoration: "none", border: "1px solid rgba(255,255,255,0.4)" }}>
+          <a href="mailto:support@doorspitals.com" style={{ background: "rgba(255,255,255,0.2)", color: "var(--card)", fontWeight: 600, padding: "10px 24px", borderRadius: 999, fontSize: 14, textDecoration: "none", border: "1px solid rgba(255,255,255,0.4)" }}>
             support@doorspitals.com
           </a>
         </div>

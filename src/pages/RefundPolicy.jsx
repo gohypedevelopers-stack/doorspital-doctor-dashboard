@@ -8,7 +8,7 @@ import {
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ border: "1px solid #e2e8f0", borderRadius: "12px", overflow: "hidden", marginBottom: "8px" }}>
+    <div style={{ border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", marginBottom: "8px" }}>
       <button
         onClick={() => setOpen(!open)}
         style={{
@@ -17,13 +17,13 @@ function FaqItem({ q, a }) {
           textAlign: "left", gap: "12px",
         }}
       >
-        <span style={{ fontWeight: 500, fontSize: "14px", color: "#1e293b" }}>{q}</span>
+        <span style={{ fontWeight: 500, fontSize: "14px", color: "var(--foreground)" }}>{q}</span>
         {open
           ? <ChevronUp style={{ width: 16, height: 16, color: "#94a3b8", flexShrink: 0 }} />
           : <ChevronDown style={{ width: 16, height: 16, color: "#94a3b8", flexShrink: 0 }} />}
       </button>
       {open && (
-        <div style={{ padding: "0 16px 14px", fontSize: "14px", color: "#475569", lineHeight: "1.6" }}>{a}</div>
+        <div style={{ padding: "0 16px 14px", fontSize: "14px", color: "var(--muted-foreground)", lineHeight: "1.6" }}>{a}</div>
       )}
     </div>
   );
@@ -59,10 +59,10 @@ export default function RefundPolicy() {
           <RefreshCw style={{ width: 14, height: 14 }} />
           Refund &amp; Cancellation Policy
         </div>
-        <h1 style={{ fontSize: 36, fontWeight: 700, color: "#0f172a", margin: "0 0 10px" }}>
+        <h1 style={{ fontSize: 36, fontWeight: 700, color: "var(--foreground)", margin: "0 0 10px" }}>
           Refund &amp; Cancellation Policy
         </h1>
-        <p style={{ color: "#64748b", fontSize: 14, maxWidth: 520, margin: "0 auto" }}>
+        <p style={{ color: "var(--muted-foreground)", fontSize: 14, maxWidth: 520, margin: "0 auto" }}>
           Fair, transparent refund terms for consultations, medicine orders, and platform subscriptions.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16, marginTop: 14, fontSize: 12, color: "#94a3b8" }}>
@@ -81,29 +81,29 @@ export default function RefundPolicy() {
       </div>
 
       {/* ── SECTION 1: CONSULTATIONS ── */}
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, marginBottom: 20 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 8, display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#2563eb", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>1</span>
+      <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 24, marginBottom: 20 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 8, display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#2563eb", color: "var(--card)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>1</span>
           Doctor Consultation Cancellations &amp; Refunds
         </h2>
-        <p style={{ fontSize: 14, color: "#475569", marginBottom: 20 }}>
+        <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 20 }}>
           Consultation fees paid by patients through the Doorspitals app are subject to the following refund rules:
         </p>
 
         {/* TABLE */}
-        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid #e2e8f0", marginBottom: 16 }}>
+        <div style={{ overflowX: "auto", borderRadius: 10, border: "1px solid var(--border)", marginBottom: 16 }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-            <thead style={{ background: "#f8fafc" }}>
+            <thead style={{ backgroundColor: "var(--background)" }}>
               <tr>
                 {["Scenario", "Cancelled By", "Refund", "Timeline"].map((h) => (
-                  <th key={h} style={{ textAlign: "left", padding: "10px 14px", fontWeight: 600, color: "#374151" }}>{h}</th>
+                  <th key={h} style={{ textAlign: "left", padding: "10px 14px", fontWeight: 600, color: "var(--foreground)" }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {tableRows.map((row, i) => (
-                <tr key={i} style={{ borderTop: "1px solid #e2e8f0" }}>
-                  <td style={{ padding: "10px 14px", color: "#374151" }}>{row.scenario}</td>
+                <tr key={i} style={{ borderTop: "1px solid var(--border)" }}>
+                  <td style={{ padding: "10px 14px", color: "var(--foreground)" }}>{row.scenario}</td>
                   <td style={{ padding: "10px 14px", color: "#6b7280", fontSize: 12 }}>{row.by}</td>
                   <td style={{ padding: "10px 14px", fontWeight: 600, fontSize: 12, color: row.ok ? "#059669" : "#dc2626" }}>{row.refund}</td>
                   <td style={{ padding: "10px 14px", color: "#9ca3af", fontSize: 12 }}>{row.timeline}</td>
@@ -119,12 +119,12 @@ export default function RefundPolicy() {
       </div>
 
       {/* ── SECTION 2: MEDICINE ORDERS ── */}
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, marginBottom: 20 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 8, display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#059669", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>2</span>
+      <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 24, marginBottom: 20 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 8, display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#059669", color: "var(--card)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>2</span>
           Medicine &amp; Prescription Order Refunds
         </h2>
-        <p style={{ fontSize: 14, color: "#475569", marginBottom: 20 }}>
+        <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 20 }}>
           Medicine orders are governed by <strong>The Drugs and Cosmetics Act, 1940</strong>. Returns are subject to drug regulations.
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 16 }}>
@@ -153,21 +153,21 @@ export default function RefundPolicy() {
             </ul>
           </div>
         </div>
-        <p style={{ fontSize: 13, color: "#475569" }}>
+        <p style={{ fontSize: 13, color: "var(--muted-foreground)" }}>
           <strong>Return Window:</strong> Initiate returns within <strong>48 hours</strong> of delivery. Approved refunds processed in <strong>5–10 business days</strong> via Razorpay.
         </p>
       </div>
 
       {/* ── SECTION 3: SUBSCRIPTIONS ── */}
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, marginBottom: 20 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 8, display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#7c3aed", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>3</span>
+      <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 24, marginBottom: 20 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 8, display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#7c3aed", color: "var(--card)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>3</span>
           Platform Subscription Fees
         </h2>
-        <p style={{ fontSize: 14, color: "#475569", marginBottom: 12 }}>
+        <p style={{ fontSize: 14, color: "var(--muted-foreground)", marginBottom: 12 }}>
           Currently, Doorspitals does not charge any subscription or onboarding fee. If subscription plans are introduced:
         </p>
-        <ul style={{ fontSize: 14, color: "#475569", lineHeight: 2, paddingLeft: 20 }}>
+        <ul style={{ fontSize: 14, color: "var(--muted-foreground)", lineHeight: 2, paddingLeft: 20 }}>
           <li>Subscription fees are <strong>non-refundable</strong> once a billing cycle starts.</li>
           <li>You may cancel anytime; access continues till end of billing period.</li>
           <li>No pro-rata refunds for early cancellations.</li>
@@ -176,36 +176,36 @@ export default function RefundPolicy() {
       </div>
 
       {/* ── SECTION 4: HOW TO REQUEST ── */}
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 24, marginBottom: 20 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#2563eb", color: "#fff", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>4</span>
+      <div style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 24, marginBottom: 20 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ width: 28, height: 28, borderRadius: "50%", background: "#2563eb", color: "var(--card)", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}>4</span>
           How to Request a Refund
         </h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           {steps.map((step, i) => (
             <div key={i} style={{ display: "flex", gap: 16, paddingBottom: i < steps.length - 1 ? 0 : 0 }}>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
-                <div style={{ width: 32, height: 32, borderRadius: "50%", background: step.color, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700 }}>{step.num}</div>
-                {i < steps.length - 1 && <div style={{ width: 2, height: 32, background: "#e2e8f0", marginTop: 4 }} />}
+                <div style={{ width: 32, height: 32, borderRadius: "50%", background: step.color, color: "var(--card)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700 }}>{step.num}</div>
+                {i < steps.length - 1 && <div style={{ width: 2, height: 32, background: "var(--border)", marginTop: 4 }} />}
               </div>
               <div style={{ paddingBottom: 24 }}>
-                <p style={{ fontWeight: 600, fontSize: 14, color: "#0f172a", margin: "6px 0 4px" }}>{step.title}</p>
-                <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>{step.desc}</p>
+                <p style={{ fontWeight: 600, fontSize: 14, color: "var(--foreground)", margin: "6px 0 4px" }}>{step.title}</p>
+                <p style={{ fontSize: 13, color: "var(--muted-foreground)", margin: 0 }}>{step.desc}</p>
               </div>
             </div>
           ))}
         </div>
-        <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 10, padding: 16, fontSize: 14 }}>
-          <p style={{ margin: "0 0 6px", fontWeight: 600, color: "#0f172a" }}>For urgent refund queries:</p>
-          <p style={{ margin: "0 0 4px", color: "#475569" }}>📧 <a href="mailto:refunds@doorspitals.com" style={{ color: "#2563eb" }}>refunds@doorspitals.com</a></p>
-          <p style={{ margin: "0 0 4px", color: "#475569" }}>📧 <a href="mailto:support@doorspitals.com" style={{ color: "#2563eb" }}>support@doorspitals.com</a></p>
+        <div style={{ backgroundColor: "var(--background)", border: "1px solid var(--border)", borderRadius: 10, padding: 16, fontSize: 14 }}>
+          <p style={{ margin: "0 0 6px", fontWeight: 600, color: "var(--foreground)" }}>For urgent refund queries:</p>
+          <p style={{ margin: "0 0 4px", color: "var(--muted-foreground)" }}>📧 <a href="mailto:refunds@doorspitals.com" style={{ color: "#2563eb" }}>refunds@doorspitals.com</a></p>
+          <p style={{ margin: "0 0 4px", color: "var(--muted-foreground)" }}>📧 <a href="mailto:support@doorspitals.com" style={{ color: "#2563eb" }}>support@doorspitals.com</a></p>
           <p style={{ margin: "6px 0 0", fontSize: 12, color: "#94a3b8" }}>Response guaranteed within 48 business hours.</p>
         </div>
       </div>
 
       {/* ── FAQ ── */}
       <div style={{ marginBottom: 32 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 16 }}>Frequently Asked Questions</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 16 }}>Frequently Asked Questions</h2>
         <FaqItem q="How long does a refund take to reach my bank account?" a="Razorpay processes refunds within 5–7 business days for UPI/Net Banking and 7–10 days for cards. Actual credit depends on your bank." />
         <FaqItem q="What if my consultation was interrupted due to poor internet?" a="If the interruption was on the platform's side, a full refund is issued. If caused by your connectivity, no refund applies. We recommend using a stable connection." />
         <FaqItem q="Can a doctor refuse to issue a refund?" a="Doctors do not control refunds. All decisions are made by the Doorspitals support team based on session logs. Doctors cannot withhold valid refunds." />
@@ -215,9 +215,9 @@ export default function RefundPolicy() {
 
       {/* ── FOOTER CTA ── */}
       <div style={{ background: "linear-gradient(135deg, #7c3aed, #3b82f6)", borderRadius: 16, padding: "32px 24px", textAlign: "center" }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#fff", margin: "0 0 8px" }}>Need Help With a Refund?</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--card)", margin: "0 0 8px" }}>Need Help With a Refund?</h2>
         <p style={{ fontSize: 14, color: "#ddd6fe", margin: "0 0 20px" }}>Our support team is ready to assist you with any refund or cancellation query.</p>
-        <a href="/contact" style={{ display: "inline-block", background: "#fff", color: "#7c3aed", fontWeight: 600, padding: "10px 24px", borderRadius: 999, fontSize: 14, textDecoration: "none" }}>
+        <a href="/contact" style={{ display: "inline-block", backgroundColor: "var(--card)", color: "#7c3aed", fontWeight: 600, padding: "10px 24px", borderRadius: 999, fontSize: 14, textDecoration: "none" }}>
           Contact Support
         </a>
       </div>

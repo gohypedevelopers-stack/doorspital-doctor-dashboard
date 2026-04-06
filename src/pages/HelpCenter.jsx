@@ -76,8 +76,8 @@ export default function HelpCenter() {
     <div style={{ minHeight: "100vh", padding: "48px 16px", maxWidth: 1024, margin: "0 auto" }}>
       {/* ── HEADER ── */}
       <div style={{ textAlign: "center", marginBottom: 40 }}>
-        <h1 style={{ fontSize: 40, fontWeight: 700, color: "#0f172a", margin: "0 0 12px" }}>Help Center</h1>
-        <p style={{ color: "#64748b", fontSize: 16, margin: "0 0 28px" }}>
+        <h1 style={{ fontSize: 40, fontWeight: 700, color: "var(--foreground)", margin: "0 0 12px" }}>Help Center</h1>
+        <p style={{ color: "var(--muted-foreground)", fontSize: 16, margin: "0 0 28px" }}>
           Find answers, guides, and support for everything on the Doorspitals Partner Platform.
         </p>
         {/* Search */}
@@ -88,7 +88,7 @@ export default function HelpCenter() {
             placeholder="Search articles, guides, FAQs..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            style={{ width: "100%", boxSizing: "border-box", padding: "14px 14px 14px 48px", borderRadius: 50, border: "1px solid #e2e8f0", fontSize: 15, outline: "none", background: "#fff", boxShadow: "0 2px 12px rgba(0,0,0,0.06)", color: "#0f172a" }}
+            style={{ width: "100%", boxSizing: "border-box", padding: "14px 14px 14px 48px", borderRadius: 50, border: "1px solid var(--border)", fontSize: 15, outline: "none", backgroundColor: "var(--card)", boxShadow: "0 2px 12px rgba(0,0,0,0.06)", color: "var(--foreground)" }}
           />
         </div>
       </div>
@@ -105,9 +105,9 @@ export default function HelpCenter() {
                 onClick={() => setActiveCategory(cat)}
                 style={{
                   display: "flex", alignItems: "center", gap: 8, padding: "8px 16px",
-                  borderRadius: 999, border: isActive ? "2px solid #2563eb" : "1px solid #e2e8f0",
-                  background: isActive ? "#eff6ff" : "#fff", cursor: "pointer",
-                  fontSize: 13, fontWeight: 600, color: isActive ? "#2563eb" : "#475569",
+                  borderRadius: 999, border: isActive ? "2px solid #2563eb" : "1px solid var(--border)",
+                  background: isActive ? "#eff6ff" : "var(--card)", cursor: "pointer",
+                  fontSize: 13, fontWeight: 600, color: isActive ? "#2563eb" : "var(--muted-foreground)",
                   transition: "all 0.15s",
                 }}
               >
@@ -131,10 +131,10 @@ export default function HelpCenter() {
       {filteredArticles.length > 0 && (
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16, marginBottom: 48 }}>
           {filteredArticles.map((article, i) => {
-            const color = categoryColors[article.cat] || { bg: "#f1f5f9", icon: "#475569" };
+            const color = categoryColors[article.cat] || { bg: "var(--secondary)", icon: "var(--muted-foreground)" };
             const Icon = categoryIcons[article.cat] || Book;
             return (
-              <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 16, padding: 20, cursor: "pointer", transition: "box-shadow 0.2s" }}
+              <div key={i} style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "box-shadow 0.2s" }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)"}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = "none"}
               >
@@ -143,11 +143,11 @@ export default function HelpCenter() {
                     <Icon style={{ width: 16, height: 16, color: color.icon }} />
                   </div>
                   {query.trim() && (
-                    <span style={{ fontSize: 11, background: "#f1f5f9", color: "#64748b", padding: "2px 8px", borderRadius: 999, fontWeight: 500 }}>{article.cat}</span>
+                    <span style={{ fontSize: 11, backgroundColor: "var(--secondary)", color: "var(--muted-foreground)", padding: "2px 8px", borderRadius: 999, fontWeight: 500 }}>{article.cat}</span>
                   )}
                 </div>
-                <h3 style={{ fontWeight: 600, fontSize: 15, color: "#0f172a", margin: "0 0 6px" }}>{article.title}</h3>
-                <p style={{ fontSize: 13, color: "#64748b", margin: "0 0 14px", lineHeight: 1.5 }}>{article.desc}</p>
+                <h3 style={{ fontWeight: 600, fontSize: 15, color: "var(--foreground)", margin: "0 0 6px" }}>{article.title}</h3>
+                <p style={{ fontSize: 13, color: "var(--muted-foreground)", margin: "0 0 14px", lineHeight: 1.5 }}>{article.desc}</p>
                 <div style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 13, color: "#2563eb", fontWeight: 500 }}>
                   Read article <ChevronRight style={{ width: 14, height: 14 }} />
                 </div>
@@ -158,11 +158,11 @@ export default function HelpCenter() {
       )}
 
       {/* ── POPULAR TOPICS ── */}
-      <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: 20, padding: 28, marginBottom: 30 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 16 }}>Popular Help Topics</h2>
+      <div style={{ backgroundColor: "var(--background)", border: "1px solid var(--border)", borderRadius: 20, padding: 28, marginBottom: 30 }}>
+        <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--foreground)", marginBottom: 16 }}>Popular Help Topics</h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
           {["How to get verified", "Setting consultation fees", "Payout schedule", "Issuing prescriptions", "Cancel an appointment", "Video call setup", "KYC documents required", "Delete account"].map((t) => (
-            <button key={t} onClick={() => setQuery(t)} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 999, padding: "7px 14px", fontSize: 13, color: "#374151", cursor: "pointer", fontWeight: 500 }}>
+            <button key={t} onClick={() => setQuery(t)} style={{ backgroundColor: "var(--card)", border: "1px solid var(--border)", borderRadius: 999, padding: "7px 14px", fontSize: 13, color: "var(--foreground)", cursor: "pointer", fontWeight: 500 }}>
               {t}
             </button>
           ))}
@@ -172,14 +172,14 @@ export default function HelpCenter() {
       {/* ── CONTACT CTA ── */}
       <div style={{ background: "linear-gradient(135deg, #2563eb, #059669)", borderRadius: 20, padding: "32px 28px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 20 }}>
         <div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: "#fff", margin: "0 0 6px" }}>Still need help?</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--card)", margin: "0 0 6px" }}>Still need help?</h2>
           <p style={{ fontSize: 14, color: "#bfdbfe", margin: 0 }}>Our support team is available Mon–Sat from 9 AM–7 PM IST.</p>
         </div>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <a href="/contact" style={{ background: "#fff", color: "#2563eb", fontWeight: 600, padding: "10px 22px", borderRadius: 999, fontSize: 14, textDecoration: "none" }}>
+          <a href="/contact" style={{ backgroundColor: "var(--card)", color: "#2563eb", fontWeight: 600, padding: "10px 22px", borderRadius: 999, fontSize: 14, textDecoration: "none" }}>
             Contact Support
           </a>
-          <a href="/faqs" style={{ background: "rgba(255,255,255,0.15)", color: "#fff", fontWeight: 600, padding: "10px 22px", borderRadius: 999, fontSize: 14, textDecoration: "none", border: "1px solid rgba(255,255,255,0.3)" }}>
+          <a href="/faqs" style={{ background: "rgba(255,255,255,0.15)", color: "var(--card)", fontWeight: 600, padding: "10px 22px", borderRadius: 999, fontSize: 14, textDecoration: "none", border: "1px solid rgba(255,255,255,0.3)" }}>
             View FAQs
           </a>
         </div>
