@@ -5,6 +5,7 @@
 import React from "react";
 /* eslint-disable-next-line no-unused-vars */
 import { motion } from "framer-motion";
+import { Download } from "lucide-react";
 import doctorHero from "../assets/doctor.jpg";
 import diagramImg from "../assets/diagram.png";
 import homePhone from "../assets/homephone.png";
@@ -93,10 +94,19 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             <button
               type="button"
               onClick={handlePharmacyJoin}
-              className="rounded-full border-2 border-emerald-500 px-7 py-3 text-base font-semibold text-emerald-600 hover:bg-emerald-50"
+              className="rounded-full border-2 border-emerald-500 px-7 py-3 text-base font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950"
             >
               Join as Medical Shop
             </button>
+            <a
+              href="https://drive.google.com/uc?export=download&id=1GLh-Zb001nFqUgpJe7yH6Rzxh5X2bURq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-full bg-amber-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-amber-600"
+            >
+              <Download className="h-5 w-5" />
+              Download APK
+            </a>
           </motion.div>
         </div>
 
@@ -248,9 +258,15 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               patients, and track your business performance on the go.
             </p>
             <div className="mt-2 flex flex-wrap gap-4">
-              <button className="rounded-full bg-blue-700 px-6 py-3 text-base font-semibold text-white shadow hover:bg-blue-800">
+              <a
+                href="https://drive.google.com/uc?export=download&id=1GLh-Zb001nFqUgpJe7yH6Rzxh5X2bURq"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full bg-blue-700 px-6 py-3 text-base font-semibold text-white shadow hover:bg-blue-800"
+              >
+                <Download className="h-5 w-5" />
                 Download App
-              </button>
+              </a>
               <button className="rounded-full border-2 border-emerald-500 px-6 py-3 text-base font-semibold text-emerald-600 hover:bg-emerald-50">
                 Learn More
               </button>
