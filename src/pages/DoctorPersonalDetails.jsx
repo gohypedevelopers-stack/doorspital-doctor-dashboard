@@ -126,6 +126,12 @@ const SPECIALIZATIONS = [
   "Urology",
   "Vascular Surgery",
   "Venereology / Sexually Transmitted Infections Medicine",
+  "Adult Home care 24/7",
+  "Adult Physiotherapy",
+  "Chronic Disease Management",
+  "Elderly Care Support",
+  "Home Doctor Visits",
+  "Nursing Care at Home",
   "Other",
 ];
 
