@@ -48,6 +48,9 @@ const heroTextItem = {
   },
 };
 
+const APK_DOWNLOAD_URL =
+  "https://drive.google.com/uc?export=download&id=11nrlj_tbMkdSTks-AaRyLnXOCC_ORZAX";
+
 export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
   const handleDoctorJoin = onDoctorJoinClick ?? (() => { });
   const handlePharmacyJoin = onPharmacyJoinClick ?? (() => { });
@@ -99,7 +102,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               Join as Medical Shop
             </button>
             <a
-              href="https://drive.google.com/uc?export=download&id=1GLh-Zb001nFqUgpJe7yH6Rzxh5X2bURq"
+              href={APK_DOWNLOAD_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 rounded-full bg-amber-500 px-7 py-3 text-base font-semibold text-white shadow hover:bg-amber-600"
@@ -259,7 +262,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             </p>
             <div className="mt-2 flex flex-wrap gap-4">
               <a
-                href="https://drive.google.com/uc?export=download&id=1GLh-Zb001nFqUgpJe7yH6Rzxh5X2bURq"
+                href={APK_DOWNLOAD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-full bg-blue-700 px-6 py-3 text-base font-semibold text-white shadow hover:bg-blue-800"
