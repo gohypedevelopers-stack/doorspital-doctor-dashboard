@@ -2,8 +2,11 @@
 // Top navigation for Home & Benefits pages.
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { PhoneCall } from "lucide-react";
 import icon from "../assets/icon.png";
 import { ModeToggle } from "@/components/mode-toggle";
+
+const SUPPORT_TEL = "tel:+917500958439";
 
 export default function Navbar({
   onLoginClick,
@@ -18,6 +21,8 @@ export default function Navbar({
   const pathname = location.pathname;
   const navigate = useNavigate();
 
+  const isHome = pathname === "/";
+  const isPartner = pathname === "/partner";
   const isBenefits = pathname === "/benefits";
   const isDashboard = pathname.startsWith("/dashboard");
 
@@ -42,7 +47,7 @@ export default function Navbar({
             alt="Doorspitals logo"
           />
           <span className="text-base sm:text-lg font-semibold text-foreground">
-            Doorspitals Partner
+            Doorspitals
           </span>
         </Link>
 
@@ -53,6 +58,22 @@ export default function Navbar({
                      lg:gap-6 lg:text-sm
                      xl:gap-8"
         >
+          <Link
+            to="/"
+            className={`hover:text-foreground hover:underline underline-offset-4 ${
+              isHome ? "font-semibold text-foreground" : ""
+            }`}
+          >
+            Home
+          </Link>
+          <Link
+            to="/partner"
+            className={`hover:text-foreground hover:underline underline-offset-4 ${
+              isPartner ? "font-semibold text-foreground" : ""
+            }`}
+          >
+            Partner
+          </Link>
           <Link
             to="/about"
             className="hover:text-foreground hover:underline underline-offset-4"
@@ -87,6 +108,14 @@ export default function Navbar({
         {/* Right-side */}
         <div className="flex items-center gap-3">
           <ModeToggle />
+
+          <a
+            href={SUPPORT_TEL}
+            className="hidden items-center gap-2 rounded-full border border-sky-200 bg-[linear-gradient(135deg,#eff6ff,#dbeafe)] px-4 py-2 text-sm font-semibold text-sky-800 shadow-[0_10px_24px_-18px_rgba(37,99,235,0.7)] transition hover:-translate-y-0.5 hover:border-sky-300 hover:bg-[linear-gradient(135deg,#dbeafe,#bfdbfe)] dark:border-sky-900 dark:bg-[linear-gradient(135deg,rgba(30,64,175,0.82),rgba(8,47,73,0.92))] dark:text-sky-100 dark:hover:bg-[linear-gradient(135deg,rgba(29,78,216,0.94),rgba(14,116,144,0.88))] xl:flex"
+          >
+            <PhoneCall className="h-4 w-4" />
+            Call Now
+          </a>
 
           {/* Auth buttons: show only on laptop+ to prevent tablet overflow */}
           <div className="hidden items-center gap-2 lg:flex">
@@ -132,7 +161,7 @@ export default function Navbar({
                   Login
                 </button>
                 <button
-                  className="rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow hover:opacity-90"
+                  className="rounded-full bg-gradient-to-r from-blue-700 to-sky-500 px-5 py-2 text-sm font-semibold text-white shadow hover:opacity-90"
                   onClick={onSignupClick}
                 >
                   Register Free
@@ -182,6 +211,9 @@ export default function Navbar({
             <Link to="/" onClick={() => setMenuOpen(false)}>
               Home
             </Link>
+            <Link to="/partner" onClick={() => setMenuOpen(false)}>
+              Partner
+            </Link>
             <Link to="/about" onClick={() => setMenuOpen(false)}>
               About
             </Link>
@@ -203,6 +235,13 @@ export default function Navbar({
           </nav>
 
           <div className="mt-4 flex flex-col gap-3">
+            <a
+              href={SUPPORT_TEL}
+              className="flex w-full items-center justify-center gap-2 rounded-full border border-sky-200 bg-[linear-gradient(135deg,#eff6ff,#dbeafe)] px-4 py-2 text-sm font-semibold text-sky-800 shadow-[0_10px_24px_-18px_rgba(37,99,235,0.7)] dark:border-sky-900 dark:bg-[linear-gradient(135deg,rgba(30,64,175,0.82),rgba(8,47,73,0.92))] dark:text-sky-100"
+            >
+              <PhoneCall className="h-4 w-4" />
+              Call Now
+            </a>
             {hasPharmacySession ? (
               <>
                 <button
@@ -258,7 +297,7 @@ export default function Navbar({
                   Login
                 </button>
                 <button
-                  className="w-full rounded-full bg-gradient-to-r from-blue-700 to-emerald-500 px-5 py-2 text-sm font-semibold text-white shadow hover:opacity-90"
+                  className="w-full rounded-full bg-gradient-to-r from-blue-700 to-sky-500 px-5 py-2 text-sm font-semibold text-white shadow hover:opacity-90"
                   onClick={() => {
                     onSignupClick?.();
                     setMenuOpen(false);

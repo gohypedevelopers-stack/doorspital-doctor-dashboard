@@ -22,12 +22,6 @@ export function ThemeProvider({
     const root = window.document.documentElement;
 
     root.classList.remove("light", "dark");
-    
-    // Force light mode on Home page "/"
-    if (location.pathname === "/") {
-      root.classList.add("light");
-      return;
-    }
 
     if (theme === "system") {
       const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches

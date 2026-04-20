@@ -27,11 +27,11 @@ export default function Footer() {
                 alt="Doorspitals logo"
               />
               <span className="text-base font-semibold text-slate-900 dark:text-slate-100">
-                Doorspitals Partner
+                Doorspitals
               </span>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-300">
-              Connecting Doctors, Medical Shops &amp; Patients.
+              Connecting patients, doctors, pharmacies, clinics, and doorstep care.
             </p>
             <p className="text-xs text-slate-400">
               <span className="text-base font-bold">©</span> 2026 Doorspitals.
@@ -57,6 +57,9 @@ export default function Footer() {
             <ul className="flex flex-col space-y-2 text-sm text-slate-600 dark:text-slate-300">
               <li>
                 <Link to="/about" className="hover:text-blue-600 hover:underline">About Us</Link>
+              </li>
+              <li>
+                <Link to="/partner" className="hover:text-blue-600 hover:underline">Partner Page</Link>
               </li>
               <li>
                 <Link to="/benefits" className="hover:text-blue-600 hover:underline">Benefits</Link>

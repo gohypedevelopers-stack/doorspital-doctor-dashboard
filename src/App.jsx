@@ -15,6 +15,7 @@ import PharmacyLoginModal from "./pharmacypage/PharmacyLoginModal.jsx";
 import PharmacySignupModal from "./pharmacypage/PharmacySignupModal.jsx";
 
 import Home from "./pages/Home.jsx";
+import PartnerHome from "./pages/PartnerHome.jsx";
 import Benefits from "./pages/Benefits.jsx";
 import DoctorPersonalDetails from "./pages/DoctorPersonalDetails.jsx";
 import DoctorQualifications from "./pages/DoctorQualifications.jsx";
@@ -296,6 +297,15 @@ export default function App() {
               path="/"
               element={
                 <Home
+                  onDoctorJoinClick={handleDoctorJoinClick}
+                  onPharmacyJoinClick={handlePharmacyJoinClick}
+                />
+              }
+            />
+            <Route
+              path="/partner"
+              element={
+                <PartnerHome
                   onDoctorJoinClick={handleDoctorJoinClick}
                   onPharmacyJoinClick={handlePharmacyJoinClick}
                 />
