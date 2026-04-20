@@ -87,7 +87,7 @@ export default function PartnerHome({ onDoctorJoinClick, onPharmacyJoinClick }) 
               onClick={handlePharmacyJoin}
               className="rounded-full border-2 border-emerald-500 px-7 py-3 text-base font-semibold text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950"
             >
-              Join as Medical Shop
+              Join as pharmacy
             </button>
             <a
               href={APK_DOWNLOAD_URL}
