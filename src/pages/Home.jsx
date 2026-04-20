@@ -459,7 +459,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                 onClick={onPharmacyJoinClick}
                 className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white"
               >
-                Join as Medical Shop
+                Join as Pharmacy
               </button>
             </div>
           </div>
