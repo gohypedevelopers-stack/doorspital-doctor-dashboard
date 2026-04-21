@@ -54,6 +54,7 @@ function AddNewMedicine() {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
   const token = getPharmacyToken();
   const navigate = useNavigate();
   const { showLoader, hideLoader } = useGlobalLoader();
@@ -66,6 +67,7 @@ function AddNewMedicine() {
   const handleImageChange = (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    setImageFile(file);
     const reader = new FileReader();
     reader.onloadend = () => {
       setImagePreview(reader.result);
@@ -84,29 +86,44 @@ function AddNewMedicine() {
     setLoading(true);
     showLoader();
     try {
-      const payload = {
+      const payload = new FormData();
+      const fields = {
         name: formData.brandName || formData.genericName,
         sku: formData.sku,
         category: formData.category,
         brand: formData.brandName,
-        price: formatNumber(formData.price) ?? 0,
-        mrp: formatNumber(formData.mrp),
-        stock: Number(formData.quantityInStock) || 0,
+        price: String(formatNumber(formData.price) ?? 0),
+        mrp:
+          typeof formatNumber(formData.mrp) === "number"
+            ? String(formatNumber(formData.mrp))
+            : "",
+        stock: String(Number(formData.quantityInStock) || 0),
         dosageForm: formData.dosageForm,
         strength: combineStrength(
           formData.strengthValue,
           formData.strengthUnit
         ),
-        tags: [formData.category, formData.dosageForm],
-        isPrescriptionRequired: formData.prescriptionRequired === "Yes",
+        isPrescriptionRequired: String(
+          formData.prescriptionRequired === "Yes"
+        ),
         expiry: formData.expiry,
-        images: imagePreview
-          ? [{ url: imagePreview, filename: "upload.jpg" }]
-          : [],
+        tags: JSON.stringify([formData.category, formData.dosageForm]),
       };
+
+      Object.entries(fields).forEach(([key, value]) => {
+        if (value !== "") {
+          payload.append(key, value);
+        }
+      });
+
+      if (imageFile) {
+        payload.append("images", imageFile);
+      }
+
       await apiRequest("/api/pharmacy/products", {
         method: "POST",
         token,
+        isForm: true,
         body: payload,
       });
       navigate("/pharmacy/inventory");

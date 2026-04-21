@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiRequest } from "../lib/api.js";
 import { useRegistration } from "../lib/registration-context.js";
+import { uploadVerificationDocument } from "../lib/doctorVerificationUpload.js";
 
 export default function DoctorFaceVerification() {
   const { data, updateFiles, resetRegistration } = useRegistration();
@@ -17,11 +18,13 @@ export default function DoctorFaceVerification() {
   // Refs for camera & canvas
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const selfieUploadRef = useRef(null);
 
   // Camera / capture state
   const [cameraError, setCameraError] = useState("");
   const [capturedImage, setCapturedImage] = useState(null);
   const [isCapturing, setIsCapturing] = useState(false);
+  const [uploadingSelfie, setUploadingSelfie] = useState(false);
 
   // Condition states
   const [lightingOk, setLightingOk] = useState(false);
@@ -58,7 +61,7 @@ export default function DoctorFaceVerification() {
   // Avoid depending on cameraError for enabling capture
   const canCapture =
     progressPercent === 100 && !isCapturing && !capturedImage;
-  const canSave = Boolean(capturedImage || data.files.selfie);
+  const canSave = Boolean(data.files.selfie) && !uploadingSelfie;
   const authToken =
     typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
@@ -75,18 +78,26 @@ export default function DoctorFaceVerification() {
     return new File([u8arr], filename, { type: mime });
   };
 
-  useEffect(() => {
-    if (data.files.selfie && !capturedImage) {
-      const objectUrl = URL.createObjectURL(data.files.selfie);
-      const timeoutId = setTimeout(() => {
-        setCapturedImage(objectUrl);
-      }, 0);
-      return () => {
-        clearTimeout(timeoutId);
-        URL.revokeObjectURL(objectUrl);
-      };
+  const handleDeviceUpload = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      setSubmitState({
+        loading: false,
+        error: "Please upload an image file for selfie verification.",
+        success: "",
+      });
+      return;
     }
-    return undefined;
+
+    const previewUrl = URL.createObjectURL(file);
+    uploadSelfieFile(file, previewUrl);
+  };
+
+  useEffect(() => {
+    if (!capturedImage && (data.files.selfie?.url || data.files.selfie?.path)) {
+      setCapturedImage(data.files.selfie.url || data.files.selfie.path);
+    }
   }, [capturedImage, data.files.selfie]);
 
   // 1) Start camera on mount
@@ -225,7 +236,7 @@ export default function DoctorFaceVerification() {
     setIsCapturing(false);
 
     const selfieFile = dataUrlToFile(dataUrl, `selfie-${Date.now()}.jpg`);
-    updateFiles({ selfie: selfieFile });
+    uploadSelfieFile(selfieFile, dataUrl);
   };
 
   // 4) Retake selfie
@@ -245,6 +256,35 @@ export default function DoctorFaceVerification() {
       });
   }
 };
+
+  const uploadSelfieFile = async (file, previewUrl = null) => {
+    if (!file || !authToken) return;
+
+    setSubmitState({ loading: false, error: "", success: "" });
+    setUploadingSelfie(true);
+
+    if (previewUrl) {
+      setCapturedImage(previewUrl);
+    }
+
+    try {
+      const uploaded = await uploadVerificationDocument({
+        token: authToken,
+        fieldName: "selfie",
+        file,
+      });
+      updateFiles({ selfie: uploaded });
+    } catch (error) {
+      updateFiles({ selfie: null });
+      setSubmitState({
+        loading: false,
+        error: error.message || "Unable to upload selfie right now.",
+        success: "",
+      });
+    } finally {
+      setUploadingSelfie(false);
+    }
+  };
 
   const buildMissingFields = () => {
     const missing = [];
@@ -303,26 +343,35 @@ export default function DoctorFaceVerification() {
     formData.append("councilName", councilName);
     formData.append("issueDate", issueDateValue);
     formData.append("documentType", identity.documentType);
-
-    formData.append("mbbsCertificate", files.mbbsCertificate);
+    formData.append("mbbsCertificateMeta", JSON.stringify(files.mbbsCertificate));
     if (files.mdMsBdsCertificate) {
-      formData.append("mdMsBdsCertificate", files.mdMsBdsCertificate);
+      formData.append("mdMsBdsCertificateMeta", JSON.stringify(files.mdMsBdsCertificate));
     }
-    formData.append("registrationCertificate", files.registrationCertificate);
-    formData.append("governmentId", files.governmentId);
-    formData.append("selfie", files.selfie);
+    formData.append(
+      "registrationCertificateMeta",
+      JSON.stringify(files.registrationCertificate)
+    );
+    formData.append("governmentIdMeta", JSON.stringify(files.governmentId));
+    formData.append("selfieMeta", JSON.stringify(files.selfie));
 
     try {
-      await apiRequest("/api/doctors/verification/submit", {
-        method: "POST",
-        body: formData,
-        isForm: true,
-        token: authToken,
-      });
+      await apiRequest(
+        data.isEditing
+          ? `/api/doctors/verification/${doctorId}`
+          : "/api/doctors/verification/submit",
+        {
+          method: data.isEditing ? "PUT" : "POST",
+          body: formData,
+          isForm: true,
+          token: authToken,
+        }
+      );
       setSubmitState({
         loading: false,
         error: "",
-        success: "Verification submitted successfully. We will notify you once reviewed.",
+        success: data.isEditing
+          ? "Verification updated successfully. It has been sent back for review."
+          : "Verification submitted successfully. We will notify you once reviewed.",
       });
       resetRegistration();
       navigate("/register/verification-submitted");
@@ -511,6 +560,43 @@ export default function DoctorFaceVerification() {
                     {noMaskGlassesOk ? "✓" : ""}
                   </span>
                 </div>
+              </div>
+
+              <div className="w-full max-w-md rounded-2xl border border-dashed border-blue-200 bg-blue-50/70 px-5 py-4 text-sm text-slate-700">
+                <p className="font-semibold text-slate-900 dark:text-slate-100">
+                  Upload from device
+                </p>
+                <p className="mt-1 text-xs text-slate-500">
+                  If camera capture is not working, you can upload a selfie image from this device.
+                  The file uploads to ImageKit immediately after selection.
+                </p>
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <input
+                    ref={selfieUploadRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleDeviceUpload}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => selfieUploadRef.current?.click()}
+                    className="inline-flex items-center justify-center rounded-md border border-blue-200 bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100"
+                  >
+                    Upload selfie from device
+                  </button>
+                  {data.files.selfie && (
+                    <span className="text-xs text-slate-500">
+                      Ready: {data.files.selfie.name || data.files.selfie.filename || "selfie selected"}
+                    </span>
+                  )}
+                </div>
+                {uploadingSelfie && (
+                  <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                    <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600" />
+                    Uploading selfie to ImageKit...
+                  </div>
+                )}
               </div>
 
               {/* Hidden canvas for analysis */}

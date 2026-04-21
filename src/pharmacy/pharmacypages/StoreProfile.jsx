@@ -38,6 +38,12 @@ export default function StoreProfile() {
     licenseAuthority: "",
     licenseExpiryDate: "",
     gstNumber: "",
+    panNumber: "",
+    line1: "",
+    line2: "",
+    city: "",
+    state: "",
+    pincode: "",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -83,6 +89,12 @@ export default function StoreProfile() {
             response.data.licenseExpiryDate &&
             response.data.licenseExpiryDate.slice(0, 10),
           gstNumber: response.data.gstNumber || "",
+          panNumber: response.data.panNumber || "",
+          line1: response.data.address?.line1 || "",
+          line2: response.data.address?.line2 || "",
+          city: response.data.address?.city || "",
+          state: response.data.address?.state || "",
+          pincode: response.data.address?.pincode || "",
         });
       }
     } catch (err) {
@@ -120,6 +132,14 @@ export default function StoreProfile() {
           licenseAuthority: form.licenseAuthority,
           licenseExpiryDate: form.licenseExpiryDate,
           gstNumber: form.gstNumber,
+          panNumber: form.panNumber,
+          address: {
+            line1: form.line1,
+            line2: form.line2,
+            city: form.city,
+            state: form.state,
+            pincode: form.pincode,
+          },
         },
       });
       setEditing(false);
@@ -207,6 +227,18 @@ export default function StoreProfile() {
               <EditableField label="GST Number" name="gstNumber" value={form.gstNumber} onChange={handleFormChange} />
             </div>
 
+            <div className="grid gap-5 md:grid-cols-3">
+              <EditableField label="PAN Number" name="panNumber" value={form.panNumber} onChange={handleFormChange} />
+              <EditableField label="City" name="city" value={form.city} onChange={handleFormChange} />
+              <EditableField label="State" name="state" value={form.state} onChange={handleFormChange} />
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-3">
+              <EditableField label="Address Line 1" name="line1" value={form.line1} onChange={handleFormChange} />
+              <EditableField label="Address Line 2" name="line2" value={form.line2} onChange={handleFormChange} />
+              <EditableField label="Pincode" name="pincode" value={form.pincode} onChange={handleFormChange} />
+            </div>
+
             <div className="flex items-center justify-end pt-2">
               <button
                 type="button"
@@ -232,6 +264,17 @@ export default function StoreProfile() {
               <Field label="License Expiry" value={expirationLabel} />
               <Field label="WhatsApp" value={profile.whatsappNumber || "Unknown"} />
               <Field label="GST Number" value={profile.gstNumber || "Unknown"} />
+              <Field label="PAN Number" value={profile.panNumber || "Unknown"} />
+              <Field
+                label="Store Address"
+                value={[
+                  profile.address?.line1,
+                  profile.address?.line2,
+                  profile.address?.city,
+                  profile.address?.state,
+                  profile.address?.pincode,
+                ].filter(Boolean).join(", ") || "Unknown"}
+              />
             </div>
           </div>
         )}

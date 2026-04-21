@@ -4,6 +4,7 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import { Briefcase, CheckCircle, FileText, ShieldCheck, User, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
 import { apiRequest } from "../../lib/api.js";
+import { useRegistration } from "../../lib/registration-context.js";
 import GlobalLoader from "../../GlobalLoader";
 const fadeUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
@@ -44,9 +45,17 @@ const DetailRow = ({ label, value }) => (
     </div>
 );
 
+const getDocumentUrl = (file) => {
+    if (!file) return null;
+    if (typeof file === "string") return file;
+    return file.url || file.path || null;
+};
+
 const DocumentItem = ({ label, file }) => {
     const isUploaded = !!file;
     const Icon = isUploaded ? CheckCircle : ShieldCheck;
+    const documentUrl = getDocumentUrl(file);
+    const fileName = typeof file === "string" ? label : file?.filename || file?.originalName || label;
     return (
     <div className="flex w-full min-w-0 items-center justify-between gap-4 p-3 rounded-lg border border-border bg-muted mb-3 last:mb-0">
       <div className="flex items-center gap-3">
@@ -55,11 +64,22 @@ const DocumentItem = ({ label, file }) => {
         </div>
         <div className="min-w-0">
           <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{label}</p>
-          {file && <p className="text-xs text-slate-500 truncate max-w-[200px]">{file.filename}</p>}
+          {file && <p className="text-xs text-slate-500 truncate max-w-[200px]">{fileName}</p>}
         </div>
       </div>
             {isUploaded ? (
-                <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded"></span>
+                documentUrl ? (
+                    <a
+                        href={documentUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs font-medium text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 hover:bg-blue-100 transition-colors"
+                    >
+                        Open
+                    </a>
+                ) : (
+                    <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Uploaded</span>
+                )
             ) : (
                 <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded">Pending</span>
             )}
@@ -70,6 +90,7 @@ const DocumentItem = ({ label, file }) => {
 export default function Onboarding() {
     const { token, overview } = useOutletContext();
     const navigate = useNavigate();
+    const { hydrateForEdit } = useRegistration();
     const [verification, setVerification] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -146,6 +167,39 @@ export default function Onboarding() {
     }
 
     const { personalDetails, registration, qualifications, identity, status } = verification;
+    const handleEditVerification = () => {
+        hydrateForEdit({
+            doctorId,
+            personal: {
+                fullName: personalDetails?.fullName || "",
+                email: personalDetails?.email || "",
+                phoneNumber: personalDetails?.phoneNumber || "",
+                medicalSpecialization: personalDetails?.medicalSpecialization || "",
+                yearsOfExperience: personalDetails?.yearsOfExperience || "",
+                clinicHospitalName: personalDetails?.clinicHospitalName || "",
+                clinicAddress: personalDetails?.clinicAddress || "",
+                state: personalDetails?.state || "",
+                city: personalDetails?.city || "",
+            },
+            registration: {
+                registrationNumber: registration?.registrationNumber || "",
+                councilName: registration?.councilName || "",
+                councilDisplayName: registration?.councilName || "",
+                issueDate: registration?.issueDate || "",
+            },
+            identity: {
+                documentType: identity?.documentType || "",
+            },
+            files: {
+                mbbsCertificate: qualifications?.mbbsCertificate || null,
+                mdMsBdsCertificate: qualifications?.mdMsBdsCertificate || null,
+                registrationCertificate: registration?.registrationCertificate || null,
+                governmentId: identity?.governmentId || null,
+                selfie: verification?.selfieVerification?.selfie || null,
+            },
+        });
+        navigate("/register");
+    };
 
     return (
         <motion.div
@@ -160,9 +214,16 @@ export default function Onboarding() {
                     <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Verification Status</h1>
                     <p className="text-slate-500 mt-1">Manage and track your doctor verification process.</p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 flex-wrap justify-end">
                     <span className="text-sm text-slate-500 font-medium">Current Status:</span>
                     <StatusBadge status={status} />
+                    <button
+                        type="button"
+                        onClick={handleEditVerification}
+                        className="inline-flex items-center justify-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-100"
+                    >
+                        Edit submission
+                    </button>
                 </div>
             </div>
 

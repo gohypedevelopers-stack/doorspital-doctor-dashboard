@@ -6,15 +6,27 @@ import { Link, useNavigate } from "react-router-dom";
 import dpicon from "../assets/dpicon.png";
 import RegistrationProgressBar from "../components/RegistrationProgressBar.jsx";
 import { useRegistration } from "../lib/registration-context.js";
+import { uploadVerificationDocument } from "../lib/doctorVerificationUpload.js";
+
+const getFileName = (file) => file?.name || file?.filename || file?.originalName || "";
+const getFilePreviewUrl = (file) => {
+  if (!file) return null;
+  if (file instanceof File) return URL.createObjectURL(file);
+  return file.url || file.path || null;
+};
 
 export default function DoctorIdentity() {
   const { data, updateIdentity, updateFiles } = useRegistration();
   const [selectedType, setSelectedType] = useState(data.identity.documentType || null);
   const [uploadedFile, setUploadedFile] = useState(data.files.governmentId);
   const [isDragging, setIsDragging] = useState(false);
+  const [uploadingDocument, setUploadingDocument] = useState(false);
+  const [uploadError, setUploadError] = useState("");
 
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const authToken =
+    typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
   const docOptions = [
     { id: "Aadhaar Card", label: "Aadhaar Card" },
@@ -23,7 +35,7 @@ export default function DoctorIdentity() {
     { id: "Driving License", label: "Driving License" },
   ];
 
-  const handleFileSelect = (files) => {
+  const handleFileSelect = async (files) => {
     const file = files?.[0];
     if (!file) return;
 
@@ -32,7 +44,30 @@ export default function DoctorIdentity() {
       return;
     }
 
+    if (!authToken) {
+      setUploadError("Please login again and retry the upload.");
+      return;
+    }
+
+    setUploadError("");
+    setUploadingDocument(true);
     setUploadedFile(file);
+
+    try {
+      const uploaded = await uploadVerificationDocument({
+        token: authToken,
+        fieldName: "governmentId",
+        file,
+      });
+      setUploadedFile(uploaded);
+      updateFiles({ governmentId: uploaded });
+    } catch (error) {
+      setUploadedFile(null);
+      updateFiles({ governmentId: null });
+      setUploadError(error.message || "Unable to upload identity document.");
+    } finally {
+      setUploadingDocument(false);
+    }
   };
 
   const handleDrop = (e) => {
@@ -62,9 +97,12 @@ export default function DoctorIdentity() {
 
   const handlePreview = () => {
     if (!uploadedFile) return;
-    const url = URL.createObjectURL(uploadedFile);
+    const url = getFilePreviewUrl(uploadedFile);
+    if (!url) return;
     window.open(url, "_blank", "noopener,noreferrer");
-    setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    if (uploadedFile instanceof File) {
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    }
   };
 
   return (
@@ -99,6 +137,11 @@ export default function DoctorIdentity() {
           {/* Card */}
           <div className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-slate-200">
             <div className="space-y-6 px-6 py-6 sm:px-8 sm:py-8">
+              {uploadError && (
+                <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                  {uploadError}
+                </div>
+              )}
               <div>
                 <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
                   Upload Government ID
@@ -185,7 +228,7 @@ export default function DoctorIdentity() {
                   <div className="mt-4 flex flex-col items-center gap-2 text-xs text-slate-600">
                     <p className="max-w-full break-all">
                       Selected file:{" "}
-                      <span className="font-medium">{uploadedFile.name}</span>
+                      <span className="font-medium">{getFileName(uploadedFile)}</span>
                     </p>
                     <button
                       type="button"
@@ -194,6 +237,12 @@ export default function DoctorIdentity() {
                     >
                       Preview
                     </button>
+                  </div>
+                )}
+                {uploadingDocument && (
+                  <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                    <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600" />
+                    Uploading to ImageKit...
                   </div>
                 )}
               </div>

@@ -4,6 +4,7 @@ import { RegistrationContext } from "@/lib/registration-context";
 const STORAGE_KEY = "doctorRegistrationData";
 
 const defaultState = {
+  isEditing: false,
   doctorId: "",
   personal: {
     fullName: "",
@@ -42,6 +43,7 @@ const hydrateFromStorage = () => {
     return {
       ...defaultState,
       ...parsed,
+      isEditing: Boolean(parsed.isEditing),
       personal: { ...defaultState.personal, ...parsed.personal },
       registration: { ...defaultState.registration, ...parsed.registration },
       identity: { ...defaultState.identity, ...parsed.identity },
@@ -57,13 +59,15 @@ export const RegistrationProvider = ({ children }) => {
 
   useEffect(() => {
     const snapshot = {
+      isEditing: data.isEditing,
       doctorId: data.doctorId,
       personal: data.personal,
       registration: data.registration,
       identity: data.identity,
+      files: data.files,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
-  }, [data.doctorId, data.personal, data.registration, data.identity]);
+  }, [data.doctorId, data.personal, data.registration, data.identity, data.files]);
 
   const setDoctorId = useCallback(
     (doctorId) =>
@@ -110,6 +114,21 @@ export const RegistrationProvider = ({ children }) => {
     []
   );
 
+  const hydrateForEdit = useCallback((payload) => {
+    setData({
+      ...defaultState,
+      isEditing: true,
+      doctorId: payload?.doctorId?.trim?.() ?? payload?.doctorId ?? "",
+      personal: { ...defaultState.personal, ...(payload?.personal || {}) },
+      registration: {
+        ...defaultState.registration,
+        ...(payload?.registration || {}),
+      },
+      identity: { ...defaultState.identity, ...(payload?.identity || {}) },
+      files: { ...defaultState.files, ...(payload?.files || {}) },
+    });
+  }, []);
+
   const resetRegistration = useCallback(
     (preserveDoctorId = true) => {
       const doctorId = preserveDoctorId ? data.doctorId : "";
@@ -129,6 +148,7 @@ export const RegistrationProvider = ({ children }) => {
       updateRegistration,
       updateIdentity,
       updateFiles,
+      hydrateForEdit,
       resetRegistration,
     }),
     [
@@ -138,6 +158,7 @@ export const RegistrationProvider = ({ children }) => {
       updateRegistration,
       updateIdentity,
       updateFiles,
+      hydrateForEdit,
       resetRegistration,
     ]
   );

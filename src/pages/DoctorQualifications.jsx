@@ -10,19 +10,35 @@ import { Link, useNavigate } from "react-router-dom";
 import dpicon from "../assets/dpicon.png";
 import RegistrationProgressBar from "../components/RegistrationProgressBar.jsx";
 import { useRegistration } from "../lib/registration-context.js";
+import { uploadVerificationDocument } from "../lib/doctorVerificationUpload.js";
+
+const getFileName = (file) => file?.name || file?.filename || file?.originalName || "";
+const getFilePreviewUrl = (file) => {
+  if (!file) return null;
+  if (file instanceof File) return URL.createObjectURL(file);
+  return file.url || file.path || null;
+};
 
 export default function DoctorQualifications() {
   const { data, updateFiles } = useRegistration();
   const [mbbsFile, setMbbsFile] = useState(data.files.mbbsCertificate);
   const [otherFile, setOtherFile] = useState(data.files.mdMsBdsCertificate);
+  const [uploadingField, setUploadingField] = useState("");
+  const [uploadError, setUploadError] = useState("");
 
   const navigate = useNavigate();
+  const authToken =
+    typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
   // Open the given file in a new tab using an Object URL
   const handlePreviewFile = (file) => {
     if (!file) return;
-    const url = URL.createObjectURL(file);
+    const url = getFilePreviewUrl(file);
+    if (!url) return;
     window.open(url, "_blank", "noopener,noreferrer");
+    if (file instanceof File) {
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -31,11 +47,31 @@ export default function DoctorQualifications() {
       alert("Please upload your MBBS Certificate before continuing.");
       return;
     }
-    updateFiles({
-      mbbsCertificate: mbbsFile,
-      mdMsBdsCertificate: otherFile,
-    });
     navigate("/register/registration");
+  };
+
+  const handleUpload = async (fieldName, file, setter) => {
+    if (!file || !authToken) return;
+
+    setUploadError("");
+    setUploadingField(fieldName);
+    setter(file);
+
+    try {
+      const uploaded = await uploadVerificationDocument({
+        token: authToken,
+        fieldName,
+        file,
+      });
+      setter(uploaded);
+      updateFiles({ [fieldName]: uploaded });
+    } catch (error) {
+      setter(null);
+      updateFiles({ [fieldName]: null });
+      setUploadError(error.message || "Unable to upload document right now.");
+    } finally {
+      setUploadingField("");
+    }
   };
 
   return (
@@ -73,6 +109,11 @@ export default function DoctorQualifications() {
               className="space-y-6 px-6 pb-6 pt-6 sm:px-8 sm:pb-8"
               onSubmit={handleSubmit}
             >
+              {uploadError && (
+                <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                  {uploadError}
+                </div>
+              )}
               <div>
                 <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
                   Upload Your Qualifications
@@ -104,7 +145,7 @@ export default function DoctorQualifications() {
                       accept=".pdf,.jpg,.jpeg,.png"
                       className="hidden"
                       onChange={(e) =>
-                        setMbbsFile(e.target.files?.[0] ?? null)
+                        handleUpload("mbbsCertificate", e.target.files?.[0] ?? null, setMbbsFile)
                       }
                     />
                     <label
@@ -130,8 +171,14 @@ export default function DoctorQualifications() {
                   {mbbsFile && (
                     <p className="mt-3 max-w-full break-all text-xs text-slate-500">
                       Selected:{" "}
-                      <span className="font-medium">{mbbsFile.name}</span>
+                      <span className="font-medium">{getFileName(mbbsFile)}</span>
                     </p>
+                  )}
+                  {uploadingField === "mbbsCertificate" && (
+                    <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600" />
+                      Uploading to ImageKit...
+                    </div>
                   )}
                 </div>
 
@@ -154,7 +201,7 @@ export default function DoctorQualifications() {
                       accept=".pdf,.jpg,.jpeg,.png"
                       className="hidden"
                       onChange={(e) =>
-                        setOtherFile(e.target.files?.[0] ?? null)
+                        handleUpload("mdMsBdsCertificate", e.target.files?.[0] ?? null, setOtherFile)
                       }
                     />
                     <label
@@ -179,8 +226,14 @@ export default function DoctorQualifications() {
                   {otherFile && (
                     <p className="mt-3 max-w-full break-all text-xs text-slate-500">
                       Selected:{" "}
-                      <span className="font-medium">{otherFile.name}</span>
+                      <span className="font-medium">{getFileName(otherFile)}</span>
                     </p>
+                  )}
+                  {uploadingField === "mdMsBdsCertificate" && (
+                    <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600" />
+                      Uploading to ImageKit...
+                    </div>
                   )}
                 </div>
               </div>
@@ -189,6 +242,7 @@ export default function DoctorQualifications() {
               <div className="mt-4 flex justify-end">
                 <button
                   type="submit"
+                  disabled={Boolean(uploadingField)}
                   className="rounded-md bg-blue-700 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 >
                   Save &amp; Continue

@@ -13,6 +13,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import dpicon from "../assets/dpicon.png";
 import RegistrationProgressBar from "../components/RegistrationProgressBar.jsx";
 import { useRegistration } from "../lib/registration-context.js";
+import { uploadVerificationDocument } from "../lib/doctorVerificationUpload.js";
+
+const getFileName = (file) => file?.name || file?.filename || file?.originalName || "";
+const getFilePreviewUrl = (file) => {
+  if (!file) return null;
+  if (file instanceof File) return URL.createObjectURL(file);
+  return file.url || file.path || null;
+};
 
 // Council list (plus "Other")
 const COUNCIL_OPTIONS = [
@@ -79,9 +87,13 @@ export default function DoctorRegistration() {
   const [certificateFile, setCertificateFile] = useState(
     data.files.registrationCertificate
   );
+  const [uploadingCertificate, setUploadingCertificate] = useState(false);
+  const [uploadError, setUploadError] = useState("");
 
   const datePickerRef = useRef(null);
   const navigate = useNavigate();
+  const authToken =
+    typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
   const filteredCouncilOptions = COUNCIL_OPTIONS.filter((c) =>
     c.toLowerCase().includes(councilQuery.trim().toLowerCase())
@@ -122,8 +134,12 @@ export default function DoctorRegistration() {
 
   const handleCertificatePreview = () => {
     if (!certificateFile) return;
-    const url = URL.createObjectURL(certificateFile);
+    const url = getFilePreviewUrl(certificateFile);
+    if (!url) return;
     window.open(url, "_blank", "noopener,noreferrer");
+    if (certificateFile instanceof File) {
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -143,10 +159,31 @@ export default function DoctorRegistration() {
       councilDisplayName: councilLabel,
       issueDate: issueDateIso,
     });
-    updateFiles({
-      registrationCertificate: certificateFile,
-    });
     navigate("/register/identity");
+  };
+
+  const handleCertificateChange = async (file) => {
+    if (!file || !authToken) return;
+
+    setUploadError("");
+    setUploadingCertificate(true);
+    setCertificateFile(file);
+
+    try {
+      const uploaded = await uploadVerificationDocument({
+        token: authToken,
+        fieldName: "registrationCertificate",
+        file,
+      });
+      setCertificateFile(uploaded);
+      updateFiles({ registrationCertificate: uploaded });
+    } catch (error) {
+      setCertificateFile(null);
+      updateFiles({ registrationCertificate: null });
+      setUploadError(error.message || "Unable to upload registration certificate.");
+    } finally {
+      setUploadingCertificate(false);
+    }
   };
 
   return (
@@ -184,6 +221,11 @@ export default function DoctorRegistration() {
               className="space-y-6 px-6 pb-6 pt-6 sm:px-8 sm:pb-8"
               onSubmit={handleSubmit}
             >
+              {uploadError && (
+                <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+                  {uploadError}
+                </div>
+              )}
               <div>
                 <h1 className="text-xl font-semibold text-slate-900 dark:text-slate-100 sm:text-2xl">
                   Medical Registration Details
@@ -341,7 +383,7 @@ export default function DoctorRegistration() {
                       accept=".svg,.png,.jpg,.jpeg,.pdf"
                       className="hidden"
                       onChange={(e) =>
-                        setCertificateFile(e.target.files?.[0] ?? null)
+                        handleCertificateChange(e.target.files?.[0] ?? null)
                       }
                     />
                     <label
@@ -365,10 +407,14 @@ export default function DoctorRegistration() {
                   {certificateFile && (
                     <p className="mt-3 max-w-full break-all text-xs text-slate-600">
                       Selected:{" "}
-                      <span className="font-medium">
-                        {certificateFile.name}
-                      </span>
+                      <span className="font-medium">{getFileName(certificateFile)}</span>
                     </p>
+                  )}
+                  {uploadingCertificate && (
+                    <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
+                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600" />
+                      Uploading to ImageKit...
+                    </div>
                   )}
                 </div>
 
