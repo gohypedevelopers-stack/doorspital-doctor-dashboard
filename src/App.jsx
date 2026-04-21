@@ -86,6 +86,59 @@ const ProtectedRoute = ({ children, authToken, onRequireAuth, onOpenLogin }) => 
   return children;
 };
 
+const PharmacyProtectedRoute = ({ children, pharmacySession, onOpenLogin }) => {
+  if (!pharmacySession?.token) {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-6">
+        <div className="w-full max-w-xl rounded-[28px] border border-slate-200 bg-white p-8 text-center shadow-xl">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 8v5l3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900">Pharmacy access is pending</h2>
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            Your pharmacy dashboard becomes available only after admin approval. Please log in with an approved pharmacy account to continue.
+          </p>
+          <button
+            type="button"
+            onClick={() => onOpenLogin?.()}
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-blue-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-800"
+          >
+            Open Pharmacy Login
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (pharmacySession?.pharmacy?.status && pharmacySession.pharmacy.status !== "active") {
+    return (
+      <div className="flex min-h-screen items-center justify-center px-6">
+        <div className="w-full max-w-xl rounded-[28px] border border-slate-200 bg-white p-8 text-center shadow-xl">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 8v5l3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900">
+            {pharmacySession.pharmacy.status === "suspended" ? "Pharmacy account suspended" : "Pharmacy verification pending"}
+          </h2>
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            {pharmacySession.pharmacy.status === "suspended"
+              ? "Your pharmacy dashboard is currently blocked by admin. Please contact support or wait for reactivation."
+              : "Your pharmacy signup has been received. Once admin approves your account, you will be able to access the full pharmacy dashboard."}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return children;
+};
+
 export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -279,6 +332,7 @@ export default function App() {
             onClose={() => setIsPharmacySignupOpen(false)}
             onSuccess={() => {
               setIsPharmacySignupOpen(false);
+              alert("Pharmacy signup submitted successfully. Your account is now pending admin approval.");
               setIsPharmacyLoginOpen(true);
             }}
             onSwitchToLogin={() => {
@@ -368,17 +422,17 @@ export default function App() {
             />
 
             {/* Pharmacy routes */}
-            <Route path="/pharmacy" element={<DashboardOverview />} />
-            <Route path="/pharmacy/inventory" element={<InventoryList />} />
-            <Route path="/pharmacy/orders" element={<NewPrescriptionOrders />} />
-            <Route path="/pharmacy/orders/:orderId" element={<OrderDetails />} />
-            <Route path="/pharmacy/orders/:orderId/invoice" element={<InvoicePage />} />
-            <Route path="/pharmacy/add-medicine" element={<AddNewMedicine />} />
-            <Route path="/pharmacy/edit-medicine/:id" element={<EditMedicine />} />
-            <Route path="/pharmacy/settings" element={<SettingsPage />} />
-            <Route path="/pharmacy/earnings" element={<EarningsOverview />} />
-            <Route path="/pharmacy/store-profile" element={<StoreProfile />} />
-            <Route path="/pharmacy/support" element={<Support />} />
+            <Route path="/pharmacy" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><DashboardOverview /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/inventory" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><InventoryList /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/orders" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><NewPrescriptionOrders /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/orders/:orderId" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><OrderDetails /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/orders/:orderId/invoice" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><InvoicePage /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/add-medicine" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><AddNewMedicine /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/edit-medicine/:id" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><EditMedicine /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/settings" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><SettingsPage /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/earnings" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><EarningsOverview /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/store-profile" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><StoreProfile /></PharmacyProtectedRoute>} />
+            <Route path="/pharmacy/support" element={<PharmacyProtectedRoute pharmacySession={pharmacySession} onOpenLogin={() => setIsPharmacyLoginOpen(true)}><Support /></PharmacyProtectedRoute>} />
           </Routes>
         </div>
       </main>

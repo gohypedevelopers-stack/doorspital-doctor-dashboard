@@ -14,6 +14,7 @@ export default function PharmacyLoginModal({
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [statusNotice, setStatusNotice] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
@@ -22,6 +23,7 @@ export default function PharmacyLoginModal({
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
+    setStatusNotice("");
 
     try {
       const response = await apiRequest("/api/pharmacy/sign-in", {
@@ -37,7 +39,14 @@ export default function PharmacyLoginModal({
         pharmacy: response.pharmacy || null,
       });
     } catch (err) {
-      setError(err.message || "Unable to login right now.");
+      const message = err.message || "Unable to login right now.";
+      if (message.toLowerCase().includes("pending admin approval")) {
+        setStatusNotice(message);
+      } else if (message.toLowerCase().includes("suspended")) {
+        setStatusNotice(message);
+      } else {
+        setError(message);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -123,6 +132,12 @@ export default function PharmacyLoginModal({
               Forgot password?
             </button>
           </div>
+
+          {statusNotice && (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+              {statusNotice}
+            </div>
+          )}
 
           {error && (
             <p className="text-sm text-red-600" role="alert">
