@@ -123,6 +123,8 @@ function DashboardOverview() {
   const navigate = useNavigate();
   const [recentOrders, setRecentOrders] = useState([]);
   const [inventoryItems, setInventoryItems] = useState([]);
+  const [profileNotices, setProfileNotices] = useState({ expiry: null, status: null });
+  const [systemNotifications, setSystemNotifications] = useState([]);
   const [loadingData, setLoadingData] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const sessionToken = getPharmacyToken();
@@ -136,15 +138,19 @@ function DashboardOverview() {
       setLoadingData(true);
       setErrorMessage("");
       try {
-        const [ordersRes, productsRes] = await Promise.all([
+        const [ordersRes, productsRes, profileRes, notificationsRes] = await Promise.all([
           apiRequest("/api/pharmacy/orders", { token: sessionToken }),
           apiRequest("/api/pharmacy/products?limit=100", { token: sessionToken }),
+          apiRequest("/api/pharmacy/profile", { token: sessionToken }),
+          apiRequest("/api/notifications?limit=3", { token: sessionToken }),
         ]);
         if (isCancelled) return;
         // Response is paginated from /api/pharmacy/orders
         const ordersData = ordersRes?.data?.items ?? ordersRes?.data ?? [];
         setRecentOrders(ordersData);
         setInventoryItems(productsRes?.data?.items ?? []);
+        setProfileNotices(profileRes?.notices ?? { expiry: null, status: null });
+        setSystemNotifications(notificationsRes?.data ?? []);
       } catch (error) {
         console.error("Unable to load pharmacy dashboard data:", error);
         if (!isCancelled)
@@ -475,6 +481,50 @@ function DashboardOverview() {
             {statusMessage && (
               <div className="mb-6 rounded-xl bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-800 shadow-sm">
                 {statusMessage}
+              </div>
+            )}
+
+            {(profileNotices.expiry || profileNotices.status || systemNotifications.length > 0) && (
+              <div className="mb-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
+                {profileNotices.status && (
+                  <div className="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
+                      Account Notice
+                    </p>
+                    <p className="mt-2 text-sm font-medium leading-6 text-amber-900">
+                      {profileNotices.status.message}
+                    </p>
+                  </div>
+                )}
+                {profileNotices.expiry && (
+                  <div className="rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
+                      License Reminder
+                    </p>
+                    <p className="mt-2 text-sm font-medium leading-6 text-blue-900">
+                      {profileNotices.expiry.message}
+                    </p>
+                  </div>
+                )}
+                {systemNotifications.length > 0 && (
+                  <div className="rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                      Latest Updates
+                    </p>
+                    <div className="mt-3 space-y-3">
+                      {systemNotifications.map((notification) => (
+                        <div key={notification._id} className="border-b border-slate-100 pb-3 last:border-b-0 last:pb-0">
+                          <p className="text-sm font-semibold text-slate-900">
+                            {notification.title || "Notification"}
+                          </p>
+                          <p className="mt-1 text-xs leading-5 text-slate-500">
+                            {notification.body || "No message body"}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

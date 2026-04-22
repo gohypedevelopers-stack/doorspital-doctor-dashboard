@@ -7,6 +7,12 @@ import { getPharmacyToken } from "../../lib/pharmacySession.js";
 import { useGlobalLoader } from "../../lib/global-loader-context.js";
 import GlobalLoader from "@/GlobalLoader.jsx";
 
+const resolveDocUrl = (document) => {
+  if (!document) return "";
+  if (typeof document === "string") return document;
+  return document.url || document.path || "";
+};
+
 const Field = ({ label, value }) => (
   <div className="flex flex-col gap-1">
     <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">{label}</p>
@@ -48,6 +54,12 @@ export default function StoreProfile() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [notices, setNotices] = useState({ expiry: null, status: null });
+  const [documents, setDocuments] = useState({
+    drugLicenseDocument: null,
+    gstDocument: null,
+    panDocument: null,
+  });
   const token = getPharmacyToken();
   const { showLoader, hideLoader } = useGlobalLoader();
 
@@ -77,6 +89,7 @@ export default function StoreProfile() {
     try {
       const response = await apiRequest("/api/pharmacy/profile", { token });
       setProfile(response?.data ?? null);
+      setNotices(response?.notices ?? { expiry: null, status: null });
       if (response?.data) {
         setForm({
           storeName: response.data.storeName || "",
@@ -114,35 +127,54 @@ export default function StoreProfile() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleDocumentChange = (field) => (event) => {
+    const file = event.target.files?.[0] || null;
+    setDocuments((prev) => ({ ...prev, [field]: file }));
+  };
+
   const handleSave = async () => {
     if (!token) return;
     setSaving(true);
     setError("");
     showLoader();
     try {
+      const payload = new FormData();
+      payload.append("storeName", form.storeName);
+      payload.append("ownerName", form.ownerName);
+      payload.append("phoneNumber", form.phoneNumber);
+      payload.append("whatsappNumber", form.whatsappNumber);
+      payload.append("drugLicenseNumber", form.drugLicenseNumber);
+      payload.append("licenseAuthority", form.licenseAuthority);
+      payload.append("licenseExpiryDate", form.licenseExpiryDate);
+      payload.append("gstNumber", form.gstNumber);
+      payload.append("panNumber", form.panNumber);
+      payload.append("address[line1]", form.line1);
+      payload.append("address[line2]", form.line2);
+      payload.append("address[city]", form.city);
+      payload.append("address[state]", form.state);
+      payload.append("address[pincode]", form.pincode);
+      if (documents.drugLicenseDocument) {
+        payload.append("drugLicenseDocument", documents.drugLicenseDocument);
+      }
+      if (documents.gstDocument) {
+        payload.append("gstDocument", documents.gstDocument);
+      }
+      if (documents.panDocument) {
+        payload.append("panDocument", documents.panDocument);
+      }
+
       await apiRequest("/api/pharmacy/profile", {
         method: "PUT",
         token,
-        body: {
-          storeName: form.storeName,
-          ownerName: form.ownerName,
-          phoneNumber: form.phoneNumber,
-          whatsappNumber: form.whatsappNumber,
-          drugLicenseNumber: form.drugLicenseNumber,
-          licenseAuthority: form.licenseAuthority,
-          licenseExpiryDate: form.licenseExpiryDate,
-          gstNumber: form.gstNumber,
-          panNumber: form.panNumber,
-          address: {
-            line1: form.line1,
-            line2: form.line2,
-            city: form.city,
-            state: form.state,
-            pincode: form.pincode,
-          },
-        },
+        body: payload,
+        isForm: true,
       });
       setEditing(false);
+      setDocuments({
+        drugLicenseDocument: null,
+        gstDocument: null,
+        panDocument: null,
+      });
       await loadProfile();
     } catch (err) {
       console.error("Failed to update profile", err);
@@ -184,6 +216,18 @@ export default function StoreProfile() {
         {error && (
           <div className="rounded-2xl border border-rose-100 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
             {error}
+          </div>
+        )}
+
+        {notices.status && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800">
+            {notices.status.message}
+          </div>
+        )}
+
+        {notices.expiry && (
+          <div className="rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-medium text-blue-800">
+            {notices.expiry.message}
           </div>
         )}
 
@@ -239,6 +283,24 @@ export default function StoreProfile() {
               <EditableField label="Pincode" name="pincode" value={form.pincode} onChange={handleFormChange} />
             </div>
 
+            <div className="grid gap-5 md:grid-cols-3">
+              <div className="flex flex-col gap-1">
+                <label className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">Drug License Document</label>
+                <input type="file" accept=".pdf,image/*" onChange={handleDocumentChange("drugLicenseDocument")} className="h-11 rounded-2xl border border-border bg-muted/60 px-3 pt-2 text-sm text-slate-900" />
+                {documents.drugLicenseDocument && <p className="text-xs text-slate-500">{documents.drugLicenseDocument.name}</p>}
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">GST Document</label>
+                <input type="file" accept=".pdf,image/*" onChange={handleDocumentChange("gstDocument")} className="h-11 rounded-2xl border border-border bg-muted/60 px-3 pt-2 text-sm text-slate-900" />
+                {documents.gstDocument && <p className="text-xs text-slate-500">{documents.gstDocument.name}</p>}
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">PAN Document</label>
+                <input type="file" accept=".pdf,image/*" onChange={handleDocumentChange("panDocument")} className="h-11 rounded-2xl border border-border bg-muted/60 px-3 pt-2 text-sm text-slate-900" />
+                {documents.panDocument && <p className="text-xs text-slate-500">{documents.panDocument.name}</p>}
+              </div>
+            </div>
+
             <div className="flex items-center justify-end pt-2">
               <button
                 type="button"
@@ -265,6 +327,7 @@ export default function StoreProfile() {
               <Field label="WhatsApp" value={profile.whatsappNumber || "Unknown"} />
               <Field label="GST Number" value={profile.gstNumber || "Unknown"} />
               <Field label="PAN Number" value={profile.panNumber || "Unknown"} />
+              <Field label="Current Status" value={profile.status || "Unknown"} />
               <Field
                 label="Store Address"
                 value={[
@@ -275,6 +338,54 @@ export default function StoreProfile() {
                   profile.address?.pincode,
                 ].filter(Boolean).join(", ") || "Unknown"}
               />
+            </div>
+
+            <div className="grid gap-4 rounded-2xl bg-slate-100 p-5 md:grid-cols-3">
+              <div className="flex flex-col gap-2">
+                <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">Drug License Document</p>
+                {resolveDocUrl(profile.verificationDocuments?.drugLicenseDocument) ? (
+                  <a
+                    href={resolveDocUrl(profile.verificationDocuments?.drugLicenseDocument)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm font-semibold text-emerald-600 hover:underline"
+                  >
+                    Open document
+                  </a>
+                ) : (
+                  <p className="text-sm font-semibold text-slate-500">Not uploaded</p>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">GST Document</p>
+                {resolveDocUrl(profile.verificationDocuments?.gstDocument) ? (
+                  <a
+                    href={resolveDocUrl(profile.verificationDocuments?.gstDocument)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm font-semibold text-emerald-600 hover:underline"
+                  >
+                    Open document
+                  </a>
+                ) : (
+                  <p className="text-sm font-semibold text-slate-500">Not uploaded</p>
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-slate-400">PAN Document</p>
+                {resolveDocUrl(profile.verificationDocuments?.panDocument) ? (
+                  <a
+                    href={resolveDocUrl(profile.verificationDocuments?.panDocument)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm font-semibold text-emerald-600 hover:underline"
+                  >
+                    Open document
+                  </a>
+                ) : (
+                  <p className="text-sm font-semibold text-slate-500">Not uploaded</p>
+                )}
+              </div>
             </div>
           </div>
         )}

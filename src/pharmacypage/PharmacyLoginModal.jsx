@@ -126,7 +126,7 @@ export default function PharmacyLoginModal({
             </div>
             <button
               type="button"
-              onClick={onForgotPassword}
+              onClick={() => onForgotPassword?.(email)}
               className="text-blue-600 hover:underline text-xs font-semibold self-start"
             >
               Forgot password?

@@ -55,6 +55,9 @@ export default function PharmacyDeliverySignupModal({
     state: "",
     city: "",
     pincode: "",
+    drugLicenseDocument: null,
+    gstDocument: null,
+    panDocument: null,
   });
 
   const [error, setError] = useState("");
@@ -83,6 +86,11 @@ export default function PharmacyDeliverySignupModal({
 
   const handlePhoneChange = (field) => (value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleFileChange = (field) => (event) => {
+    const file = event.target.files?.[0] || null;
+    setForm((prev) => ({ ...prev, [field]: file }));
   };
 
   const handleStateChange = (event) => {
@@ -114,33 +122,41 @@ export default function PharmacyDeliverySignupModal({
       return;
     }
 
+    if (!form.drugLicenseDocument) {
+      setError("Drug license document is required.");
+      return;
+    }
+
     setIsSubmitting(true);
     setError("");
 
     try {
+      const payload = new FormData();
+      payload.append("ownerName", form.ownerName);
+      payload.append("whatsappNumber", form.whatsappNumber);
+      payload.append("storeName", form.storeName);
+      payload.append("email", form.email);
+      payload.append("phoneNumber", form.phoneNumber);
+      payload.append("password", form.password);
+      payload.append("drugLicenseNumber", form.drugLicenseNumber);
+      payload.append("licenseAuthority", form.licenseAuthority);
+      payload.append("licenseExpiryDate", form.licenseExpiryDate);
+      payload.append("pharmacyType", form.pharmacyType);
+      payload.append("address[line1]", form.addressLine1);
+      payload.append("address[line2]", form.addressLine2);
+      payload.append("address[state]", form.state);
+      payload.append("address[city]", form.city);
+      payload.append("address[pincode]", form.pincode);
+      if (form.gstNumber) payload.append("gstNumber", form.gstNumber);
+      if (form.panNumber) payload.append("panNumber", form.panNumber);
+      payload.append("drugLicenseDocument", form.drugLicenseDocument);
+      if (form.gstDocument) payload.append("gstDocument", form.gstDocument);
+      if (form.panDocument) payload.append("panDocument", form.panDocument);
+
       await apiRequest("/api/pharmacy/delivery/sign-up", {
         method: "POST",
-        body: {
-          ownerName: form.ownerName,
-          whatsappNumber: form.whatsappNumber,
-          storeName: form.storeName,
-          email: form.email,
-          phoneNumber: form.phoneNumber,
-          password: form.password,
-          drugLicenseNumber: form.drugLicenseNumber,
-          licenseAuthority: form.licenseAuthority,
-          licenseExpiryDate: form.licenseExpiryDate,
-          gstNumber: form.gstNumber || undefined,
-          panNumber: form.panNumber || undefined,
-          pharmacyType: form.pharmacyType,
-          address: {
-            line1: form.addressLine1,
-            line2: form.addressLine2,
-            state: form.state,
-            city: form.city,
-            pincode: form.pincode,
-          },
-        },
+        body: payload,
+        isForm: true,
       });
 
       onSuccess?.(form.email);
@@ -163,6 +179,9 @@ export default function PharmacyDeliverySignupModal({
         state: "",
         city: "",
         pincode: "",
+        drugLicenseDocument: null,
+        gstDocument: null,
+        panDocument: null,
       });
     } catch (err) {
       setError(err.message || "Unable to sign up right now.");
@@ -234,6 +253,19 @@ export default function PharmacyDeliverySignupModal({
                     country="in"
                     value={form.phoneNumber}
                     onChange={handlePhoneChange("phoneNumber")}
+                    inputClass={phoneInputClass}
+                    buttonClass={phoneButtonClass}
+                    containerClass="w-full"
+                    enableSearch
+                    specialLabel=""
+                  />
+                </Field>
+
+                <Field label="WhatsApp number">
+                  <PhoneInput
+                    country="in"
+                    value={form.whatsappNumber}
+                    onChange={handlePhoneChange("whatsappNumber")}
                     inputClass={phoneInputClass}
                     buttonClass={phoneButtonClass}
                     containerClass="w-full"
@@ -326,6 +358,56 @@ export default function PharmacyDeliverySignupModal({
                     ))}
                   </select>
                 </Field>
+              </div>
+
+              <div className="space-y-4 rounded-2xl border border-slate-200 bg-slate-50/80 p-4 sm:p-5">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Verification Documents
+                </h3>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <Field label="Drug license document">
+                    <div className="space-y-2">
+                      <input
+                        type="file"
+                        accept=".pdf,image/*"
+                        onChange={handleFileChange("drugLicenseDocument")}
+                        required
+                        className={fieldClass}
+                      />
+                      {form.drugLicenseDocument && (
+                        <p className="text-xs text-slate-500">{form.drugLicenseDocument.name}</p>
+                      )}
+                    </div>
+                  </Field>
+
+                  <Field label="GST document">
+                    <div className="space-y-2">
+                      <input
+                        type="file"
+                        accept=".pdf,image/*"
+                        onChange={handleFileChange("gstDocument")}
+                        className={fieldClass}
+                      />
+                      {form.gstDocument && (
+                        <p className="text-xs text-slate-500">{form.gstDocument.name}</p>
+                      )}
+                    </div>
+                  </Field>
+
+                  <Field label="PAN document">
+                    <div className="space-y-2">
+                      <input
+                        type="file"
+                        accept=".pdf,image/*"
+                        onChange={handleFileChange("panDocument")}
+                        className={fieldClass}
+                      />
+                      {form.panDocument && (
+                        <p className="text-xs text-slate-500">{form.panDocument.name}</p>
+                      )}
+                    </div>
+                  </Field>
+                </div>
               </div>
 
               <div className="grid gap-6 lg:grid-cols-2">

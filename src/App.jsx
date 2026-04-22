@@ -13,6 +13,8 @@ import AuthChoiceModal from "./components/AuthChoiceModal.jsx";
 // Pharmacy modals
 import PharmacyLoginModal from "./pharmacypage/PharmacyLoginModal.jsx";
 import PharmacySignupModal from "./pharmacypage/PharmacySignupModal.jsx";
+import PharmacyForgotPasswordModal from "./pharmacypage/PharmacyForgotPasswordModal.jsx";
+import PharmacyApplicationStatus from "./pharmacypage/PharmacyApplicationStatus.jsx";
 
 import Home from "./pages/Home.jsx";
 import PartnerHome from "./pages/PartnerHome.jsx";
@@ -172,6 +174,8 @@ export default function App() {
   // Pharmacy auth UI state
   const [isPharmacyLoginOpen, setIsPharmacyLoginOpen] = useState(false);
   const [isPharmacySignupOpen, setIsPharmacySignupOpen] = useState(false);
+  const [isPharmacyForgotOpen, setIsPharmacyForgotOpen] = useState(false);
+  const [pharmacyForgotEmail, setPharmacyForgotEmail] = useState("");
 
   useEffect(() => {
     if (!authToken && location.pathname.startsWith("/dashboard")) {
@@ -322,21 +326,35 @@ export default function App() {
               setIsPharmacyLoginOpen(false);
               setIsPharmacySignupOpen(true);
             }}
-            onForgotPassword={() => {
-              navigate("/pharmacy/settings");
+            onForgotPassword={(email) => {
+              setPharmacyForgotEmail(email || "");
+              setIsPharmacyLoginOpen(false);
+              setIsPharmacyForgotOpen(true);
             }}
           />
 
           <PharmacySignupModal
             isOpen={isPharmacySignupOpen}
             onClose={() => setIsPharmacySignupOpen(false)}
-            onSuccess={() => {
+            onSuccess={(submittedEmail) => {
               setIsPharmacySignupOpen(false);
-              alert("Pharmacy signup submitted successfully. Your account is now pending admin approval.");
-              setIsPharmacyLoginOpen(true);
+              navigate(
+                `/pharmacy/application-status?email=${encodeURIComponent(submittedEmail || "")}`
+              );
             }}
             onSwitchToLogin={() => {
               setIsPharmacySignupOpen(false);
+              setIsPharmacyLoginOpen(true);
+            }}
+          />
+
+          <PharmacyForgotPasswordModal
+            isOpen={isPharmacyForgotOpen}
+            onClose={() => setIsPharmacyForgotOpen(false)}
+            defaultEmail={pharmacyForgotEmail}
+            onSuccess={(email) => {
+              setPharmacyForgotEmail(email || "");
+              setIsPharmacyForgotOpen(false);
               setIsPharmacyLoginOpen(true);
             }}
           />
@@ -365,6 +383,7 @@ export default function App() {
                 />
               }
             />
+            <Route path="/pharmacy/application-status" element={<PharmacyApplicationStatus />} />
             <Route path="/benefits" element={<Benefits />} />
             
             {/* Footer static pages */}
