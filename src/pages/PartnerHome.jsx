@@ -42,7 +42,7 @@ const heroTextItem = {
 };
 
 const APK_DOWNLOAD_URL =
-  "https://drive.google.com/uc?export=download&id=11nrlj_tbMkdSTks-AaRyLnXOCC_ORZAX";
+  "https://drive.google.com/uc?export=download&id=1ebrKLOt4hsy23W1XPWfV23zSGVxzNnYm";
 
 export default function PartnerHome({ onDoctorJoinClick, onPharmacyJoinClick }) {
   const handleDoctorJoin = onDoctorJoinClick ?? (() => {});
