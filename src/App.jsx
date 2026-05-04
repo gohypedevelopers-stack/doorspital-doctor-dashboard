@@ -39,6 +39,7 @@ import Testimonials from "./pages/Testimonials.jsx";
 import DeleteAccount from "./pages/DeleteAccount.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import FloatingWhatsApp from "./components/FloatingWhatsApp.jsx";
+import FloatingCall from "./components/FloatingCall.jsx";
 import DashboardLayout from "./pages/DashboardLayout.jsx";
 import {
   DashboardOnboarding,
@@ -267,6 +268,7 @@ export default function App() {
     <div className="flex min-h-screen flex-col bg-background w-full">
       <ScrollToTop />
       <FloatingWhatsApp />
+      <FloatingCall />
       {!isRegisterFlow && (
         <>
           <div className="w-full">

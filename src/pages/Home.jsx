@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -16,10 +16,18 @@ import {
   Smartphone,
   Stethoscope,
 } from "lucide-react";
+import { apiRequest } from "../lib/api.js";
 
 const APK_DOWNLOAD_URL =
   "https://drive.google.com/uc?export=download&id=1ebrKLOt4hsy23W1XPWfV23zSGVxzNnYm";
 const SUPPORT_TEL = "tel:+919837715111";
+const SUPPORT_WHATSAPP = "919837715111";
+
+const leadServiceOptions = [
+  { value: "elder-care", serviceType: "nurse", label: "Elder Care" },
+  { value: "physiotherapy", serviceType: "physiotherapy", label: "Physiotherapy" },
+  { value: "nurse", serviceType: "nurse", label: "Nurse" },
+];
 
 const services = [
   {
@@ -74,32 +82,224 @@ const journeySteps = [
 ];
 
 export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
+  const [leadForm, setLeadForm] = useState({
+    serviceKey: "elder-care",
+    name: "",
+    mobileNumber: "",
+  });
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
+  const [leadError, setLeadError] = useState("");
+  const [leadResult, setLeadResult] = useState(null);
+
+  const selectedLeadService =
+    leadServiceOptions.find((item) => item.value === leadForm.serviceKey) ??
+    leadServiceOptions[0];
+
+  const handleLeadFieldChange = (field) => (event) => {
+    const { value } = event.target;
+    setLeadForm((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const openLeadWhatsApp = (result) => {
+    if (!result) return;
+    const lines = [
+      "New website booking lead",
+      `Service: ${result.serviceTitle}`,
+      `Name: ${result.name}`,
+      `Mobile: ${result.mobileNumber}`,
+      `OTP: ${result.requestOtp || "-"}`,
+    ];
+    const url = `https://wa.me/${SUPPORT_WHATSAPP}?text=${encodeURIComponent(
+      lines.join("\n")
+    )}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleLeadSubmit = async (event) => {
+    event.preventDefault();
+    const patientName = leadForm.name.trim();
+    const patientMobile = leadForm.mobileNumber.trim();
+
+    if (!patientName || !patientMobile) {
+      setLeadError("Please fill name and mobile number.");
+      return;
+    }
+
+    try {
+      setIsSubmittingLead(true);
+      setLeadError("");
+      setLeadResult(null);
+
+      const payload = await apiRequest("/api/service-requests", {
+        method: "POST",
+        body: {
+          name: patientName,
+          mobileNumber: patientMobile,
+          requestFor: "self",
+          leadSource: "website",
+          serviceType: selectedLeadService.serviceType,
+          serviceKey: selectedLeadService.value,
+          serviceTitle: selectedLeadService.label,
+          providerKind: "general",
+          providerName: "Doorspitals Website Lead",
+          providerPhone: "+919837715111",
+        },
+      });
+
+      setLeadResult(payload?.data ?? null);
+      setLeadForm({
+        serviceKey: leadForm.serviceKey,
+        name: "",
+        mobileNumber: "",
+      });
+
+      if (payload?.data) {
+        openLeadWhatsApp(payload.data);
+      }
+    } catch (error) {
+      setLeadError(error?.message || "Unable to submit your request right now.");
+    } finally {
+      setIsSubmittingLead(false);
+    }
+  };
+
   return (
     <div className="overflow-hidden bg-[linear-gradient(180deg,#eef6ff_0%,#ffffff_22%,#f1f7ff_100%)] text-slate-900 dark:bg-[linear-gradient(180deg,#020617_0%,#07111d_25%,#08121b_100%)] dark:text-slate-100">
       <section className="relative isolate">
         <div className="absolute left-[-8rem] top-[-5rem] h-72 w-72 rounded-full bg-blue-200/45 blur-3xl dark:bg-blue-500/20" />
         <div className="absolute right-[-6rem] top-28 h-80 w-80 rounded-full bg-sky-200/50 blur-3xl dark:bg-sky-500/20" />
-        <div className="mx-auto grid w-full max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
+        <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 pb-12 pt-6 sm:gap-12 sm:px-6 sm:py-16 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="relative z-10"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-4 py-2 text-sm font-semibold text-blue-800 shadow-sm backdrop-blur dark:border-blue-900 dark:bg-slate-900/75 dark:text-blue-200">
-              <HeartPulse className="h-4 w-4" />
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-white/80 px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm font-semibold text-blue-800 shadow-sm backdrop-blur dark:border-blue-900 dark:bg-slate-900/75 dark:text-blue-200">
+              <HeartPulse className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Doorspitals healthcare app
             </div>
-            <h1 className="mt-6 max-w-2xl text-[3.6rem] font-semibold leading-[1.02] tracking-[-0.045em] text-slate-950 dark:text-slate-100 sm:text-[4.3rem]">
+            <h1 className="mt-4 sm:mt-6 max-w-2xl text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.045em] text-slate-950 dark:text-slate-100 sm:text-[3.6rem] sm:leading-[1.02] lg:text-[4.3rem]">
               Elder care and doorstep healthcare families can trust.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="mt-3 sm:mt-6 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg sm:leading-8">
               Doorspitals is built to make elderly care easier with doctor visits,
               home healthcare, pharmacy ordering, clinic discovery, and patient support
               in one mobile-first experience.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div
+              id="lead-form"
+              className="mt-6 sm:mt-8 max-w-2xl rounded-[24px] border border-blue-100 bg-white/92 p-5 shadow-[0_28px_60px_-32px_rgba(37,99,235,0.35)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/95 sm:rounded-[30px] sm:p-6"
+            >
+              <div className="flex flex-col gap-1.5 sm:gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-blue-700 dark:text-blue-300">
+                    Quick Booking
+                  </p>
+                  <h2 className="mt-1 sm:mt-2 text-xl sm:text-2xl font-semibold text-slate-950 dark:text-white">
+                    Book elder care from homepage
+                  </h2>
+                  <p className="mt-1 sm:mt-2 text-sm leading-5 sm:leading-6 text-slate-600 dark:text-slate-300">
+                    First choose the service, then fill only name and mobile number.
+                  </p>
+                </div>
+                {leadResult ? (
+                  <div className="rounded-2xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-200">
+                    OTP: {leadResult.requestOtp}
+                  </div>
+                ) : null}
+              </div>
+
+              <form onSubmit={handleLeadSubmit} className="mt-5 sm:mt-6 space-y-4 sm:space-y-5">
+                <div>
+                  <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
+                    Select Service
+                  </p>
+                  <div className="mt-2.5 sm:mt-3 grid gap-2 sm:gap-3 grid-cols-3">
+                    {leadServiceOptions.map((option) => (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => {
+                          setLeadError("");
+                          setLeadResult(null);
+                          setLeadForm((prev) => ({
+                            ...prev,
+                            serviceKey: option.value,
+                          }));
+                        }}
+                        className={`flex items-center justify-center rounded-xl sm:rounded-2xl border px-1 py-2.5 sm:px-4 sm:py-4 text-center transition ${
+                          leadForm.serviceKey === option.value
+                            ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950"
+                            : "border-slate-200 bg-slate-50 text-slate-900 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:text-white"
+                        }`}
+                      >
+                        <p className="text-[11px] sm:text-base font-semibold leading-tight sm:leading-normal">{option.label}</p>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
+                  <label className="grid gap-1.5 sm:gap-2">
+                    <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200">Name</span>
+                    <input
+                      value={leadForm.name}
+                      onChange={handleLeadFieldChange("name")}
+                      className="rounded-xl sm:rounded-2xl border border-slate-200 px-3 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base outline-none transition focus:border-blue-500 dark:border-slate-800 dark:bg-slate-950"
+                      placeholder="Enter your name"
+                    />
+                  </label>
+                  <label className="grid gap-1.5 sm:gap-2">
+                    <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200">Mobile Number</span>
+                    <input
+                      value={leadForm.mobileNumber}
+                      onChange={handleLeadFieldChange("mobileNumber")}
+                      className="rounded-xl sm:rounded-2xl border border-slate-200 px-3 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base outline-none transition focus:border-blue-500 dark:border-slate-800 dark:bg-slate-950"
+                      placeholder="Enter mobile number"
+                    />
+                  </label>
+                </div>
+
+                {leadError ? (
+                  <div className="rounded-xl sm:rounded-2xl border border-red-200 bg-red-50 px-3 py-2.5 sm:px-4 sm:py-3 text-sm text-red-700 dark:border-red-900/60 dark:bg-red-950/30 dark:text-red-200">
+                    {leadError}
+                  </div>
+                ) : null}
+
+                {leadResult ? (
+                  <div className="rounded-xl sm:rounded-2xl border border-blue-200 bg-blue-50 px-3 py-2.5 sm:px-4 sm:py-3 text-sm text-blue-800 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-200">
+                    Lead submitted successfully for {leadResult.serviceTitle}. It has been saved in admin and shared to WhatsApp.
+                  </div>
+                ) : null}
+
+                <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3">
+                  <button
+                    type="submit"
+                    disabled={isSubmittingLead}
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+                  >
+                    {isSubmittingLead ? "Submitting..." : "Submit Request"}
+                  </button>
+                  {leadResult ? (
+                    <button
+                      type="button"
+                      onClick={() => openLeadWhatsApp(leadResult)}
+                      className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-emerald-500 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-emerald-600"
+                    >
+                      <MessageCircleMore className="h-4 w-4" />
+                      Open WhatsApp
+                    </button>
+                  ) : null}
+                </div>
+              </form>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-4">
               <a
                 href={APK_DOWNLOAD_URL}
                 target="_blank"
@@ -110,10 +310,10 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                 Download APK
               </a>
               <a
-                href="#services"
+                href="#lead-form"
                 className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
               >
-                Explore services
+                Book care request
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
@@ -136,6 +336,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                 </div>
               ))}
             </div>
+
           </motion.div>
 
           <motion.div
