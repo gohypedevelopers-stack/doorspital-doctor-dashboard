@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Smartphone,
   Stethoscope,
+  Share2,
 } from "lucide-react";
 import { apiRequest } from "../lib/api.js";
 
@@ -113,6 +114,22 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
       `OTP: ${result.requestOtp || "-"}`,
     ];
     const url = `https://wa.me/${SUPPORT_WHATSAPP}?text=${encodeURIComponent(
+      lines.join("\n")
+    )}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const shareOtpToPatient = (result) => {
+    if (!result) return;
+    const phone = result.mobileNumber.replace(/\D/g, "");
+    const waPhone = phone.length === 10 ? `91${phone}` : phone;
+    const lines = [
+      `Hello ${result.name},`,
+      `Your booking for ${result.serviceTitle} is confirmed.`,
+      `*Your OTP is: ${result.requestOtp || "-"}*`,
+      `Please keep this OTP ready for the provider.`
+    ];
+    const url = `https://wa.me/${waPhone}?text=${encodeURIComponent(
       lines.join("\n")
     )}`;
     window.open(url, "_blank", "noopener,noreferrer");
@@ -286,14 +303,24 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                     {isSubmittingLead ? "Submitting..." : "Submit Request"}
                   </button>
                   {leadResult ? (
-                    <button
-                      type="button"
-                      onClick={() => openLeadWhatsApp(leadResult)}
-                      className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-emerald-500 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-emerald-600"
-                    >
-                      <MessageCircleMore className="h-4 w-4" />
-                      Open WhatsApp
-                    </button>
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => openLeadWhatsApp(leadResult)}
+                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-emerald-500 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-emerald-600"
+                      >
+                        <MessageCircleMore className="h-4 w-4" />
+                        Share in WhatsApp
+                      </button>
+                      {/* <button
+                        type="button"
+                        onClick={() => shareOtpToPatient(leadResult)}
+                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                      >
+                        <Share2 className="h-4 w-4" />
+                        Share OTP to Patient
+                      </button> */}
+                    </>
                   ) : null}
                 </div>
               </form>
