@@ -19,7 +19,7 @@ import {
 
 const APK_DOWNLOAD_URL =
   "https://drive.google.com/uc?export=download&id=1ebrKLOt4hsy23W1XPWfV23zSGVxzNnYm";
-const SUPPORT_TEL = "tel:+917500958439";
+const SUPPORT_TEL = "tel:+919837715111";
 
 const services = [
   {

@@ -6,7 +6,7 @@ import { PhoneCall } from "lucide-react";
 import icon from "../assets/icon.png";
 import { ModeToggle } from "@/components/mode-toggle";
 
-const SUPPORT_TEL = "tel:+917500958439";
+const SUPPORT_TEL = "tel:+919837715111";
 
 export default function Navbar({
   onLoginClick,
