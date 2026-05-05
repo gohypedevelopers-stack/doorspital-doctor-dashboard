@@ -199,9 +199,17 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               <HeartPulse className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Doorspitals healthcare app
             </div>
-            <p className="mt-4 max-w-2xl text-sm font-semibold uppercase tracking-[0.18em] text-orange-600 dark:text-orange-300 sm:text-base">
-              India&apos;s First Specialized Elder Care Platform - Bringing Compassionate Healthcare to your doorstep
-            </p>
+            <div className="mt-5 max-w-2xl">
+              <div className="inline-flex items-center rounded-full border border-cyan-200 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(224,242,254,0.95),rgba(219,234,254,0.88))] px-4 py-2 shadow-[0_18px_40px_-22px_rgba(8,145,178,0.5)] ring-1 ring-cyan-100 backdrop-blur dark:border-cyan-900/70 dark:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(12,74,110,0.24),rgba(30,41,59,0.88))] dark:ring-cyan-900/40">
+                <span className="mr-3 h-2.5 w-2.5 rounded-full bg-cyan-500 shadow-[0_0_0_6px_rgba(34,211,238,0.14)] dark:bg-cyan-300 dark:shadow-[0_0_0_6px_rgba(103,232,249,0.10)]" />
+                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-800 dark:text-cyan-100 sm:text-sm">
+                  India&apos;s first specialized elder care platform
+                </span>
+              </div>
+              <p className="mt-3 max-w-2xl border-l-4 border-cyan-400 pl-4 text-sm font-medium leading-6 text-slate-700 dark:border-cyan-300 dark:text-slate-200 sm:text-base">
+                Bringing compassionate healthcare to your doorstep.
+              </p>
+            </div>
             <h1 className="mt-4 sm:mt-6 max-w-2xl text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.045em] text-slate-950 dark:text-slate-100 sm:text-[3.6rem] sm:leading-[1.02] lg:text-[4.3rem]">
               Elder care and doorstep healthcare families can trust.
             </h1>
@@ -211,13 +219,39 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               in one mobile-first experience.
             </p>
 
-            <div
+            <motion.div
               id="lead-form"
-              className="mt-6 sm:mt-8 max-w-2xl rounded-[24px] border border-blue-100 bg-white/92 p-5 shadow-[0_28px_60px_-32px_rgba(37,99,235,0.35)] backdrop-blur dark:border-slate-800 dark:bg-slate-900/95 sm:rounded-[30px] sm:p-6"
+              initial={{ opacity: 0, y: 26, scale: 0.96 }}
+              animate={{
+                opacity: 1,
+                y: [0, -10, 0],
+                scale: 1,
+                boxShadow: [
+                  "0 30px 64px -30px rgba(37,99,235,0.34)",
+                  "0 42px 92px -26px rgba(37,99,235,0.56)",
+                  "0 30px 64px -30px rgba(37,99,235,0.34)",
+                ],
+              }}
+              transition={{
+                opacity: { duration: 0.55, ease: "easeOut" },
+                scale: { duration: 0.55, ease: "easeOut" },
+                y: { duration: 3.6, repeat: Infinity, ease: "easeInOut" },
+                boxShadow: { duration: 3.6, repeat: Infinity, ease: "easeInOut" },
+              }}
+              className="relative mt-6 sm:mt-8 max-w-2xl overflow-hidden rounded-[24px] border border-blue-100 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(239,246,255,0.96),rgba(219,234,254,0.88))] p-5 ring-1 ring-blue-100 backdrop-blur dark:border-slate-800 dark:bg-slate-900/95 dark:ring-slate-700/70 sm:rounded-[30px] sm:p-6"
             >
+              <div className="pointer-events-none absolute inset-x-10 top-0 h-24 rounded-full bg-blue-300/25 blur-3xl dark:bg-blue-500/10" />
+              <div className="pointer-events-none absolute -right-10 bottom-0 h-28 w-28 rounded-full bg-sky-300/30 blur-3xl dark:bg-sky-500/10" />
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(180deg,#2563eb,#06b6d4)]" />
+              <motion.div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-y-6 -left-1/3 w-1/2 rotate-12 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.65),transparent)] blur-xl"
+                animate={{ x: ["0%", "230%"] }}
+                transition={{ duration: 3.8, repeat: Infinity, ease: "linear", repeatDelay: 1.2 }}
+              />
               <div className="flex flex-col gap-1.5 sm:gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-blue-700 dark:text-blue-300">
+                  <p className="inline-flex rounded-full bg-blue-600/10 px-3 py-1 text-xs sm:text-sm font-semibold uppercase tracking-[0.24em] text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
                     Quick Booking
                   </p>
                   <h2 className="mt-1 sm:mt-2 text-xl sm:text-2xl font-semibold text-slate-950 dark:text-white">
@@ -234,7 +268,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                 ) : null}
               </div>
 
-              <form onSubmit={handleLeadSubmit} className="mt-5 sm:mt-6 space-y-4 sm:space-y-5">
+              <form onSubmit={handleLeadSubmit} className="relative mt-5 sm:mt-6 space-y-4 sm:space-y-5">
                 <div>
                   <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
                     Select Service
@@ -327,7 +361,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                   ) : null}
                 </div>
               </form>
-            </div>
+            </motion.div>
 
             <div className="mt-10 flex flex-wrap gap-4">
               <a
