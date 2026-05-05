@@ -4,7 +4,6 @@ import {
   ArrowRight,
   Download,
   HeartHandshake,
-  HeartPulse,
   HousePlus,
   MapPin,
   MessageCircleMore,
@@ -195,25 +194,23 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="relative z-10"
           >
-            <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-blue-200 bg-white/80 px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm font-semibold text-blue-800 shadow-sm backdrop-blur dark:border-blue-900 dark:bg-slate-900/75 dark:text-blue-200">
-              <HeartPulse className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-              Doorspitals healthcare app
-            </div>
             <div className="mt-5 max-w-2xl">
-              <div className="inline-flex items-center rounded-full border border-cyan-200 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(224,242,254,0.95),rgba(219,234,254,0.88))] px-4 py-2 shadow-[0_18px_40px_-22px_rgba(8,145,178,0.5)] ring-1 ring-cyan-100 backdrop-blur dark:border-cyan-900/70 dark:bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(12,74,110,0.24),rgba(30,41,59,0.88))] dark:ring-cyan-900/40">
-                <span className="mr-3 h-2.5 w-2.5 rounded-full bg-cyan-500 shadow-[0_0_0_6px_rgba(34,211,238,0.14)] dark:bg-cyan-300 dark:shadow-[0_0_0_6px_rgba(103,232,249,0.10)]" />
-                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-800 dark:text-cyan-100 sm:text-sm">
-                  India&apos;s first specialized elder care platform
-                </span>
+              <div className="inline-flex max-w-full flex-col gap-3 rounded-[22px] border border-[#ed1f24]/15 bg-white/95 px-4 py-4 shadow-[0_18px_40px_-28px_rgba(237,31,36,0.28)] backdrop-blur sm:max-w-2xl sm:px-5 dark:border-[#ed1f24]/25 dark:bg-slate-900/92">
+                <div className="inline-flex items-center gap-3">
+                  <span className="h-3 w-3 rounded-full bg-[#ed1f24] shadow-[0_0_0_6px_rgba(237,31,36,0.12)]" />
+                  <span className="text-[0.78rem] font-extrabold uppercase leading-5 tracking-[0.14em] text-[#ed1f24] sm:text-[0.95rem] sm:leading-6 sm:tracking-[0.18em] lg:text-[1.05rem]">
+                    India&apos;s First Specialized Elder Care Platform
+                  </span>
+                </div>
+                <p className="max-w-xl border-l-4 border-[#ed1f24] pl-3 text-[1.05rem] font-semibold leading-7 text-slate-800 dark:text-slate-100 sm:text-[1.08rem]">
+                  Bringing compassionate healthcare to your doorstep.
+                </p>
               </div>
-              <p className="mt-3 max-w-2xl border-l-4 border-cyan-400 pl-4 text-sm font-medium leading-6 text-slate-700 dark:border-cyan-300 dark:text-slate-200 sm:text-base">
-                Bringing compassionate healthcare to your doorstep.
-              </p>
             </div>
-            <h1 className="mt-4 sm:mt-6 max-w-2xl text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.045em] text-slate-950 dark:text-slate-100 sm:text-[3.6rem] sm:leading-[1.02] lg:text-[4.3rem]">
+            <h1 className="mt-5 max-w-2xl text-[2.1rem] font-semibold leading-[1.02] tracking-[-0.05em] text-slate-950 dark:text-slate-100 sm:mt-6 sm:text-[3.3rem] sm:leading-[1.03] lg:text-[3.95rem]">
               Elder care and doorstep healthcare families can trust.
             </h1>
-            <p className="mt-3 sm:mt-6 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg sm:leading-8">
+            <p className="mt-4 max-w-2xl text-[15px] leading-7 text-slate-600 dark:text-slate-300 sm:mt-6 sm:text-[1.02rem] sm:leading-8">
               Doorspitals is built to make elderly care easier with doctor visits,
               home healthcare, pharmacy ordering, clinic discovery, and patient support
               in one mobile-first experience.
@@ -221,43 +218,32 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
 
             <motion.div
               id="lead-form"
-              initial={{ opacity: 0, y: 26, scale: 0.96 }}
-              animate={{
+              initial={{ opacity: 0, y: 28, scale: 0.96 }}
+              whileInView={{
                 opacity: 1,
-                y: [0, -10, 0],
-                scale: 1,
+                y: [18, -4, 0],
+                scale: [0.96, 1.01, 1],
                 boxShadow: [
-                  "0 30px 64px -30px rgba(37,99,235,0.34)",
-                  "0 42px 92px -26px rgba(37,99,235,0.56)",
-                  "0 30px 64px -30px rgba(37,99,235,0.34)",
+                  "0 20px 44px -28px rgba(37,99,235,0.16)",
+                  "0 32px 72px -28px rgba(37,99,235,0.32)",
+                  "0 26px 58px -30px rgba(37,99,235,0.24)",
                 ],
               }}
-              transition={{
-                opacity: { duration: 0.55, ease: "easeOut" },
-                scale: { duration: 0.55, ease: "easeOut" },
-                y: { duration: 3.6, repeat: Infinity, ease: "easeInOut" },
-                boxShadow: { duration: 3.6, repeat: Infinity, ease: "easeInOut" },
-              }}
-              className="relative mt-6 sm:mt-8 max-w-2xl overflow-hidden rounded-[24px] border border-blue-100 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(239,246,255,0.96),rgba(219,234,254,0.88))] p-5 ring-1 ring-blue-100 backdrop-blur dark:border-slate-800 dark:bg-slate-900/95 dark:ring-slate-700/70 sm:rounded-[30px] sm:p-6"
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
+              className="relative mt-6 scroll-mt-24 sm:mt-8 sm:scroll-mt-28 max-w-2xl overflow-hidden rounded-[24px] border border-blue-100 bg-[linear-gradient(180deg,rgba(255,255,255,1),rgba(239,246,255,0.96),rgba(219,234,254,0.88))] p-5 ring-1 ring-blue-100 backdrop-blur dark:border-slate-800 dark:bg-slate-900/95 dark:ring-slate-700/70 sm:rounded-[30px] sm:p-6 lg:p-5"
             >
               <div className="pointer-events-none absolute inset-x-10 top-0 h-24 rounded-full bg-blue-300/25 blur-3xl dark:bg-blue-500/10" />
               <div className="pointer-events-none absolute -right-10 bottom-0 h-28 w-28 rounded-full bg-sky-300/30 blur-3xl dark:bg-sky-500/10" />
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(180deg,#2563eb,#06b6d4)]" />
-              <motion.div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-y-6 -left-1/3 w-1/2 rotate-12 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.65),transparent)] blur-xl"
-                animate={{ x: ["0%", "230%"] }}
-                transition={{ duration: 3.8, repeat: Infinity, ease: "linear", repeatDelay: 1.2 }}
-              />
               <div className="flex flex-col gap-1.5 sm:gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="inline-flex rounded-full bg-blue-600/10 px-3 py-1 text-xs sm:text-sm font-semibold uppercase tracking-[0.24em] text-blue-700 dark:bg-blue-400/10 dark:text-blue-300">
+                  <p className="inline-flex rounded-full bg-blue-600/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.22em] text-blue-700 dark:bg-blue-400/10 dark:text-blue-300 sm:text-sm lg:text-xs">
                     Quick Booking
                   </p>
-                  <h2 className="mt-1 sm:mt-2 text-xl sm:text-2xl font-semibold text-slate-950 dark:text-white">
+                  <h2 className="mt-1 sm:mt-2 text-xl font-semibold text-slate-950 dark:text-white sm:text-2xl lg:text-[2rem]">
                     Book elder care from homepage
                   </h2>
-                  <p className="mt-1 sm:mt-2 text-sm leading-5 sm:leading-6 text-slate-600 dark:text-slate-300">
+                  <p className="mt-1 sm:mt-2 text-sm leading-5 text-slate-600 dark:text-slate-300 sm:leading-6 lg:text-[15px]">
                     First choose the service, then fill only name and mobile number.
                   </p>
                 </div>
@@ -270,10 +256,10 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
 
               <form onSubmit={handleLeadSubmit} className="relative mt-5 sm:mt-6 space-y-4 sm:space-y-5">
                 <div>
-                  <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-300 sm:text-sm lg:text-xs">
                     Select Service
                   </p>
-                  <div className="mt-2.5 sm:mt-3 grid gap-2 sm:gap-3 grid-cols-3">
+                  <div className="mt-2.5 sm:mt-3 grid grid-cols-3 gap-2 sm:gap-3">
                     {leadServiceOptions.map((option) => (
                       <button
                         key={option.value}
@@ -286,13 +272,13 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                             serviceKey: option.value,
                           }));
                         }}
-                        className={`flex items-center justify-center rounded-xl sm:rounded-2xl border px-1 py-2.5 sm:px-4 sm:py-4 text-center shadow-sm transition ${
+                        className={`flex items-center justify-center rounded-xl sm:rounded-2xl border px-1 py-2.5 sm:px-4 sm:py-4 lg:py-3 text-center shadow-sm transition ${
                           leadForm.serviceKey === option.value
                             ? "border-transparent bg-[linear-gradient(135deg,#2563eb,#7c3aed)] text-white shadow-[0_14px_30px_-18px_rgba(124,58,237,0.9)] dark:border-white dark:bg-white dark:text-slate-950"
                             : "border-sky-100 bg-white text-slate-900 hover:border-sky-300 hover:bg-sky-50 dark:border-slate-800 dark:bg-slate-950 dark:text-white"
                         }`}
                       >
-                        <p className="text-[11px] sm:text-base font-semibold leading-tight sm:leading-normal">{option.label}</p>
+                        <p className="text-[11px] font-semibold leading-tight sm:text-base sm:leading-normal lg:text-[0.95rem]">{option.label}</p>
                       </button>
                     ))}
                   </div>
@@ -300,20 +286,20 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
 
                 <div className="grid gap-3 sm:gap-4 sm:grid-cols-2">
                   <label className="grid gap-1.5 sm:gap-2">
-                    <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200">Name</span>
+                    <span className="text-xs font-medium text-slate-700 dark:text-slate-200 sm:text-sm lg:text-[15px]">Name</span>
                     <input
                       value={leadForm.name}
                       onChange={handleLeadFieldChange("name")}
-                      className="rounded-xl sm:rounded-2xl border border-slate-200 px-3 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base outline-none transition focus:border-blue-500 dark:border-slate-800 dark:bg-slate-950"
+                      className="rounded-xl sm:rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-blue-500 dark:border-slate-800 dark:bg-slate-950 sm:px-4 sm:py-3 sm:text-base lg:py-2.5 lg:text-[15px]"
                       placeholder="Enter your name"
                     />
                   </label>
                   <label className="grid gap-1.5 sm:gap-2">
-                    <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200">Mobile Number</span>
+                    <span className="text-xs font-medium text-slate-700 dark:text-slate-200 sm:text-sm lg:text-[15px]">Mobile Number</span>
                     <input
                       value={leadForm.mobileNumber}
                       onChange={handleLeadFieldChange("mobileNumber")}
-                      className="rounded-xl sm:rounded-2xl border border-slate-200 px-3 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base outline-none transition focus:border-blue-500 dark:border-slate-800 dark:bg-slate-950"
+                      className="rounded-xl sm:rounded-2xl border border-slate-200 px-3 py-2.5 text-sm outline-none transition focus:border-blue-500 dark:border-slate-800 dark:bg-slate-950 sm:px-4 sm:py-3 sm:text-base lg:py-2.5 lg:text-[15px]"
                       placeholder="Enter mobile number"
                     />
                   </label>
@@ -331,33 +317,23 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                   </div>
                 ) : null}
 
-                <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3">
+                <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-3">
                   <button
                     type="submit"
                     disabled={isSubmittingLead}
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white shadow-[0_16px_34px_-20px_rgba(37,99,235,0.85)] transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_34px_-20px_rgba(37,99,235,0.85)] transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200 sm:px-6 sm:py-3 lg:px-5 lg:py-2.5"
                   >
                     {isSubmittingLead ? "Booking..." : "Book Care Now"}
                   </button>
                   {leadResult ? (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => openLeadWhatsApp(leadResult)}
-                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-emerald-500 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-emerald-600"
-                      >
-                        <MessageCircleMore className="h-4 w-4" />
-                        Share in WhatsApp
-                      </button>
-                      {/* <button
-                        type="button"
-                        onClick={() => shareOtpToPatient(leadResult)}
-                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
-                      >
-                        <Share2 className="h-4 w-4" />
-                        Share OTP to Patient
-                      </button> */}
-                    </>
+                    <button
+                      type="button"
+                      onClick={() => openLeadWhatsApp(leadResult)}
+                      className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-emerald-500 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-emerald-600"
+                    >
+                      <MessageCircleMore className="h-4 w-4" />
+                      Share in WhatsApp
+                    </button>
                   ) : null}
                 </div>
               </form>
