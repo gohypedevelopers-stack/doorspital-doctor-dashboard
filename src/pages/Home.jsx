@@ -199,6 +199,9 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
               <HeartPulse className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Doorspitals healthcare app
             </div>
+            <p className="mt-4 max-w-2xl text-sm font-semibold uppercase tracking-[0.18em] text-orange-600 dark:text-orange-300 sm:text-base">
+              India&apos;s First Specialized Elder Care Platform - Bringing Compassionate Healthcare to your doorstep
+            </p>
             <h1 className="mt-4 sm:mt-6 max-w-2xl text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.045em] text-slate-950 dark:text-slate-100 sm:text-[3.6rem] sm:leading-[1.02] lg:text-[4.3rem]">
               Elder care and doorstep healthcare families can trust.
             </h1>
@@ -249,10 +252,10 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                             serviceKey: option.value,
                           }));
                         }}
-                        className={`flex items-center justify-center rounded-xl sm:rounded-2xl border px-1 py-2.5 sm:px-4 sm:py-4 text-center transition ${
+                        className={`flex items-center justify-center rounded-xl sm:rounded-2xl border px-1 py-2.5 sm:px-4 sm:py-4 text-center shadow-sm transition ${
                           leadForm.serviceKey === option.value
-                            ? "border-slate-950 bg-slate-950 text-white dark:border-white dark:bg-white dark:text-slate-950"
-                            : "border-slate-200 bg-slate-50 text-slate-900 hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:text-white"
+                            ? "border-transparent bg-[linear-gradient(135deg,#2563eb,#7c3aed)] text-white shadow-[0_14px_30px_-18px_rgba(124,58,237,0.9)] dark:border-white dark:bg-white dark:text-slate-950"
+                            : "border-sky-100 bg-white text-slate-900 hover:border-sky-300 hover:bg-sky-50 dark:border-slate-800 dark:bg-slate-950 dark:text-white"
                         }`}
                       >
                         <p className="text-[11px] sm:text-base font-semibold leading-tight sm:leading-normal">{option.label}</p>
@@ -298,9 +301,9 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                   <button
                     type="submit"
                     disabled={isSubmittingLead}
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#ea580c,#ec4899)] px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white shadow-[0_16px_34px_-20px_rgba(236,72,153,0.95)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
                   >
-                    {isSubmittingLead ? "Submitting..." : "Submit Request"}
+                    {isSubmittingLead ? "Submitting..." : "Book Care Now"}
                   </button>
                   {leadResult ? (
                     <>

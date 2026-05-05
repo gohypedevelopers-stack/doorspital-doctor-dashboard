@@ -7,13 +7,13 @@ import { ThemeProviderContext } from "@/lib/theme-context";
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "light",
   storageKey = "vite-ui-theme",
   ...props
 }) {
   const [theme, setThemeState] = useState(() => {
     const stored = localStorage.getItem(storageKey);
-    return stored || defaultTheme;
+    return stored === "light" ? "light" : defaultTheme;
   });
 
   const location = useLocation();
@@ -39,11 +39,12 @@ export function ThemeProvider({
     () => ({
       theme,
       setTheme: (nextTheme) => {
-        localStorage.setItem(storageKey, nextTheme);
-        setThemeState(nextTheme);
+        const resolvedTheme = nextTheme === "light" ? "light" : defaultTheme;
+        localStorage.setItem(storageKey, resolvedTheme);
+        setThemeState(resolvedTheme);
       },
     }),
-    [theme, storageKey]
+    [defaultTheme, theme, storageKey]
   );
 
   return (
