@@ -17,6 +17,7 @@ import {
   Share2,
 } from "lucide-react";
 import { apiRequest } from "../lib/api.js";
+import specializedBrandBadge from "../assets/5star.png";
 
 const APK_DOWNLOAD_URL =
   "https://drive.google.com/uc?export=download&id=1ebrKLOt4hsy23W1XPWfV23zSGVxzNnYm";
@@ -195,14 +196,19 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
             className="relative z-10"
           >
             <div className="mt-5 max-w-2xl">
-              <div className="inline-flex max-w-full flex-col gap-3 rounded-[22px] border border-[#ed1f24]/15 bg-white/95 px-4 py-4 shadow-[0_18px_40px_-28px_rgba(237,31,36,0.28)] backdrop-blur sm:max-w-2xl sm:px-5 dark:border-[#ed1f24]/25 dark:bg-slate-900/92">
-                <div className="inline-flex items-center gap-3">
+              <div className="relative inline-flex max-w-full flex-col gap-3 rounded-[22px] border border-[#ed1f24]/15 bg-white/95 px-4 py-4 shadow-[0_18px_40px_-28px_rgba(237,31,36,0.28)] backdrop-blur sm:max-w-2xl sm:px-5 sm:pr-28 dark:border-[#ed1f24]/25 dark:bg-slate-900/92">
+                <img
+                  src={specializedBrandBadge}
+                  alt="Elder care specialized brand badge"
+                  className="absolute right-3 top-2 h-20 w-20 object-contain sm:right-4 sm:top-[-22px] sm:h-24 sm:w-24"
+                />
+                <div className="inline-flex max-w-[calc(100%-5.5rem)] items-center gap-3 sm:max-w-full">
                   <span className="h-3 w-3 rounded-full bg-[#ed1f24] shadow-[0_0_0_6px_rgba(237,31,36,0.12)]" />
                   <span className="text-[0.78rem] font-extrabold uppercase leading-5 tracking-[0.14em] text-[#ed1f24] sm:text-[0.95rem] sm:leading-6 sm:tracking-[0.18em] lg:text-[1.05rem]">
                     India&apos;s First Specialized Elder Care Platform
                   </span>
                 </div>
-                <p className="max-w-xl border-l-4 border-[#ed1f24] pl-3 text-[1.05rem] font-semibold leading-7 text-slate-800 dark:text-slate-100 sm:text-[1.08rem]">
+                <p className="max-w-[calc(100%-5.5rem)] border-l-4 border-[#ed1f24] pl-3 pr-1 text-[0.96rem] font-semibold leading-[1.65] text-slate-800 dark:text-slate-100 sm:max-w-xl sm:text-[1.08rem] sm:leading-7">
                   Bringing compassionate healthcare to your doorstep.
                 </p>
               </div>
