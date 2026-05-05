@@ -106,8 +106,8 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
 
   const openLeadWhatsApp = (result) => {
     if (!result) return;
-    const lines = [
-      "New website booking lead",
+      const lines = [
+      "New website booking",
       `Service: ${result.serviceTitle}`,
       `Name: ${result.name}`,
       `Mobile: ${result.mobileNumber}`,
@@ -177,7 +177,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
         openLeadWhatsApp(payload.data);
       }
     } catch (error) {
-      setLeadError(error?.message || "Unable to submit your request right now.");
+      setLeadError(error?.message || "Unable to complete your booking right now.");
     } finally {
       setIsSubmittingLead(false);
     }
@@ -293,7 +293,7 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
 
                 {leadResult ? (
                   <div className="rounded-xl sm:rounded-2xl border border-blue-200 bg-blue-50 px-3 py-2.5 sm:px-4 sm:py-3 text-sm text-blue-800 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-200">
-                    Lead submitted successfully for {leadResult.serviceTitle}. It has been saved in admin and shared to WhatsApp.
+                    Your {leadResult.serviceTitle} booking is confirmed. Our team has received it and shared the details on WhatsApp.
                   </div>
                 ) : null}
 
@@ -301,9 +301,9 @@ export default function Home({ onDoctorJoinClick, onPharmacyJoinClick }) {
                   <button
                     type="submit"
                     disabled={isSubmittingLead}
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#ea580c,#ec4899)] px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white shadow-[0_16px_34px_-20px_rgba(236,72,153,0.95)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 px-5 py-2.5 sm:px-6 sm:py-3 text-sm font-semibold text-white shadow-[0_16px_34px_-20px_rgba(37,99,235,0.85)] transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
                   >
-                    {isSubmittingLead ? "Submitting..." : "Book Care Now"}
+                    {isSubmittingLead ? "Booking..." : "Book Care Now"}
                   </button>
                   {leadResult ? (
                     <>
